@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   Pressable,
@@ -6,20 +6,20 @@ import {
   View,
   Text,
   FlatList,
-} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
-import {Tab, TabView} from 'react-native-elements';
+} from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import { Tab, TabView } from "react-native-elements";
 
-import SearchInput from '../../components/SearchInput';
-import appTheme from '../../constants/theme';
-import CustomVirtualizedView from '../../components/VirtualizedList';
-import {icons} from '../../constants';
-import DeliveryFlatList from '../../components/DeliveryFlatList';
-import {fetchOrder} from '../../redux/actions/orderActions';
+import SearchInput from "../../components/SearchInput";
+import appTheme from "../../constants/theme";
+import CustomVirtualizedView from "../../components/VirtualizedList";
+import { icons } from "../../constants";
+import DeliveryFlatList from "../../components/DeliveryFlatList";
+import { fetchOrder } from "../../redux/actions/orderActions";
 
 export default function DeliveriesScreen() {
-  const categories = ['NEW DELIVERIES', 'PAST DELIVERIES'];
+  const categories = ["NEW DELIVERIES", "PAST DELIVERIES"];
   const [newDeliveries, setNewDeliveries] = useState([]);
   const [pastDeliveries, setPastdeliveries] = useState([]);
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
@@ -27,15 +27,15 @@ export default function DeliveriesScreen() {
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  const allOrders = useSelector(state => state.orders);
-  const {loading, error, order} = allOrders;
+  const allOrders = useSelector((state) => state.orders);
+  const { loading, error, order } = allOrders;
 
   const theNewDeliveries = order.filter(
-    item => item.status === 'Assigned' || item.status === 'Accepted',
+    (item) => item.status === "Assigned" || item.status === "Accepted"
   );
 
   const thePastDeliveries = order.filter(
-    item => item.status === 'Completed' || item.status === 'Rejected',
+    (item) => item.status === "Completed" || item.status === "Rejected"
   );
 
   useEffect(() => {
@@ -49,7 +49,8 @@ export default function DeliveriesScreen() {
       style={{
         backgroundColor: appTheme.COLORS.mainBackground,
         flex: 1,
-      }}>
+      }}
+    >
       {/* header */}
 
       <View
@@ -57,20 +58,22 @@ export default function DeliveriesScreen() {
           backgroundColor: appTheme.COLORS.white,
           height: 40,
           paddingLeft: 20,
-          flexDirection: 'row',
-          alignItems: 'center',
+          flexDirection: "row",
+          alignItems: "center",
           paddingBottom: 5,
-        }}>
+        }}
+      >
         <Pressable onPress={() => navigation.goBack()}>
-          <Image source={icons.backButton} style={{marginRight: 18}} />
+          <Image source={icons.backButton} style={{ marginRight: 18 }} />
         </Pressable>
 
         <Text
           style={{
             fontSize: 17,
-            fontWeight: '700',
+            fontWeight: "700",
             ...appTheme.FONTS.mainFontBold,
-          }}>
+          }}
+        >
           Deliveries
         </Text>
       </View>
@@ -78,7 +81,7 @@ export default function DeliveriesScreen() {
       {/* header */}
 
       <CustomVirtualizedView>
-        <View style={{paddingHorizontal: 20, marginBottom: 20}}>
+        <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
           {/* <TopTab
             categories={categories}
             selectedCategoryIndex={selectedCategoryIndex}
@@ -90,11 +93,12 @@ export default function DeliveriesScreen() {
             indicatorStyle={{
               backgroundColor: appTheme.COLORS.mainRed,
               height: 3,
-              position: 'absolute',
+              position: "absolute",
               marginBottom: 0,
             }}
             value={index}
-            onChange={setIndex}>
+            onChange={setIndex}
+          >
             <Tab.Item
               title="New Deliveries"
               titleStyle={{
@@ -103,8 +107,8 @@ export default function DeliveriesScreen() {
               buttonStyle={{
                 backgroundColor: appTheme.COLORS.mainBackground,
                 paddingHorizontal: 0,
-                justifyContent: 'flex-start',
-                alignItems: 'flex-start',
+                justifyContent: "flex-start",
+                alignItems: "flex-start",
               }}
             />
             <Tab.Item
@@ -115,17 +119,17 @@ export default function DeliveriesScreen() {
               buttonStyle={{
                 backgroundColor: appTheme.COLORS.mainBackground,
               }}
-              style={{borderBottomColor: appTheme.COLORS.mainRed}}
+              style={{ borderBottomColor: appTheme.COLORS.mainRed }}
             />
           </Tab>
           <SearchInput />
         </View>
 
         <TabView value={index} onChange={setIndex}>
-          <TabView.Item style={{width: '100%'}}>
+          <TabView.Item style={{ width: "100%" }}>
             <DeliveryFlatList list={theNewDeliveries} />
           </TabView.Item>
-          <TabView.Item style={{width: '100%'}}>
+          <TabView.Item style={{ width: "100%" }}>
             <DeliveryFlatList list={thePastDeliveries} />
           </TabView.Item>
         </TabView>
