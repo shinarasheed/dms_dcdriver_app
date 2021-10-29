@@ -9,6 +9,7 @@ import {
   DeliverOrder,
   GenerateInvoice,
   Welcome,
+  AuthFallback,
 } from "../screens";
 
 const Stack = createNativeStackNavigator();
@@ -22,6 +23,7 @@ const StackNavigator = () => {
       }}
     >
       <Stack.Screen name="Welcome" component={Welcome} />
+      <Stack.Screen name="AuthFallback" component={AuthFallback} />
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="Notifications" component={Notifications} />
       <Stack.Screen name="InvoiceScreen" component={InvoiceScreen} />

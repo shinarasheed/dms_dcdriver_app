@@ -1,8 +1,18 @@
 import React from "react";
-import { ActivityIndicator, SafeAreaView, Platform, Alert } from "react-native";
+import {
+  ActivityIndicator,
+  View,
+  Text,
+  SafeAreaView,
+  Platform,
+  Alert,
+} from "react-native";
 import { LoginView } from "ad-b2c-react-native";
 import * as SecureStore from "expo-secure-store";
 import appTheme from "../../constants/theme";
+import AuthButton from "../../components/AuthButton";
+import { adService } from "ad-b2c-react-native";
+import Refresh from "../../components/Refresh";
 
 export default class Login extends React.PureComponent {
   static navigationOptions = { header: null };
@@ -15,13 +25,11 @@ export default class Login extends React.PureComponent {
   }
 
   onLogin() {
-    console.log("here");
     const { navigation } = this.props;
-    navigation.navigate("App");
+    navigation.navigate("Home");
   }
 
   onFail(reason) {
-    Alert.alert(reason);
     console.log(reason);
   }
 
@@ -38,10 +46,11 @@ export default class Login extends React.PureComponent {
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
+        <Refresh />
         <LoginView
           appId="8c11baca-fdbc-4b7f-b2cf-3a177588f37c"
-          redirectURI="msal8c11baca-fdbc-4b7f-b2cf-3a177588f37c://auth"
-          tenant="75cd5d8e-6c8a-42e8-893f-f1f3f4282dcf"
+          redirectURI="https://abi-distributorcentral.com/"
+          tenant="devdms2"
           loginPolicy="B2C_1_dms_signup_signin"
           passwordResetPolicy="B2C_1_PasswordReset"
           profileEditPolicy="B2C_1_ProfileEdit"
@@ -49,7 +58,7 @@ export default class Login extends React.PureComponent {
           onFail={this.onFail}
           secureStore={SecureStore}
           renderLoading={this.spinner}
-          scope="openid offline_access myScope1 myScope2 ...." //optional, but see the notes above
+          scope="8c11baca-fdbc-4b7f-b2cf-3a177588f37c offline_access"
         />
       </SafeAreaView>
     );
