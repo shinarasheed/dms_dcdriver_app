@@ -45,8 +45,6 @@ export default class Login extends React.PureComponent {
   getToken = async () => {
     const token = await adService.getIdToken();
     const tokenResult = await adService.getAccessTokenAsync();
-
-    console.log(token, "============================");
   };
 
   render() {
@@ -66,7 +64,7 @@ export default class Login extends React.PureComponent {
           scope="8c11baca-fdbc-4b7f-b2cf-3a177588f37c offline_access"
         />
 
-        {/* <View
+        <View
           style={{
             justifyContent: "center",
             alignItems: "center",
@@ -77,7 +75,7 @@ export default class Login extends React.PureComponent {
             title="Click to Continue"
             Onpress={() => this.getToken()}
           />
-        </View> */}
+        </View>
       </SafeAreaView>
     );
   }
