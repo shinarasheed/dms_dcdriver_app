@@ -27,19 +27,11 @@ const SellToCustomer = () => {
   const order = route.params;
 
   const Van = useSelector((state) => state.van);
-  const { inventory, loading: vanLoading, error: vanError } = Van;
+  const { inventory, newinventory, loading: vanLoading, error: vanError } = Van;
 
   useEffect(() => {
     dispatch(fetchVanProducts());
-    let x = [];
-    inventory.map((dat) => {
-      const z = dat?.product;
-      x.push({
-        ...z,
-        quantity: 0,
-      });
-    });
-    setNewInventory([...x]);
+    setNewInventory(newinventory);
   }, []);
 
   const getQuantity = (productId, quantity) => {
@@ -142,56 +134,25 @@ const SellToCustomer = () => {
       </View>
 
       <CustomVirtualizedView>
-        {/* <SearchBar /> */}
-        {/* <View
-          style={{
-            paddingHorizontal: 20,
-            marginBottom: 20,
-          }}>
-          <View style={styles.searchInputContainer}>
-            <Icon
-              name="search"
-              size={25}
-              style={{color: appTheme.COLORS.MainGray}}
-            />
-            <TextInput
-              placeholder="Search"
-              style={{fontSize: 18, paddingLeft: 5, flex: 1}}
-              onChangeText={text => handleOnChangetext(text)}
-            />
-          </View>
-        </View> */}
-        {/* searchbar */}
-
-        {/*  you need the token for customer and one of sales */}
-        {/* new Date(new Date.getTime()) */}
-        {/* shipToCode:buyerCompanyid */}
-        {/* billtocode:not compulsosy */}
-        {/* buyephone and adress is optional */}
-        {/* sflineId = Van-Sales */}
-
-        {/* One Off  */}
-
-        {/* one of does not need buyercompany id */}
-        {/* route name = One-Off */}
-
         <View
           style={{
             marginTop: 5,
             marginBottom: 30,
           }}
         >
-          <SellProductFlatList
-            inventory={newInventory}
-            incrementQuantity={incrementQuantity}
-            decrementQuantity={decrementQuantity}
-            deleteProduct={deleteProduct}
-            loading={vanLoading}
-            getQuantity={getQuantity}
-          />
+          {!vanLoading ? (
+            <SellProductFlatList
+              inventory={newInventory}
+              incrementQuantity={incrementQuantity}
+              decrementQuantity={decrementQuantity}
+              deleteProduct={deleteProduct}
+              // loading={vanLoading}
+              getQuantity={getQuantity}
+            />
+          ) : null}
         </View>
       </CustomVirtualizedView>
-      {/* 
+
       {/* Footer */}
       <SellProductFooter
         getTotalPrice={getTotal}

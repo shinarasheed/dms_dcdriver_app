@@ -1,13 +1,13 @@
-import React from 'react';
-import {Image} from 'react-native';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import React from "react";
+import { Image } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import Icons from '../constants/icons';
-import HomeStack from './HomeStack';
-import CustomersStack from './CustomerStack';
-import ProductStack from './ProductStack';
-import DeliveryStack from './DeliveryStack';
-import appTheme from '../constants/theme';
+import Icons from "../constants/icons";
+import HomeStack from "./HomeStack";
+import CustomersStack from "./CustomerStack";
+import ProductStack from "./ProductStack";
+import DeliveryStack from "./DeliveryStack";
+import appTheme from "../constants/theme";
 
 const BottomTab = createBottomTabNavigator();
 
@@ -15,7 +15,7 @@ const BottomTabNavigator = () => {
   return (
     <BottomTab.Navigator
       initialRouteName="Home"
-      screenOptions={({route}) => ({
+      screenOptions={({ route }) => ({
         tabBarStyle: {
           height: 70,
           paddingTop: 10,
@@ -33,12 +33,13 @@ const BottomTabNavigator = () => {
         headerShown: false,
         tabBarActiveTintColor: appTheme.COLORS.mainRed,
         tabBarInactiveTintColor: appTheme.COLORS.mainTextGray,
-      })}>
+      })}
+    >
       <BottomTab.Screen
         name="Home"
         component={HomeStack}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <Image
               source={Icons.home}
               resizeMode="contain"
@@ -57,7 +58,7 @@ const BottomTabNavigator = () => {
         name="Deliveries"
         component={DeliveryStack}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <Image
               source={Icons.deliveries}
               resizeMode="contain"
@@ -76,7 +77,7 @@ const BottomTabNavigator = () => {
         name="Customers"
         component={CustomersStack}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <Image
               source={Icons.customers}
               resizeMode="contain"
@@ -95,7 +96,7 @@ const BottomTabNavigator = () => {
         name="Products"
         component={ProductStack}
         options={{
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <Image
               source={Icons.products}
               resizeMode="contain"

@@ -1,16 +1,7 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import {
-  HomeScreen,
-  Notifications,
-  InvoiceScreen,
-  DeliveryDetails,
-  DeliverOrder,
-  GenerateInvoice,
-  Welcome,
-  AuthFallback,
-} from "../screens";
+import { HomeScreen, Notifications, Welcome } from "../screens";
 
 const Stack = createNativeStackNavigator();
 
@@ -26,10 +17,6 @@ const StackNavigator = () => {
       {/* <Stack.Screen name="AuthFallback" component={AuthFallback} /> */}
       <Stack.Screen name="HomeScreen" component={HomeScreen} />
       <Stack.Screen name="Notifications" component={Notifications} />
-      <Stack.Screen name="InvoiceScreen" component={InvoiceScreen} />
-      <Stack.Screen name="DeliveryDetails" component={DeliveryDetails} />
-      <Stack.Screen name="DeliverOrder" component={DeliverOrder} />
-      <Stack.Screen name="GenerateInvoice" component={GenerateInvoice} />
     </Stack.Navigator>
   );
 };

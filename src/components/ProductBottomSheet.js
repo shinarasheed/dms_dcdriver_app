@@ -1,12 +1,19 @@
-import React from 'react';
-import {FlatList, StyleSheet, Image, Pressable, Text, View} from 'react-native';
-import icons from '../constants/icons';
+import React from "react";
+import {
+  FlatList,
+  StyleSheet,
+  Image,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
+import icons from "../constants/icons";
 
-import appTheme from '../constants/theme';
-import ProductBottomSheetCard from './ProductBottomSheetCard';
-import CustomVirtualist from './VirtualizedList';
-import ProductFooter from './ProductFooter';
-import EmptiesCustomer from './EmptiesCustomer';
+import appTheme from "../constants/theme";
+import ProductBottomSheetCard from "./ProductBottomSheetCard";
+import CustomVirtualist from "./VirtualizedList";
+import ProductFooter from "./ProductFooter";
+import EmptiesCustomer from "./EmptiesCustomer";
 
 const ProductBottomSheet = ({
   productsToSell,
@@ -31,14 +38,16 @@ const ProductBottomSheet = ({
           borderBottomWidth: 1,
           borderBottomColor: appTheme.COLORS.borderGRey,
           paddingBottom: 30,
-        }}>
+        }}
+      >
         <View
           style={{
-            justifyContent: 'space-between',
-            flexDirection: 'row',
+            justifyContent: "space-between",
+            flexDirection: "row",
             marginBottom: 15,
-          }}>
-          <Text style={{fontSize: 18}}>
+          }}
+        >
+          <Text style={{ fontSize: 18 }}>
             Sell To {item?.buyerDetails[0]?.buyerName}
           </Text>
           <Pressable onPress={() => toggle()}>
@@ -63,7 +72,7 @@ const ProductBottomSheet = ({
         data={productsToSell}
         keyExtractor={(item, id) => id.toString()}
         showsVerticalScrollIndicator={false}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <ProductBottomSheetCard
             incrementQuantity={incrementQuantity}
             decrementQuantity={decrementQuantity}
@@ -77,9 +86,10 @@ const ProductBottomSheet = ({
           <View
             style={{
               height: 1,
-              width: '100%',
+              width: "100%",
               backgroundColor: appTheme.COLORS.Grey,
-            }}></View>
+            }}
+          ></View>
         )}
         ListFooterComponent={() => (
           <View
@@ -88,34 +98,39 @@ const ProductBottomSheet = ({
               borderTopColor: appTheme.COLORS.borderGRey,
               paddingTop: 20,
               paddingHorizontal: 20,
-            }}>
+            }}
+          >
             <Text
               style={{
                 fontSize: 13,
-                fontWeight: '700',
+                fontWeight: "700",
                 marginBottom: 10,
                 color: appTheme.COLORS.black,
-              }}>
+              }}
+            >
               EMPTIES
             </Text>
             <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <View style={{flexDirection: 'row'}}>
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <View style={{ flexDirection: "row" }}>
                 <Text
                   style={{
                     fontSize: 14,
-                    fontWeight: '600',
+                    fontWeight: "600",
                     color: appTheme.COLORS.borderGRey1,
-                  }}>
+                  }}
+                >
                   Qty:
                 </Text>
                 <Text
                   style={{
                     fontSize: 15,
-                    fontWeight: '600',
+                    fontWeight: "600",
                     color: appTheme.COLORS.black,
-                  }}>
-                  {' '}
+                  }}
+                >
+                  {" "}
                   {empties}
                 </Text>
               </View>
@@ -125,8 +140,9 @@ const ProductBottomSheet = ({
                   ...appTheme.FONTS.mainFontBold,
                   color: appTheme.COLORS.mainRed,
                   marginRight: 15,
-                }}>
-                {'\u20A6'}
+                }}
+              >
+                {"\u20A6"}
                 {getEmptiesPrice()}
               </Text>
             </View>
@@ -151,15 +167,15 @@ export default ProductBottomSheet;
 const styles = StyleSheet.create({
   productIncreaseDecreaseContainer: {
     backgroundColor: appTheme.COLORS.boxGray,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     width: 30,
     height: 30,
     borderRadius: 5,
   },
   IncreaseText: {
     color: appTheme.COLORS.mainRed,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 20,
   },
 });

@@ -5,7 +5,7 @@ import {
   Image,
   View,
   Text,
-  FlatList,
+  ActivityIndicator,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -127,10 +127,34 @@ export default function DeliveriesScreen() {
 
         <TabView value={index} onChange={setIndex}>
           <TabView.Item style={{ width: "100%" }}>
-            <DeliveryFlatList list={theNewDeliveries} />
+            {order.length !== 0 ? (
+              <DeliveryFlatList list={theNewDeliveries} />
+            ) : (
+              <ActivityIndicator
+                color={
+                  Platform.OS === "android"
+                    ? appTheme.COLORS.mainRed
+                    : undefined
+                }
+                animating={loading}
+                size="large"
+              />
+            )}
           </TabView.Item>
           <TabView.Item style={{ width: "100%" }}>
-            <DeliveryFlatList list={thePastDeliveries} />
+            {order.length !== 0 ? (
+              <DeliveryFlatList list={thePastDeliveries} />
+            ) : (
+              <ActivityIndicator
+                color={
+                  Platform.OS === "android"
+                    ? appTheme.COLORS.mainRed
+                    : undefined
+                }
+                animating={loading}
+                size="large"
+              />
+            )}
           </TabView.Item>
         </TabView>
       </CustomVirtualizedView>

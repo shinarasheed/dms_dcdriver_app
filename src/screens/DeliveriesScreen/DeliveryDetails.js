@@ -39,14 +39,10 @@ const DeliveryDetails = () => {
   const allProducts = useSelector((state) => state.products);
   const dispatch = useDispatch();
 
-  const { products, loading } = allProducts;
+  const { products } = allProducts;
 
   const updateOrder = useSelector((state) => state.updateOrder);
-  const {
-    updatedOrder,
-    loading: orderLoading,
-    error: orderError,
-  } = updateOrder;
+  const { loading: orderLoading } = updateOrder;
 
   const updateOrderStatus = async (status) => {
     try {
@@ -728,7 +724,7 @@ const DeliveryDetails = () => {
                     }}
                     onPress={() => {
                       updateOrderStatus("Rejected");
-                      // toggle();
+                      toggle();
                     }}
                   >
                     <Text

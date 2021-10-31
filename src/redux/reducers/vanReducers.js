@@ -1,4 +1,4 @@
-import {UPDATE_ORDER_STATUS_FAIL} from '../constants/orderContants';
+import { UPDATE_ORDER_STATUS_FAIL } from "../constants/orderContants";
 import {
   FETCH_INVENTORY_REQUEST,
   FETCH_INVENTORY_SUCCESS,
@@ -9,21 +9,26 @@ import {
   CONFIRM_VAN_SALES_REQUEST,
   CONFIRM_VAN_SALES_SUCCESS,
   CONFIRM_VAN_SALES_FAIL,
-} from '../constants/vanConstants';
+} from "../constants/vanConstants";
 
-export const vanReducer = (state = {inventory: []}, action) => {
-  const {type, payload} = action;
+export const vanReducer = (
+  state = { inventory: [], newinventory: [] },
+  action
+) => {
+  const { type, payload } = action;
   switch (type) {
     case FETCH_INVENTORY_REQUEST:
       return {
         loading: true,
         inventory: [],
+        newinventory: [],
       };
 
     case FETCH_INVENTORY_SUCCESS:
       return {
+        inventory: payload.data,
+        newinventory: payload.newData,
         loading: false,
-        inventory: payload,
       };
 
     case FETCH_INVENTORY_FAIL:
@@ -37,8 +42,8 @@ export const vanReducer = (state = {inventory: []}, action) => {
   }
 };
 
-export const updateInventoryReducer = (state = {inventory: []}, action) => {
-  const {type, payload} = action;
+export const updateInventoryReducer = (state = { inventory: [] }, action) => {
+  const { type, payload } = action;
   switch (type) {
     case UPDATE_INVENTORY_REQUEST:
       return {
@@ -63,8 +68,8 @@ export const updateInventoryReducer = (state = {inventory: []}, action) => {
   }
 };
 
-export const confirmVanSalesReducer = (state = {response: []}, action) => {
-  const {type, payload} = action;
+export const confirmVanSalesReducer = (state = { response: [] }, action) => {
+  const { type, payload } = action;
   switch (type) {
     case UPDATE_INVENTORY_REQUEST:
       return {

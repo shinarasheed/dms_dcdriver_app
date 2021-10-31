@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from "axios";
 // import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import {
@@ -11,22 +11,34 @@ import {
   CONFIRM_VAN_SALES_REQUEST,
   CONFIRM_VAN_SALES_SUCCESS,
   CONFIRM_VAN_SALES_FAIL,
-} from '../constants/vanConstants';
-import {vanurl, orderUrl} from '../../utils/baseUrl';
+} from "../constants/vanConstants";
+import { vanurl, orderUrl } from "../../utils/baseUrl";
 
-export const fetchVanProducts = () => async dispatch => {
+export const fetchVanProducts = () => async (dispatch) => {
   try {
     dispatch({
       type: FETCH_INVENTORY_REQUEST,
     });
 
     const {
-      data: {data},
+      data: { data },
     } = await axios.get(`${vanurl}/van/1`);
+
+    let x = [];
+    await data.map((dat) => {
+      const z = dat?.product;
+      x.push({
+        ...z,
+        quantity: 0,
+      });
+    });
 
     dispatch({
       type: FETCH_INVENTORY_SUCCESS,
-      payload: data,
+      payload: {
+        data,
+        newData: x,
+      },
     });
 
     // await AsyncStorage.setItem('productsInVan', JSON.stringify(data));
@@ -34,12 +46,12 @@ export const fetchVanProducts = () => async dispatch => {
     console.log(error);
     dispatch({
       type: FETCH_INVENTORY_FAIL,
-      payload: 'There was an error',
+      payload: "There was an error",
     });
   }
 };
 
-export const updateInventory = payload => async dispatch => {
+export const updateInventory = (payload) => async (dispatch) => {
   try {
     dispatch({
       type: UPDATE_INVENTORY_REQUEST,
@@ -47,14 +59,14 @@ export const updateInventory = payload => async dispatch => {
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     };
 
-    const {data} = await axios.put(
+    const { data } = await axios.put(
       `${vanurl}/inventory/update-quantity`,
       payload,
-      config,
+      config
     );
 
     dispatch({
@@ -65,28 +77,32 @@ export const updateInventory = payload => async dispatch => {
     console.log(error);
     dispatch({
       type: UPDATE_INVENTORY_FAIL,
-      payload: 'There was an error',
+      payload: "There was an error",
     });
   }
 };
 
-export const confirmVanSales = payload => async dispatch => {
+export const confirmVanSales = (payload) => async (dispatch) => {
   try {
     dispatch({
       type: CONFIRM_VAN_SALES_REQUEST,
     });
 
     const token =
-      'eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoic2FsZXNmb3JjZV90b2tlbl9pZGVudGlmaWVyX2Rtc192Ml8weHNqdDNAMyEjJF45In0.PHCkrf6sPkoep7lF5X-SugN8-CVaJ5BEYa9hvSWLPMo';
+      "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoic2FsZXNmb3JjZV90b2tlbl9pZGVudGlmaWVyX2Rtc192Ml8weHNqdDNAMyEjJF45In0.PHCkrf6sPkoep7lF5X-SugN8-CVaJ5BEYa9hvSWLPMo";
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
     };
 
-    const {data} = await axios.post(`${orderUrl}/CreateOrder`, payload, config);
+    const { data } = await axios.post(
+      `${orderUrl}/CreateOrder`,
+      payload,
+      config
+    );
 
     dispatch({
       type: CONFIRM_VAN_SALES_SUCCESS,
@@ -96,7 +112,7 @@ export const confirmVanSales = payload => async dispatch => {
     console.log(error);
     dispatch({
       type: CONFIRM_VAN_SALES_FAIL,
-      payload: 'There was an error',
+      payload: "There was an error",
     });
   }
 };
