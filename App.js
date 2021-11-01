@@ -19,6 +19,8 @@ import {
   SellToCustomer,
   VanInvoice,
   Notifications,
+  Welcome,
+  Logout,
 } from "./src/screens";
 
 const Stack = createNativeStackNavigator();
@@ -40,7 +42,22 @@ export default function App() {
             barStyle="dark-content"
             backgroundColor={appTheme.COLORS.white}
           />
-          <Stack.Navigator>
+          <Stack.Navigator
+            initialRouteName="Welcome"
+            screenOptions={{
+              headerShown: false,
+            }}
+          >
+            <Stack.Screen
+              name="Welcome"
+              component={Welcome}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Logout"
+              component={Logout}
+              options={{ headerShown: false }}
+            />
             <Stack.Screen
               name="HomeScreen"
               component={HomeTabs}

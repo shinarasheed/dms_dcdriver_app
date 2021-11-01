@@ -13,6 +13,7 @@ import appTheme from "../../constants/theme";
 import AuthButton from "../../components/AuthButton";
 import { adService } from "ad-b2c-react-native";
 import Refresh from "../../components/Refresh";
+import RNRestart from "react-native-restart";
 
 export default class Login extends React.PureComponent {
   static navigationOptions = { header: null };
@@ -26,11 +27,12 @@ export default class Login extends React.PureComponent {
 
   onLogin() {
     const { navigation } = this.props;
-    navigation.navigate("Home");
+    console.log("LoGIN");
+    navigation.navigate("HomeScreen");
   }
 
   onFail(reason) {
-    console.log(reason);
+    console.log("failed");
   }
 
   spinner() {
@@ -43,10 +45,20 @@ export default class Login extends React.PureComponent {
     );
   }
 
+  setInter = () => {
+    setInterval(() => {
+      this.render();
+    }, 1000);
+  };
+
+  componentDidMount() {
+    console.log("mounted");
+  }
+
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        <Refresh />
+        {/* <Refresh /> */}
         <LoginView
           appId="8c11baca-fdbc-4b7f-b2cf-3a177588f37c"
           redirectURI="https://abi-distributorcentral.com/"

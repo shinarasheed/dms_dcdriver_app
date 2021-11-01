@@ -20,7 +20,6 @@ import Delivery from "../../components/Delivery";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import UserBottomSheet from "../../components/UserBottomSheet";
 import { fetchOrder, fetchOrderStats } from "../../redux/actions/orderActions";
-import * as SecureStore from "expo-secure-store";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -41,19 +40,6 @@ const HomeScreen = () => {
   function toggle() {
     setVisible((visible) => !visible);
   }
-
-  // const clearTokens = async () => {
-  //   const idtoken = await SecureStore.getItemAsync("idToken");
-  //   const accessToken = await SecureStore.getItemAsync("accessToken");
-  //   const refreshToken = await SecureStore.getItemAsync("refreshToken");
-  //   console.log(idtoken);
-  //   console.log(accessToken);
-  //   console.log(refreshToken);
-  // };
-
-  // useEffect(() => {
-  //   clearTokens();
-  // }, []);
 
   useEffect(() => {
     dispatch(fetchOrderStats(1));

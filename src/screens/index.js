@@ -18,7 +18,7 @@ import Signup from "./Auth/Signup";
 import Welcome from "./Welcome";
 import SalesInvoice from "./CustomersScreen/SalesInVoice";
 import VanInvoice from "./CustomersScreen/VanInvoice";
-import AuthFallback from "./AuthFallback";
+import Logout from "./Logout";
 
 export {
   HomeScreen,
@@ -41,5 +41,5 @@ export {
   Welcome,
   SalesInvoice,
   VanInvoice,
-  AuthFallback,
+  Logout,
 };

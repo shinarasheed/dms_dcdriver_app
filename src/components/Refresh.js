@@ -31,7 +31,6 @@ const Refresh = () => {
   };
 
   useEffect(() => {
-    ss;
     checkValid();
   }, []);
 
@@ -45,7 +44,7 @@ const Refresh = () => {
     const {
       data: { data },
     } = await axios.get(
-      `http://102.133.206.181/GetVehicle/GetByVehicleId/${email}`
+      `http://102.133.206.181/GetVehicle/GetByEmail/${email}`
     );
 
     await AsyncStorage.setItem("driverDetails", JSON.stringify(data));
@@ -73,7 +72,6 @@ const styles = StyleSheet.create({
   },
   scrollView: {
     flex: 1,
-    // backgroundColor: "pink",
     alignItems: "center",
     justifyContent: "center",
   },
