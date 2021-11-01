@@ -55,8 +55,6 @@ const HomeScreen = () => {
   //   clearTokens();
   // }, []);
 
-  console.log();
-
   useEffect(() => {
     dispatch(fetchOrderStats(1));
   }, []);
