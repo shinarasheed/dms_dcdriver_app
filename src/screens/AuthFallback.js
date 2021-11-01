@@ -5,8 +5,6 @@ import { adService } from "ad-b2c-react-native";
 const AuthFallback = () => {
   const getToken = async () => {
     const token = await adService.getIdToken();
-
-    console.log(token);
   };
 
   useEffect(() => {

@@ -17,6 +17,7 @@ import CustomVirtualizedView from "../../components/VirtualizedList";
 import { icons } from "../../constants";
 import DeliveryFlatList from "../../components/DeliveryFlatList";
 import { fetchOrder } from "../../redux/actions/orderActions";
+import PastDeliveryFlatList from "../../components/PastDeliveryFlatlist";
 
 export default function DeliveriesScreen() {
   const categories = ["NEW DELIVERIES", "PAST DELIVERIES"];
@@ -143,7 +144,7 @@ export default function DeliveriesScreen() {
           </TabView.Item>
           <TabView.Item style={{ width: "100%" }}>
             {order.length !== 0 ? (
-              <DeliveryFlatList list={thePastDeliveries} />
+              <PastDeliveryFlatList list={thePastDeliveries} />
             ) : (
               <ActivityIndicator
                 color={

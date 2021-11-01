@@ -1,23 +1,30 @@
-import React, {useEffect, useState} from 'react';
-import {useSelector, useDispatch} from 'react-redux';
-import {FlatList, StyleSheet, Image, Pressable, Text, View} from 'react-native';
-import icons from '../constants/icons';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  FlatList,
+  StyleSheet,
+  Image,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
+import icons from "../constants/icons";
 
-import appTheme from '../constants/theme';
-import OrderBottomSheetCard from './OrderBottomSheetCard';
-import CustomVirtualist from './VirtualizedList';
+import appTheme from "../constants/theme";
+import OrderBottomSheetCard from "./OrderBottomSheetCard";
+import CustomVirtualist from "./VirtualizedList";
 // import ProductFooter from './ProductFooter';
-import OrderFooter from './OrderFooter';
-import {fetchProducts} from '../redux/actions/productActions';
-import {fetchVanProducts} from '../redux/actions/vanActions';
-import Empties from './Empties';
+import OrderFooter from "./OrderFooter";
+import { fetchProducts } from "../redux/actions/productActions";
+import { fetchVanProducts } from "../redux/actions/vanActions";
+import Empties from "./Empties";
 
-const OrderBottomSheet = ({item, toggle, setVisible, visible}) => {
-  const allProducts = useSelector(state => state.products);
+const OrderBottomSheet = ({ item, toggle, setVisible, visible }) => {
+  const allProducts = useSelector((state) => state.products);
   const [newOrders, setNewOrders] = useState([]);
 
-  const Van = useSelector(state => state.van);
-  const {inventory, loading: vanLoading, error: vanError} = Van;
+  const Van = useSelector((state) => state.van);
+  const { inventory, loading: vanLoading, error: vanError } = Van;
 
   useEffect(() => {
     dispatch(fetchVanProducts());
@@ -26,7 +33,7 @@ const OrderBottomSheet = ({item, toggle, setVisible, visible}) => {
   const getQuantity = (productId, quantity) => {
     return (
       quantity <
-      inventory.find(product => product.product.productId === productId)
+      inventory.find((product) => product.product.productId === productId)
         ?.quantity
     );
   };
@@ -43,12 +50,12 @@ const OrderBottomSheet = ({item, toggle, setVisible, visible}) => {
     dispatch(fetchProducts());
   }, []);
 
-  const {products, loading} = allProducts;
+  const { products, loading } = allProducts;
 
   const createNewProducts = () => {
     item.orderItems.map((theOrder, index) => {
       const orderDetails = products.filter(
-        item => parseInt(item.productId) === parseInt(theOrder.productId),
+        (item) => parseInt(item.productId) === parseInt(theOrder.productId)
       )[0];
 
       newOrders.push({
@@ -73,21 +80,23 @@ const OrderBottomSheet = ({item, toggle, setVisible, visible}) => {
   const getTotalPrice = () => {
     return newOrders.reduce(
       (accumulator, item) => accumulator + item.productPrice * item.quantity,
-      0,
+      0
     );
   };
 
-  const incrementQuantity = productId => {
-    let product = newOrders.find(product => product.productId === productId);
+  const incrementQuantity = (productId) => {
+    let product = newOrders.find((product) => product.productId === productId);
     product.quantity++;
     setNewOrders([...newOrders]);
   };
 
-  const decrementQuantity = productId => {
-    const product = newOrders.find(product => product.productId === productId);
+  const decrementQuantity = (productId) => {
+    const product = newOrders.find(
+      (product) => product.productId === productId
+    );
     if (product.quantity === 1) {
       const index = newOrders.findIndex(
-        product => product.productId === productId,
+        (product) => product.productId === productId
       );
       newOrders.splice(index, 1);
       setNewOrders([...newOrders]);
@@ -97,9 +106,9 @@ const OrderBottomSheet = ({item, toggle, setVisible, visible}) => {
     }
   };
 
-  const deleteProduct = productId => {
+  const deleteProduct = (productId) => {
     const index = newOrders.findIndex(
-      product => product.productId === productId,
+      (product) => product.productId === productId
     );
     newOrders.splice(index, 1);
     setNewOrders([...newOrders]);
@@ -107,7 +116,7 @@ const OrderBottomSheet = ({item, toggle, setVisible, visible}) => {
 
   const calNumberOfFull = () => {
     return newOrders
-      .filter(product => product.productType === 'full')
+      .filter((product) => product.productType === "full")
       .reduce((acc, index) => parseInt(acc) + parseInt(index?.quantity), 0);
   };
 
@@ -124,14 +133,16 @@ const OrderBottomSheet = ({item, toggle, setVisible, visible}) => {
           borderBottomWidth: 1,
           borderBottomColor: appTheme.COLORS.borderGRey,
           paddingBottom: 30,
-        }}>
+        }}
+      >
         <View
           style={{
-            justifyContent: 'space-between',
-            flexDirection: 'row',
+            justifyContent: "space-between",
+            flexDirection: "row",
             marginBottom: 20,
-          }}>
-          <Text style={{fontSize: 20}}>Order Delivery</Text>
+          }}
+        >
+          <Text style={{ fontSize: 20 }}>Order Delivery</Text>
           <Pressable onPress={() => toggle()}>
             <Image source={icons.cancelIcon} />
           </Pressable>
@@ -155,7 +166,7 @@ const OrderBottomSheet = ({item, toggle, setVisible, visible}) => {
         }}
         data={newOrders}
         keyExtractor={(item, id) => id.toString()}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <OrderBottomSheetCard
             order={item}
             incrementQuantity={incrementQuantity}
@@ -166,54 +177,61 @@ const OrderBottomSheet = ({item, toggle, setVisible, visible}) => {
         )}
       />
 
-      <View style={{marginLeft: 20, marginTop: 20}}>
+      <View style={{ marginLeft: 20, marginTop: 20 }}>
         <View
           style={{
-            flexDirection: 'row',
-          }}>
+            flexDirection: "row",
+          }}
+        >
           <Text
             style={{
               fontSize: 14,
-              fontWeight: 'bold',
+              fontWeight: "bold",
               color: appTheme.COLORS.black,
-            }}>
+            }}
+          >
             EMPTIES
           </Text>
-          <Text> ({'\u20A6'}1000/Empty) </Text>
+          <Text> ({"\u20A6"}1000/Empty) </Text>
         </View>
         <View
           style={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            justifyContent: "space-between",
             marginTop: 10,
             marginRight: 30,
-          }}>
-          <View style={{flexDirection: 'row'}}>
+          }}
+        >
+          <View style={{ flexDirection: "row" }}>
             <View
               style={{
-                flexDirection: 'row',
-              }}>
-              <Text style={{fontSize: 16}}>Qty: </Text>
-              <Text style={{fontSize: 16, color: appTheme.COLORS.black}}>
+                flexDirection: "row",
+              }}
+            >
+              <Text style={{ fontSize: 16, color: appTheme.COLORS.MainGray }}>
+                Empties returning:{" "}
+              </Text>
+              <Text style={{ fontSize: 16, color: appTheme.COLORS.black }}>
                 {empties}
               </Text>
             </View>
           </View>
-          <View
+          {/* <View
             style={{
               width: 80,
               height: 30,
               borderWidth: 1,
-              alignItems: 'center',
-              justifyContent: 'center',
+              alignItems: "center",
+              justifyContent: "center",
               borderColor: appTheme.COLORS.borderGRey,
               borderRadius: 5,
-            }}>
-            <Text style={{color: appTheme.COLORS.mainRed, fontWeight: '600'}}>
-              {'\u20A6'}
+            }}
+          >
+            <Text style={{ color: appTheme.COLORS.mainRed, fontWeight: "600" }}>
+              {"\u20A6"}
               {1000 * empties}
             </Text>
-          </View>
+          </View> */}
         </View>
       </View>
       <OrderFooter
@@ -235,15 +253,15 @@ export default OrderBottomSheet;
 const styles = StyleSheet.create({
   productIncreaseDecreaseContainer: {
     backgroundColor: appTheme.COLORS.boxGray,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     width: 30,
     height: 30,
     borderRadius: 5,
   },
   IncreaseText: {
     color: appTheme.COLORS.mainRed,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 20,
   },
 });

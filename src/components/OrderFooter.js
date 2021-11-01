@@ -1,27 +1,20 @@
-import React from 'react';
-import {useDispatch} from 'react-redux';
-import {StyleSheet, View} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {Button} from 'react-native-elements';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Button } from "react-native-elements";
 
-import appTheme from '../constants/theme';
-import {confirmOrder} from '../redux/actions/orderActions';
-import {updateInventory} from '../redux/actions/vanActions';
+import appTheme from "../constants/theme";
+import { confirmOrder } from "../redux/actions/orderActions";
+import { updateInventory } from "../redux/actions/vanActions";
 
-const OrderFooter = ({
-  getTotalPrice,
-  order,
-  setVisible,
-  visible,
-  newOrders,
-  empties,
-}) => {
+const OrderFooter = ({ getTotalPrice, order, newOrders, empties }) => {
   const navigator = useNavigation();
 
   const dispatch = useDispatch();
   const arrayToSubmit = async () => {
     let orderItems = [];
-    newOrders.map(newOrder => {
+    newOrders.map((newOrder) => {
       orderItems.push({
         quantity: newOrder.quantity,
         productId: newOrder.quantity,
@@ -40,9 +33,9 @@ const OrderFooter = ({
             sellerCompanyId: order.sellerCompanyId,
             orderItems: await arrayToSubmit(),
           };
-          dispatch(confirmOrder({payload, orderId: order.orderId}));
+          dispatch(confirmOrder({ payload, orderId: order.orderId }));
           dispatch(updateInventory(payload));
-          navigator.navigate('GenerateInvoice', {
+          navigator.navigate("GenerateInvoice", {
             productsToSell: newOrders,
             empties,
             order,
@@ -50,9 +43,9 @@ const OrderFooter = ({
         }}
         buttonStyle={{
           backgroundColor: appTheme.COLORS.mainRed,
-          width: '100%',
+          width: "100%",
           height: 50,
-          justifyContent: 'center',
+          justifyContent: "center",
           borderRadius: 5,
           marginTop: 10,
         }}
@@ -69,7 +62,7 @@ const styles = StyleSheet.create({
     backgroundColor: appTheme.COLORS.white,
     height: 100,
     paddingHorizontal: 20,
-    justifyContent: 'center',
+    justifyContent: "center",
     elevation: 1,
   },
 });

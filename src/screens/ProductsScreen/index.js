@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,39 +7,34 @@ import {
   View,
   Pressable,
   ActivityIndicator,
-} from 'react-native';
-import {useSelector, useDispatch} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
+} from "react-native";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
-import Header from '../../components/Header';
-import {icons} from '../../constants';
-import appTheme from '../../constants/theme';
+import Header from "../../components/Header";
+import { icons } from "../../constants";
+import appTheme from "../../constants/theme";
 
-import ProductFlatList from '../../components/ProductFlatList';
-import CustomVirtualizedView from '../../components/VirtualizedList';
-import {fetchProducts} from '../../redux/actions/productActions';
-import {fetchVanProducts} from '../../redux/actions/vanActions';
+import ProductFlatList from "../../components/ProductFlatList";
+import CustomVirtualizedView from "../../components/VirtualizedList";
+import { fetchVanProducts } from "../../redux/actions/vanActions";
 
 const ProductsScreen = () => {
   const navigation = useNavigation();
-  const Allproducts = useSelector(state => state.products);
-  const Van = useSelector(state => state.van);
-  const {inventory, loading: vanLoading, error: vanError} = Van;
 
   const dispatch = useDispatch();
-  const {products, loading, error} = Allproducts;
 
   useEffect(() => {
     dispatch(fetchVanProducts());
   }, []);
 
-  // useEffect(() => {
-  //   dispatch(fetchProducts());
-  // }, []);
+  const Van = useSelector((state) => state.van);
+  const { inventory, loading: vanLoading, error: vanError } = Van;
 
   return (
     <SafeAreaView
-      style={{backgroundColor: appTheme.COLORS.mainBackground, flex: 1}}>
+      style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
+    >
       <Header headerText="Products" />
 
       <CustomVirtualizedView>
@@ -50,14 +45,16 @@ const ProductsScreen = () => {
             marginBottom: 20,
             paddingVertical: 30,
             paddingLeft: 20,
-          }}>
-          <Pressable onPress={() => navigation.navigate('AllProducts')}>
+          }}
+        >
+          <Pressable onPress={() => navigation.navigate("AllProducts")}>
             <View
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
+                flexDirection: "row",
+                alignItems: "center",
                 marginBottom: 20,
-              }}>
+              }}
+            >
               <View>
                 <Image source={icons.allProducts} />
               </View>
@@ -68,25 +65,28 @@ const ProductsScreen = () => {
                   flex: 1,
                   borderBottomColor: appTheme.COLORS.borderGRey,
                   paddingBottom: 10,
-                }}>
+                }}
+              >
                 <Text
                   style={{
                     fontSize: 18,
                     color: appTheme.COLORS.MainGray,
-                  }}>
+                  }}
+                >
                   All Products
                 </Text>
               </View>
             </View>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate('LiquidEmptyProducts')}>
+          <Pressable onPress={() => navigation.navigate("LiquidEmptyProducts")}>
             <View
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
+                flexDirection: "row",
+                alignItems: "center",
                 marginBottom: 20,
-              }}>
+              }}
+            >
               <Image source={icons.liquidProducts} />
               <View
                 style={{
@@ -95,21 +95,23 @@ const ProductsScreen = () => {
                   flex: 1,
                   borderBottomColor: appTheme.COLORS.borderGRey,
                   paddingBottom: 10,
-                }}>
-                <Text style={{fontSize: 18, color: appTheme.COLORS.MainGray}}>
+                }}
+              >
+                <Text style={{ fontSize: 18, color: appTheme.COLORS.MainGray }}>
                   Full
                 </Text>
               </View>
             </View>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate('LiquidEmptyProducts')}>
+          <Pressable onPress={() => navigation.navigate("LiquidEmptyProducts")}>
             <View
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
+                flexDirection: "row",
+                alignItems: "center",
                 marginBottom: 20,
-              }}>
+              }}
+            >
               <Image source={icons.empties} />
               <View
                 style={{
@@ -118,8 +120,9 @@ const ProductsScreen = () => {
                   flex: 1,
                   borderBottomColor: appTheme.COLORS.borderGRey,
                   paddingBottom: 10,
-                }}>
-                <Text style={{fontSize: 18, color: appTheme.COLORS.MainGray}}>
+                }}
+              >
+                <Text style={{ fontSize: 18, color: appTheme.COLORS.MainGray }}>
                   Empties
                 </Text>
               </View>
@@ -131,12 +134,13 @@ const ProductsScreen = () => {
           <View
             style={{
               backgroundColor: appTheme.COLORS.white,
-              flexDirection: 'row',
-              alignItems: 'center',
+              flexDirection: "row",
+              alignItems: "center",
               paddingVertical: 30,
               paddingLeft: 15,
               marginBottom: 20,
-            }}>
+            }}
+          >
             <Image source={icons.salesReturn} />
 
             <Text
@@ -144,20 +148,21 @@ const ProductsScreen = () => {
                 fontSize: 18,
                 marginLeft: 20,
                 color: appTheme.COLORS.black,
-              }}>
+              }}
+            >
               Return products to warehouse
             </Text>
           </View>
         </Pressable>
 
-        {!loading ? (
+        {!vanLoading ? (
           <ProductFlatList list={inventory} />
         ) : (
           <ActivityIndicator
             color={
-              Platform.OS === 'android' ? appTheme.COLORS.mainRed : undefined
+              Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
             }
-            animating={loading}
+            animating={vanLoading}
             size="large"
           />
         )}

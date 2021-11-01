@@ -1,112 +1,124 @@
-import React from 'react';
-import {StyleSheet, Image, Text, View} from 'react-native';
-import appTheme from '../constants/theme';
+import React from "react";
+import { StyleSheet, Image, Text, View } from "react-native";
+import appTheme from "../constants/theme";
 
-const ProductCard = ({item}) => {
+const ProductCard = ({
+  item: {
+    quantity,
+    product: { imageUrl, sku, brand, productType, price },
+  },
+}) => {
   return (
     <View
       style={{
-        flexDirection: 'row',
+        flexDirection: "row",
         paddingVertical: 15,
         paddingHorizontal: 20,
         backgroundColor: appTheme.COLORS.white,
-      }}>
-      {item.product.imageUrl !== undefined && (
-        <Image
-          style={{width: 30, height: 80}}
-          source={{uri: item.product.imageUrl}}
-        />
-      )}
-      <View style={{marginLeft: 20}}>
+      }}
+    >
+      <Image style={{ width: 30, height: 80 }} source={{ uri: imageUrl }} />
+
+      <View style={{ marginLeft: 20 }}>
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
+            flexDirection: "row",
+            alignItems: "center",
             marginBottom: 10,
-          }}>
+          }}
+        >
           <Text
             style={{
               fontSize: 18,
               ...appTheme.FONTS.mainFontBold,
-              textTransform: 'capitalize',
+              textTransform: "capitalize",
               marginRight: 5,
               color: appTheme.COLORS.black,
-            }}>
-            {item.product.brand}
+            }}
+          >
+            {brand}
           </Text>
           <Text
             style={{
               fontSize: 18,
               ...appTheme.FONTS.mainFontBold,
-              textTransform: 'capitalize',
+              textTransform: "capitalize",
               color: appTheme.COLORS.black,
-            }}>
-            {item.product.sku}
+            }}
+          >
+            {sku}
           </Text>
         </View>
         <View
           style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
             marginBottom: 10,
-          }}>
+          }}
+        >
           <View
             style={{
-              flexDirection: 'row',
-            }}>
+              flexDirection: "row",
+            }}
+          >
             <View
               style={{
                 backgroundColor:
-                  item.product.productType === 'full'
+                  productType === "full"
                     ? appTheme.COLORS.mainYellow
-                    : item.product.productType === 'pet'
+                    : productType === "pet"
                     ? appTheme.COLORS.mainRed2
                     : appTheme.COLORS.mainRed3,
                 paddingVertical: 5,
                 paddingHorizontal: 15,
                 borderRadius: 20,
                 marginRight: 10,
-              }}>
-              <Text style={{color: appTheme.COLORS.white}}>
-                {item.product.productType}
+              }}
+            >
+              <Text style={{ color: appTheme.COLORS.white }}>
+                {productType}
               </Text>
             </View>
 
             <View
               style={{
-                flexDirection: 'row',
-                alignItems: 'center',
-              }}>
+                flexDirection: "row",
+                alignItems: "center",
+              }}
+            >
               <Text
                 style={{
                   fontSize: 17,
 
                   color: appTheme.COLORS.MainGray,
-                }}>
+                }}
+              >
                 Qty:
               </Text>
-              <Text style={{fontSize: 16, fontWeight: '600', marginLeft: 2}}>
-                {item.quantity}
+              <Text style={{ fontSize: 16, fontWeight: "600", marginLeft: 2 }}>
+                {quantity}
               </Text>
             </View>
           </View>
 
           <View
             style={{
-              flexDirection: 'row',
+              flexDirection: "row",
               marginLeft: 80,
-              alignItems: 'center',
-            }}>
-            <Text style={{fontSize: 17, marginRight: 2}}>Price:</Text>
+              alignItems: "center",
+            }}
+          >
+            <Text style={{ fontSize: 17, marginRight: 2 }}>Price:</Text>
             <Text
               style={{
                 fontSize: 15,
                 color: appTheme.COLORS.mainRed,
                 ...appTheme.FONTS.mainFontBold,
-              }}>
-              {'\u20A6'}
-              {item.product.price}
+              }}
+            >
+              {"\u20A6"}
+              {price}
             </Text>
           </View>
         </View>
@@ -116,5 +128,3 @@ const ProductCard = ({item}) => {
 };
 
 export default ProductCard;
-
-const styles = StyleSheet.create({});

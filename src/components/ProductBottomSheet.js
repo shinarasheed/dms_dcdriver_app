@@ -116,12 +116,12 @@ const ProductBottomSheet = ({
               <View style={{ flexDirection: "row" }}>
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: 15,
                     fontWeight: "600",
-                    color: appTheme.COLORS.borderGRey1,
+                    color: appTheme.COLORS.MainGray,
                   }}
                 >
-                  Qty:
+                  Empties returning:
                 </Text>
                 <Text
                   style={{
@@ -134,7 +134,7 @@ const ProductBottomSheet = ({
                   {empties}
                 </Text>
               </View>
-              <Text
+              {/* <Text
                 style={{
                   fontSize: 16,
                   ...appTheme.FONTS.mainFontBold,
@@ -144,7 +144,7 @@ const ProductBottomSheet = ({
               >
                 {"\u20A6"}
                 {getEmptiesPrice()}
-              </Text>
+              </Text> */}
             </View>
           </View>
         )}

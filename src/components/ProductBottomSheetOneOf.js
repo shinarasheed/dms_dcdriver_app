@@ -1,12 +1,19 @@
-import React, {useState} from 'react';
-import {FlatList, StyleSheet, Image, Pressable, Text, View} from 'react-native';
-import icons from '../constants/icons';
+import React, { useState } from "react";
+import {
+  FlatList,
+  StyleSheet,
+  Image,
+  Pressable,
+  Text,
+  View,
+} from "react-native";
+import icons from "../constants/icons";
 
-import appTheme from '../constants/theme';
-import ProductBottomSheetCard from './ProductBottomSheetCardOneOf';
-import CustomVirtualist from './VirtualizedList';
-import ProductFooter from './ProductFooterOneOf';
-import EmptiesCustomer from './EmptiesCustomerOneOf';
+import appTheme from "../constants/theme";
+import ProductBottomSheetCard from "./ProductBottomSheetCardOneOf";
+import CustomVirtualist from "./VirtualizedList";
+import ProductFooter from "./ProductFooterOneOf";
+import EmptiesCustomer from "./EmptiesCustomerOneOf";
 
 const ProductBottomSheetOneOf = ({
   productsToSell,
@@ -32,14 +39,16 @@ const ProductBottomSheetOneOf = ({
           borderBottomWidth: 1,
           borderBottomColor: appTheme.COLORS.borderGRey,
           paddingBottom: 30,
-        }}>
+        }}
+      >
         <View
           style={{
-            justifyContent: 'space-between',
-            flexDirection: 'row',
+            justifyContent: "space-between",
+            flexDirection: "row",
             marginBottom: 20,
-          }}>
-          <Text style={{fontSize: 18}}>Sell To {customer.CUST_Name}</Text>
+          }}
+        >
+          <Text style={{ fontSize: 18 }}>Sell To {customer?.CUST_Name}</Text>
           <Pressable onPress={() => toggle()}>
             <Image source={icons.cancelIcon} />
           </Pressable>
@@ -62,7 +71,7 @@ const ProductBottomSheetOneOf = ({
         data={productsToSell}
         keyExtractor={(item, id) => id.toString()}
         showsVerticalScrollIndicator={false}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <ProductBottomSheetCard
             incrementQuantity={incrementQuantity}
             decrementQuantity={decrementQuantity}
@@ -76,9 +85,10 @@ const ProductBottomSheetOneOf = ({
           <View
             style={{
               height: 1,
-              width: '100%',
+              width: "100%",
               backgroundColor: appTheme.COLORS.Grey,
-            }}></View>
+            }}
+          ></View>
         )}
         ListFooterComponent={() => (
           <View
@@ -87,47 +97,52 @@ const ProductBottomSheetOneOf = ({
               borderTopColor: appTheme.COLORS.borderGRey,
               paddingTop: 20,
               paddingHorizontal: 20,
-            }}>
+            }}
+          >
             <Text
               style={{
                 fontSize: 13,
-                fontWeight: '700',
+                fontWeight: "700",
                 marginBottom: 10,
                 color: appTheme.COLORS.black,
-              }}>
+              }}
+            >
               EMPTIES
             </Text>
             <View
-              style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <View style={{flexDirection: 'row'}}>
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <View style={{ flexDirection: "row" }}>
                 <Text
                   style={{
-                    fontSize: 14,
-                    fontWeight: '600',
-                    color: appTheme.COLORS.borderGRey1,
-                  }}>
-                  Qty:
+                    fontSize: 15,
+                    fontWeight: "600",
+                    color: appTheme.COLORS.MainGray,
+                  }}
+                >
+                  Empties returning:
                 </Text>
                 <Text
                   style={{
                     fontSize: 15,
-                    fontWeight: '600',
+                    fontWeight: "600",
                     color: appTheme.COLORS.black,
-                  }}>
-                  {' '}
+                  }}
+                >
                   {empties}
                 </Text>
               </View>
-              <Text
+              {/* <Text
                 style={{
                   fontSize: 16,
                   ...appTheme.FONTS.mainFontBold,
                   color: appTheme.COLORS.mainRed,
                   marginRight: 15,
-                }}>
-                {'\u20A6'}
+                }}
+              >
+                {"\u20A6"}
                 {getEmptiesPrice()}
-              </Text>
+              </Text> */}
             </View>
           </View>
         )}
@@ -151,15 +166,15 @@ export default ProductBottomSheetOneOf;
 const styles = StyleSheet.create({
   productIncreaseDecreaseContainer: {
     backgroundColor: appTheme.COLORS.boxGray,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     width: 30,
     height: 30,
     borderRadius: 5,
   },
   IncreaseText: {
     color: appTheme.COLORS.mainRed,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 20,
   },
 });

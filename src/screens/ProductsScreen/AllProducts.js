@@ -14,24 +14,18 @@ import ProductFlastlist from "../../components/ProductFlatList";
 import appTheme from "../../constants/theme";
 import SearchBar from "../../components/SearchBar";
 import { icons } from "../../constants";
-import { fetchProducts } from "../../redux/actions/productActions";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
 
 const index = () => {
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+
   useEffect(() => {
     dispatch(fetchVanProducts());
   }, []);
 
-  useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
-
-  const Allproducts = useSelector((state) => state.products);
   const Van = useSelector((state) => state.van);
   const { inventory, loading: vanLoading, error: vanError } = Van;
-  const dispatch = useDispatch();
-  const navigation = useNavigation();
-  const { products, loading, error } = Allproducts;
 
   return (
     <SafeAreaView
@@ -70,7 +64,7 @@ const index = () => {
       {/* header  */}
 
       <SearchBar />
-      <ProductFlastlist price list={products} />
+      <ProductFlastlist list={inventory} />
     </SafeAreaView>
   );
 };

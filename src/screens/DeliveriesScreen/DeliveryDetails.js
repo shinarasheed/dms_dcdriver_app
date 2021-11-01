@@ -29,6 +29,7 @@ const DeliveryDetails = () => {
   const [loadingOrder, setLoadingOrder] = useState(false);
   const route = useRoute();
   const item = route.params;
+
   const [theOrder, settheOrder] = useState(item);
 
   const [visible, setVisible] = useState(false);
@@ -83,9 +84,7 @@ const DeliveryDetails = () => {
 
   const getTotalPrice = () => {
     return theOrder?.orderItems.reduce(
-      (accumulator, order) =>
-        accumulator +
-        order?.quantity * getProductDetails(order?.productId)?.price,
+      (accumulator, order) => accumulator + parseFloat(order?.price),
       0
     );
   };
@@ -103,33 +102,33 @@ const DeliveryDetails = () => {
       style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
     >
       {/* header */}
+
+      <View
+        style={{
+          backgroundColor: appTheme.COLORS.white,
+          flexDirection: "row",
+          alignItems: "center",
+          height: 50,
+          paddingLeft: 20,
+        }}
+      >
+        <Pressable onPress={() => navigation.goBack()}>
+          <Image source={icons.backButton} />
+        </Pressable>
+        <Text
+          style={{
+            fontSize: 17,
+            color: appTheme.COLORS.black,
+            fontWeight: "800",
+            marginLeft: 20,
+          }}
+        >
+          Order {theOrder?.orderId}
+        </Text>
+      </View>
       <>
         {!orderLoading ? (
           <>
-            <View
-              style={{
-                backgroundColor: appTheme.COLORS.white,
-                flexDirection: "row",
-                alignItems: "center",
-                height: 50,
-                paddingLeft: 20,
-              }}
-            >
-              <Pressable onPress={() => navigation.goBack()}>
-                <Image source={icons.backButton} />
-              </Pressable>
-              <Text
-                style={{
-                  fontSize: 17,
-                  color: appTheme.COLORS.black,
-                  fontWeight: "800",
-                  marginLeft: 20,
-                }}
-              >
-                Order {theOrder?.orderId}
-              </Text>
-            </View>
-
             <CustomVirtualizedView>
               <View style={{ paddingLeft: 20, paddingVertical: 20 }}>
                 <View style={{ marginBottom: 10, flexDirection: "row" }}>

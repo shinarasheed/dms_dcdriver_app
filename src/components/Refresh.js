@@ -23,11 +23,15 @@ const Refresh = () => {
   const navigation = useNavigation();
 
   const checkValid = async () => {
+    const data = await adService.getAccessTokenAsync();
     const { isValid } = await adService.getAccessTokenAsync();
     isValid ? navigation.navigate("HomeScreen") : null;
+
+    console.log(data);
   };
 
   useEffect(() => {
+    ss;
     checkValid();
   }, []);
 
@@ -45,6 +49,7 @@ const Refresh = () => {
     );
 
     await AsyncStorage.setItem("driverDetails", JSON.stringify(data));
+    console.log(isValid);
     isValid ? navigation.navigate("HomeScreen") : null;
   }, []);
 

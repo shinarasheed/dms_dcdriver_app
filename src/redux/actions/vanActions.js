@@ -1,5 +1,5 @@
 import axios from "axios";
-// import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
   FETCH_INVENTORY_FAIL,
@@ -15,6 +15,8 @@ import {
 import { vanurl, orderUrl } from "../../utils/baseUrl";
 
 export const fetchVanProducts = () => async (dispatch) => {
+  const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
+
   try {
     dispatch({
       type: FETCH_INVENTORY_REQUEST,
@@ -22,7 +24,7 @@ export const fetchVanProducts = () => async (dispatch) => {
 
     const {
       data: { data },
-    } = await axios.get(`${vanurl}/van/1`);
+    } = await axios.get(`${vanurl}/van/${driver.vehicleId}`);
 
     let x = [];
     await data.map((dat) => {
@@ -40,8 +42,6 @@ export const fetchVanProducts = () => async (dispatch) => {
         newData: x,
       },
     });
-
-    // await AsyncStorage.setItem('productsInVan', JSON.stringify(data));
   } catch (error) {
     console.log(error);
     dispatch({
