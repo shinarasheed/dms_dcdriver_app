@@ -27,7 +27,6 @@ export default class Login extends React.PureComponent {
 
   onLogin() {
     const { navigation } = this.props;
-    console.log("LoGIN");
     navigation.navigate("HomeScreen");
   }
 
@@ -45,23 +44,13 @@ export default class Login extends React.PureComponent {
     );
   }
 
-  setInter = () => {
-    setInterval(() => {
-      this.render();
-    }, 1000);
-  };
-
-  componentDidMount() {
-    console.log("mounted");
-  }
-
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         {/* <Refresh /> */}
         <LoginView
           appId="8c11baca-fdbc-4b7f-b2cf-3a177588f37c"
-          redirectURI="https://abi-distributorcentral.com/"
+          redirectURI="https://abi-distributorcentral.com/driver/redirect-driver"
           tenant="devdms2"
           loginPolicy="B2C_1_dms_signup_signin"
           passwordResetPolicy="B2C_1_PasswordReset"

@@ -6,12 +6,7 @@ import { icons } from "../constants";
 
 const Tab = createBottomTabNavigator();
 
-import {
-  CustomersScreen,
-  DeliveriesScreen,
-  HomeScreen,
-  ProductsScreen,
-} from "../screens";
+import { CustomersScreen, DeliveriesScreen, HomeScreen } from "../screens";
 import ProductStack from "../navigation/ProductStack";
 
 function HomeTabs() {

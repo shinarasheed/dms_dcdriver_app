@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Image,
@@ -22,6 +22,8 @@ const index = () => {
   const categories = ["LIQUIDS", "EMPTIES"];
   const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
   const [index, setIndex] = React.useState(0);
+  const [fullProducts, setFullProducts] = useState([]);
+  const [emptyProducts, setEmptyProducts] = useState([]);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -33,13 +35,17 @@ const index = () => {
   const Van = useSelector((state) => state.van);
   const { inventory, vanLoading, error: vanError } = Van;
 
-  const liquidProducts = inventory.filter(
-    (product) => product.productType === "full"
-  );
+  useEffect(() => {
+    const fulls = inventory.filter(
+      (product) => product.product.productType === "full"
+    );
 
-  const emptiesProducts = inventory.filter(
-    (product) => product.productType !== "full"
-  );
+    const notfulls = inventory.filter(
+      (product) => product.product.productType !== "full"
+    );
+    setFullProducts(fulls);
+    setEmptyProducts(notfulls);
+  }, []);
 
   return (
     <SafeAreaView
@@ -134,10 +140,10 @@ const index = () => {
 
       <TabView value={index} onChange={setIndex}>
         <TabView.Item style={{ width: "100%" }}>
-          <ProductFlastlist list={liquidProducts} loading={vanLoading} />
+          <ProductFlastlist list={fullProducts} loading={vanLoading} />
         </TabView.Item>
         <TabView.Item style={{ width: "100%" }}>
-          <ProductFlastlist list={emptiesProducts} loading={vanLoading} />
+          <ProductFlastlist list={emptyProducts} loading={vanLoading} />
         </TabView.Item>
       </TabView>
     </SafeAreaView>

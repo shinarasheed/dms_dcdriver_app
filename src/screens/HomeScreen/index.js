@@ -20,12 +20,14 @@ import Delivery from "../../components/Delivery";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import UserBottomSheet from "../../components/UserBottomSheet";
 import { fetchOrder, fetchOrderStats } from "../../redux/actions/orderActions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
 
   const allOrders = useSelector((state) => state.orders);
   const [newOrder, setNewOrder] = useState([]);
+  const [theDriver, setTheDriver] = useState(null);
   const orderStats = useSelector((state) => state.orderStats);
   const { stats, loading: statsLoading, error: statsError } = orderStats;
   const updateOrder = useSelector((state) => state.updateOrder);
@@ -41,6 +43,11 @@ const HomeScreen = () => {
     setVisible((visible) => !visible);
   }
 
+  const getDriverDetails = async () => {
+    const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
+    setTheDriver(driver);
+  };
+
   useEffect(() => {
     dispatch(fetchOrderStats(1));
   }, []);
@@ -48,6 +55,7 @@ const HomeScreen = () => {
   useEffect(() => {
     dispatch(fetchOrder());
     setNewOrder(order.filter((item) => item.status === "Assigned"));
+    getDriverDetails();
   }, []);
 
   return (
@@ -190,7 +198,7 @@ const HomeScreen = () => {
           )}
         </View>
       </CustomVirtualizedView>
-      <UserBottomSheet toggle={toggle} visible={visible} />
+      <UserBottomSheet driver={theDriver} toggle={toggle} visible={visible} />
     </SafeAreaView>
   );
 };

@@ -1,4 +1,5 @@
-import axios from 'axios';
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import {
   FETCH_ORDER_REQUEST,
@@ -16,17 +17,19 @@ import {
   CONFIRM_ORDER_REQUEST,
   CONFIRM_ORDER_SUCCESS,
   CONFIRM_ORDER_FAIL,
-} from '../constants/orderContants';
-import {orderUrl} from '../../utils/baseUrl';
+} from "../constants/orderContants";
+import { orderUrl } from "../../utils/baseUrl";
 
-export const fetchOrder = () => async dispatch => {
+export const fetchOrder = () => async (dispatch) => {
+  const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
+
   try {
     dispatch({
       type: FETCH_ORDER_REQUEST,
     });
 
     const {
-      data: {order},
+      data: { order },
     } = await axios.get(`${orderUrl}/GetOrder/GetOrderByVehicleId/1`);
 
     dispatch({
@@ -37,14 +40,14 @@ export const fetchOrder = () => async dispatch => {
     console.log(error);
     dispatch({
       type: FETCH_ORDER_FAIL,
-      payload: 'There was an error',
+      payload: "There was an error",
     });
   }
 };
 
 export const updateOrderStatus =
-  ({assignedToId, orderId, status}) =>
-  async dispatch => {
+  ({ assignedToId, orderId, status }) =>
+  async (dispatch) => {
     try {
       dispatch({
         type: UPDATE_ORDER_STATUS_REQUEST,
@@ -52,7 +55,7 @@ export const updateOrderStatus =
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       };
 
@@ -61,10 +64,10 @@ export const updateOrderStatus =
         status,
       };
 
-      const {data: order} = await axios.patch(
+      const { data: order } = await axios.patch(
         `${orderUrl}/UpdateOrder/UpdateStatus/${orderId}`,
         body,
-        config,
+        config
       );
 
       const theOrder = order.order;
@@ -79,19 +82,19 @@ export const updateOrderStatus =
       console.log(error);
       dispatch({
         type: UPDATE_ORDER_STATUS_FAIL,
-        payload: 'There was an error',
+        payload: "There was an error",
       });
     }
   };
 
-export const fetchSingleOrder = orderId => async dispatch => {
+export const fetchSingleOrder = (orderId) => async (dispatch) => {
   try {
     dispatch({
       type: FETCH_SINGLE_ORDER_REQUEST,
     });
 
     const {
-      data: {order},
+      data: { order },
     } = await axios.get(`${orderUrl}/GetOrder/GetOrderByOrderId/${orderId}`);
 
     dispatch({
@@ -102,21 +105,21 @@ export const fetchSingleOrder = orderId => async dispatch => {
     console.log(error);
     dispatch({
       type: FETCH_SINGLE_ORDER_FAIL,
-      payload: 'There was an error',
+      payload: "There was an error",
     });
   }
 };
 
 export const fetchOrderStats =
-  (vehicleId, startDate = '2021-9-21', endDate = '2021-10-24') =>
-  async dispatch => {
+  (vehicleId, startDate = "2021-9-21", endDate = "2021-10-24") =>
+  async (dispatch) => {
     try {
       dispatch({
         type: FETCH_ORDER_STATS_REQUEST,
       });
 
-      const {data: order} = await axios.get(
-        `${orderUrl}/GetOrder/GetOrderSummaryByVehicleId/${vehicleId}/${startDate}/${endDate}`,
+      const { data: order } = await axios.get(
+        `${orderUrl}/GetOrder/GetOrderSummaryByVehicleId/${vehicleId}/${startDate}/${endDate}`
       );
 
       dispatch({
@@ -127,14 +130,14 @@ export const fetchOrderStats =
       console.log(error);
       dispatch({
         type: FETCH_ORDER_STATS_FAIL,
-        payload: 'There was an error',
+        payload: "There was an error",
       });
     }
   };
 
 export const confirmOrder =
-  ({payload, orderId}) =>
-  async dispatch => {
+  ({ payload, orderId }) =>
+  async (dispatch) => {
     try {
       dispatch({
         type: CONFIRM_ORDER_REQUEST,
@@ -142,14 +145,14 @@ export const confirmOrder =
 
       const config = {
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
       };
 
-      const {data} = await axios.patch(
+      const { data } = await axios.patch(
         `${orderUrl}/UpdateOrder/UpdateOrderDetails/${orderId}`,
         payload,
-        config,
+        config
       );
 
       dispatch({
@@ -160,7 +163,7 @@ export const confirmOrder =
       console.log(error);
       dispatch({
         type: CONFIRM_ORDER_FAIL,
-        payload: 'There was an error',
+        payload: "There was an error",
       });
     }
   };

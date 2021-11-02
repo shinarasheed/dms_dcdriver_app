@@ -6,9 +6,14 @@ import {
   Text,
   View,
   StyleSheet,
+  ActivityIndicator,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { useRoute, useNavigation } from "@react-navigation/native";
+import {
+  useRoute,
+  useNavigation,
+  useFocusEffect,
+} from "@react-navigation/native";
 
 import SearchBar from "../../components/SearchBar";
 import appTheme from "../../constants/theme";
@@ -17,6 +22,7 @@ import SellProductFooter from "../../components/SellProductFooter";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import { icons } from "../../constants";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
+import { fetchOrder } from "../../redux/actions/orderActions";
 
 const SellToCustomer = () => {
   const navigator = useNavigation();
@@ -29,10 +35,12 @@ const SellToCustomer = () => {
   const Van = useSelector((state) => state.van);
   const { inventory, newinventory, loading: vanLoading, error: vanError } = Van;
 
-  useEffect(() => {
-    dispatch(fetchVanProducts());
-    setNewInventory(newinventory);
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(fetchVanProducts());
+      setNewInventory(newinventory);
+    }, [route])
+  );
 
   const getQuantity = (productId, quantity) => {
     return (
@@ -149,7 +157,15 @@ const SellToCustomer = () => {
               // loading={vanLoading}
               getQuantity={getQuantity}
             />
-          ) : null}
+          ) : (
+            <ActivityIndicator
+              color={
+                Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
+              }
+              animating={true}
+              size="large"
+            />
+          )}
         </View>
       </CustomVirtualizedView>
 

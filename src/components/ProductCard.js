@@ -1,13 +1,9 @@
 import React from "react";
 import { StyleSheet, Image, Text, View } from "react-native";
 import appTheme from "../constants/theme";
+import { products } from "../data";
 
-const ProductCard = ({
-  item: {
-    quantity,
-    product: { imageUrl, sku, brand, productType, price },
-  },
-}) => {
+const ProductCard = ({ item: { quantity, product } }) => {
   return (
     <View
       style={{
@@ -17,7 +13,10 @@ const ProductCard = ({
         backgroundColor: appTheme.COLORS.white,
       }}
     >
-      <Image style={{ width: 30, height: 80 }} source={{ uri: imageUrl }} />
+      <Image
+        style={{ width: 30, height: 80 }}
+        source={{ uri: product?.imageUrl }}
+      />
 
       <View style={{ marginLeft: 20 }}>
         <View
@@ -36,7 +35,7 @@ const ProductCard = ({
               color: appTheme.COLORS.black,
             }}
           >
-            {brand}
+            {product?.brand}
           </Text>
           <Text
             style={{
@@ -46,7 +45,7 @@ const ProductCard = ({
               color: appTheme.COLORS.black,
             }}
           >
-            {sku}
+            {product?.sku}
           </Text>
         </View>
         <View
@@ -65,9 +64,9 @@ const ProductCard = ({
             <View
               style={{
                 backgroundColor:
-                  productType === "full"
+                  product?.productType === "full"
                     ? appTheme.COLORS.mainYellow
-                    : productType === "pet"
+                    : product?.productType === "pet"
                     ? appTheme.COLORS.mainRed2
                     : appTheme.COLORS.mainRed3,
                 paddingVertical: 5,
@@ -77,7 +76,7 @@ const ProductCard = ({
               }}
             >
               <Text style={{ color: appTheme.COLORS.white }}>
-                {productType}
+                {product?.productType}
               </Text>
             </View>
 
@@ -118,7 +117,7 @@ const ProductCard = ({
               }}
             >
               {"\u20A6"}
-              {price}
+              {product?.price}
             </Text>
           </View>
         </View>

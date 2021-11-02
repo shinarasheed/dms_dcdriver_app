@@ -2,18 +2,17 @@ import React from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, StyleSheet, Text, Image, Pressable } from "react-native";
 import { BottomSheet } from "react-native-btr";
-import * as SecureStore from "expo-secure-store";
 import { adService } from "ad-b2c-react-native";
 
 import { icons } from "../constants";
 import appTheme from "../constants/theme";
 
-export default function UserBottomSheet({ toggle, visible }) {
+export default function UserBottomSheet({ toggle, driver, visible }) {
+  console.log(driver);
   const navigation = useNavigation();
 
   const clearTokens = async () => {
     await adService.logoutAsync();
-    console.log("logging out");
     navigation.navigate("Logout");
   };
 
@@ -50,15 +49,25 @@ export default function UserBottomSheet({ toggle, visible }) {
                   marginBottom: 8,
                 }}
               >
-                Lukman Yusuf
+                {driver?.name}
               </Text>
+              <Text
+                style={{
+                  color: appTheme.COLORS.mainTextGray,
+                  fontSize: 17,
+                  marginBottom: 10,
+                }}
+              >
+                {driver?.email}
+              </Text>
+
               <Text
                 style={{
                   color: appTheme.COLORS.mainTextGray,
                   fontSize: 17,
                 }}
               >
-                lukmanyusuf@gmail.com
+                Distributor: {driver?.ownerCompanyId}
               </Text>
             </View>
           </View>

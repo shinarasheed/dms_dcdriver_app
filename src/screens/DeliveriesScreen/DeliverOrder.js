@@ -88,7 +88,7 @@ const DeliverOrder = () => {
       style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
     >
       <View style={styles.detailsHeader}>
-        <Pressable onPress={() => navigation.goBack()}>
+        <Pressable onPress={() => console.log("hello")}>
           <Image source={icons.backButton} />
         </Pressable>
         <Text style={styles.headerText}>Order {theOrder?.orderId}</Text>

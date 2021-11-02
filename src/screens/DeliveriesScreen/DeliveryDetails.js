@@ -112,19 +112,29 @@ const DeliveryDetails = () => {
           paddingLeft: 20,
         }}
       >
-        <Pressable onPress={() => navigation.goBack()}>
-          <Image source={icons.backButton} />
-        </Pressable>
-        <Text
+        <Pressable
+          onPress={() => {
+            navigation.goBack();
+            // setVisible(false);
+          }}
           style={{
-            fontSize: 17,
-            color: appTheme.COLORS.black,
-            fontWeight: "800",
-            marginLeft: 20,
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
-          Order {theOrder?.orderId}
-        </Text>
+          <Image source={icons.backButton} />
+
+          <Text
+            style={{
+              fontSize: 17,
+              color: appTheme.COLORS.black,
+              fontWeight: "800",
+              marginLeft: 20,
+            }}
+          >
+            Order {theOrder?.orderId}
+          </Text>
+        </Pressable>
       </View>
       <>
         {!orderLoading ? (
@@ -638,8 +648,8 @@ const DeliveryDetails = () => {
 
             <BottomSheet
               visible={productsVisibile}
-              onBackButtonPress={toggle}
-              onBackdropPress={toggle}
+              onBackButtonPress={toggleProduct}
+              onBackdropPress={toggleProduct}
             >
               <View
                 style={[

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   SafeAreaView,
   Pressable,
@@ -6,10 +6,14 @@ import {
   Text,
   View,
   StyleSheet,
+  ActivityIndicator,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { useRoute, useNavigation } from "@react-navigation/native";
-import Icon from "react-native-vector-icons/MaterialIcons";
+import {
+  useRoute,
+  useNavigation,
+  useFocusEffect,
+} from "@react-navigation/native";
 
 import appTheme from "../../constants/theme";
 import SellProductFlatListOneOf from "../../components/SellProductFlatListOneOf";
@@ -33,10 +37,12 @@ const SellToCustomer = () => {
 
   const { customer } = theCustomer;
 
-  useEffect(() => {
-    dispatch(fetchVanProducts());
-    setNewInventory(newinventory);
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(fetchVanProducts());
+      setNewInventory(newinventory);
+    }, [])
+  );
 
   const getQuantity = (productId, quantity) => {
     return (
@@ -150,14 +156,24 @@ const SellToCustomer = () => {
             marginBottom: 30,
           }}
         >
-          <SellProductFlatListOneOf
-            inventory={newInventory}
-            incrementQuantity={incrementQuantity}
-            decrementQuantity={decrementQuantity}
-            deleteProduct={deleteProduct}
-            loading={vanLoading}
-            getQuantity={getQuantity}
-          />
+          {!vanLoading ? (
+            <SellProductFlatListOneOf
+              inventory={newInventory}
+              incrementQuantity={incrementQuantity}
+              decrementQuantity={decrementQuantity}
+              deleteProduct={deleteProduct}
+              loading={vanLoading}
+              getQuantity={getQuantity}
+            />
+          ) : (
+            <ActivityIndicator
+              color={
+                Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
+              }
+              animating={true}
+              size="large"
+            />
+          )}
         </View>
       </CustomVirtualizedView>
       {/* 
@@ -182,17 +198,3 @@ const SellToCustomer = () => {
 };
 
 export default SellToCustomer;
-
-const styles = StyleSheet.create({
-  searchInputContainer: {
-    height: 50,
-    backgroundColor: appTheme.COLORS.white,
-    marginTop: 15,
-    flexDirection: "row",
-    alignItems: "center",
-    borderColor: "#9799A0",
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-  },
-});

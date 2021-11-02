@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { Tab, TabView } from "react-native-elements";
 
 import SearchInput from "../../components/SearchInput";
@@ -39,11 +39,14 @@ export default function DeliveriesScreen() {
     (item) => item.status === "Completed" || item.status === "Rejected"
   );
 
-  useEffect(() => {
-    dispatch(fetchOrder());
-    setNewDeliveries(theNewDeliveries);
-    setPastdeliveries(thePastDeliveries);
-  }, []);
+  //this runs everytime the screen is in focus.just little difference from useEffect
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(fetchOrder());
+      setNewDeliveries(theNewDeliveries);
+      setPastdeliveries(thePastDeliveries);
+    }, [])
+  );
 
   return (
     <SafeAreaView
