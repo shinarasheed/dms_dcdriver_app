@@ -277,11 +277,11 @@ const GenerateInvoice = () => {
               />
 
               <Text> Completed </Text>
-              <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+              <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
                 on{" "}
                 {moment(
                   new Date(new Date().getTime()).toISOString().split("T")[0]
-                ).format("MMM Do, YYYY")}
+                ).format("MMM Do, YYYY")}{" "}
                 at {new Date(new Date().getTime()).toLocaleTimeString()}
               </Text>
             </View>
@@ -300,11 +300,11 @@ const GenerateInvoice = () => {
                 />
 
                 <Text>Accepted </Text>
-                <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+                <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
                   on{" "}
                   {moment(order?.orderStatus[0]?.dateAccepted).format(
                     "MMM Do, YYYY"
-                  )}
+                  )}{" "}
                   at{" "}
                   {new Date(
                     order?.orderStatus[0]?.timeAccepted
@@ -320,11 +320,11 @@ const GenerateInvoice = () => {
               />
 
               <Text>Assigned </Text>
-              <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+              <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
                 to you on{" "}
                 {moment(order?.orderStatus[0]?.dateAssigned).format(
                   "MMM Do, YYYY"
-                )}
+                )}{" "}
                 at{" "}
                 {new Date(
                   order?.orderStatus[0]?.timeAssigned

@@ -72,7 +72,7 @@ const AddCustomer = () => {
               ...appTheme.FONTS.mainFontBold,
             }}
           >
-            One Of Sale
+            One-Off Sale
           </Text>
         </View>
 

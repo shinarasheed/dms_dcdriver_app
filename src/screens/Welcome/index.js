@@ -30,6 +30,7 @@ export default class Login extends React.PureComponent {
     const { navigation } = this.props;
     this.onRefresh();
     // navigation.navigate("HomeScreen");
+    console.log("login");
   }
 
   onFail(reason) {

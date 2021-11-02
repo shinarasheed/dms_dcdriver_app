@@ -105,7 +105,7 @@ const CustomersScreen = () => {
         onPress={() => navigation.navigate("AddCustomer")}
       >
         <Image style={{ marginRight: 10 }} source={icons.cartIcon} />
-        <Text style={{ fontSize: 18 }}>One of Sale</Text>
+        <Text style={{ fontSize: 18 }}>One-Off Sale</Text>
       </Pressable>
     </SafeAreaView>
   );
