@@ -33,7 +33,7 @@ const OrderBottomSheet = ({ item, toggle, setVisible, visible }) => {
   const getQuantity = (productId, quantity) => {
     return (
       quantity <
-      inventory.find((product) => product.product.productId === productId)
+      inventory.find((product) => product?.product?.productId === productId)
         ?.quantity
     );
   };
@@ -85,18 +85,20 @@ const OrderBottomSheet = ({ item, toggle, setVisible, visible }) => {
   };
 
   const incrementQuantity = (productId) => {
-    let product = newOrders.find((product) => product.productId === productId);
+    let product = newOrders?.find(
+      (product) => product?.productId === productId
+    );
     product.quantity++;
     setNewOrders([...newOrders]);
   };
 
   const decrementQuantity = (productId) => {
-    const product = newOrders.find(
-      (product) => product.productId === productId
+    const product = newOrders?.find(
+      (product) => product?.productId === productId
     );
     if (product.quantity === 1) {
-      const index = newOrders.findIndex(
-        (product) => product.productId === productId
+      const index = newOrders?.findIndex(
+        (product) => product?.productId === productId
       );
       newOrders.splice(index, 1);
       setNewOrders([...newOrders]);
@@ -107,8 +109,8 @@ const OrderBottomSheet = ({ item, toggle, setVisible, visible }) => {
   };
 
   const deleteProduct = (productId) => {
-    const index = newOrders.findIndex(
-      (product) => product.productId === productId
+    const index = newOrders?.findIndex(
+      (product) => product?.productId === productId
     );
     newOrders.splice(index, 1);
     setNewOrders([...newOrders]);
@@ -116,8 +118,8 @@ const OrderBottomSheet = ({ item, toggle, setVisible, visible }) => {
 
   const calNumberOfFull = () => {
     return newOrders
-      .filter((product) => product.productType === "full")
-      .reduce((acc, index) => parseInt(acc) + parseInt(index?.quantity), 0);
+      ?.filter((product) => product.productType === "full")
+      ?.reduce((acc, index) => parseInt(acc) + parseInt(index?.quantity), 0);
   };
 
   const getTotal = () => {

@@ -170,23 +170,12 @@ const GenerateInvoice = () => {
           <View style={{ marginTop: 10, flexDirection: "row" }}>
             <Image source={icons.addressIcon} />
             <View style={{ marginLeft: 10, paddingRight: 50 }}>
-              <Text style={{ marginBottom: 5, fontSize: 17, lineHeight: 25 }}>
-                {order?.buyerDetails[0]?.buyerAddress}
-              </Text>
               <Text
                 style={{
-                  fontSize: 17,
-                  marginBottom: 10,
-                  color: appTheme.COLORS.black,
-                }}
-              >
-                Customer local government area
-              </Text>
-              <Text
-                style={{
-                  fontSize: 16,
-                  textTransform: "uppercase",
-                  color: appTheme.COLORS.black,
+                  marginBottom: 5,
+                  fontSize: 15,
+                  color: appTheme.COLORS.MainGray,
+                  lineHeight: 25,
                 }}
               >
                 {order?.buyerDetails[0]?.buyerAddress}

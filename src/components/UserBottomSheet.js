@@ -3,6 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { View, StyleSheet, Text, Image, Pressable } from "react-native";
 import { BottomSheet } from "react-native-btr";
 import { adService } from "ad-b2c-react-native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { icons } from "../constants";
 import appTheme from "../constants/theme";
@@ -12,6 +13,7 @@ export default function UserBottomSheet({ toggle, driver, visible }) {
 
   const clearTokens = async () => {
     await adService.logoutAsync();
+    await AsyncStorage.clear();
     navigation.navigate("Logout");
   };
 

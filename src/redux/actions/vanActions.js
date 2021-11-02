@@ -24,7 +24,7 @@ export const fetchVanProducts = () => async (dispatch) => {
 
     const {
       data: { data },
-    } = await axios.get(`${vanurl}/van/${driver.vehicleId}`);
+    } = await axios.get(`${vanurl}/van/${driver?.vehicleId}`);
 
     let x = [];
     await data.map((dat) => {

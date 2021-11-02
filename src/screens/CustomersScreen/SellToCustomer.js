@@ -45,7 +45,7 @@ const SellToCustomer = () => {
   const getQuantity = (productId, quantity) => {
     return (
       quantity <
-      inventory.find((product) => product.product.productId === productId)
+      inventory.find((product) => product?.product?.productId === productId)
         ?.quantity
     );
   };
@@ -65,7 +65,7 @@ const SellToCustomer = () => {
 
   const incrementQuantity = (productId) => {
     let product = newInventory.find(
-      (product) => product.productId === productId
+      (product) => product?.productId === productId
     );
     product.quantity++;
     setNewInventory([...newInventory]);
@@ -73,11 +73,11 @@ const SellToCustomer = () => {
 
   const decrementQuantity = (productId) => {
     const product = newInventory.find(
-      (product) => product.productId === productId
+      (product) => product?.productId === productId
     );
     if (product.quantity === 1) {
       const index = newInventory.findIndex(
-        (product) => product.productId === productId
+        (product) => product?.productId === productId
       );
       newInventory.splice(index, 1);
       setNewInventory([...newInventory]);
@@ -89,7 +89,7 @@ const SellToCustomer = () => {
 
   const deleteProduct = (productId) => {
     const index = newInventory.findIndex(
-      (product) => product.productId === productId
+      (product) => product?.productId === productId
     );
     newInventory.splice(index, 1);
     setNewInventory([...newInventory]);

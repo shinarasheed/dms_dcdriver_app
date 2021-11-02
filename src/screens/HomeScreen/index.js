@@ -21,6 +21,7 @@ import CustomVirtualizedView from "../../components/VirtualizedList";
 import UserBottomSheet from "../../components/UserBottomSheet";
 import { fetchOrder, fetchOrderStats } from "../../redux/actions/orderActions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Refresh from "../../components/Refresh";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -34,7 +35,7 @@ const HomeScreen = () => {
   const { updatedOrder } = updateOrder;
   const { loading, error, order } = allOrders;
 
-  const newOrders = order.filter((item) => item.status === "Assigned");
+  const newOrders = order?.filter((item) => item.status === "Assigned");
   const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(false);
@@ -49,13 +50,18 @@ const HomeScreen = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchOrderStats(1));
+    setTimeout(() => {
+      getDriverDetails();
+    }, 1000);
+  }, []);
+
+  useEffect(() => {
+    dispatch(fetchOrderStats(theDriver?.vehicleId));
   }, []);
 
   useEffect(() => {
     dispatch(fetchOrder());
-    setNewOrder(order.filter((item) => item.status === "Assigned"));
-    getDriverDetails();
+    setNewOrder(order?.filter((item) => item.status === "Assigned"));
   }, []);
 
   return (
@@ -65,6 +71,8 @@ const HomeScreen = () => {
         flex: 1,
       }}
     >
+      <Refresh />
+
       {/* header section */}
       <View style={styles.header}>
         <Text style={styles.headerHome}>Home</Text>
@@ -91,63 +99,61 @@ const HomeScreen = () => {
             <DateRangePicker />
           </>
 
-          {stats !== undefined && (
-            <>
-              <ImageBackground
-                style={{
-                  width: "100%",
-                  height: 110,
-                  marginBottom: 30,
-                  marginTop: 30,
-                }}
-                source={images.saleHistory1}
-              >
-                <View style={styles.totalSalesStats}>
-                  <Text style={styles.statsText}>Total Sales</Text>
+          <>
+            <ImageBackground
+              style={{
+                width: "100%",
+                height: 110,
+                marginBottom: 30,
+                marginTop: 30,
+              }}
+              source={images.saleHistory1}
+            >
+              <View style={styles.totalSalesStats}>
+                <Text style={styles.statsText}>Total Sales</Text>
 
-                  <Text style={styles.totalSalesAmount}>
+                <Text style={styles.totalSalesAmount}>
+                  {"\u20A6"}
+                  {stats?.totalSales ? stats.totalSales : 0}
+                </Text>
+              </View>
+            </ImageBackground>
+
+            <ImageBackground
+              style={{
+                width: "100%",
+                height: 110,
+                marginBottom: 30,
+              }}
+              source={images.saleHistory3}
+            >
+              <View style={styles?.deliveriesStats}>
+                <View>
+                  <Text style={styles.statsText}>
+                    {stats?.deliveryCounts}{" "}
+                    {stats?.deliveryCounts > 1 ? "Deliveries" : "Delivery"}
+                  </Text>
+
+                  <Text style={styles.deliveriesAmount}>
                     {"\u20A6"}
-                    {stats.totalSales}
+                    {stats?.deliveries ? stats.deliveries : 0}
                   </Text>
                 </View>
-              </ImageBackground>
-
-              <ImageBackground
-                style={{
-                  width: "100%",
-                  height: 110,
-                  marginBottom: 30,
-                }}
-                source={images.saleHistory3}
-              >
-                <View style={styles.deliveriesStats}>
-                  <View>
-                    <Text style={styles.statsText}>
-                      {stats.deliveryCounts}{" "}
-                      {stats.deliveryCounts > 1 ? "Deliveries" : "Delivery"}
-                    </Text>
-
-                    <Text style={styles.deliveriesAmount}>
-                      {"\u20A6"}
-                      {stats.deliveries}
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={styles.statsText}>
-                      {stats.visitCounts}{" "}
-                      {stats.visitCounts > 1 ? "Visits" : "Visit"}
-                    </Text>
-                    <Text style={styles.totalVisitAmount}>
-                      {"\u20A6"}
-                      {stats.visits}
-                    </Text>
-                  </View>
+                <View>
+                  <Text style={styles.statsText}>
+                    {stats?.visitCounts}{" "}
+                    {stats?.visitCounts > 1 ? "Visits" : "Visit"}
+                  </Text>
+                  <Text style={styles.totalVisitAmount}>
+                    {"\u20A6"}
+                    {stats?.visits ? stats.visits : 0}
+                  </Text>
                 </View>
-              </ImageBackground>
-            </>
-          )}
+              </View>
+            </ImageBackground>
+          </>
 
-          {!loading && newOrders.length !== 0 ? (
+          {!loading && newOrders?.length !== 0 ? (
             <FlatList
               style={{
                 backgroundColor: appTheme.COLORS.white,

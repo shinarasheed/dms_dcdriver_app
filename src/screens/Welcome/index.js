@@ -10,11 +10,12 @@ import {
 import { LoginView } from "ad-b2c-react-native";
 import * as SecureStore from "expo-secure-store";
 import appTheme from "../../constants/theme";
-import AuthButton from "../../components/AuthButton";
-import { adService } from "ad-b2c-react-native";
 import Refresh from "../../components/Refresh";
-import RNRestart from "react-native-restart";
-
+import { adService } from "ad-b2c-react-native";
+import jwt_decode from "jwt-decode";
+import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 export default class Login extends React.PureComponent {
   static navigationOptions = { header: null };
 
@@ -27,11 +28,33 @@ export default class Login extends React.PureComponent {
 
   onLogin() {
     const { navigation } = this.props;
-    navigation.navigate("HomeScreen");
+    this.onRefresh();
+    // navigation.navigate("HomeScreen");
   }
 
   onFail(reason) {
     console.log("failed");
+  }
+
+  async onRefresh() {
+    const { navigation } = this.props;
+
+    // setRefreshing(true);
+    // wait(2000).then(() => setRefreshing(false));
+    const token = await adService.getIdToken();
+    const { isValid } = await adService.getAccessTokenAsync();
+    const decoded = jwt_decode(token);
+    const email = decoded.emails[0];
+    const {
+      data: { data },
+    } = await axios.get(
+      `http://102.133.206.181/GetVehicle/GetByEmail/${email}`
+    );
+    console.log(data, "+++++++++++++++++++++++");
+
+    await AsyncStorage.setItem("driverDetails", JSON.stringify(data));
+    console.log(isValid);
+    isValid ? navigation.navigate("HomeScreen") : null;
   }
 
   spinner() {
@@ -47,7 +70,7 @@ export default class Login extends React.PureComponent {
   render() {
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        {/* <Refresh /> */}
+        {/* {1 ? <Refresh /> : null} */}
         <LoginView
           appId="8c11baca-fdbc-4b7f-b2cf-3a177588f37c"
           redirectURI="https://abi-distributorcentral.com/driver/redirect-driver"

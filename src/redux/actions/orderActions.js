@@ -31,7 +31,7 @@ export const fetchOrder = () => async (dispatch) => {
     const {
       data: { order },
     } = await axios.get(
-      `${orderUrl}/GetOrder/GetOrderByVehicleId/${driver.vehicleId}`
+      `${orderUrl}/GetOrder/GetOrderByVehicleId/${driver?.vehicleId}`
     );
 
     dispatch({
@@ -113,7 +113,11 @@ export const fetchSingleOrder = (orderId) => async (dispatch) => {
 };
 
 export const fetchOrderStats =
-  (vehicleId, startDate = "2021-9-21", endDate = "2021-10-24") =>
+  (
+    vehicleId,
+    startDate = new Date(Date.now()).toISOString().split("T")[0],
+    endDate = new Date(Date.now()).toISOString().split("T")[0]
+  ) =>
   async (dispatch) => {
     try {
       dispatch({

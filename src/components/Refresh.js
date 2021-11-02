@@ -26,15 +26,9 @@ const Refresh = () => {
     const data = await adService.getAccessTokenAsync();
     const { isValid } = await adService.getAccessTokenAsync();
     isValid ? navigation.navigate("HomeScreen") : null;
-
-    console.log(data);
   };
 
-  useEffect(() => {
-    checkValid();
-  }, []);
-
-  const onRefresh = React.useCallback(async () => {
+  const onRefresh = async () => {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
     const token = await adService.getIdToken();
@@ -46,10 +40,16 @@ const Refresh = () => {
     } = await axios.get(
       `http://102.133.206.181/GetVehicle/GetByEmail/${email}`
     );
+    console.log(data, "+++++++++++++++++++++++");
 
     await AsyncStorage.setItem("driverDetails", JSON.stringify(data));
     console.log(isValid);
     isValid ? navigation.navigate("HomeScreen") : null;
+  };
+
+  useEffect(() => {
+    onRefresh();
+    checkValid();
   }, []);
 
   return (
@@ -60,7 +60,7 @@ const Refresh = () => {
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
       >
-        <Text>Pull down to Continue</Text>
+        {/* <Text>Pull down to Continue</Text> */}
       </ScrollView>
     </SafeAreaView>
   );
@@ -68,7 +68,7 @@ const Refresh = () => {
 
 const styles = StyleSheet.create({
   container: {
-    height: 60,
+    height: 0,
   },
   scrollView: {
     flex: 1,

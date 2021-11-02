@@ -78,7 +78,7 @@ const DeliveryDetails = () => {
 
   const getProductDetails = (productId) => {
     const x = products.filter(
-      (product) => product.productId === productId.toString()
+      (product) => product?.productId === productId.toString()
     )[0];
     return x;
   };

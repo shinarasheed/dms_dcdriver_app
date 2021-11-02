@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import { StyleSheet } from "react-native";
 
-import appTheme from '../../constants/theme';
+import appTheme from "../../constants/theme";
 
 export default styles = StyleSheet.create({
   homeScreenContainer: {
@@ -12,8 +12,8 @@ export default styles = StyleSheet.create({
     marginRight: 10,
   },
   dateContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     width: 110,
     height: 40,
     backgroundColor: appTheme.COLORS.white,
@@ -35,17 +35,17 @@ export default styles = StyleSheet.create({
   notificationText: {
     fontSize: 19,
     marginBottom: 10,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   moreOrders: {
     fontSize: 16,
-    textAlign: 'center',
-    fontWeight: '700',
+    textAlign: "center",
+    fontWeight: "700",
     color: appTheme.COLORS.MainOrange,
     marginTop: 15,
   },
   orderDateTimeContainer: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   orderStore: {
     marginBottom: 2,
@@ -58,45 +58,45 @@ export default styles = StyleSheet.create({
   },
   header: {
     backgroundColor: appTheme.COLORS.white,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 20,
     paddingBottom: 10,
     elevation: 6,
   },
   headerNotification: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   settingsContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   headerHome: {
     fontSize: 18,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   headerNotificationText: {
     fontSize: 18,
   },
   totalSalesStats: {
-    position: 'absolute',
+    position: "absolute",
     top: 25,
     left: 0,
     right: 0,
     bottom: 0,
-    alignItems: 'center',
+    alignItems: "center",
   },
   deliveriesStats: {
-    position: 'absolute',
+    position: "absolute",
     top: 30,
     left: 0,
     right: 0,
     bottom: 0,
-    alignItems: 'flex-start',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    alignItems: "flex-start",
+    flexDirection: "row",
+    justifyContent: "space-between",
     flex: 1,
     paddingHorizontal: 30,
   },
@@ -111,12 +111,12 @@ export default styles = StyleSheet.create({
   },
   deliveriesAmount: {
     color: appTheme.COLORS.white,
-    fontWeight: '700',
+    fontWeight: "700",
     fontSize: 23,
   },
   totalVisitAmount: {
     color: appTheme.COLORS.white,
-    fontWeight: '700',
+    fontWeight: "700",
     fontSize: 23,
   },
 
@@ -128,11 +128,11 @@ export default styles = StyleSheet.create({
   },
   buttonText: {
     fontSize: 18,
-    fontFamily: 'Gill Sans',
-    textAlign: 'center',
+    fontFamily: "Gill Sans",
+    textAlign: "center",
     margin: 10,
-    color: '#ffffff',
-    backgroundColor: 'transparent',
+    color: "#ffffff",
+    backgroundColor: "transparent",
   },
   container: {
     flex: 1,
