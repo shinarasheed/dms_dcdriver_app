@@ -12,7 +12,7 @@ import icons from "../constants/icons";
 import appTheme from "../constants/theme";
 import ProductBottomSheetCard from "./ProductBottomSheetCardOneOf";
 import CustomVirtualist from "./VirtualizedList";
-import ProductFooter from "./ProductFooterOneOf";
+import ProductFooterOneOf from "./ProductFooterOneOf";
 import EmptiesCustomer from "./EmptiesCustomerOneOf";
 
 const ProductBottomSheetOneOf = ({
@@ -148,7 +148,7 @@ const ProductBottomSheetOneOf = ({
         )}
       />
 
-      <ProductFooter
+      <ProductFooterOneOf
         incrementQuantity={incrementQuantity}
         decrementQuantity={decrementQuantity}
         deleteProduct={deleteProduct}
@@ -156,6 +156,7 @@ const ProductBottomSheetOneOf = ({
         order={item}
         productsToSell={productsToSell}
         customer={customer}
+        toggle={toggle}
       />
     </CustomVirtualist>
   );

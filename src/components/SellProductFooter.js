@@ -68,7 +68,7 @@ const SellProductFooter = ({
 
   return (
     <View style={styles.footerContainer}>
-      <Pressable onPress={toggle}>
+      <Pressable onPress={() => toggle()}>
         {productsToSell.length > 0 && (
           <View
             style={{

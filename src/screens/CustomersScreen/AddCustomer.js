@@ -38,6 +38,8 @@ const AddCustomer = () => {
 
     dispatch(createCustomerOneOf({ phoneNumber, customerName }));
     navigator.navigate("OneOfSale");
+    setPhoneNumber("");
+    setCustomerName("");
   };
 
   return (

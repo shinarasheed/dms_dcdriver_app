@@ -25,7 +25,7 @@ const PastDeliveryCard = ({ item }) => {
                 ...appTheme.FONTS.mainFontLight,
               }}
             >
-              Order: {item?.referenceId},
+              Order: {item?.orderId},
             </Text>
             <Text
               style={{

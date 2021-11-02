@@ -5,7 +5,6 @@ import {
   Image,
   Text,
   View,
-  StyleSheet,
   ActivityIndicator,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";

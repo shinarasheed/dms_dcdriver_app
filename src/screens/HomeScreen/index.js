@@ -147,7 +147,7 @@ const HomeScreen = () => {
             </>
           )}
 
-          {!loading ? (
+          {!loading && newOrders.length !== 0 ? (
             <FlatList
               style={{
                 backgroundColor: appTheme.COLORS.white,
@@ -156,7 +156,9 @@ const HomeScreen = () => {
               }}
               data={newOrders}
               keyExtractor={(item, id) => id.toString()}
-              renderItem={({ item }) => <Delivery item={item} />}
+              renderItem={({ item }) => (
+                <Delivery item={item} newOrders={newOrders} />
+              )}
               ListHeaderComponent={() => (
                 <View style={{ marginBottom: 20 }}>
                   <Text
@@ -170,12 +172,6 @@ const HomeScreen = () => {
                   </Text>
                 </View>
               )}
-              // ListFooterComponent={() => (
-              //   <TouchableOpacity
-              //     onPress={() => navigation.navigate('Deliveries')}>
-              //     <Text style={styles.moreOrders}> 3 More Deliveries </Text>
-              //   </TouchableOpacity>
-              // )}
             />
           ) : (
             <View

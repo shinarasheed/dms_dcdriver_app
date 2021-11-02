@@ -157,6 +157,7 @@ const ProductBottomSheet = ({
         getTotalPrice={getTotalPrice}
         order={item}
         productsToSell={productsToSell}
+        toggle={toggle}
       />
     </CustomVirtualist>
   );

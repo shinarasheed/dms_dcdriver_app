@@ -30,7 +30,9 @@ export const fetchOrder = () => async (dispatch) => {
 
     const {
       data: { order },
-    } = await axios.get(`${orderUrl}/GetOrder/GetOrderByVehicleId/1`);
+    } = await axios.get(
+      `${orderUrl}/GetOrder/GetOrderByVehicleId/${driver.vehicleId}`
+    );
 
     dispatch({
       type: FETCH_ORDER_SUCCESS,

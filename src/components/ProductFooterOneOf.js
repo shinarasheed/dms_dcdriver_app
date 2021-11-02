@@ -12,6 +12,7 @@ const SellProductFooterOneOf = ({
   getTotalPrice,
   customer,
   productsToSell,
+  toggle,
 }) => {
   const navigator = useNavigation();
 
@@ -47,6 +48,7 @@ const SellProductFooterOneOf = ({
             customer,
           });
           dispatch(updateInventory(payload));
+          toggle();
         }}
         buttonStyle={{
           backgroundColor: appTheme.COLORS.mainRed,

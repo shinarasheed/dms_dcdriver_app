@@ -8,7 +8,6 @@ import { icons } from "../constants";
 import appTheme from "../constants/theme";
 
 export default function UserBottomSheet({ toggle, driver, visible }) {
-  console.log(driver);
   const navigation = useNavigation();
 
   const clearTokens = async () => {
@@ -61,14 +60,21 @@ export default function UserBottomSheet({ toggle, driver, visible }) {
                 {driver?.email}
               </Text>
 
-              <Text
-                style={{
-                  color: appTheme.COLORS.mainTextGray,
-                  fontSize: 17,
-                }}
-              >
-                Distributor: {driver?.ownerCompanyId}
-              </Text>
+              <View style={{ flexDirection: "row" }}>
+                <Text
+                  style={{
+                    color: appTheme.COLORS.mainTextGray,
+                    fontSize: 17,
+                  }}
+                >
+                  Distributor Code:
+                </Text>
+                <Text
+                  style={{ fontWeight: "bold", fontSize: 17, marginLeft: 5 }}
+                >
+                  {driver?.ownerCompanyId}
+                </Text>
+              </View>
             </View>
           </View>
 

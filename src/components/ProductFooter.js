@@ -1,32 +1,37 @@
-import React from 'react';
-import {useDispatch} from 'react-redux';
-import {StyleSheet, View} from 'react-native';
-import {useNavigation} from '@react-navigation/native';
-import {Button} from 'react-native-elements';
+import React from "react";
+import { useDispatch } from "react-redux";
+import { StyleSheet, View } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Button } from "react-native-elements";
 
-import appTheme from '../constants/theme';
-import {updateOrderStatus} from '../redux/actions/orderActions';
-import {confirmVanSales} from '../redux/actions/vanActions';
-import {updateInventory} from '../redux/actions/vanActions';
+import appTheme from "../constants/theme";
+import { updateOrderStatus } from "../redux/actions/orderActions";
+import { confirmVanSales } from "../redux/actions/vanActions";
+import { updateInventory } from "../redux/actions/vanActions";
 
-const SellProductFooter = ({getTotalPrice, order, productsToSell}) => {
+const SellProductFooter = ({
+  getTotalPrice,
+  toggle,
+  order,
+  productsToSell,
+}) => {
   // TODO: you need to pass the item as route parameter later
   const navigator = useNavigation();
 
   const dispatch = useDispatch();
 
-  const items = productsToSell.map(prod => ({
+  const items = productsToSell.map((prod) => ({
     price: prod.price * prod.quantity,
     quantity: prod.quantity,
     productId: parseInt(prod.productId),
-    SFlineID: 'Van-Sales',
+    SFlineID: "Van-Sales",
   }));
 
   const payload = {
     buyerCompanyId: order.buyerCompanyId,
     sellerCompanyId: order.sellerCompanyId,
-    routeName: 'Van-Sales',
-    referenceId: 'Van-Sales',
+    routeName: "Van-Sales",
+    referenceId: "Van-Sales",
     datePlaced: new Date(new Date().getTime()),
     shipToCode: order.buyerCompanyId,
     billToCode: order.buyerCompanyId,
@@ -45,17 +50,18 @@ const SellProductFooter = ({getTotalPrice, order, productsToSell}) => {
       <Button
         onPress={() => {
           dispatch(confirmVanSales(payload));
-          navigator.navigate('VanInvoice', {
+          navigator.navigate("VanInvoice", {
             productsToSell,
             order,
           });
           dispatch(updateInventory(payload));
+          toggle();
         }}
         buttonStyle={{
           backgroundColor: appTheme.COLORS.mainRed,
-          width: '100%',
+          width: "100%",
           height: 50,
-          justifyContent: 'center',
+          justifyContent: "center",
           borderRadius: 5,
           marginTop: 10,
         }}
@@ -72,7 +78,7 @@ const styles = StyleSheet.create({
     backgroundColor: appTheme.COLORS.white,
     height: 100,
     paddingHorizontal: 20,
-    justifyContent: 'center',
+    justifyContent: "center",
     elevation: 1,
   },
 });

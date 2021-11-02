@@ -235,23 +235,12 @@ const Customer = () => {
           <View style={{ marginTop: 10, flexDirection: "row" }}>
             <Image source={icons.addressIcon} />
             <View style={{ marginLeft: 10, paddingRight: 50 }}>
-              <Text style={{ marginBottom: 5, fontSize: 17, lineHeight: 25 }}>
-                {order?.buyerDetails[0]?.buyerAddress}
-              </Text>
               <Text
                 style={{
+                  marginBottom: 5,
                   fontSize: 15,
-                  marginBottom: 10,
-                  color: appTheme.COLORS.black,
-                }}
-              >
-                local government area
-              </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  textTransform: "uppercase",
-                  color: appTheme.COLORS.black,
+                  lineHeight: 25,
+                  color: appTheme.COLORS.MainGray,
                 }}
               >
                 {order?.buyerDetails[0]?.buyerAddress}
