@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  Pressable,
-  Image,
-  View,
-  Text,
-  ActivityIndicator,
-} from "react-native";
+import { SafeAreaView, Pressable, Image, View, Text } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
@@ -18,6 +11,7 @@ import DeliveryFlatList from "../../components/DeliveryFlatList";
 import { fetchOrder } from "../../redux/actions/orderActions";
 import PastDeliveryFlatList from "../../components/PastDeliveryFlatlist";
 import DeliveriesTab from "../../components/DeliveriesTab";
+import { Spinner } from "../../components/Spinner";
 
 export default function DeliveriesScreen() {
   const categories = ["new deliveries", "past deliveries"];
@@ -100,17 +94,7 @@ export default function DeliveriesScreen() {
           <SearchInput />
         </View>
 
-        {order.length !== 0 ? (
-          <>{ShowDeliveries(index)}</>
-        ) : (
-          <ActivityIndicator
-            color={
-              Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
-            }
-            animating={loading}
-            size="large"
-          />
-        )}
+        {order.length !== 0 ? <>{ShowDeliveries(index)}</> : <Spinner />}
       </CustomVirtualizedView>
     </SafeAreaView>
   );

@@ -11,19 +11,17 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import { Tab, TabView } from "react-native-elements";
+import DeliveriesTab from "../../components/DeliveriesTab";
 
 import ProductFlastlist from "../../components/ProductFlatList";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
+import { Spinner } from "../../components/Spinner";
 
 const index = () => {
-  const categories = ["LIQUIDS", "EMPTIES"];
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
+  const categories = ["liquids", "empties"];
   const [index, setIndex] = React.useState(0);
-  const [fullProducts, setFullProducts] = useState([]);
-  const [emptyProducts, setEmptyProducts] = useState([]);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -42,6 +40,19 @@ const index = () => {
   const notfulls = inventory.filter(
     (product) => product?.product?.productType !== "full"
   );
+
+  const ShowProducts = (index) => {
+    switch (index) {
+      case 0:
+        return <ProductFlastlist list={fulls} />;
+
+      case 1:
+        return <ProductFlastlist list={notfulls} />;
+
+      default:
+        return <ProductFlastlist list={fulls} />;
+    }
+  };
 
   return (
     <SafeAreaView
@@ -76,51 +87,13 @@ const index = () => {
         </Text>
       </View>
 
-      {/* header */}
-      <Tab
-        indicatorStyle={{
-          backgroundColor: appTheme.COLORS.mainRed,
-          height: 3,
-          width: 80,
-          position: "absolute",
-          left: 60,
-          marginBottom: 0,
-        }}
-        value={index}
-        onChange={setIndex}
-      >
-        <Tab.Item
-          title="FULL"
-          buttonStyle={{
-            backgroundColor: appTheme.COLORS.mainBackground,
-          }}
-          titleStyle={{
-            textAlign: "center",
-            color: appTheme.COLORS.black,
-            fontSize: 14,
-          }}
-        />
-        <Tab.Item
-          title="EMPTIES"
-          titleStyle={{
-            fontSize: 14,
-          }}
-          containerStyle={{ borderBottomColor: appTheme.COLORS.mainRed }}
-          buttonStyle={{
-            backgroundColor: appTheme.COLORS.mainBackground,
-          }}
-          style={{ borderBottomColor: appTheme.COLORS.mainRed }}
-        />
-      </Tab>
-
-      {/* <View
-        style={{paddingHorizontal: 20, paddingRight: 200, marginBottom: 10}}>
-        <CustomersTopTab
+      <View style={{ paddingHorizontal: 25, marginBottom: 5 }}>
+        <DeliveriesTab
           categories={categories}
-          selectedCategoryIndex={selectedCategoryIndex}
-          setSelectedCategoryIndex={setSelectedCategoryIndex}
+          index={index}
+          setIndex={setIndex}
         />
-      </View> */}
+      </View>
 
       <View
         style={{
@@ -141,14 +114,7 @@ const index = () => {
         </View>
       </View>
 
-      <TabView value={index} onChange={setIndex}>
-        <TabView.Item style={{ width: "100%" }}>
-          <ProductFlastlist list={fulls} loading={vanLoading} />
-        </TabView.Item>
-        <TabView.Item style={{ width: "100%" }}>
-          <ProductFlastlist list={notfulls} loading={vanLoading} />
-        </TabView.Item>
-      </TabView>
+      {inventory.length !== 0 ? <>{ShowProducts(index)}</> : <Spinner />}
     </SafeAreaView>
   );
 };
