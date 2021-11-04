@@ -218,22 +218,6 @@ const OrderBottomSheet = ({ item, toggle, setVisible, visible }) => {
               </Text>
             </View>
           </View>
-          {/* <View
-            style={{
-              width: 80,
-              height: 30,
-              borderWidth: 1,
-              alignItems: "center",
-              justifyContent: "center",
-              borderColor: appTheme.COLORS.borderGRey,
-              borderRadius: 5,
-            }}
-          >
-            <Text style={{ color: appTheme.COLORS.mainRed, fontWeight: "600" }}>
-              {"\u20A6"}
-              {1000 * empties}
-            </Text>
-          </View> */}
         </View>
       </View>
       <OrderFooter

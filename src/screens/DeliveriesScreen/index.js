@@ -9,7 +9,6 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import { Tab, TabView } from "react-native-elements";
 
 import SearchInput from "../../components/SearchInput";
 import appTheme from "../../constants/theme";
@@ -18,13 +17,11 @@ import { icons } from "../../constants";
 import DeliveryFlatList from "../../components/DeliveryFlatList";
 import { fetchOrder } from "../../redux/actions/orderActions";
 import PastDeliveryFlatList from "../../components/PastDeliveryFlatlist";
+import DeliveriesTab from "../../components/DeliveriesTab";
 
 export default function DeliveriesScreen() {
-  const categories = ["NEW DELIVERIES", "PAST DELIVERIES"];
-  const [newDeliveries, setNewDeliveries] = useState([]);
-  const [pastDeliveries, setPastdeliveries] = useState([]);
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
-  const [index, setIndex] = React.useState(0);
+  const categories = ["new deliveries", "past deliveries"];
+  const [index, setIndex] = useState(0);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
@@ -39,14 +36,24 @@ export default function DeliveriesScreen() {
     (item) => item.status === "Completed" || item.status === "Rejected"
   );
 
-  //this runs everytime the screen is in focus.just little difference from useEffect
   useFocusEffect(
     React.useCallback(() => {
       dispatch(fetchOrder());
-      setNewDeliveries(theNewDeliveries);
-      setPastdeliveries(thePastDeliveries);
     }, [])
   );
+
+  const ShowDeliveries = (index) => {
+    switch (index) {
+      case 0:
+        return <DeliveryFlatList list={theNewDeliveries} />;
+
+      case 1:
+        return <PastDeliveryFlatList list={thePastDeliveries} />;
+
+      default:
+        return <DeliveryFlatList list={theNewDeliveries} />;
+    }
+  };
 
   return (
     <SafeAreaView
@@ -55,8 +62,6 @@ export default function DeliveriesScreen() {
         flex: 1,
       }}
     >
-      {/* header */}
-
       <View
         style={{
           backgroundColor: appTheme.COLORS.white,
@@ -86,81 +91,26 @@ export default function DeliveriesScreen() {
 
       <CustomVirtualizedView>
         <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
-          {/* <TopTab
+          <DeliveriesTab
             categories={categories}
-            selectedCategoryIndex={selectedCategoryIndex}
-            setSelectedCategoryIndex={setSelectedCategoryIndex}
-          /> */}
+            index={index}
+            setIndex={setIndex}
+          />
 
-          {/* header */}
-          <Tab
-            indicatorStyle={{
-              backgroundColor: appTheme.COLORS.mainRed,
-              height: 3,
-              position: "absolute",
-              marginBottom: 0,
-            }}
-            value={index}
-            onChange={setIndex}
-          >
-            <Tab.Item
-              title="New Deliveries"
-              titleStyle={{
-                color: appTheme.COLORS.black,
-              }}
-              buttonStyle={{
-                backgroundColor: appTheme.COLORS.mainBackground,
-                paddingHorizontal: 0,
-                justifyContent: "flex-start",
-                alignItems: "flex-start",
-              }}
-            />
-            <Tab.Item
-              title="Past Deliveries"
-              containerStyle={{
-                borderBottomColor: appTheme.COLORS.mainRed,
-              }}
-              buttonStyle={{
-                backgroundColor: appTheme.COLORS.mainBackground,
-              }}
-              style={{ borderBottomColor: appTheme.COLORS.mainRed }}
-            />
-          </Tab>
           <SearchInput />
         </View>
 
-        <TabView value={index} onChange={setIndex}>
-          <TabView.Item style={{ width: "100%" }}>
-            {order.length !== 0 ? (
-              <DeliveryFlatList list={theNewDeliveries} />
-            ) : (
-              <ActivityIndicator
-                color={
-                  Platform.OS === "android"
-                    ? appTheme.COLORS.mainRed
-                    : undefined
-                }
-                animating={loading}
-                size="large"
-              />
-            )}
-          </TabView.Item>
-          <TabView.Item style={{ width: "100%" }}>
-            {order.length !== 0 ? (
-              <PastDeliveryFlatList list={thePastDeliveries} />
-            ) : (
-              <ActivityIndicator
-                color={
-                  Platform.OS === "android"
-                    ? appTheme.COLORS.mainRed
-                    : undefined
-                }
-                animating={loading}
-                size="large"
-              />
-            )}
-          </TabView.Item>
-        </TabView>
+        {order.length !== 0 ? (
+          <>{ShowDeliveries(index)}</>
+        ) : (
+          <ActivityIndicator
+            color={
+              Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
+            }
+            animating={loading}
+            size="large"
+          />
+        )}
       </CustomVirtualizedView>
     </SafeAreaView>
   );

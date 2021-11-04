@@ -1,8 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Button } from "react-native-elements";
 
 import appTheme from "../constants/theme";
 import { confirmVanSales } from "../redux/actions/vanActions";
@@ -18,7 +17,7 @@ const SellProductFooterOneOf = ({
 
   const dispatch = useDispatch();
 
-  const items = productsToSell.map((prod) => ({
+  const items = productsToSell?.map((prod) => ({
     price: prod.price * prod.quantity,
     quantity: prod.quantity,
     productId: parseInt(prod.productId),
@@ -40,7 +39,7 @@ const SellProductFooterOneOf = ({
 
   return (
     <View style={styles.footerContainer}>
-      <Button
+      <TouchableOpacity
         onPress={() => {
           dispatch(confirmVanSales(payload));
           navigator.navigate("SalesInvoice", {
@@ -50,16 +49,27 @@ const SellProductFooterOneOf = ({
           dispatch(updateInventory(payload));
           toggle();
         }}
-        buttonStyle={{
+        style={{
           backgroundColor: appTheme.COLORS.mainRed,
           width: "100%",
           height: 50,
           justifyContent: "center",
           borderRadius: 5,
           marginTop: 10,
+          alignItems: "center",
+          justifyContent: "center",
         }}
-        title={` Confirm \u20A6${getTotalPrice()}`}
-      />
+      >
+        <Text
+          style={{
+            color: appTheme.COLORS.white,
+            fontSize: 16,
+            fontWeight: "bold",
+          }}
+        >
+          {`Confirm \u20A6${getTotalPrice()}`}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

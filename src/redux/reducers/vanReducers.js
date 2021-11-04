@@ -1,4 +1,3 @@
-import { UPDATE_ORDER_STATUS_FAIL } from "../constants/orderContants";
 import {
   FETCH_INVENTORY_REQUEST,
   FETCH_INVENTORY_SUCCESS,
@@ -9,12 +8,19 @@ import {
   CONFIRM_VAN_SALES_REQUEST,
   CONFIRM_VAN_SALES_SUCCESS,
   CONFIRM_VAN_SALES_FAIL,
+  DELETE_PRODUCT,
+  DECREMENT_QUANTITY,
+  INCREMENT_QUANTITY,
 } from "../constants/vanConstants";
 
-export const vanReducer = (
-  state = { inventory: [], newinventory: [] },
-  action
-) => {
+const initialState = {
+  inventory: [],
+  newinventory: [],
+  response: [],
+  loading: false,
+};
+
+export const vanReducer = (state = initialState, action) => {
   const { type, payload } = action;
   switch (type) {
     case FETCH_INVENTORY_REQUEST:
@@ -37,14 +43,6 @@ export const vanReducer = (
         error: payload,
       };
 
-    default:
-      return state;
-  }
-};
-
-export const updateInventoryReducer = (state = { inventory: [] }, action) => {
-  const { type, payload } = action;
-  switch (type) {
     case UPDATE_INVENTORY_REQUEST:
       return {
         loading: true,
@@ -63,30 +61,58 @@ export const updateInventoryReducer = (state = { inventory: [] }, action) => {
         error: payload,
       };
 
-    default:
-      return state;
-  }
-};
-
-export const confirmVanSalesReducer = (state = { response: [] }, action) => {
-  const { type, payload } = action;
-  switch (type) {
-    case UPDATE_INVENTORY_REQUEST:
+    case CONFIRM_VAN_SALES_REQUEST:
       return {
         loading: true,
         response: [],
       };
 
-    case UPDATE_INVENTORY_SUCCESS:
+    case CONFIRM_VAN_SALES_SUCCESS:
       return {
         loading: false,
         response: payload,
       };
 
-    case UPDATE_INVENTORY_FAIL:
+    case CONFIRM_VAN_SALES_FAIL:
       return {
         loading: false,
         error: payload,
+      };
+
+    case INCREMENT_QUANTITY:
+      const product = state.newinventory.find(
+        (item) => item?.productId === payload
+      );
+      product.quantity++;
+      return {
+        ...state,
+      };
+
+    case DECREMENT_QUANTITY:
+      const theProduct = state.newinventory.find(
+        (item) => item.productId === payload
+      );
+      if (theProduct.quantity === 1) {
+        let new_items = state.newinventory.filter(
+          (item) => item.productId !== payload
+        );
+        return {
+          ...state,
+          newinventory: new_items,
+        };
+      } else {
+        theProduct.quantity--;
+        return {
+          ...state,
+        };
+      }
+
+    case DELETE_PRODUCT:
+      return {
+        ...state,
+        newinventory: state.newinventory.filter(
+          (item) => item.productId !== payload
+        ),
       };
 
     default:

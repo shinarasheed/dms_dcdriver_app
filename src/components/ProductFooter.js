@@ -1,11 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Button } from "react-native-elements";
 
 import appTheme from "../constants/theme";
-import { updateOrderStatus } from "../redux/actions/orderActions";
 import { confirmVanSales } from "../redux/actions/vanActions";
 import { updateInventory } from "../redux/actions/vanActions";
 
@@ -15,12 +13,11 @@ const SellProductFooter = ({
   order,
   productsToSell,
 }) => {
-  // TODO: you need to pass the item as route parameter later
   const navigator = useNavigation();
 
   const dispatch = useDispatch();
 
-  const items = productsToSell.map((prod) => ({
+  const items = productsToSell?.map((prod) => ({
     price: prod.price * prod.quantity,
     quantity: prod.quantity,
     productId: parseInt(prod.productId),
@@ -35,7 +32,6 @@ const SellProductFooter = ({
     datePlaced: new Date(new Date().getTime()),
     shipToCode: order.buyerCompanyId,
     billToCode: order.buyerCompanyId,
-    // transactionNo,
     buyerDetails: {
       buyerName: order.buyerDetails[0].buyerName,
       buyerPhoneNumber: order.buyerDetails[0].buyerPhoneNumber,
@@ -47,7 +43,7 @@ const SellProductFooter = ({
 
   return (
     <View style={styles.footerContainer}>
-      <Button
+      <TouchableOpacity
         onPress={() => {
           dispatch(confirmVanSales(payload));
           navigator.navigate("VanInvoice", {
@@ -57,16 +53,27 @@ const SellProductFooter = ({
           dispatch(updateInventory(payload));
           toggle();
         }}
-        buttonStyle={{
+        style={{
           backgroundColor: appTheme.COLORS.mainRed,
           width: "100%",
           height: 50,
           justifyContent: "center",
           borderRadius: 5,
           marginTop: 10,
+          alignItems: "center",
+          justifyContent: "center",
         }}
-        title={` Confirm \u20A6${getTotalPrice()}`}
-      />
+      >
+        <Text
+          style={{
+            color: appTheme.COLORS.white,
+            fontSize: 16,
+            fontWeight: "bold",
+          }}
+        >
+          {`Confirm \u20A6${getTotalPrice()}`}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

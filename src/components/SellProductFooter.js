@@ -14,9 +14,6 @@ import ProductBottomSheet from "./ProductBottomSheet";
 const SellProductFooter = ({
   getTotalPrice,
   getProductPrice,
-  incrementQuantity,
-  decrementQuantity,
-  deleteProduct,
   productsToSell,
   order,
   getQuantity,
@@ -41,7 +38,7 @@ const SellProductFooter = ({
     setConfirmVisible((visible) => !visible);
   }
 
-  const items = productsToSell.map((prod) => ({
+  const items = productsToSell?.map((prod) => ({
     price: prod.price * prod.quantity,
     quantity: prod.quantity,
     productId: parseInt(prod.productId),
@@ -69,7 +66,7 @@ const SellProductFooter = ({
   return (
     <View style={styles.footerContainer}>
       <Pressable onPress={() => toggle()}>
-        {productsToSell.length > 0 && (
+        {productsToSell?.length > 0 && (
           <View
             style={{
               position: "absolute",
@@ -90,7 +87,7 @@ const SellProductFooter = ({
                 fontSize: 12,
               }}
             >
-              {productsToSell.length}
+              {productsToSell?.length}
             </Text>
           </View>
         )}
@@ -117,7 +114,7 @@ const SellProductFooter = ({
 
       <Button
         onPress={toggleConfirm}
-        disabled={productsToSell.length === 0}
+        disabled={productsToSell?.length === 0}
         buttonStyle={{
           backgroundColor: appTheme.COLORS.mainRed,
           width: "100%",
@@ -139,9 +136,6 @@ const SellProductFooter = ({
             getTotalPrice={getTotalPrice}
             toggle={toggle}
             productsToSell={productsToSell}
-            incrementQuantity={incrementQuantity}
-            decrementQuantity={decrementQuantity}
-            deleteProduct={deleteProduct}
             item={order}
             getQuantity={getQuantity}
             calNumberOfFull={calNumberOfFull}

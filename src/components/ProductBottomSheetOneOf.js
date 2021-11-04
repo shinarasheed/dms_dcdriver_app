@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   FlatList,
   StyleSheet,
@@ -17,9 +17,6 @@ import EmptiesCustomer from "./EmptiesCustomerOneOf";
 
 const ProductBottomSheetOneOf = ({
   productsToSell,
-  incrementQuantity,
-  decrementQuantity,
-  deleteProduct,
   getTotalPrice,
   toggle,
   item,
@@ -27,8 +24,8 @@ const ProductBottomSheetOneOf = ({
   calNumberOfFull,
   setEmpties,
   empties,
-  getEmptiesPrice,
   customer,
+  // getEmptiesPrice
 }) => {
   return (
     <CustomVirtualist>
@@ -73,9 +70,6 @@ const ProductBottomSheetOneOf = ({
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <ProductBottomSheetCard
-            incrementQuantity={incrementQuantity}
-            decrementQuantity={decrementQuantity}
-            deleteProduct={deleteProduct}
             productsToSell={productsToSell}
             item={item}
             getQuantity={getQuantity}
@@ -132,26 +126,12 @@ const ProductBottomSheetOneOf = ({
                   {empties}
                 </Text>
               </View>
-              {/* <Text
-                style={{
-                  fontSize: 16,
-                  ...appTheme.FONTS.mainFontBold,
-                  color: appTheme.COLORS.mainRed,
-                  marginRight: 15,
-                }}
-              >
-                {"\u20A6"}
-                {getEmptiesPrice()}
-              </Text> */}
             </View>
           </View>
         )}
       />
 
       <ProductFooterOneOf
-        incrementQuantity={incrementQuantity}
-        decrementQuantity={decrementQuantity}
-        deleteProduct={deleteProduct}
         getTotalPrice={getTotalPrice}
         order={item}
         productsToSell={productsToSell}

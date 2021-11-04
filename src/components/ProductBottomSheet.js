@@ -17,9 +17,6 @@ import EmptiesCustomer from "./EmptiesCustomer";
 
 const ProductBottomSheet = ({
   productsToSell,
-  incrementQuantity,
-  decrementQuantity,
-  deleteProduct,
   getTotalPrice,
   toggle,
   item,
@@ -27,7 +24,7 @@ const ProductBottomSheet = ({
   calNumberOfFull,
   setEmpties,
   empties,
-  getEmptiesPrice,
+  // getEmptiesPrice,
 }) => {
   return (
     <CustomVirtualist>
@@ -74,9 +71,6 @@ const ProductBottomSheet = ({
         showsVerticalScrollIndicator={false}
         renderItem={({ item }) => (
           <ProductBottomSheetCard
-            incrementQuantity={incrementQuantity}
-            decrementQuantity={decrementQuantity}
-            deleteProduct={deleteProduct}
             productsToSell={productsToSell}
             item={item}
             getQuantity={getQuantity}
@@ -151,9 +145,6 @@ const ProductBottomSheet = ({
       />
 
       <ProductFooter
-        incrementQuantity={incrementQuantity}
-        decrementQuantity={decrementQuantity}
-        deleteProduct={deleteProduct}
         getTotalPrice={getTotalPrice}
         order={item}
         productsToSell={productsToSell}

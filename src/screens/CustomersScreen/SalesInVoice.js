@@ -23,7 +23,7 @@ const GenerateInvoice = () => {
   const { productsToSell, customer } = route.params;
 
   const getTotalPrice = () => {
-    return productsToSell.reduce(
+    return productsToSell?.reduce(
       (accumulator, order) => accumulator + order?.quantity * order?.price,
       0
     );

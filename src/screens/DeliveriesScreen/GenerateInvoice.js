@@ -14,6 +14,7 @@ import moment from "moment";
 import * as Print from "expo-print";
 import * as MediaLibrary from "expo-media-library";
 import { shareAsync } from "expo-sharing";
+import PDFReader from "rn-pdf-reader-js";
 
 import InvoiceCard from "../../components/InvoiceCard";
 import CustomVirtualizedView from "../../components/VirtualizedList";
@@ -28,7 +29,7 @@ const GenerateInvoice = () => {
   const { productsToSell, empties, order } = route.params;
 
   const getTotalPrice = () => {
-    return productsToSell.reduce(
+    return productsToSell?.reduce(
       (accumulator, order) => accumulator + order?.quantity * order?.price,
       0
     );
@@ -46,22 +47,28 @@ const GenerateInvoice = () => {
 
   </body>
 </html>
+
 `;
 
   const printToFile = async () => {
     const { uri } = await Print.printToFileAsync({
       html,
     });
-    if (Platform.OS === "ios") {
-      await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
-    } else {
-      const permission = await MediaLibrary.requestPermissionsAsync();
+    const source = { uri, cache: true };
 
-      if (permission.granted) {
-        await MediaLibrary.createAssetAsync(uri);
-        console.log("File has been saved to:", uri);
-      }
-    }
+    // if (Platform.OS === "ios") {
+    //   await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
+    // } else {
+    //   const permission = await MediaLibrary.requestPermissionsAsync();
+
+    //   if (permission.granted) {
+    //     await MediaLibrary.createAssetAsync(uri);
+    //     console.log("File has been saved to:", uri);
+    //   }
+    // }
+    console.log("hello");
+    console.log(uri);
+    return <PDFReader source={source} />;
   };
 
   return (
@@ -231,7 +238,7 @@ const GenerateInvoice = () => {
               <Text
                 style={{
                   fontWeight: "bold",
-                  fontSize: 18,
+                  fontSize: 14,
                   marginLeft: 65,
                 }}
               >

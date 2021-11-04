@@ -24,7 +24,6 @@ import { fetchVanProducts } from "../../redux/actions/vanActions";
 const SellToCustomer = () => {
   const navigator = useNavigation();
   const dispatch = useDispatch();
-  const [newInventory, setNewInventory] = useState([]);
 
   const route = useRoute();
   const order = route.params;
@@ -39,7 +38,6 @@ const SellToCustomer = () => {
   useFocusEffect(
     React.useCallback(() => {
       dispatch(fetchVanProducts());
-      setNewInventory(newinventory);
     }, [])
   );
 
@@ -58,46 +56,14 @@ const SellToCustomer = () => {
   };
 
   const getTotalPrice = () => {
-    return newInventory?.reduce(
+    return newinventory?.reduce(
       (accumulator, item) => accumulator + item.price * item.quantity,
       0
     );
   };
 
-  const incrementQuantity = (productId) => {
-    let product = newInventory?.find(
-      (product) => product?.productId === productId
-    );
-    product.quantity++;
-    setNewInventory([...newInventory]);
-  };
-
-  const decrementQuantity = (productId) => {
-    const product = newInventory?.find(
-      (product) => product?.productId === productId
-    );
-    if (product.quantity === 1) {
-      const index = newInventory?.findIndex(
-        (product) => product?.productId === productId
-      );
-      newInventory.splice(index, 1);
-      setNewInventory([...newInventory]);
-    } else {
-      product.quantity--;
-      setNewInventory([...newInventory]);
-    }
-  };
-
-  const deleteProduct = (productId) => {
-    const index = newInventory?.findIndex(
-      (product) => product?.productId === productId
-    );
-    newInventory?.splice(index, 1);
-    setNewInventory([...newInventory]);
-  };
-
   const calNumberOfFull = () => {
-    return newInventory
+    return newinventory
       ?.filter((product) => product.productType === "full")
       ?.reduce((acc, index) => parseInt(acc) + parseInt(index?.quantity), 0);
   };
@@ -106,7 +72,7 @@ const SellToCustomer = () => {
     return getTotalPrice() + (calNumberOfFull() - empties) * 1000;
   };
 
-  const productsToSell = newInventory?.filter(
+  const productsToSell = newinventory?.filter(
     (product) => product.quantity > 0
   );
 
@@ -157,10 +123,7 @@ const SellToCustomer = () => {
         >
           {!vanLoading ? (
             <SellProductFlatListOneOf
-              inventory={newInventory}
-              incrementQuantity={incrementQuantity}
-              decrementQuantity={decrementQuantity}
-              deleteProduct={deleteProduct}
+              inventory={newinventory}
               loading={vanLoading}
               getQuantity={getQuantity}
             />
@@ -182,9 +145,6 @@ const SellToCustomer = () => {
         getProductPrice={getTotalPrice}
         getEmptiesPrice={getEmptiesPrice}
         productsToSell={productsToSell}
-        incrementQuantity={incrementQuantity}
-        decrementQuantity={decrementQuantity}
-        deleteProduct={deleteProduct}
         order={order}
         getQuantity={getQuantity}
         calNumberOfFull={calNumberOfFull}

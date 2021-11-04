@@ -10,7 +10,7 @@ const Order = ({ order, getProductDetails }) => {
           style={{
             flexDirection: "row",
             paddingVertical: 15,
-            paddingHorizontal: 20,
+            paddingHorizontal: 18,
             backgroundColor: appTheme.COLORS.white,
           }}
         >
@@ -108,16 +108,16 @@ const Order = ({ order, getProductDetails }) => {
               <View
                 style={{
                   flexDirection: "row",
-                  marginLeft: 90,
+                  marginLeft: 80,
                   alignItems: "center",
                 }}
               >
-                <Text style={{ fontSize: 17, marginRight: 2 }}>Price:</Text>
+                <Text style={{ fontSize: 14, marginRight: 2 }}>Price:</Text>
 
                 {getProductDetails(order?.productId)?.price !== undefined && (
                   <Text
                     style={{
-                      fontSize: 15,
+                      fontSize: 14,
                       color: appTheme.COLORS.mainRed,
                       ...appTheme.FONTS.mainFontBold,
                     }}

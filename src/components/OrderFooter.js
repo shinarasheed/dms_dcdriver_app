@@ -1,8 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { Button } from "react-native-elements";
 
 import appTheme from "../constants/theme";
 import { confirmOrder } from "../redux/actions/orderActions";
@@ -26,7 +25,7 @@ const OrderFooter = ({ getTotalPrice, order, newOrders, empties }) => {
 
   return (
     <View style={styles.footerContainer}>
-      <Button
+      <TouchableOpacity
         onPress={async () => {
           const payload = {
             emptiesReturned: empties,
@@ -41,16 +40,27 @@ const OrderFooter = ({ getTotalPrice, order, newOrders, empties }) => {
             order,
           });
         }}
-        buttonStyle={{
+        style={{
           backgroundColor: appTheme.COLORS.mainRed,
           width: "100%",
           height: 50,
           justifyContent: "center",
           borderRadius: 5,
           marginTop: 10,
+          alignItems: "center",
+          justifyContent: "center",
         }}
-        title={` Confirm \u20A6${getTotalPrice()}`}
-      />
+      >
+        <Text
+          style={{
+            color: appTheme.COLORS.white,
+            fontSize: 16,
+            fontWeight: "bold",
+          }}
+        >
+          {` Confirm \u20A6${getTotalPrice()}`}
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };

@@ -35,17 +35,13 @@ const index = () => {
   const Van = useSelector((state) => state.van);
   const { inventory, vanLoading, error: vanError } = Van;
 
-  useEffect(() => {
-    const fulls = inventory.filter(
-      (product) => product.product.productType === "full"
-    );
+  const fulls = inventory.filter(
+    (product) => product?.product?.productType === "full"
+  );
 
-    const notfulls = inventory.filter(
-      (product) => product.product.productType !== "full"
-    );
-    setFullProducts(fulls);
-    setEmptyProducts(notfulls);
-  }, []);
+  const notfulls = inventory.filter(
+    (product) => product?.product?.productType !== "full"
+  );
 
   return (
     <SafeAreaView
@@ -98,10 +94,17 @@ const index = () => {
           buttonStyle={{
             backgroundColor: appTheme.COLORS.mainBackground,
           }}
-          titleStyle={{ textAlign: "center", color: appTheme.COLORS.black }}
+          titleStyle={{
+            textAlign: "center",
+            color: appTheme.COLORS.black,
+            fontSize: 14,
+          }}
         />
         <Tab.Item
           title="EMPTIES"
+          titleStyle={{
+            fontSize: 14,
+          }}
           containerStyle={{ borderBottomColor: appTheme.COLORS.mainRed }}
           buttonStyle={{
             backgroundColor: appTheme.COLORS.mainBackground,
@@ -140,10 +143,10 @@ const index = () => {
 
       <TabView value={index} onChange={setIndex}>
         <TabView.Item style={{ width: "100%" }}>
-          <ProductFlastlist list={fullProducts} loading={vanLoading} />
+          <ProductFlastlist list={fulls} loading={vanLoading} />
         </TabView.Item>
         <TabView.Item style={{ width: "100%" }}>
-          <ProductFlastlist list={emptyProducts} loading={vanLoading} />
+          <ProductFlastlist list={notfulls} loading={vanLoading} />
         </TabView.Item>
       </TabView>
     </SafeAreaView>

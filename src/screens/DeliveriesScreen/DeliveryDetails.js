@@ -7,7 +7,6 @@ import {
   Image,
   FlatList,
   Pressable,
-  ActivityIndicator,
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import moment from "moment";
@@ -42,9 +41,6 @@ const DeliveryDetails = () => {
   const dispatch = useDispatch();
 
   const { products } = allProducts;
-
-  const updateOrder = useSelector((state) => state.updateOrder);
-  const { loading, updatedOrder } = updateOrder;
 
   const updateOrderStatus = async (status) => {
     try {
@@ -294,12 +290,12 @@ const DeliveryDetails = () => {
                     paddingBottom: 20,
                   }}
                 >
-                  <Text style={{ fontSize: 17 }}>Total amount</Text>
+                  <Text style={{ fontSize: 15 }}>Total amount</Text>
 
                   <Text
                     style={{
                       fontWeight: "bold",
-                      fontSize: 18,
+                      fontSize: 14,
                       marginLeft: 65,
                     }}
                   >

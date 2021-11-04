@@ -22,25 +22,22 @@ import SellProductFooter from "../../components/SellProductFooter";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import { icons } from "../../constants";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
-import { fetchOrder } from "../../redux/actions/orderActions";
 
 const SellToCustomer = () => {
   const navigator = useNavigation();
   const dispatch = useDispatch();
-  const [newInventory, setNewInventory] = useState([]);
 
   const route = useRoute();
   const order = route.params;
 
-  const Van = useSelector((state) => state.van);
-  const { inventory, newinventory, loading: vanLoading, error: vanError } = Van;
-
   useFocusEffect(
     React.useCallback(() => {
       dispatch(fetchVanProducts());
-      setNewInventory(newinventory);
-    }, [route])
+    }, [])
   );
+
+  const Van = useSelector((state) => state.van);
+  const { inventory, newinventory, loading: vanLoading, error: vanError } = Van;
 
   const getQuantity = (productId, quantity) => {
     return (
@@ -57,55 +54,27 @@ const SellToCustomer = () => {
   };
 
   const getTotalPrice = () => {
-    return newInventory.reduce(
-      (accumulator, item) => accumulator + item.price * item.quantity,
+    return newinventory?.reduce(
+      (accumulator, item) => accumulator + item?.price * item?.quantity,
       0
     );
   };
 
-  const incrementQuantity = (productId) => {
-    let product = newInventory.find(
-      (product) => product?.productId === productId
-    );
-    product.quantity++;
-    setNewInventory([...newInventory]);
-  };
-
-  const decrementQuantity = (productId) => {
-    const product = newInventory.find(
-      (product) => product?.productId === productId
-    );
-    if (product.quantity === 1) {
-      const index = newInventory.findIndex(
-        (product) => product?.productId === productId
-      );
-      newInventory.splice(index, 1);
-      setNewInventory([...newInventory]);
-    } else {
-      product.quantity--;
-      setNewInventory([...newInventory]);
-    }
-  };
-
-  const deleteProduct = (productId) => {
-    const index = newInventory.findIndex(
-      (product) => product?.productId === productId
-    );
-    newInventory.splice(index, 1);
-    setNewInventory([...newInventory]);
-  };
-
   const calNumberOfFull = () => {
-    return newInventory
-      .filter((product) => product.productType === "full")
-      .reduce((acc, index) => parseInt(acc) + parseInt(index?.quantity), 0);
+    return newinventory
+      ?.filter((product) => product.productType === "full")
+      ?.reduce((acc, index) => parseInt(acc) + parseInt(index?.quantity), 0);
   };
 
   const getTotal = () => {
     return getTotalPrice() + (calNumberOfFull() - empties) * 1000;
   };
 
-  const productsToSell = newInventory.filter((product) => product.quantity > 0);
+  const productsToSell = newinventory?.filter(
+    (product) => product?.quantity > 0
+  );
+
+  console.log(productsToSell);
 
   return (
     <SafeAreaView
@@ -150,11 +119,7 @@ const SellToCustomer = () => {
         >
           {!vanLoading ? (
             <SellProductFlatList
-              inventory={newInventory}
-              incrementQuantity={incrementQuantity}
-              decrementQuantity={decrementQuantity}
-              deleteProduct={deleteProduct}
-              // loading={vanLoading}
+              inventory={newinventory}
               getQuantity={getQuantity}
             />
           ) : (
@@ -175,9 +140,6 @@ const SellToCustomer = () => {
         getProductPrice={getTotalPrice}
         getEmptiesPrice={getEmptiesPrice}
         productsToSell={productsToSell}
-        incrementQuantity={incrementQuantity}
-        decrementQuantity={decrementQuantity}
-        deleteProduct={deleteProduct}
         order={order}
         getQuantity={getQuantity}
         calNumberOfFull={calNumberOfFull}

@@ -1,5 +1,5 @@
 import React from "react";
-import { View, Text, Pressable } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 
@@ -10,7 +10,9 @@ const PastDeliveryCard = ({ item }) => {
 
   return (
     <>
-      <Pressable onPress={() => navigation.navigate("DeliveryDetails", item)}>
+      <TouchableOpacity
+        onPress={() => navigation.navigate("DeliveryDetails", item)}
+      >
         <View
           style={{
             padding: 20,
@@ -114,7 +116,6 @@ const PastDeliveryCard = ({ item }) => {
               }}
             >
               {item?.orderItems.length}{" "}
-              {/* TODO: this might fail.please correct */}
               {item?.orderItems.length === 1 ? "product" : "products"}
             </Text>
             <Text
@@ -130,8 +131,7 @@ const PastDeliveryCard = ({ item }) => {
             </Text>
           </View>
         </View>
-      </Pressable>
-      {/* second */}
+      </TouchableOpacity>
     </>
   );
 };

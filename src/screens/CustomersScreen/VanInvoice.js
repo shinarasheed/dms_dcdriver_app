@@ -23,7 +23,7 @@ const GenerateInvoice = () => {
   const { productsToSell, order } = route.params;
 
   const getTotalPrice = () => {
-    return productsToSell.reduce(
+    return productsToSell?.reduce(
       (accumulator, order) => accumulator + order?.quantity * order?.price,
       0
     );
@@ -192,12 +192,12 @@ const GenerateInvoice = () => {
                 paddingBottom: 20,
               }}
             >
-              <Text style={{ fontSize: 17 }}>Total amount</Text>
+              <Text style={{ fontSize: 15 }}>Total amount</Text>
               <Text
                 style={{
                   fontWeight: "bold",
-                  fontSize: 18,
-                  marginLeft: 65,
+                  fontSize: 14,
+                  marginLeft: 66,
                 }}
               >
                 {"\u20A6"}

@@ -11,6 +11,9 @@ import {
   CONFIRM_VAN_SALES_REQUEST,
   CONFIRM_VAN_SALES_SUCCESS,
   CONFIRM_VAN_SALES_FAIL,
+  INCREMENT_QUANTITY,
+  DECREMENT_QUANTITY,
+  DELETE_PRODUCT,
 } from "../constants/vanConstants";
 import { vanurl, orderUrl } from "../../utils/baseUrl";
 
@@ -27,8 +30,8 @@ export const fetchVanProducts = () => async (dispatch) => {
     } = await axios.get(`${vanurl}/van/${driver?.vehicleId}`);
 
     let x = [];
-    await data.map((dat) => {
-      const z = dat?.product;
+    await data.map((item) => {
+      const z = item?.product;
       x.push({
         ...z,
         quantity: 0,
@@ -115,4 +118,25 @@ export const confirmVanSales = (payload) => async (dispatch) => {
       payload: "There was an error",
     });
   }
+};
+
+export const incrementQuantity = (productId) => async (dispatch, getState) => {
+  dispatch({
+    type: INCREMENT_QUANTITY,
+    payload: productId,
+  });
+};
+
+export const decrementQuantity = (productId) => async (dispatch, getState) => {
+  dispatch({
+    type: DECREMENT_QUANTITY,
+    payload: productId,
+  });
+};
+
+export const deleteProduct = (productId) => async (dispatch, getState) => {
+  dispatch({
+    type: DELETE_PRODUCT,
+    payload: productId,
+  });
 };
