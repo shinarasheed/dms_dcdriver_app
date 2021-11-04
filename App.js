@@ -11,7 +11,6 @@ import HomeTabs from "./src/navigation/HomeTabs";
 import {
   AddCustomer,
   CustomerDetails,
-  DeliverOrder,
   DeliveryDetails,
   GenerateInvoice,
   OneOfSale,
@@ -73,11 +72,6 @@ export default function App() {
               <Stack.Screen
                 name="DeliveryDetails"
                 component={DeliveryDetails}
-                options={{ headerShown: false }}
-              />
-              <Stack.Screen
-                name="DeliverOrder"
-                component={DeliverOrder}
                 options={{ headerShown: false }}
               />
               <Stack.Screen

@@ -9,14 +9,9 @@ import CustomText from "./components/CustomText";
 import appTheme from "../constants/theme";
 import { icons } from "../constants";
 
-import {
-  simpleHtml,
-  htmlWithBrokenSections,
-  htmlWithImage,
-  htmlWithPickedImage,
-} from "./html";
+import { simpleHtml } from "./html";
 
-const createPdf = (htmlFactory) => async () => {
+export const createPdf = (htmlFactory) => async () => {
   try {
     const html = await htmlFactory();
     if (html) {
@@ -36,7 +31,7 @@ export default function AppContainer() {
   const useCameraState = useState(false);
   const optimizeImageState = useState(false);
 
-  const onButtonPress = useCallback(
+  export const onButtonPress = useCallback(
     (key, action) => async () => {
       try {
         if (action) {
@@ -56,48 +51,12 @@ export default function AppContainer() {
     []
   );
 
-  const allButtons = useMemo(
+  export const allButtons = useMemo(
     () => [
       {
         title: "Simple PDF",
         action: createPdf(simpleHtml(pageMarginState[0])),
         switches: [{ label: "Remove page margin", state: pageMarginState }],
-      },
-      {
-        title: "Example with broken section",
-        action: createPdf(htmlWithBrokenSections(avoidSectionBreakingState[0])),
-        switches: [
-          {
-            label: "Avoid sections breaking",
-            state: avoidSectionBreakingState,
-          },
-        ],
-      },
-      {
-        title: "Example with image (remote image or image from assets)",
-        action: createPdf(htmlWithImage(useImageFromAssetsState[0])),
-        switches: [
-          {
-            label: "Use image from assets",
-            state: useImageFromAssetsState,
-          },
-        ],
-      },
-      {
-        title: "Example with image from device (Camera or Gallery)",
-        action: createPdf(
-          htmlWithPickedImage(useCameraState[0], optimizeImageState[0])
-        ),
-        switches: [
-          {
-            label: "Use Camera",
-            state: useCameraState,
-          },
-          {
-            label: "Optimize image",
-            state: optimizeImageState,
-          },
-        ],
       },
     ],
     [

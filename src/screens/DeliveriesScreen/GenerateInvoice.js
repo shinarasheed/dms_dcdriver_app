@@ -11,16 +11,26 @@ import {
 import { useRoute, useNavigation } from "@react-navigation/native";
 import moment from "moment";
 
-import * as Print from "expo-print";
-import * as MediaLibrary from "expo-media-library";
-import { shareAsync } from "expo-sharing";
-import PDFReader from "rn-pdf-reader-js";
-
 import InvoiceCard from "../../components/InvoiceCard";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
 import CallCustomer from "../../components/CallCustomer";
+
+import { createAndSavePDF } from "../../utils/helpers";
+import { simpleHtml } from "../../utils/html";
+
+export const createPdf = (htmlFactory) => async () => {
+  try {
+    const html = await htmlFactory();
+    if (html) {
+      await createAndSavePDF(html);
+      Alert.alert("Success!", "Document has been successfully saved!");
+    }
+  } catch (error) {
+    Alert.alert("Error", error.message || "Something went wrong...");
+  }
+};
 
 const GenerateInvoice = () => {
   const route = useRoute();
@@ -35,41 +45,45 @@ const GenerateInvoice = () => {
     );
   };
 
-  const html = `
-<html>
-  <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
-  </head>
-  <body style="text-align: center;">
-    <h1 style="font-size: 50px; font-family: Helvetica Neue; font-weight: normal;">
-      Hello Expo!
-    </h1>
+  // invoice things
+  const [loadingKey, setLoadingKey] = useState(null);
+  const pageMarginState = useState(false);
+  const avoidSectionBreakingState = useState(false);
+  const useImageFromAssetsState = useState(false);
+  const useCameraState = useState(false);
+  const optimizeImageState = useState(false);
 
-  </body>
-</html>
+  const onButtonPress = useCallback(
+    (key, action) => async () => {
+      try {
+        if (action) {
+          setLoadingKey(key);
+          await action();
+          setLoadingKey(null);
+        }
+      } catch (error) {
+        setLoadingKey(null);
+      }
+    },
+    []
+  );
 
-`;
-
-  const printToFile = async () => {
-    const { uri } = await Print.printToFileAsync({
-      html,
-    });
-    const source = { uri, cache: true };
-
-    // if (Platform.OS === "ios") {
-    //   await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
-    // } else {
-    //   const permission = await MediaLibrary.requestPermissionsAsync();
-
-    //   if (permission.granted) {
-    //     await MediaLibrary.createAssetAsync(uri);
-    //     console.log("File has been saved to:", uri);
-    //   }
-    // }
-    console.log("hello");
-    console.log(uri);
-    return <PDFReader source={source} />;
-  };
+  const allButtons = useMemo(
+    () => [
+      {
+        title: "Simple PDF",
+        action: createPdf(simpleHtml(pageMarginState[0])),
+        switches: [{ label: "Remove page margin", state: pageMarginState }],
+      },
+    ],
+    [
+      pageMarginState,
+      avoidSectionBreakingState,
+      useImageFromAssetsState,
+      useCameraState,
+      optimizeImageState,
+    ]
+  );
 
   return (
     <SafeAreaView
@@ -372,6 +386,21 @@ const GenerateInvoice = () => {
               Generate Invoice
             </Text>
           </Pressable>
+
+          {allButtons.map(({ title, action }, index) => {
+            const key = String(index);
+
+            return (
+              <>
+                <Button
+                  disabled={!!loadingKey}
+                  isLoading={loadingKey === key}
+                  title="Create PDF"
+                  onPress={onButtonPress(key, action)}
+                />
+              </>
+            );
+          })}
         </View>
       </CustomVirtualizedView>
     </SafeAreaView>

@@ -11,7 +11,6 @@ import Notifications from "./Notifications";
 import OneOfSale from "./CustomersScreen/OneOfSale";
 import InvoiceScreen from "./InvoiceScreen";
 import AddCustomer from "./CustomersScreen/AddCustomer";
-import DeliverOrder from "./DeliveriesScreen/DeliverOrder";
 import GenerateInvoice from "./DeliveriesScreen/GenerateInvoice";
 import Signin from "./Auth/Signin";
 import Signup from "./Auth/Signup";
@@ -32,7 +31,6 @@ export {
   Notifications,
   InvoiceScreen,
   DeliveryDetails,
-  DeliverOrder,
   OneOfSale,
   AddCustomer,
   GenerateInvoice,
