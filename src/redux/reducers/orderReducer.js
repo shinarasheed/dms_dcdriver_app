@@ -21,18 +21,21 @@ export const ordersReducer = (state = { order: [] }, action) => {
     case FETCH_ORDER_REQUEST:
       return {
         loading: true,
+        refreshing: true,
         order: [],
       };
 
     case FETCH_ORDER_SUCCESS:
       return {
         loading: false,
+        refreshing: false,
         order: action.payload,
       };
 
     case FETCH_ORDER_FAIL:
       return {
         loading: false,
+        refreshing: false,
         error: action.payload,
       };
 

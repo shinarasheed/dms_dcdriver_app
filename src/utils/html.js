@@ -15,7 +15,7 @@ export const simpleHtml =
       <h5>KMS Nigeria Limited</h5>
       <p>22, Osolo Road, Ajao Estate, Lagos</p>
       <p>
-        <span>Tel</span>
+        <span>Tel:</span>
         <span>08023456789</span>
       </p>
     </section>
@@ -42,17 +42,17 @@ export const simpleHtml =
       </article>
 
     <div>
-        <h1>SOLD TO</h1>
+        <h3>SOLD TO</h3>
         <div>
             <p>Olat Stores Limited</p>
             <p>343, Oshodi - Isolo Expressway</p>     
             <p>Lagos</p> 
-            <p><span>Tel</span><span>08123456789</span> </p>
+            <p><span>Tel:</span>&nbsp;<span>08123456789</span> </p>
         </div>
        
     </div>
     </section>
-    <section>
+    <$>
         <table>
             <thead>
               <tr>
@@ -65,122 +65,193 @@ export const simpleHtml =
              </thead>
              <tbody>
                <tr>
-                   <th>1. </th>
+                   <td>1. </td>
                  <td>Bulweiser 600 ml x 12(RB)</td>
                  <td>1</td>
                  <td>N12, 345.00</td>
-                 <th>N12,345.00</th>
+                 <td>N12,345.00</td>
                </tr>
                <tr>
-                <th>2. </th>
+                <td>2. </td>
               <td>Bulweiser 600 ml x 12(RB)</td>
               <td>1</td>
               <td>N12, 345.00</td>
-              <th>N12,345.00</th>
+              <td>N12,345.00</td>
             </tr>
             <tr>
-                <th>3. </th>
+                <td>3. </td>
               <td>Bulweiser 600 ml x 12(RB)</td>
               <td>1</td>
               <td>N12, 345.00</td>
-              <th>N12,345.00</th>
+              <td>N12,345.00</td>
             </tr>
             <tr>
-                <th>4. </th>
+                <td>4. </td>
               <td>Bulweiser 600 ml x 12(RB)</td>
               <td>1</td>
               <td>N12, 345.00</td>
-              <th>N12,345.00</th>
+              <td>N12,345.00</td>
             </tr>
             <tr>
-                <th>5. </th>
+                <td>5. </td>
               <td>Bulweiser 600 ml x 12(RB)</td>
               <td>1</td>
               <td>N12, 345.00</td>
-              <th>N12,345.00</th>
+              <td>N12,345.00</td>
             </tr>
             <tr>
-                <th>6. </th>
+                <td>6. </td>
               <td>Bulweiser 600 ml x 12(RB)</td>
               <td>1</td>
               <td>N12, 345.00</td>
-              <th>N12,345.00</th>
+              <td>N12,345.00</td>
             </tr>
             <tr>
-                <th>7. </th>
+                <td>7. </td>
               <td>Bulweiser 600 ml x 12(RB)</td>
               <td>1</td>
               <td>N12, 345.00</td>
-              <th>N12,345.00</th>
+              <td>N12,345.00</td>
             </tr>
             <tr>
-                <th>8. </th>
+                <td>8. </td>
               <td>Bulweiser 600 ml x 12(RB)</td>
               <td>1</td>
               <td>N12, 345.00</td>
-              <th>N12,345.00</th>
-            </tr>
-           
-             
-               
+              <td>N12,345.00</td>
+            </tr>      
             </tbody>
-          </table>${
+          </table>
+
+          <article class="summary">
+              <div class="info"><p>Additional Information</p>
+                <p>Grand Total:</p>
+            </div>
+
+           
+            <div class="subContainer"> 
+                <div>
+                    <div class="sub">
+                        <span>Subtotal:</span><span> N98, 760. 00</span>
+                    </div>
+                    <div class="sub">
+                        <span>Empties:</span><span> N0.00</span>
+                    </div>
+                    <div class="sub">
+                        <span>Tax:</span><span> N0.00</span>
+                    </div>
+                </div>
+
+                <div>
+                    <h5 class="totalPrice">N98,760.00</h5>
+                </div>
+            </div>
+          </article>${
             sholudRemovePageMargin ? "I'm without page margin!" : ""
           }</section>
     `,
       sholudRemovePageMargin,
       styles: `
-        body {
-          background: ${appTheme.COLORS.MainGray};
-        }
-        .header{
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding-top: 40px;
-            margin-bottom: 50px;
-    
-            }
-    
-            .header h5{
-                font-size: 20px;
-                font-weight: 'bold';
-                margin-bottom:5px;
-            }
-    
-            .header p{
-                color: grey;
-            }
-    
-            .invoice{
-                display: flex;
-                justify-content: space-between;
-                padding-right: 40px;
-                padding-left: 40px;
-            }
-            .invoice h1{
-                margin-bottom: 5px;
-            }
-    
-            .invoice article > div{
-                display: flex;
-            }
-    
-            .invoice p{
-                margin-bottom: 5px;
-            }
-    
-            table {
-                width: 100%;
-                margin-top: 50px;
-                margin-left: 20px;
-             }
-    
-             table th{
-                 text-align: left;
-             }
-    
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    .header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 40px;
+    margin-bottom: 50px;
+
+    }
+
+    .header h5{
+        font-size: 20px;
+        font-weight: 'bold';
+        margin-bottom:5px;
+    }
+
+    .header p{
+        color: grey;
+        margin-bottom: 8px
+    }
+
+    .invoice{
+        display: flex;
+        justify-content: space-between;
+        padding-right: 40px;
+        padding-left: 40px;
+    }
+    .invoice h1{
+        margin-bottom: 5px;
+    }
+
+    .invoice article > div{
+        display: flex;
+    }
+
+    .invoice p{
+        margin-bottom: 5px;
+    }
+
+    table {
+        width: 100%;
+        margin-top: 50px;
+        margin-left: 20px;
+     }
+
+     table th{
+         text-align: left;
+     }
+
+     table th {
+        padding: 1rem 1rem;
+        color: #000;
+        font-size: 18px;
+    }
+
+    table tr,
+    table td {
+        padding: 1rem 1rem;
+    }
+
+    .summary{
+        background-color:#dadee3;
+        padding-top: 20px;
+        padding-left: 40px;
+        padding-right: 40px;
+        padding-bottom: 10px;
+
+    }
+
+
+    .info{
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+        font-size: 20px;
+        border-bottom: 2px solid black;
+    }
+
+    .summary span{
+        font-size: 18px;
+    }
+
+    .sub{
+        margin-bottom: 5px;
+    }
+
+    .subContainer{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid black;
+    }
+
+    .totalPrice{
+        font-size: 30px;
+    }    
       `,
     });
 

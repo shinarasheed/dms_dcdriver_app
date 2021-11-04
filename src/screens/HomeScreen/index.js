@@ -8,6 +8,7 @@ import {
   Pressable,
   ImageBackground,
   ActivityIndicator,
+  RefreshControl,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,6 +23,7 @@ import UserBottomSheet from "../../components/UserBottomSheet";
 import { fetchOrder, fetchOrderStats } from "../../redux/actions/orderActions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Refresh from "../../components/Refresh";
+import { Spinner } from "../../components/Spinner";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -33,7 +35,7 @@ const HomeScreen = () => {
   const { stats, loading: statsLoading, error: statsError } = orderStats;
   const updateOrder = useSelector((state) => state.updateOrder);
   const { updatedOrder } = updateOrder;
-  const { loading, error, order } = allOrders;
+  const { loading, refreshing, error, order } = allOrders;
 
   const newOrders = order?.filter((item) => item.status === "Assigned");
   const dispatch = useDispatch();
@@ -153,6 +155,8 @@ const HomeScreen = () => {
             </ImageBackground>
           </>
 
+          {refreshing ? <Spinner /> : null}
+
           {!loading && newOrders?.length !== 0 ? (
             <FlatList
               style={{
@@ -178,6 +182,12 @@ const HomeScreen = () => {
                   </Text>
                 </View>
               )}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={() => dispatch(fetchOrder())}
+                />
+              }
             />
           ) : (
             <View

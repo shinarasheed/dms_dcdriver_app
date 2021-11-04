@@ -1,6 +1,7 @@
 {
   "expo": {
     "name": "Dcdriver",
+    "owner": "rasheedshina",
     "slug": "dc-driver",
     "version": "1.0.0",
     "orientation": "portrait",

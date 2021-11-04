@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import {
   SafeAreaView,
   Text,
@@ -6,10 +6,12 @@ import {
   Image,
   FlatList,
   Pressable,
-  Platform,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import moment from "moment";
+import { Button } from "react-native-elements";
 
 import InvoiceCard from "../../components/InvoiceCard";
 import CustomVirtualizedView from "../../components/VirtualizedList";
@@ -25,7 +27,10 @@ export const createPdf = (htmlFactory) => async () => {
     const html = await htmlFactory();
     if (html) {
       await createAndSavePDF(html);
-      Alert.alert("Success!", "Document has been successfully saved!");
+      Alert.alert(
+        "Success!",
+        "Invoice has been successfully generated and saved!"
+      );
     }
   } catch (error) {
     Alert.alert("Error", error.message || "Something went wrong...");
@@ -135,7 +140,7 @@ const GenerateInvoice = () => {
             </Text>
             <Text
               style={{
-                fontSize: 17,
+                fontSize: 14,
                 fontWeight: "bold",
                 color: appTheme.COLORS.black,
               }}
@@ -366,39 +371,32 @@ const GenerateInvoice = () => {
             paddingVertical: 20,
           }}
         >
-          <Pressable
-            onPress={printToFile}
-            style={{
-              backgroundColor: appTheme.COLORS.mainRed,
-              borderRadius: 4,
-              width: "100%",
-              height: 45,
-              justifyContent: "center",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 17,
-                color: appTheme.COLORS.white,
-                textAlign: "center",
-              }}
-            >
-              Generate Invoice
-            </Text>
-          </Pressable>
-
           {allButtons.map(({ title, action }, index) => {
             const key = String(index);
-
             return (
-              <>
-                <Button
-                  disabled={!!loadingKey}
-                  isLoading={loadingKey === key}
-                  title="Create PDF"
-                  onPress={onButtonPress(key, action)}
-                />
-              </>
+              <TouchableOpacity
+                key={key}
+                disabled={!!loadingKey}
+                isLoading={loadingKey === key}
+                onPress={onButtonPress(key, action)}
+                style={{
+                  backgroundColor: appTheme.COLORS.mainRed,
+                  borderRadius: 4,
+                  width: "100%",
+                  height: 45,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 17,
+                    color: appTheme.COLORS.white,
+                    textAlign: "center",
+                  }}
+                >
+                  Generate Invoice
+                </Text>
+              </TouchableOpacity>
             );
           })}
         </View>

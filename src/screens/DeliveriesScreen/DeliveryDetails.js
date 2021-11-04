@@ -7,11 +7,11 @@ import {
   Image,
   FlatList,
   Pressable,
+  TouchableOpacity,
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import moment from "moment";
 import { BottomSheet } from "react-native-btr";
-import { Button } from "react-native-elements";
 import axios from "axios";
 
 import Order from "../../components/Order";
@@ -112,7 +112,7 @@ const DeliveryDetails = () => {
         <Pressable
           onPress={() => {
             navigation.goBack();
-            // setVisible(false);
+            setVisible(false);
           }}
           style={{
             flexDirection: "row",
@@ -138,7 +138,7 @@ const DeliveryDetails = () => {
           <CustomVirtualizedView>
             <View style={{ paddingLeft: 20, paddingVertical: 20 }}>
               <View style={{ marginBottom: 10, flexDirection: "row" }}>
-                <Text style={{ fontSize: 17, marginRight: 5 }}>
+                <Text style={{ fontSize: 15, marginRight: 5 }}>
                   {theOrder !== undefined &&
                     moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                       "MMM Do, YYYY"
@@ -151,7 +151,7 @@ const DeliveryDetails = () => {
                 </Text>
                 <Text
                   style={{
-                    fontSize: 17,
+                    fontSize: 14,
                     fontWeight: "bold",
                     color: appTheme.COLORS.black,
                   }}
@@ -591,17 +591,27 @@ const DeliveryDetails = () => {
                   paddingVertical: 20,
                 }}
               >
-                <Button
+                <TouchableOpacity
                   onPress={() => toggleProduct()}
-                  buttonStyle={{
+                  style={{
                     backgroundColor: appTheme.COLORS.mainRed,
-                    borderRadius: 4,
                     width: "100%",
                     height: 45,
+                    borderRadius: 5,
+                    alignItems: "center",
                     justifyContent: "center",
                   }}
-                  title="Deliver Order"
-                />
+                >
+                  <Text
+                    style={{
+                      color: appTheme.COLORS.white,
+                      fontSize: 16,
+                      fontWeight: "bold",
+                    }}
+                  >
+                    Deliver Order
+                  </Text>
+                </TouchableOpacity>
               </View>
             </>
           )}
