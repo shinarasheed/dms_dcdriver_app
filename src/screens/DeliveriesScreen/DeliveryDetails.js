@@ -73,7 +73,7 @@ const DeliveryDetails = () => {
   }, []);
 
   const getProductDetails = (productId) => {
-    const x = products.filter(
+    const x = products?.filter(
       (product) => product?.productId === productId.toString()
     )[0];
     return x;
@@ -311,7 +311,6 @@ const DeliveryDetails = () => {
             <View
               style={{
                 backgroundColor: appTheme.COLORS.white,
-                marginBottom: 20,
                 paddingLeft: 20,
                 paddingVertical: 10,
               }}
@@ -514,8 +513,6 @@ const DeliveryDetails = () => {
                   </View>
                 </View>
               )}
-
-              {/* accepted */}
             </View>
 
             {/* TimeLine */}
@@ -536,7 +533,7 @@ const DeliveryDetails = () => {
                 paddingVertical: 20,
               }}
             >
-              <Pressable
+              <TouchableOpacity
                 style={{
                   backgroundColor: appTheme.COLORS.mainRed,
                   borderRadius: 4,
@@ -555,9 +552,9 @@ const DeliveryDetails = () => {
                 >
                   Reject Order
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
 
-              <Pressable
+              <TouchableOpacity
                 style={{
                   backgroundColor: appTheme.COLORS.mainGreen,
                   borderRadius: 4,
@@ -576,7 +573,7 @@ const DeliveryDetails = () => {
                 >
                   Accept Order
                 </Text>
-              </Pressable>
+              </TouchableOpacity>
             </View>
           )}
 

@@ -1,3 +1,4 @@
+import React from "react";
 import {
   createHTML,
   copyFromAssets,
@@ -7,148 +8,148 @@ import {
 import appTheme from "../constants/theme";
 
 export const simpleHtml =
-  (sholudRemovePageMargin = false) =>
+  (sholudRemovePageMargin = false, productsToSell, order, getTotalPrice) =>
   () =>
     createHTML({
       content: `
-      <section class="header">
-      <h5>KMS Nigeria Limited</h5>
-      <p>22, Osolo Road, Ajao Estate, Lagos</p>
-      <p>
-        <span>Tel:</span>
-        <span>08023456789</span>
-      </p>
-    </section>
-    <section class="invoice">
-   
-      <article>
-        <h1>Invoice</h1>
-        <div >
-            <p>Date:</p>&nbsp;
-            <p>June 3, 2020</p>      
-        </div>
-        <div>
-            <p>Invoive:</p>&nbsp;
-            <p>#0317</p></p>
-        </div>
-        <div>
-            <p>Order no:</p>&nbsp;
-            <p>484939</p>
-        </div>
-        <div>
-            <p>Salesman:</p>&nbsp;
-            <p>Daniel ugbo</p>
-        </div>
-      </article>
+      <section 
+      style="display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding-top: 40px;
+      margin-bottom: 50px">
+        <h5 style="
+            font-size: 20px;
+              font-weight: 'bold';
+              margin-bottom:5px">KMS Nigeria Limited</h5>
+        <p style="   color: grey;
+        margin-bottom: 8px">22, Osolo Road, Ajao Estate, Lagos</p>
+        <p style="   color: grey;
+        margin-bottom: 8px">
+          <span>Tel:</span>
+          <span>08023456789</span>
+        </p>
+      </section>
+      <section style=" display: flex; justify-content: space-between;
+      padding-right: 40px;
+      padding-left: 40px">
+     
+        <article>
+          <h1 style=" margin-bottom: 5px">Invoice</h1>
+          <div style="display: flex" >
+              <p style="margin-bottom: 5px">Date:</p>&nbsp;
+              <p style="margin-bottom: 5px">June 3, 2020</p>      
+          </div>
+          <div style="display: flex" >
+              <p style="margin-bottom: 5px">Invoive:</p>&nbsp;
+              <p style="margin-bottom: 5px">#0317</p></p>
+          </div>
+          <div style="display: flex" >
+              <p style="margin-bottom: 5px">Order no:</p>&nbsp;
+              <p style="margin-bottom: 5px">${order.orderId}</p>
+          </div>
+          <div style="display: flex" >
+              <p style="margin-bottom: 5px">Salesman:</p>&nbsp;
+              <p style="margin-bottom: 5px">Daniel ugbo</p>
+          </div>
+        </article>
+  
+      <div>
+          <h3>SOLD TO</h3>
+          <div>
+              <p>${order?.buyerDetails[0]?.buyerName}</p>
+              <p>${order?.buyerDetails[0]?.buyerAddress}</p>     
+              <p>Lagos</p> 
+              <p><span>Tel:</span>&nbsp;<span>${
+                order?.buyerDetails[0]?.buyerPhoneNumber
+              }
+              </span> </p>
+          </div>
+         
+      </div>
+      </section>
+      <section>
+          <table style="width: 100%;
+          margin-top: 50px;
+          margin-left: 20px">
+              <thead>
+                <tr>
+                  <th style="text-align: left;
+                  padding: 1rem 1rem;
+                  color: #000;
+                  font-size: 18px" >No</th>
+                  <th style="text-align: left;
+                  padding: 1rem 1rem;
+                  color: #000;
+                  font-size: 18px">Product Description</th>
+                  <th style="text-align: left;
+                  padding: 1rem 1rem;
+                  color: #000;
+                  font-size: 18px">Quantity</th>
+                  <th style="text-align: left;
+                  padding: 1rem 1rem;
+                  color: #000;
+                  font-size: 18px">Unit Price</th>
+                  <th style="text-align: left;
+                  padding: 1rem 1rem;
+                  color: #000;
+                  font-size: 18px">Amount</th>
+                </tr>
+               </thead>
+               <tbody>
 
-    <div>
-        <h3>SOLD TO</h3>
-        <div>
-            <p>Olat Stores Limited</p>
-            <p>343, Oshodi - Isolo Expressway</p>     
-            <p>Lagos</p> 
-            <p><span>Tel:</span>&nbsp;<span>08123456789</span> </p>
-        </div>
-       
-    </div>
-    </section>
-    <$>
-        <table>
-            <thead>
-              <tr>
-                <th>No</th>
-                <th>Product Description</th>
-                <th>Quantity</th>
-                <th>Unit Price</th>
-                <th>Amount</th>
-              </tr>
-             </thead>
-             <tbody>
-               <tr>
-                   <td>1. </td>
-                 <td>Bulweiser 600 ml x 12(RB)</td>
-                 <td>1</td>
-                 <td>N12, 345.00</td>
-                 <td>N12,345.00</td>
-               </tr>
-               <tr>
-                <td>2. </td>
-              <td>Bulweiser 600 ml x 12(RB)</td>
-              <td>1</td>
-              <td>N12, 345.00</td>
-              <td>N12,345.00</td>
-            </tr>
-            <tr>
-                <td>3. </td>
-              <td>Bulweiser 600 ml x 12(RB)</td>
-              <td>1</td>
-              <td>N12, 345.00</td>
-              <td>N12,345.00</td>
-            </tr>
-            <tr>
-                <td>4. </td>
-              <td>Bulweiser 600 ml x 12(RB)</td>
-              <td>1</td>
-              <td>N12, 345.00</td>
-              <td>N12,345.00</td>
-            </tr>
-            <tr>
-                <td>5. </td>
-              <td>Bulweiser 600 ml x 12(RB)</td>
-              <td>1</td>
-              <td>N12, 345.00</td>
-              <td>N12,345.00</td>
-            </tr>
-            <tr>
-                <td>6. </td>
-              <td>Bulweiser 600 ml x 12(RB)</td>
-              <td>1</td>
-              <td>N12, 345.00</td>
-              <td>N12,345.00</td>
-            </tr>
-            <tr>
-                <td>7. </td>
-              <td>Bulweiser 600 ml x 12(RB)</td>
-              <td>1</td>
-              <td>N12, 345.00</td>
-              <td>N12,345.00</td>
-            </tr>
-            <tr>
-                <td>8. </td>
-              <td>Bulweiser 600 ml x 12(RB)</td>
-              <td>1</td>
-              <td>N12, 345.00</td>
-              <td>N12,345.00</td>
-            </tr>      
-            </tbody>
-          </table>
+                 ${productsToSell.map(
+                   (item, index) =>
+                     `<tr>
+                 <td style="padding: 1rem 1rem">${index + 1}</td>
+                 <td style="padding: 1rem 1rem">${item.brand}</td>
+                 <td style="padding: 1rem 1rem">${item.quantity}</td>
+                 <td style="padding: 1rem 1rem">${item.price}</td>
+                 <td style="padding: 1rem 1rem">${item.price}</td>
+               </tr>`
+                 )}
 
-          <article class="summary">
-              <div class="info"><p>Additional Information</p>
-                <p>Grand Total:</p>
-            </div>
 
-           
-            <div class="subContainer"> 
-                <div>
-                    <div class="sub">
-                        <span>Subtotal:</span><span> N98, 760. 00</span>
-                    </div>
-                    <div class="sub">
-                        <span>Empties:</span><span> N0.00</span>
-                    </div>
-                    <div class="sub">
-                        <span>Tax:</span><span> N0.00</span>
-                    </div>
-                </div>
-
-                <div>
-                    <h5 class="totalPrice">N98,760.00</h5>
-                </div>
-            </div>
-          </article>${
-            sholudRemovePageMargin ? "I'm without page margin!" : ""
-          }</section>
+              </tbody>
+            </table>
+  
+            <article style="background-color:#dadee3;
+            padding-top: 0px;
+            padding-left: 40px;
+            padding-right: 40px;
+            padding-bottom: 20px">
+                <div style="display: flex;
+                justify-content: space-between;
+                margin-bottom: 10px;
+                font-size: 20px;
+                border-bottom: 2px solid black"><p>Additional Information</p>
+                  <p>Grand Total:</p>
+              </div>
+  
+             
+              <div style="display: flex;
+              justify-content: space-between;
+              align-items: center;
+              border-bottom: 2px solid black;"> 
+                  <div>
+                      <div style="margin-bottom: 5px">
+                          <span style="font-size: 18px">Subtotal:</span><span>${getTotalPrice()}</span>
+                      </div>
+                      <div style="margin-bottom: 5px">
+                          <span  style="font-size: 18px">Empties:</span><span>N0.00</span>
+                      </div>
+                      <div style="margin-bottom: 5px">
+                          <span  style="font-size: 18px">Tax:</span><span>N0.00</span>
+                      </div>
+                  </div>
+  
+                  <div>
+                      <h5 style=" font-size: 30px">${getTotalPrice()}</h5>
+                  </div>
+              </div>
+            </article>
+      </section>
     `,
       sholudRemovePageMargin,
       styles: `

@@ -12,12 +12,21 @@ const SellProductFooter = ({
   toggle,
   order,
   productsToSell,
+  empties,
+  getEmptiesPrice,
 }) => {
   const navigator = useNavigation();
 
   const dispatch = useDispatch();
 
   const items = productsToSell?.map((prod) => ({
+    price: toString(prod.price * prod.quantity),
+    quantity: parseInt(prod.quantity),
+    productId: toString(prod.productId),
+    SFlineID: "Van-Sales",
+  }));
+
+  const items2 = productsToSell?.map((prod) => ({
     price: prod.price * prod.quantity,
     quantity: prod.quantity,
     productId: parseInt(prod.productId),
@@ -25,6 +34,26 @@ const SellProductFooter = ({
   }));
 
   const payload = {
+    buyerCompanyId: order.buyerCompanyId,
+    sellerCompanyId: order.sellerCompanyId,
+    routeName: "Van-Sales",
+    referenceId: "Van-Sales",
+    emptiesReturned: empties,
+    costOfEmptiesReturned: getEmptiesPrice(),
+    datePlaced: new Date(new Date().getTime()),
+    shipToCode: order.buyerCompanyId,
+    billToCode: order.buyerCompanyId,
+    // transactionNo,
+    buyerDetails: {
+      buyerName: order.buyerDetails[0].buyerName,
+      buyerPhoneNumber: order.buyerDetails[0].buyerPhoneNumber,
+      buyerAddress: order.buyerDetails[0].buyerAddress,
+    },
+
+    orderItems: items,
+  };
+
+  const payload2 = {
     buyerCompanyId: order.buyerCompanyId,
     sellerCompanyId: order.sellerCompanyId,
     routeName: "Van-Sales",
@@ -38,7 +67,7 @@ const SellProductFooter = ({
       buyerAddress: order.buyerDetails[0].buyerAddress,
     },
 
-    orderItems: items,
+    orderItems: items2,
   };
 
   return (
@@ -50,7 +79,7 @@ const SellProductFooter = ({
             productsToSell,
             order,
           });
-          dispatch(updateInventory(payload));
+          dispatch(updateInventory(payload2));
           toggle();
         }}
         style={{

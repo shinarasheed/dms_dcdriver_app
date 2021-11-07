@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, FlatList, View } from "react-native";
+import { FlatList, View } from "react-native";
 import appTheme from "../constants/theme";
 import SellProductFlatListCard from "./SellProductFlatListCard";
 
@@ -27,5 +27,3 @@ const SellProductFlatList = ({ inventory, getQuantity }) => {
 };
 
 export default SellProductFlatList;
-
-const styles = StyleSheet.create({});

@@ -39,9 +39,16 @@ const SellProductFooterOneOf = ({
   }
 
   const items = productsToSell?.map((prod) => ({
-    price: prod.price * prod.quantity,
-    quantity: prod.quantity,
-    productId: prod.productId,
+    price: toString(prod.price * prod.quantity),
+    quantity: parseInt(prod.quantity),
+    productId: toString(prod.productId),
+    SFlineID: "One-Off",
+  }));
+
+  const items2 = productsToSell?.map((prod) => ({
+    price: toString(prod.price * prod.quantity),
+    quantity: parseInt(prod.quantity),
+    productId: parseInt(prod.productId),
     SFlineID: "One-Off",
   }));
 
@@ -49,6 +56,8 @@ const SellProductFooterOneOf = ({
     sellerCompanyId: "One-Off",
     routeName: "One-Off",
     referenceId: "One-Off",
+    emptiesReturned: empties,
+    costOfEmptiesReturned: getEmptiesPrice(),
     datePlaced: new Date(new Date().getTime()),
     buyerDetails: {
       buyerName: customer?.CUST_Name,
@@ -56,6 +65,21 @@ const SellProductFooterOneOf = ({
     },
 
     orderItems: items,
+  };
+
+  const payload2 = {
+    sellerCompanyId: "One-Off",
+    routeName: "One-Off",
+    referenceId: "One-Off",
+    emptiesReturned: empties,
+    costOfEmptiesReturned: getEmptiesPrice(),
+    datePlaced: new Date(new Date().getTime()),
+    buyerDetails: {
+      buyerName: customer?.CUST_Name,
+      buyerPhoneNumber: customer?.phoneNumber,
+    },
+
+    orderItems: items2,
   };
 
   return (
@@ -114,7 +138,7 @@ const SellProductFooterOneOf = ({
             productsToSell,
             customer,
           });
-          dispatch(updateInventory(payload));
+          dispatch(updateInventory(payload2));
         }}
         disabled={productsToSell?.length === 0}
         buttonStyle={{

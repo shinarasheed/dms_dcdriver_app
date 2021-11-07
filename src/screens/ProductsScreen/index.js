@@ -9,7 +9,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 import Header from "../../components/Header";
 import { icons } from "../../constants";
@@ -24,9 +24,11 @@ const ProductsScreen = () => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchVanProducts());
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(fetchVanProducts());
+    }, [])
+  );
 
   const Van = useSelector((state) => state.van);
   const { inventory, loading: vanLoading, error: vanError } = Van;

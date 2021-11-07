@@ -53,8 +53,8 @@ const OrderBottomSheet = ({ item, toggle, setVisible, visible }) => {
   const { products, loading } = allProducts;
 
   const createNewProducts = () => {
-    item.orderItems.map((theOrder, index) => {
-      const orderDetails = products.filter(
+    item?.orderItems?.map((theOrder, index) => {
+      const orderDetails = products?.filter(
         (item) => parseInt(item.productId) === parseInt(theOrder.productId)
       )[0];
 

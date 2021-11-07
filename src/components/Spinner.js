@@ -4,12 +4,10 @@ import appTheme from "../constants/theme";
 
 export const Spinner = () => {
   return (
-    <>
-      <ActivityIndicator
-        color={Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined}
-        animating={true}
-        size="large"
-      />
-    </>
+    <ActivityIndicator
+      color={Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined}
+      animating={true}
+      size="large"
+    />
   );
 };

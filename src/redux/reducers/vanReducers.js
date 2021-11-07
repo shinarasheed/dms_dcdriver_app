@@ -17,6 +17,7 @@ const initialState = {
   inventory: [],
   newinventory: [],
   response: [],
+  refreshing: true,
   loading: false,
 };
 
@@ -25,9 +26,8 @@ export const vanReducer = (state = initialState, action) => {
   switch (type) {
     case FETCH_INVENTORY_REQUEST:
       return {
+        ...state,
         loading: true,
-        inventory: [],
-        newinventory: [],
       };
 
     case FETCH_INVENTORY_SUCCESS:
@@ -35,12 +35,14 @@ export const vanReducer = (state = initialState, action) => {
         inventory: payload.data,
         newinventory: payload.newData,
         loading: false,
+        refreshing: false,
       };
 
     case FETCH_INVENTORY_FAIL:
       return {
         loading: false,
         error: payload,
+        refreshing: false,
       };
 
     case UPDATE_INVENTORY_REQUEST:

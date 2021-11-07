@@ -77,7 +77,9 @@ const GenerateInvoice = () => {
     () => [
       {
         title: "Simple PDF",
-        action: createPdf(simpleHtml(pageMarginState[0])),
+        action: createPdf(
+          simpleHtml(pageMarginState[0], productsToSell, order, getTotalPrice)
+        ),
         switches: [{ label: "Remove page margin", state: pageMarginState }],
       },
     ],

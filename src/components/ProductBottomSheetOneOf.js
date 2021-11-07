@@ -25,7 +25,7 @@ const ProductBottomSheetOneOf = ({
   setEmpties,
   empties,
   customer,
-  // getEmptiesPrice
+  getEmptiesPrice,
 }) => {
   return (
     <CustomVirtualist>
@@ -137,6 +137,8 @@ const ProductBottomSheetOneOf = ({
         productsToSell={productsToSell}
         customer={customer}
         toggle={toggle}
+        empties={empties}
+        getEmptiesPrice={getEmptiesPrice}
       />
     </CustomVirtualist>
   );

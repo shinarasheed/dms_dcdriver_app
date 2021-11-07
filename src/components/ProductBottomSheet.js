@@ -24,7 +24,7 @@ const ProductBottomSheet = ({
   calNumberOfFull,
   setEmpties,
   empties,
-  // getEmptiesPrice,
+  getEmptiesPrice,
 }) => {
   return (
     <CustomVirtualist>
@@ -149,6 +149,8 @@ const ProductBottomSheet = ({
         order={item}
         productsToSell={productsToSell}
         toggle={toggle}
+        empties={empties}
+        getEmptiesPrice={getEmptiesPrice}
       />
     </CustomVirtualist>
   );

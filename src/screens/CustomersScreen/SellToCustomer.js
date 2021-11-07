@@ -30,14 +30,14 @@ const SellToCustomer = () => {
   const route = useRoute();
   const order = route.params;
 
+  const Van = useSelector((state) => state.van);
+  const { inventory, newinventory, loading: vanLoading, error: vanError } = Van;
+
   useFocusEffect(
     React.useCallback(() => {
       dispatch(fetchVanProducts());
     }, [])
   );
-
-  const Van = useSelector((state) => state.van);
-  const { inventory, newinventory, loading: vanLoading, error: vanError } = Van;
 
   const getQuantity = (productId, quantity) => {
     return (
@@ -73,8 +73,6 @@ const SellToCustomer = () => {
   const productsToSell = newinventory?.filter(
     (product) => product?.quantity > 0
   );
-
-  console.log(productsToSell);
 
   return (
     <SafeAreaView
