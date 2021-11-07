@@ -8,7 +8,6 @@ import {
   Pressable,
   ImageBackground,
   ActivityIndicator,
-  RefreshControl,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
@@ -155,8 +154,6 @@ const HomeScreen = () => {
             </ImageBackground>
           </>
 
-          {refreshing ? <Spinner /> : null}
-
           {!loading && newOrders?.length !== 0 ? (
             <FlatList
               style={{
@@ -182,12 +179,6 @@ const HomeScreen = () => {
                   </Text>
                 </View>
               )}
-              refreshControl={
-                <RefreshControl
-                  refreshing={refreshing}
-                  onRefresh={() => dispatch(fetchOrder())}
-                />
-              }
             />
           ) : (
             <View
