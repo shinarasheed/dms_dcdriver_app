@@ -36,6 +36,7 @@ export const vanReducer = (state = initialState, action) => {
         newinventory: payload.newData,
         loading: false,
         refreshing: false,
+        driver: payload.driver,
       };
 
     case FETCH_INVENTORY_FAIL:

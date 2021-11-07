@@ -10,7 +10,7 @@ import {
   deleteProduct,
 } from "../redux/actions/vanActions";
 
-const ProductBottomSheetCard = ({ item, getQuantity, productsToSell }) => {
+const ProductBottomSheetCard = ({ item, getQuantity }) => {
   const dispatch = useDispatch();
   const { brand, sku, imageUrl, price, quantity, productType, productId } =
     item;

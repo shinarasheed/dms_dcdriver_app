@@ -43,6 +43,7 @@ export const fetchVanProducts = () => async (dispatch) => {
       payload: {
         data,
         newData: x,
+        driver,
       },
     });
   } catch (error) {
@@ -55,6 +56,8 @@ export const fetchVanProducts = () => async (dispatch) => {
 };
 
 export const updateInventory = (payload) => async (dispatch) => {
+  const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
+
   try {
     dispatch({
       type: UPDATE_INVENTORY_REQUEST,
@@ -67,7 +70,7 @@ export const updateInventory = (payload) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `${vanurl}/inventory/update-quantity`,
+      `${vanurl}/van/update-quantity`,
       payload,
       config
     );

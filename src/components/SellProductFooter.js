@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, Image, View, Pressable } from "react-native";
 import { icons } from "../constants";
@@ -30,6 +30,11 @@ const SellProductFooter = ({
 
   const dispatch = useDispatch();
 
+  const Van = useSelector((state) => state.van);
+  const { driver } = Van;
+
+  console.log(driver);
+
   function toggle() {
     setVisible((visible) => !visible);
   }
@@ -45,13 +50,6 @@ const SellProductFooter = ({
     SFlineID: "Van-Sales",
   }));
 
-  const items2 = productsToSell?.map((prod) => ({
-    price: prod.price * prod.quantity,
-    quantity: prod.quantity,
-    productId: parseInt(prod.productId),
-    SFlineID: "Van-Sales",
-  }));
-
   const payload = {
     buyerCompanyId: order.buyerCompanyId,
     sellerCompanyId: order.sellerCompanyId,
@@ -62,7 +60,6 @@ const SellProductFooter = ({
     datePlaced: new Date(new Date().getTime()),
     shipToCode: order.buyerCompanyId,
     billToCode: order.buyerCompanyId,
-    // transactionNo,
     buyerDetails: {
       buyerName: order.buyerDetails[0].buyerName,
       buyerPhoneNumber: order.buyerDetails[0].buyerPhoneNumber,
@@ -72,20 +69,13 @@ const SellProductFooter = ({
     orderItems: items,
   };
 
-  const payload2 = {
-    buyerCompanyId: order.buyerCompanyId,
-    sellerCompanyId: order.sellerCompanyId,
-    routeName: "Van-Sales",
-    referenceId: "Van-Sales",
-    datePlaced: new Date(new Date().getTime()),
-    shipToCode: order.buyerCompanyId,
-    billToCode: order.buyerCompanyId,
-    buyerDetails: {
-      buyerName: order.buyerDetails[0].buyerName,
-      buyerPhoneNumber: order.buyerDetails[0].buyerPhoneNumber,
-      buyerAddress: order.buyerDetails[0].buyerAddress,
-    },
+  const items2 = productsToSell?.map((prod) => ({
+    quantity: parseInt(prod.quantity),
+    productId: parseInt(prod.productId),
+  }));
 
+  const payload2 = {
+    vehicleId: driver?.vehicleId,
     orderItems: items2,
   };
 

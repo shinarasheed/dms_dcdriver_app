@@ -9,6 +9,7 @@ import {
   View,
 } from "react-native";
 import icons from "../constants/icons";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import appTheme from "../constants/theme";
 import OrderBottomSheetCard from "./OrderBottomSheetCard";
@@ -20,11 +21,22 @@ import { fetchVanProducts } from "../redux/actions/vanActions";
 import Empties from "./Empties";
 
 const OrderBottomSheet = ({ item, toggle, setVisible, visible }) => {
+  const [driver, setDriver] = useState(null);
+
   const allProducts = useSelector((state) => state.products);
   const [newOrders, setNewOrders] = useState([]);
 
   const Van = useSelector((state) => state.van);
   const { inventory, loading: vanLoading, error: vanError } = Van;
+
+  const setTheDriver = async () => {
+    const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
+    setDriver(driver);
+  };
+
+  useEffect(() => {
+    setTheDriver();
+  }, []);
 
   useEffect(() => {
     dispatch(fetchVanProducts());
@@ -229,6 +241,7 @@ const OrderBottomSheet = ({ item, toggle, setVisible, visible }) => {
         visible={visible}
         newOrders={newOrders}
         empties={empties}
+        driver={driver}
       />
     </CustomVirtualist>
   );

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
@@ -7,7 +7,7 @@ import appTheme from "../constants/theme";
 import { confirmOrder } from "../redux/actions/orderActions";
 import { updateInventory } from "../redux/actions/vanActions";
 
-const OrderFooter = ({ getTotalPrice, order, newOrders, empties }) => {
+const OrderFooter = ({ getTotalPrice, order, newOrders, empties, driver }) => {
   const navigator = useNavigation();
 
   const dispatch = useDispatch();
@@ -23,6 +23,17 @@ const OrderFooter = ({ getTotalPrice, order, newOrders, empties }) => {
     return orderItems;
   };
 
+  const arrayToSubmit2 = async () => {
+    let orderItems = [];
+    newOrders.map((newOrder) => {
+      orderItems.push({
+        quantity: parseInt(newOrder.quantity),
+        productId: parseInt(newOrder.quantity),
+      });
+    });
+    return orderItems;
+  };
+
   return (
     <View style={styles.footerContainer}>
       <TouchableOpacity
@@ -32,8 +43,14 @@ const OrderFooter = ({ getTotalPrice, order, newOrders, empties }) => {
             sellerCompanyId: order.sellerCompanyId,
             orderItems: await arrayToSubmit(),
           };
+
+          const payload2 = {
+            vehicleId: driver?.vehicleId,
+            orderItems: await arrayToSubmit2(),
+          };
+
           dispatch(confirmOrder({ payload, orderId: order.orderId }));
-          dispatch(updateInventory(payload));
+          dispatch(updateInventory(payload2));
           navigator.navigate("GenerateInvoice", {
             productsToSell: newOrders,
             empties,
