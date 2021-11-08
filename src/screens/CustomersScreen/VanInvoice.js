@@ -10,6 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 import moment from "moment";
 
 import InvoiceCard from "../../components/InvoiceCard";
@@ -41,6 +42,9 @@ const GenerateInvoice = () => {
   const navigation = useNavigation();
 
   const { productsToSell, order } = route.params;
+
+  const Van = useSelector((state) => state.van);
+  const { driver } = Van;
 
   const getTotalPrice = () => {
     return productsToSell?.reduce(
@@ -77,7 +81,13 @@ const GenerateInvoice = () => {
       {
         title: "Simple PDF",
         action: createPdf(
-          simpleHtml(pageMarginState[0], productsToSell, order, getTotalPrice)
+          simpleHtml(
+            pageMarginState[0],
+            productsToSell,
+            order,
+            getTotalPrice,
+            driver
+          )
         ),
         switches: [{ label: "Remove page margin", state: pageMarginState }],
       },

@@ -8,7 +8,13 @@ import {
 import appTheme from "../constants/theme";
 
 export const simpleHtml =
-  (sholudRemovePageMargin = false, productsToSell, order, getTotalPrice) =>
+  (
+    sholudRemovePageMargin = false,
+    productsToSell,
+    order,
+    getTotalPrice,
+    driver
+  ) =>
   () =>
     createHTML({
       content: `
@@ -51,7 +57,7 @@ export const simpleHtml =
           </div>
           <div style="display: flex" >
               <p style="margin-bottom: 5px">Salesman:</p>&nbsp;
-              <p style="margin-bottom: 5px">Daniel ugbo</p>
+              <p style="margin-bottom: 5px">${driver?.name}</p>
           </div>
         </article>
   

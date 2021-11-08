@@ -10,6 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 import moment from "moment";
 
 import InvoiceCard from "../../components/InvoiceCard";
@@ -41,6 +42,9 @@ const GenerateInvoice = () => {
   const navigation = useNavigation();
 
   const { productsToSell, customer } = route.params;
+
+  const Van = useSelector((state) => state.van);
+  const { driver } = Van;
 
   const getTotalPrice = () => {
     return productsToSell?.reduce(
@@ -81,7 +85,8 @@ const GenerateInvoice = () => {
             pageMarginState[0],
             productsToSell,
             customer,
-            getTotalPrice
+            getTotalPrice,
+            driver
           )
         ),
         switches: [{ label: "Remove page margin", state: pageMarginState }],
