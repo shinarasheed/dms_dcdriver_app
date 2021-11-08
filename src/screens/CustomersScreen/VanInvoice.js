@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useCallback, useMemo } from "react";
 import {
   SafeAreaView,
   Text,
@@ -6,6 +6,8 @@ import {
   Image,
   FlatList,
   Pressable,
+  TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import moment from "moment";
@@ -15,6 +17,24 @@ import CustomVirtualizedView from "../../components/VirtualizedList";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
 import CallCustomer from "../../components/CallCustomer";
+
+import { createAndSavePDF } from "../../utils/helpers";
+import { simpleHtml } from "../../utils/html";
+
+export const createPdf = (htmlFactory) => async () => {
+  try {
+    const html = await htmlFactory();
+    if (html) {
+      await createAndSavePDF(html);
+      Alert.alert(
+        "Success!",
+        "Invoice has been successfully generated and saved!"
+      );
+    }
+  } catch (error) {
+    Alert.alert("Error", error.message || "Something went wrong...");
+  }
+};
 
 const GenerateInvoice = () => {
   const route = useRoute();
@@ -28,6 +48,48 @@ const GenerateInvoice = () => {
       0
     );
   };
+
+  // invoice things
+  const [loadingKey, setLoadingKey] = useState(null);
+  const pageMarginState = useState(false);
+  const avoidSectionBreakingState = useState(false);
+  const useImageFromAssetsState = useState(false);
+  const useCameraState = useState(false);
+  const optimizeImageState = useState(false);
+
+  const onButtonPress = useCallback(
+    (key, action) => async () => {
+      try {
+        if (action) {
+          setLoadingKey(key);
+          await action();
+          setLoadingKey(null);
+        }
+      } catch (error) {
+        setLoadingKey(null);
+      }
+    },
+    []
+  );
+
+  const allButtons = useMemo(
+    () => [
+      {
+        title: "Simple PDF",
+        action: createPdf(
+          simpleHtml(pageMarginState[0], productsToSell, order, getTotalPrice)
+        ),
+        switches: [{ label: "Remove page margin", state: pageMarginState }],
+      },
+    ],
+    [
+      pageMarginState,
+      avoidSectionBreakingState,
+      useImageFromAssetsState,
+      useCameraState,
+      optimizeImageState,
+    ]
+  );
 
   return (
     <SafeAreaView
@@ -264,25 +326,34 @@ const GenerateInvoice = () => {
             paddingVertical: 20,
           }}
         >
-          <Pressable
-            style={{
-              backgroundColor: appTheme.COLORS.mainRed,
-              borderRadius: 4,
-              width: "100%",
-              height: 45,
-              justifyContent: "center",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 17,
-                color: appTheme.COLORS.white,
-                textAlign: "center",
-              }}
-            >
-              Generate Invoice
-            </Text>
-          </Pressable>
+          {allButtons.map(({ title, action }, index) => {
+            const key = String(index);
+            return (
+              <TouchableOpacity
+                key={key}
+                disabled={!!loadingKey}
+                isLoading={loadingKey === key}
+                onPress={onButtonPress(key, action)}
+                style={{
+                  backgroundColor: appTheme.COLORS.mainRed,
+                  borderRadius: 4,
+                  width: "100%",
+                  height: 45,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 17,
+                    color: appTheme.COLORS.white,
+                    textAlign: "center",
+                  }}
+                >
+                  Generate Invoice
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </CustomVirtualizedView>
     </SafeAreaView>

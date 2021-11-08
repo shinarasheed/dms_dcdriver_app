@@ -8,7 +8,7 @@ import {
 import appTheme from "../constants/theme";
 
 export const simpleHtml =
-  (sholudRemovePageMargin = false, productsToSell, order, getTotalPrice) =>
+  (sholudRemovePageMargin = false, productsToSell, customer, getTotalPrice) =>
   () =>
     createHTML({
       content: `
@@ -47,7 +47,7 @@ export const simpleHtml =
           </div>
           <div style="display: flex" >
               <p style="margin-bottom: 5px">Order no:</p>&nbsp;
-              <p style="margin-bottom: 5px">${order?.orderId || order?.id}</p>
+              <p style="margin-bottom: 5px">${customer?.id}</p>
           </div>
           <div style="display: flex" >
               <p style="margin-bottom: 5px">Salesman:</p>&nbsp;
@@ -58,14 +58,10 @@ export const simpleHtml =
       <div>
           <h3>SOLD TO</h3>
           <div>
-              <p>${order?.buyerDetails[0]?.buyerName || order?.CUST_Name}</p>
-              <p>${
-                order?.buyerDetails[0]?.buyerAddress || order?.country
-              }</p>     
+              <p>${customer?.CUST_Name}</p>
+              <p>${customer?.country}</p>     
               <p>Lagos</p> 
-              <p><span>Tel:</span>&nbsp;<span>${
-                order?.buyerDetails[0]?.buyerPhoneNumber || order?.phoneNumber
-              }
+              <p><span>Tel:</span>&nbsp;<span>${customer?.phoneNumber}
               </span> </p>
           </div>
          
