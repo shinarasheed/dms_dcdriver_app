@@ -16,7 +16,6 @@ import axios from "axios";
 
 import Order from "../../components/Order";
 import OrderBottomSheet from "../../components/OrderBottomSheet";
-import CustomVirtualizedView from "../../components/VirtualizedList";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
 import { fetchOrder } from "../../redux/actions/orderActions";

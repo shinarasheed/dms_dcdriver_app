@@ -33,8 +33,6 @@ const SellProductFooter = ({
   const Van = useSelector((state) => state.van);
   const { driver } = Van;
 
-  console.log(driver);
-
   function toggle() {
     setVisible((visible) => !visible);
   }

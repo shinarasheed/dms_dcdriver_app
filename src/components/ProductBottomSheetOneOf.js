@@ -23,9 +23,9 @@ const ProductBottomSheetOneOf = ({
   getQuantity,
   calNumberOfFull,
   setEmpties,
-  empties,
   customer,
   getEmptiesPrice,
+  empties,
 }) => {
   return (
     <CustomVirtualist>

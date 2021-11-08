@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import moment from "moment";
-import { Button } from "react-native-elements";
 
 import InvoiceCard from "../../components/InvoiceCard";
 import CustomVirtualizedView from "../../components/VirtualizedList";

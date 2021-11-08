@@ -22,8 +22,6 @@ const SellProductFooter = ({
   const Van = useSelector((state) => state.van);
   const { driver } = Van;
 
-  console.log(driver);
-
   const items = productsToSell?.map((prod) => ({
     price: toString(prod.price * prod.quantity),
     quantity: parseInt(prod.quantity),

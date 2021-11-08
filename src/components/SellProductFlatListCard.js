@@ -1,6 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { StyleSheet, Image, Text, View, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  Text,
+  View,
+  TextInput,
+  Pressable,
+} from "react-native";
 import {
   incrementQuantity,
   decrementQuantity,
@@ -11,6 +18,8 @@ import { icons } from "../constants";
 import appTheme from "../constants/theme";
 
 const SellProductFlatListCard = ({ product, getQuantity }) => {
+  const [textInputValue, setTextInputValue] = React.useState("");
+
   const { productId, brand, price, productType, imageUrl, sku, quantity } =
     product;
 
@@ -24,7 +33,6 @@ const SellProductFlatListCard = ({ product, getQuantity }) => {
         paddingHorizontal: 20,
         backgroundColor: appTheme.COLORS.white,
       }}
-      key={productId}
     >
       <Image style={{ width: 30, height: 60 }} source={{ uri: imageUrl }} />
       <View style={{ marginLeft: 20, flex: 1 }}>
@@ -158,6 +166,21 @@ const SellProductFlatListCard = ({ product, getQuantity }) => {
                 {quantity}
               </Text>
             </View>
+
+            <TextInput
+              style={{
+                borderWidth: 1,
+                width: 70,
+                borderColor: appTheme.COLORS.borderGRey,
+                marginRight: 5,
+                borderRadius: 5,
+                textAlign: "center",
+                color: appTheme.COLORS.mainRed,
+                fontWeight: "bold",
+              }}
+              value={String(quantity)}
+              onChangeText={(text) => setTextInputValue(text)}
+            />
 
             <View style={styles.productIncreaseDecreaseContainer}>
               <Pressable

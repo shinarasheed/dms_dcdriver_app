@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, Text, Image, View, Pressable } from "react-native";
 import { useNavigation } from "@react-navigation//native";
 import { icons } from "../constants";
@@ -19,16 +19,20 @@ const SellProductFooterOneOf = ({
   getQuantity,
   calNumberOfFull,
   setEmpties,
+  customer,
   empties,
   getEmptiesPrice,
-  customer,
 }) => {
   const navigator = useNavigation();
-  const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(false);
   const [salesCompleted, setSalesCompleted] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const Van = useSelector((state) => state.van);
+  const { driver } = Van;
 
   function toggle() {
     setVisible((visible) => !visible);
@@ -42,13 +46,6 @@ const SellProductFooterOneOf = ({
     price: toString(prod.price * prod.quantity),
     quantity: parseInt(prod.quantity),
     productId: toString(prod.productId),
-    SFlineID: "One-Off",
-  }));
-
-  const items2 = productsToSell?.map((prod) => ({
-    price: toString(prod.price * prod.quantity),
-    quantity: parseInt(prod.quantity),
-    productId: parseInt(prod.productId),
     SFlineID: "One-Off",
   }));
 
@@ -67,18 +64,13 @@ const SellProductFooterOneOf = ({
     orderItems: items,
   };
 
-  const payload2 = {
-    sellerCompanyId: "One-Off",
-    routeName: "One-Off",
-    referenceId: "One-Off",
-    emptiesReturned: empties,
-    costOfEmptiesReturned: getEmptiesPrice(),
-    datePlaced: new Date(new Date().getTime()),
-    buyerDetails: {
-      buyerName: customer?.CUST_Name,
-      buyerPhoneNumber: customer?.phoneNumber,
-    },
+  const items2 = productsToSell?.map((prod) => ({
+    quantity: parseInt(prod.quantity),
+    productId: parseInt(prod.productId),
+  }));
 
+  const payload2 = {
+    vehicleId: driver?.vehicleId,
     orderItems: items2,
   };
 
@@ -233,7 +225,7 @@ const SellProductFooterOneOf = ({
                   borderRadius: 4,
                 }}
                 onPress={() =>
-                  navigation.navigate("GenerateInvoice", {
+                  navigation.navigate("SalesInvoice", {
                     order,
                     productsToSell,
                   })

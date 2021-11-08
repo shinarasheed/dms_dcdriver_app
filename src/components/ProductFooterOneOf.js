@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -12,22 +12,19 @@ const SellProductFooterOneOf = ({
   customer,
   productsToSell,
   toggle,
+  empties,
+  getEmptiesPrice,
 }) => {
   const navigator = useNavigation();
 
   const dispatch = useDispatch();
+  const Van = useSelector((state) => state.van);
+  const { driver } = Van;
 
   const items = productsToSell?.map((prod) => ({
     price: toString(prod.price * prod.quantity),
     quantity: parseInt(prod.quantity),
     productId: toString(prod.productId),
-    SFlineID: "One-Off",
-  }));
-
-  const items2 = productsToSell?.map((prod) => ({
-    price: toString(prod.price * prod.quantity),
-    quantity: parseInt(prod.quantity),
-    productId: parseInt(prod.productId),
     SFlineID: "One-Off",
   }));
 
@@ -46,18 +43,13 @@ const SellProductFooterOneOf = ({
     orderItems: items,
   };
 
-  const payload2 = {
-    sellerCompanyId: "One-Off",
-    routeName: "One-Off",
-    referenceId: "One-Off",
-    emptiesReturned: empties,
-    costOfEmptiesReturned: getEmptiesPrice(),
-    datePlaced: new Date(new Date().getTime()),
-    buyerDetails: {
-      buyerName: customer?.CUST_Name,
-      buyerPhoneNumber: customer?.phoneNumber,
-    },
+  const items2 = productsToSell?.map((prod) => ({
+    quantity: parseInt(prod.quantity),
+    productId: parseInt(prod.productId),
+  }));
 
+  const payload2 = {
+    vehicleId: driver?.vehicleId,
     orderItems: items2,
   };
 
