@@ -12,8 +12,9 @@ export const simpleHtml =
     sholudRemovePageMargin = false,
     productsToSell,
     customer,
-    getTotalPrice,
-    driver
+    distributor,
+    driver,
+    getTotalPrice
   ) =>
   () =>
     createHTML({
@@ -28,13 +29,14 @@ export const simpleHtml =
         <h5 style="
             font-size: 20px;
               font-weight: 'bold';
-              margin-bottom:5px">KMS Nigeria Limited</h5>
+              margin-bottom:1px">${distributor?.company_name}
+             </h5>
+        <p style="color: grey;
+        margin-bottom: 1px">${distributor?.address}</p>
         <p style="   color: grey;
-        margin-bottom: 8px">22, Osolo Road, Ajao Estate, Lagos</p>
-        <p style="   color: grey;
-        margin-bottom: 8px">
+        margin-bottom: 5px">
           <span>Tel:</span>
-          <span>08023456789</span>
+          <span>${distributor?.Owner_Phone}</span>
         </p>
       </section>
       <section style=" display: flex; justify-content: space-between;
@@ -45,7 +47,7 @@ export const simpleHtml =
           <h1 style=" margin-bottom: 5px">Invoice</h1>
           <div style="display: flex" >
               <p style="margin-bottom: 5px">Date:</p>&nbsp;
-              <p style="margin-bottom: 5px">June 3, 2020</p>      
+              <p style="margin-bottom: 5px">${new Date().toLocaleDateString()}</p>    
           </div>
           <div style="display: flex" >
               <p style="margin-bottom: 5px">Invoive:</p>&nbsp;

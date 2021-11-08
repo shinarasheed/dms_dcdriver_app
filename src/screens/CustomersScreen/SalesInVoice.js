@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useMemo } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import {
   SafeAreaView,
   Text,
@@ -10,7 +10,7 @@ import {
   Alert,
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 
 import InvoiceCard from "../../components/InvoiceCard";
@@ -38,13 +38,23 @@ export const createPdf = (htmlFactory) => async () => {
 };
 
 const GenerateInvoice = () => {
+  const [distributor, setDistributor] = useState(null);
+  const [driver, setDriver] = useState(null);
   const route = useRoute();
   const navigation = useNavigation();
 
   const { productsToSell, customer } = route.params;
 
-  const Van = useSelector((state) => state.van);
-  const { driver } = Van;
+  const getDistibutor = async () => {
+    const distributor = JSON.parse(await AsyncStorage.getItem("Distributor"));
+    const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
+    setDistributor(distributor);
+    setDriver(driver);
+  };
+
+  useEffect(() => {
+    getDistibutor();
+  }, []);
 
   const getTotalPrice = () => {
     return productsToSell?.reduce(
@@ -85,8 +95,9 @@ const GenerateInvoice = () => {
             pageMarginState[0],
             productsToSell,
             customer,
-            getTotalPrice,
-            driver
+            distributor,
+            driver,
+            getTotalPrice
           )
         ),
         switches: [{ label: "Remove page margin", state: pageMarginState }],

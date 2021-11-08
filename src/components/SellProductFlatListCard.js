@@ -167,7 +167,7 @@ const SellProductFlatListCard = ({ product, getQuantity }) => {
               </Text>
             </View>
 
-            <TextInput
+            {/* <TextInput
               style={{
                 borderWidth: 1,
                 width: 70,
@@ -180,7 +180,7 @@ const SellProductFlatListCard = ({ product, getQuantity }) => {
               }}
               value={String(quantity)}
               onChangeText={(text) => setTextInputValue(text)}
-            />
+            /> */}
 
             <View style={styles.productIncreaseDecreaseContainer}>
               <Pressable
