@@ -8,7 +8,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { icons } from "../constants";
 import appTheme from "../constants/theme";
 
-export default function UserBottomSheet({ toggle, driver, visible }) {
+export default function UserBottomSheet({
+  toggle,
+  driver,
+  distributor,
+  visible,
+}) {
   const navigation = useNavigation();
 
   const clearTokens = async () => {
@@ -74,7 +79,7 @@ export default function UserBottomSheet({ toggle, driver, visible }) {
                 <Text
                   style={{ fontWeight: "bold", fontSize: 17, marginLeft: 5 }}
                 >
-                  {driver?.ownerCompanyId}
+                  {distributor?.SYS_Code}
                 </Text>
               </View>
             </View>

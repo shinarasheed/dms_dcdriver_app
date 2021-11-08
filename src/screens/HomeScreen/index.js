@@ -9,7 +9,7 @@ import {
   ImageBackground,
   ActivityIndicator,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import DateRangePicker from "../../components/DateRangePicker";
 
@@ -23,6 +23,7 @@ import { fetchOrder, fetchOrderStats } from "../../redux/actions/orderActions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Refresh from "../../components/Refresh";
 import { Spinner } from "../../components/Spinner";
+import axios from "axios";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -30,6 +31,7 @@ const HomeScreen = () => {
   const allOrders = useSelector((state) => state.orders);
   const [newOrder, setNewOrder] = useState([]);
   const [theDriver, setTheDriver] = useState(null);
+  const [distributor, setDistributor] = useState(null);
   const orderStats = useSelector((state) => state.orderStats);
   const { stats, loading: statsLoading, error: statsError } = orderStats;
   const updateOrder = useSelector((state) => state.updateOrder);
@@ -48,6 +50,13 @@ const HomeScreen = () => {
   const getDriverDetails = async () => {
     const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
     setTheDriver(driver);
+    const {
+      data: { result },
+    } = await axios.get(
+      `http://102.133.143.139/company/code/${driver.ownerCompanyId}`
+    );
+    setDistributor(result);
+    await AsyncStorage.setItem("Distributor", JSON.stringify(result));
   };
 
   useEffect(() => {
@@ -56,14 +65,18 @@ const HomeScreen = () => {
     }, 1000);
   }, []);
 
-  useEffect(() => {
-    dispatch(fetchOrderStats(theDriver?.vehicleId));
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(fetchOrderStats(theDriver?.vehicleId));
+    }, [])
+  );
 
-  useEffect(() => {
-    dispatch(fetchOrder());
-    setNewOrder(order?.filter((item) => item.status === "Assigned"));
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(fetchOrder());
+      setNewOrder(order?.filter((item) => item.status === "Assigned"));
+    }, [])
+  );
 
   return (
     <SafeAreaView
@@ -201,7 +214,12 @@ const HomeScreen = () => {
           )}
         </View>
       </CustomVirtualizedView>
-      <UserBottomSheet driver={theDriver} toggle={toggle} visible={visible} />
+      <UserBottomSheet
+        distributor={distributor}
+        driver={theDriver}
+        toggle={toggle}
+        visible={visible}
+      />
     </SafeAreaView>
   );
 };

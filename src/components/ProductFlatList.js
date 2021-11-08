@@ -13,15 +13,6 @@ const ProductFlatList = ({ list, loading }) => {
       listKey={(item, id) => id.toString()}
       showsVerticalScrollIndicator={false}
       renderItem={({ item }) => <ProductCard item={item} />}
-      ItemSeparatorComponent={() => (
-        <View
-          style={{
-            height: 1,
-            width: "100%",
-            backgroundColor: appTheme.COLORS.borderGRey1,
-          }}
-        ></View>
-      )}
     />
   );
 };

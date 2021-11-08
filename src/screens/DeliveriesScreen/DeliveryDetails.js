@@ -23,6 +23,7 @@ import { fetchProducts } from "../../redux/actions/productActions";
 import { orderUrl } from "../../utils/baseUrl";
 import { Spinner } from "../../components/Spinner";
 import CallCustomer from "../../components/CallCustomer";
+import CustomVirtualizedView from "../../components/VirtualizedList";
 
 const DeliveryDetails = () => {
   const [loadingOrder, setLoadingOrder] = useState(false);
@@ -134,7 +135,7 @@ const DeliveryDetails = () => {
       </View>
 
       {/* virtualized list */}
-      <>
+      <CustomVirtualizedView>
         <View style={{ paddingLeft: 20, paddingVertical: 20 }}>
           <View style={{ marginBottom: 10, flexDirection: "row" }}>
             <Text style={{ fontSize: 15, marginRight: 5 }}>
@@ -511,7 +512,7 @@ const DeliveryDetails = () => {
             </View>
           )}
         </View>
-      </>
+      </CustomVirtualizedView>
       {/* end of virtualized list */}
 
       {loadingOrder ? <Spinner /> : null}
