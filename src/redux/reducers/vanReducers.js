@@ -11,6 +11,7 @@ import {
   DELETE_PRODUCT,
   DECREMENT_QUANTITY,
   INCREMENT_QUANTITY,
+  INCREMENT_QUANTITY_TYPING,
 } from "../constants/vanConstants";
 
 const initialState = {
@@ -87,6 +88,15 @@ export const vanReducer = (state = initialState, action) => {
         (item) => item?.productId === payload
       );
       product.quantity++;
+      return {
+        ...state,
+      };
+
+    case INCREMENT_QUANTITY_TYPING:
+      const myproduct = state.newinventory.find(
+        (item) => item?.productId === payload.productId
+      );
+      myproduct.quantity += payload.text;
       return {
         ...state,
       };

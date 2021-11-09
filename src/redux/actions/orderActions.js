@@ -72,7 +72,7 @@ export const updateOrderStatus =
         config
       );
 
-      const theOrder = order.order;
+      const theOrder = order?.order;
 
       dispatch({
         type: UPDATE_ORDER_STATUS_SUCCESS,
@@ -114,23 +114,23 @@ export const fetchSingleOrder = (orderId) => async (dispatch) => {
 
 export const fetchOrderStats =
   (
-    vehicleId,
     startDate = new Date(Date.now()).toISOString().split("T")[0],
     endDate = new Date(Date.now()).toISOString().split("T")[0]
   ) =>
   async (dispatch) => {
+    const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
     try {
       dispatch({
         type: FETCH_ORDER_STATS_REQUEST,
       });
 
       const { data: order } = await axios.get(
-        `${orderUrl}/GetOrder/GetOrderSummaryByVehicleId/${vehicleId}/${startDate}/${endDate}`
+        `${orderUrl}/GetOrder/GetOrderSummaryByVehicleId/${driver.vehicleId}/2021-06-10/2021-11-09`
       );
 
       dispatch({
         type: FETCH_ORDER_STATS_SUCCESS,
-        payload: order.order,
+        payload: order?.order,
       });
     } catch (error) {
       console.log(error);

@@ -161,11 +161,7 @@ export const simpleHtml =
                       <div style="margin-bottom: 5px">
                           <span  style="font-size: 18px">Empties:</span><span> \u20A6${getEmptiesPrice()}</span>
                       </div>
-                      <div style="margin-bottom: 5px">
-                          <span  style="font-size: 18px">Tax:</span><span>N0.00</span>
-                      </div>
                   </div>
-  
                   <div>
                       <h5 style=" font-size: 30px">\u20A6${getTotalPrice()}</h5>
                   </div>

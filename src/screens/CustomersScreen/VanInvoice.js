@@ -142,7 +142,7 @@ const GenerateInvoice = () => {
             marginLeft: 20,
           }}
         >
-          Order {order.orderId}
+          Order {order?.orderId}
         </Text>
       </View>
 

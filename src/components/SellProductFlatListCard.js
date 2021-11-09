@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import {
   StyleSheet,
@@ -12,18 +12,26 @@ import {
   incrementQuantity,
   decrementQuantity,
   deleteProduct,
+  incrementQuantityByTyping,
 } from "../redux/actions/vanActions";
 
 import { icons } from "../constants";
 import appTheme from "../constants/theme";
 
-const SellProductFlatListCard = ({ product, getQuantity }) => {
-  const [textInputValue, setTextInputValue] = React.useState("");
-
-  const { productId, brand, price, productType, imageUrl, sku, quantity } =
-    product;
+const SellProductFlatListCard = ({
+  product: { productId, brand, price, productType, imageUrl, sku, quantity },
+  getQuantity,
+}) => {
+  const [textValue, setTextValue] = useState(quantity);
 
   const dispatch = useDispatch();
+
+  const handleTextChange = (text, productId) => {
+    setTextValue(text);
+    console.log(text);
+    console.log(textValue);
+    dispatch(incrementQuantityByTyping(textValue, productId));
+  };
 
   return (
     <View
@@ -178,8 +186,8 @@ const SellProductFlatListCard = ({ product, getQuantity }) => {
                 color: appTheme.COLORS.mainRed,
                 fontWeight: "bold",
               }}
-              value={String(quantity)}
-              onChangeText={(text) => setTextInputValue(text)}
+              value={String(textValue)}
+              onChangeText={(text) => handleTextChange(text, productId)}
             /> */}
 
             <View style={styles.productIncreaseDecreaseContainer}>

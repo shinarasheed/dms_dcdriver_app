@@ -60,7 +60,7 @@ const DeliveryDetails = () => {
         body,
         config
       );
-      settheOrder(order.order[0]);
+      settheOrder(order?.order[0]);
       setLoadingOrder(false);
       dispatch(fetchOrder());
     } catch (error) {

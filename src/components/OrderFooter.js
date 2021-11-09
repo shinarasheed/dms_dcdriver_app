@@ -15,9 +15,9 @@ const OrderFooter = ({ getTotalPrice, order, newOrders, empties, driver }) => {
     let orderItems = [];
     newOrders.map((newOrder) => {
       orderItems.push({
-        quantity: newOrder.quantity,
-        productId: newOrder.quantity,
-        price: newOrder.price,
+        quantity: neworder?.quantity,
+        productId: neworder?.quantity,
+        price: neworder?.price,
       });
     });
     return orderItems;
@@ -27,8 +27,8 @@ const OrderFooter = ({ getTotalPrice, order, newOrders, empties, driver }) => {
     let orderItems = [];
     newOrders.map((newOrder) => {
       orderItems.push({
-        quantity: parseInt(newOrder.quantity),
-        productId: parseInt(newOrder.quantity),
+        quantity: parseInt(neworder?.quantity),
+        productId: parseInt(neworder?.quantity),
       });
     });
     return orderItems;
@@ -40,7 +40,7 @@ const OrderFooter = ({ getTotalPrice, order, newOrders, empties, driver }) => {
         onPress={async () => {
           const payload = {
             emptiesReturned: empties,
-            sellerCompanyId: order.sellerCompanyId,
+            sellerCompanyId: order?.sellerCompanyId,
             orderItems: await arrayToSubmit(),
           };
 
@@ -49,7 +49,7 @@ const OrderFooter = ({ getTotalPrice, order, newOrders, empties, driver }) => {
             orderItems: await arrayToSubmit2(),
           };
 
-          dispatch(confirmOrder({ payload, orderId: order.orderId }));
+          dispatch(confirmOrder({ payload, orderId: order?.orderId }));
           dispatch(updateInventory(payload2));
           navigator.navigate("GenerateInvoice", {
             productsToSell: newOrders,

@@ -25,7 +25,7 @@ const Customer = () => {
   const { order, numberOfOrders, allOrders } = route.params;
 
   const customerOrders = allOrders.filter(
-    (od) => od.buyerCompanyId === order.buyerCompanyId
+    (od) => od.buyerCompanyId === order?.buyerCompanyId
   );
 
   const back = () => {
@@ -159,7 +159,7 @@ const Customer = () => {
       <Header
         back={back}
         goBack
-        headerText={order !== undefined && order.buyerDetails[0].buyerName}
+        headerText={order !== undefined && order?.buyerDetails[0].buyerName}
       />
       <CustomVirtualizedView>
         <View style={{ paddingHorizontal: 20, paddingVertical: 20 }}>
@@ -170,7 +170,7 @@ const Customer = () => {
             }}
           >
             <Text>
-              Customer Code: {order !== undefined && order.buyerCompanyId}
+              Customer Code: {order !== undefined && order?.buyerCompanyId}
             </Text>
             <View
               style={{
@@ -228,7 +228,7 @@ const Customer = () => {
                 color: appTheme.COLORS.black,
               }}
             >
-              {order.buyerDetails[0]?.buyerName}
+              {order?.buyerDetails[0]?.buyerName}
             </Text>
           </View>
 

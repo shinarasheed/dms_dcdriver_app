@@ -67,7 +67,7 @@ const HomeScreen = () => {
 
   useFocusEffect(
     React.useCallback(() => {
-      dispatch(fetchOrderStats(theDriver?.vehicleId));
+      dispatch(fetchOrderStats());
     }, [])
   );
 
@@ -167,7 +167,7 @@ const HomeScreen = () => {
             </ImageBackground>
           </>
 
-          {!loading && newOrders?.length !== 0 ? (
+          {newOrders && newOrders.length > 0 ? (
             <FlatList
               style={{
                 backgroundColor: appTheme.COLORS.white,

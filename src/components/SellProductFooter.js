@@ -49,19 +49,19 @@ const SellProductFooter = ({
   }));
 
   const payload = {
-    buyerCompanyId: order.buyerCompanyId,
-    sellerCompanyId: order.sellerCompanyId,
+    buyerCompanyId: order?.buyerCompanyId,
+    sellerCompanyId: order?.sellerCompanyId,
     routeName: "Van-Sales",
     referenceId: "Van-Sales",
     emptiesReturned: empties,
     costOfEmptiesReturned: getEmptiesPrice(),
     datePlaced: new Date(new Date().getTime()),
-    shipToCode: order.buyerCompanyId,
-    billToCode: order.buyerCompanyId,
+    shipToCode: order?.buyerCompanyId,
+    billToCode: order?.buyerCompanyId,
     buyerDetails: {
-      buyerName: order.buyerDetails[0].buyerName,
-      buyerPhoneNumber: order.buyerDetails[0].buyerPhoneNumber,
-      buyerAddress: order.buyerDetails[0].buyerAddress,
+      buyerName: order?.buyerDetails[0].buyerName,
+      buyerPhoneNumber: order?.buyerDetails[0].buyerPhoneNumber,
+      buyerAddress: order?.buyerDetails[0].buyerAddress,
     },
 
     orderItems: items,

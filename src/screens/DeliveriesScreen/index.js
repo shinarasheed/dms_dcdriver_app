@@ -33,11 +33,11 @@ export default function DeliveriesScreen() {
   const allOrders = useSelector((state) => state.orders);
   const { loading, error, order } = allOrders;
 
-  const theNewDeliveries = order.filter(
+  const theNewDeliveries = order?.filter(
     (item) => item.status === "Assigned" || item.status === "Accepted"
   );
 
-  const thePastDeliveries = order.filter(
+  const thePastDeliveries = order?.filter(
     (item) => item.status === "Completed" || item.status === "Rejected"
   );
 
@@ -121,7 +121,7 @@ export default function DeliveriesScreen() {
           </View>
         </View>
 
-        {order.length !== 0 ? <>{ShowDeliveries(index)}</> : <Spinner />}
+        {order?.length !== 0 ? <>{ShowDeliveries(index)}</> : <Spinner />}
       </CustomVirtualizedView>
     </SafeAreaView>
   );

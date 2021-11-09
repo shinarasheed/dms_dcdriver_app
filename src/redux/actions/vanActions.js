@@ -14,6 +14,7 @@ import {
   INCREMENT_QUANTITY,
   DECREMENT_QUANTITY,
   DELETE_PRODUCT,
+  INCREMENT_QUANTITY_TYPING,
 } from "../constants/vanConstants";
 import { vanurl, orderUrl } from "../../utils/baseUrl";
 
@@ -147,3 +148,14 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
     payload: productId,
   });
 };
+
+export const incrementQuantityByTyping =
+  (text, productId) => async (dispatch, getState) => {
+    dispatch({
+      type: INCREMENT_QUANTITY_TYPING,
+      payload: {
+        text,
+        productId,
+      },
+    });
+  };

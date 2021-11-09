@@ -67,17 +67,17 @@ const OrderBottomSheet = ({ item, toggle, setVisible, visible }) => {
   const createNewProducts = () => {
     item?.orderItems?.map((theOrder, index) => {
       const orderDetails = products?.filter(
-        (item) => parseInt(item.productId) === parseInt(theOrder.productId)
+        (item) => parseInt(item.productId) === parseInt(theorder?.productId)
       )[0];
 
       newOrders.push({
-        productId: theOrder.productId,
-        quantity: parseInt(theOrder.quantity),
+        productId: theorder?.productId,
+        quantity: parseInt(theorder?.quantity),
         brand: orderDetails?.brand,
         price: parseInt(theOrder?.price),
         productType: orderDetails?.productType,
-        unitPrice: parseInt(theOrder.price / theOrder.quantity),
-        orderId: theOrder.orderId,
+        unitPrice: parseInt(theorder?.price / theorder?.quantity),
+        orderId: theorder?.orderId,
         imageUrl: orderDetails?.imageUrl,
         sku: orderDetails?.sku,
         productPrice: orderDetails?.price,
