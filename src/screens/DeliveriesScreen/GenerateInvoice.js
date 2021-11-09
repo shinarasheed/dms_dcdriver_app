@@ -131,7 +131,7 @@ const GenerateInvoice = () => {
           paddingLeft: 20,
         }}
       >
-        <Pressable onPress={() => navigation.goBack()}>
+        <Pressable onPress={() => navigation.navigate("Deliveries")}>
           <Image source={icons.backButton} />
         </Pressable>
         <Text

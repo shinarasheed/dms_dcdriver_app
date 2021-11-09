@@ -1,9 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { SafeAreaView, Pressable, Image, View, Text } from "react-native";
+import React, { useState } from "react";
+import {
+  SafeAreaView,
+  StyleSheet,
+  Pressable,
+  Image,
+  View,
+  Text,
+  TextInput,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
-import SearchInput from "../../components/SearchInput";
 import appTheme from "../../constants/theme";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import { icons } from "../../constants";
@@ -15,6 +23,9 @@ import { Spinner } from "../../components/Spinner";
 
 export default function DeliveriesScreen() {
   const categories = ["new deliveries", "past deliveries"];
+  const [newDeliveries, setNewDeliveries] = useState([]);
+  const [pastDeliveries, setPastDeliveries] = useState([]);
+
   const [index, setIndex] = useState(0);
   const navigation = useNavigation();
   const dispatch = useDispatch();
@@ -91,7 +102,23 @@ export default function DeliveriesScreen() {
             setIndex={setIndex}
           />
 
-          <SearchInput />
+          <View
+            style={{
+              marginBottom: 20,
+            }}
+          >
+            <View style={styles.searchInputContainer}>
+              <Icon
+                name="search"
+                size={25}
+                style={{ color: appTheme.COLORS.MainGray }}
+              />
+              <TextInput
+                placeholder="Search"
+                style={{ fontSize: 18, paddingLeft: 5, flex: 1 }}
+              />
+            </View>
+          </View>
         </View>
 
         {order.length !== 0 ? <>{ShowDeliveries(index)}</> : <Spinner />}
@@ -99,3 +126,17 @@ export default function DeliveriesScreen() {
     </SafeAreaView>
   );
 }
+
+const styles = StyleSheet.create({
+  searchInputContainer: {
+    height: 50,
+    backgroundColor: appTheme.COLORS.white,
+    marginTop: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: "#9799A0",
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+  },
+});

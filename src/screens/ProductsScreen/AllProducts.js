@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StyleSheet,
   Pressable,
@@ -6,26 +6,43 @@ import {
   View,
   Text,
   SafeAreaView,
+  TextInput,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 import ProductFlastlist from "../../components/ProductFlatList";
 import appTheme from "../../constants/theme";
 import SearchBar from "../../components/SearchBar";
 import { icons } from "../../constants";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
+// import filter from "lodash.filter";
 
 const index = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
-  useEffect(() => {
-    dispatch(fetchVanProducts());
-  }, []);
+  const [vanProducts, setVanProducts] = useState([]);
+  const [searchValue, setSearchValue] = useState("");
 
   const Van = useSelector((state) => state.van);
   const { inventory, loading: vanLoading, error: vanError } = Van;
+
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(fetchVanProducts());
+      setVanProducts(inventory);
+    }, [])
+  );
+
+  const searchFunction = (text) => {
+    setSearchValue(text);
+    const updatedData = inventory.filter(
+      (item) =>
+        item.product.brand.toUpperCase().indexOf(text.toUpperCase()) > -1
+    );
+    setVanProducts(updatedData);
+  };
 
   return (
     <SafeAreaView
@@ -63,8 +80,29 @@ const index = () => {
 
       {/* header  */}
 
-      <SearchBar />
-      <ProductFlastlist list={inventory} />
+      <View
+        style={{
+          paddingHorizontal: 20,
+          marginBottom: 20,
+        }}
+      >
+        <View style={styles.searchInputContainer}>
+          <Icon
+            name="search"
+            size={25}
+            style={{ color: appTheme.COLORS.MainGray }}
+          />
+          <TextInput
+            placeholder="Search"
+            style={{ fontSize: 18, paddingLeft: 5, flex: 1 }}
+            value={searchValue}
+            onChangeText={(text) => searchFunction(text)}
+            autoCorrect={false}
+          />
+        </View>
+      </View>
+
+      <ProductFlastlist list={vanProducts} />
     </SafeAreaView>
   );
 };

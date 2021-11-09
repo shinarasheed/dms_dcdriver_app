@@ -7,6 +7,12 @@ import {
 } from "./helpers";
 import appTheme from "../constants/theme";
 
+function getRandomIntBetween(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 export const simpleHtml =
   (
     sholudRemovePageMargin = false,
@@ -52,7 +58,10 @@ export const simpleHtml =
           </div>
           <div style="display: flex" >
               <p style="margin-bottom: 5px">Invoive:</p>&nbsp;
-              <p style="margin-bottom: 5px">#0317</p></p>
+              <p style="margin-bottom: 5px">#${getRandomIntBetween(
+                100,
+                1000
+              )}</p>
           </div>
           <div style="display: flex" >
               <p style="margin-bottom: 5px">Order no:</p>&nbsp;
