@@ -66,6 +66,7 @@ const SellProductFooter = ({
           navigator.navigate("VanInvoice", {
             productsToSell,
             order,
+            empties,
           });
           dispatch(updateInventory(payload2));
           toggle();

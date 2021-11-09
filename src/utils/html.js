@@ -14,7 +14,8 @@ export const simpleHtml =
     order,
     driver,
     distributor,
-    getTotalPrice
+    getTotalPrice,
+    getEmptiesPrice
   ) =>
   () =>
     createHTML({
@@ -115,7 +116,7 @@ export const simpleHtml =
                    (item, index) =>
                      `<tr>
                  <td style="padding: 1rem 1rem">${index + 1}</td>
-                 <td style="padding: 1rem 1rem">${item?.brand}</td>
+                 <td style="padding: 1rem 1rem">${item?.brand} ${item?.sku}</td>
                  <td style="padding: 1rem 1rem">${item?.quantity}</td>
                  <td style="padding: 1rem 1rem">\u20A6${item?.price}</td>
                  <td style="padding: 1rem 1rem">\u20A6${item?.price}</td>
@@ -146,10 +147,10 @@ export const simpleHtml =
               border-bottom: 2px solid black;"> 
                   <div>
                       <div style="margin-bottom: 5px">
-                          <span style="font-size: 18px">Subtotal:</span><span>\u20A6${getTotalPrice()}</span>
+                          <span style="font-size: 18px">Subtotal:</span><span> \u20A6${getTotalPrice()}</span>
                       </div>
                       <div style="margin-bottom: 5px">
-                          <span  style="font-size: 18px">Empties:</span><span>N0.00</span>
+                          <span  style="font-size: 18px">Empties:</span><span> \u20A6${getEmptiesPrice()}</span>
                       </div>
                       <div style="margin-bottom: 5px">
                           <span  style="font-size: 18px">Tax:</span><span>N0.00</span>

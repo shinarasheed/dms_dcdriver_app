@@ -43,7 +43,11 @@ const GenerateInvoice = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const { productsToSell, order } = route.params;
+  const { productsToSell, order, empties } = route.params;
+
+  const getEmptiesPrice = () => {
+    return empties * 1000;
+  };
 
   const getDistibutor = async () => {
     const distributor = JSON.parse(await AsyncStorage.getItem("Distributor"));
@@ -97,7 +101,8 @@ const GenerateInvoice = () => {
             order,
             driver,
             distributor,
-            getTotalPrice
+            getTotalPrice,
+            getEmptiesPrice
           )
         ),
         switches: [{ label: "Remove page margin", state: pageMarginState }],

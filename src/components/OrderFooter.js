@@ -53,8 +53,8 @@ const OrderFooter = ({ getTotalPrice, order, newOrders, empties, driver }) => {
           dispatch(updateInventory(payload2));
           navigator.navigate("GenerateInvoice", {
             productsToSell: newOrders,
-            empties,
             order,
+            empties,
           });
         }}
         style={{

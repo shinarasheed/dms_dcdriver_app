@@ -32,7 +32,7 @@ export const vanReducer = (state = initialState, action) => {
 
     case FETCH_INVENTORY_SUCCESS:
       return {
-        inventory: payload.data,
+        inventory: payload.productsWithQuantity,
         newinventory: payload.newData,
         loading: false,
         refreshing: false,

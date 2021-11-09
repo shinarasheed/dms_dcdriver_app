@@ -233,6 +233,7 @@ const SellProductFooter = ({
                   navigation.navigate("VanInvoice", {
                     productsToSell,
                     order,
+                    empties,
                   });
                 }}
               >

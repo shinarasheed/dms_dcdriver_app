@@ -45,6 +45,10 @@ const GenerateInvoice = () => {
 
   const { productsToSell, empties, order } = route.params;
 
+  const getEmptiesPrice = () => {
+    return empties * 1000;
+  };
+
   const getTotalPrice = () => {
     return productsToSell?.reduce(
       (accumulator, order) => accumulator + order?.quantity * order?.price,
@@ -97,7 +101,8 @@ const GenerateInvoice = () => {
             order,
             driver,
             distributor,
-            getTotalPrice
+            getTotalPrice,
+            getEmptiesPrice
           )
         ),
         switches: [{ label: "Remove page margin", state: pageMarginState }],

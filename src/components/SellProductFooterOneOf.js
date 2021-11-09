@@ -124,14 +124,7 @@ const SellProductFooterOneOf = ({
       </Pressable>
 
       <Button
-        onPress={() => {
-          dispatch(confirmVanSales(payload));
-          navigator.navigate("SalesInvoice", {
-            productsToSell,
-            customer,
-          });
-          dispatch(updateInventory(payload2));
-        }}
+        onPress={() => toggleConfirm()}
         disabled={productsToSell?.length === 0}
         buttonStyle={{
           backgroundColor: appTheme.COLORS.mainRed,
@@ -208,7 +201,13 @@ const SellProductFooterOneOf = ({
 
           {salesCompleted && (
             <View style={{ alignItems: "center" }}>
-              <Image source={icons.checkIcon} />
+              <Image
+                style={{
+                  width: 25,
+                  height: 25,
+                }}
+                source={icons.checkIcon}
+              />
 
               <Text style={{ fontSize: 17, marginTop: 20, marginBottom: 20 }}>
                 sales completed
@@ -224,12 +223,15 @@ const SellProductFooterOneOf = ({
                   ...appTheme.FONTS.mainFontBold,
                   borderRadius: 4,
                 }}
-                onPress={() =>
-                  navigation.navigate("SalesInvoice", {
-                    order,
+                onPress={() => {
+                  dispatch(confirmVanSales(payload));
+                  navigator.navigate("SalesInvoice", {
                     productsToSell,
-                  })
-                }
+                    customer,
+                    empties,
+                  });
+                  dispatch(updateInventory(payload2));
+                }}
               >
                 <Text style={{ color: appTheme.COLORS.white, fontSize: 18 }}>
                   ok

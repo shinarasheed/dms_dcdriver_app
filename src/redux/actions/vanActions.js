@@ -29,8 +29,12 @@ export const fetchVanProducts = () => async (dispatch) => {
       data: { data },
     } = await axios.get(`${vanurl}/van/${driver?.vehicleId}`);
 
+    const productsWithQuantity = await data.filter(
+      (product) => product.quantity > 0
+    );
+
     let x = [];
-    await data.map((item) => {
+    await productsWithQuantity.map((item) => {
       const z = item?.product;
       x.push({
         ...z,
@@ -41,7 +45,7 @@ export const fetchVanProducts = () => async (dispatch) => {
     dispatch({
       type: FETCH_INVENTORY_SUCCESS,
       payload: {
-        data,
+        productsWithQuantity,
         newData: x,
         driver,
       },
