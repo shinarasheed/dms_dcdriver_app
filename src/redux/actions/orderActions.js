@@ -125,7 +125,7 @@ export const fetchOrderStats =
       });
 
       const { data: order } = await axios.get(
-        `${orderUrl}/GetOrder/GetOrderSummaryByVehicleId/${driver.vehicleId}/2021-06-10/2021-11-09`
+        `${orderUrl}/GetOrder/GetOrderSummaryByVehicleId/${driver.vehicleId}/${startDate}/${endDate}`
       );
 
       dispatch({

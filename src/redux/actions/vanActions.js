@@ -15,6 +15,9 @@ import {
   DECREMENT_QUANTITY,
   DELETE_PRODUCT,
   INCREMENT_QUANTITY_TYPING,
+  RETURN_PRODUCTS_REQUEST,
+  RETURN_PRODUCTS_SUCCESS,
+  RETURN_PRODUCTS_FAIL,
 } from "../constants/vanConstants";
 import { vanurl, orderUrl } from "../../utils/baseUrl";
 
@@ -123,6 +126,39 @@ export const confirmVanSales = (payload) => async (dispatch) => {
     console.log(error);
     dispatch({
       type: CONFIRM_VAN_SALES_FAIL,
+      payload: "There was an error",
+    });
+  }
+};
+
+export const returnProductsToWarehouse = (payload) => async (dispatch) => {
+  try {
+    dispatch({
+      type: RETURN_PRODUCTS_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axios.post(
+      `${vanurl}/van/sales-return
+      `,
+      payload,
+      config
+    );
+
+    dispatch({
+      type: RETURN_PRODUCTS_SUCCESS,
+      payload: data,
+    });
+    dispatch(fetchVanProducts());
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: RETURN_PRODUCTS_FAIL,
       payload: "There was an error",
     });
   }

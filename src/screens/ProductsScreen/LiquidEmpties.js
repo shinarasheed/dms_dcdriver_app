@@ -21,7 +21,7 @@ import { Spinner } from "../../components/Spinner";
 
 const index = () => {
   const categories = ["liquids", "empties"];
-  const [index, setIndex] = React.useState(0);
+  const [index, setIndex] = useState(0);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();

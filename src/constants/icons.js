@@ -23,6 +23,7 @@ const cartCountIcon = require("../../assets/icons/CartCount.png");
 const checkIcon = require("../../assets/icons/Check.png");
 const smallCheckIcon = require("../../assets/icons/smallcheck.png");
 const rejectedIcon = require("../../assets/icons/Rejected.png");
+const loadVan = require("../../assets/icons/loadVan.png");
 
 export default {
   home,
@@ -50,4 +51,5 @@ export default {
   checkIcon,
   smallCheckIcon,
   rejectedIcon,
+  loadVan,
 };

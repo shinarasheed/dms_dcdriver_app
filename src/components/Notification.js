@@ -1,56 +1,50 @@
-import React from 'react';
-import {View, Text} from 'react-native';
-import appTheme from '../constants/theme';
+import React from "react";
+import { View, TouchableOpacity, Text } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import moment from "moment";
 
-const Notification = ({item}) => {
+import appTheme from "../constants/theme";
+
+import styles from "../screens/HomeScreen/styles";
+
+const Notification = ({ item }) => {
+  const navigation = useNavigation();
+
   return (
-    <View
-      style={{
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        marginBottom: 20,
-      }}>
+    <TouchableOpacity
+      style={{ marginBottom: 20, flexDirection: "row" }}
+      onPress={() => navigation.navigate("DeliveryDetails", item)}
+    >
       <View
         style={{
           backgroundColor: appTheme.COLORS.mainGreen,
-          width: 10,
-          height: 10,
+          width: 9,
+          height: 9,
           borderRadius: 50,
-          top: 5,
-        }}></View>
-      <View
-        style={{
-          marginLeft: 10,
-        }}>
-        <Text
-          style={{
-            marginBottom: 5,
-            fontWeight: '700',
-            fontSize: 16,
-            color: appTheme.COLORS.mainTextGray,
-          }}>
-          {item.Notification}
+          top: 7,
+        }}
+      ></View>
+
+      <View style={{ marginLeft: 8 }}>
+        <Text style={[styles.orderStore, { fontWeight: "bold" }]}>
+          New Deliveries for {item?.buyerDetails[0]?.buyerName}
         </Text>
-        <View
-          style={{
-            flexDirection: 'row',
-          }}>
-          <Text
-            style={{
-              marginRight: 10,
-              color: appTheme.COLORS.mainTextGray,
-            }}>
-            {item.date}
+        <View style={styles.orderDateTimeContainer}>
+          <Text style={styles.orderDate}>
+            {moment(item?.orderStatus[0]?.dateAssigned).format("MMM Do, YYYY")}
           </Text>
           <Text
             style={{
-              color: appTheme.COLORS.mainTextGray,
-            }}>
-            ({item.time})
+              color: appTheme.COLORS.textGray,
+              textTransform: "lowercase",
+            }}
+          >
+            ({new Date(item?.orderStatus[0]?.timeAssigned).toLocaleTimeString()}
+            )
           </Text>
         </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

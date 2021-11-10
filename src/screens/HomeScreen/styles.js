@@ -49,7 +49,7 @@ export default styles = StyleSheet.create({
   },
   orderStore: {
     marginBottom: 2,
-    fontSize: 17,
+    fontSize: 16,
     color: appTheme.COLORS.textGray,
   },
   orderDate: {

@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -7,9 +7,11 @@ import {
   View,
   Pressable,
   ActivityIndicator,
+  TouchableOpacity,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import Header from "../../components/Header";
 import { icons } from "../../constants";
@@ -18,6 +20,7 @@ import appTheme from "../../constants/theme";
 import ProductFlatList from "../../components/ProductFlatList";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
+import { returnProductsToWarehouse } from "../../redux/actions/vanActions";
 
 const ProductsScreen = () => {
   const navigation = useNavigation();
@@ -32,6 +35,11 @@ const ProductsScreen = () => {
 
   const Van = useSelector((state) => state.van);
   const { inventory, loading: vanLoading, error: vanError } = Van;
+
+  const stocks = inventory?.map((item) => ({
+    productId: item?.product?.productId,
+    quantity: item?.quantity,
+  }));
 
   return (
     <SafeAreaView
@@ -132,30 +140,39 @@ const ProductsScreen = () => {
           </Pressable>
         </View>
 
-        <Pressable>
-          <View
+        <TouchableOpacity
+          onPress={async () => {
+            const driver = JSON.parse(
+              await AsyncStorage.getItem("driverDetails")
+            );
+            const payload = {
+              companyCode: driver.ownerCompanyId,
+              vehicleId: driver.vehicleId,
+              stocks,
+            };
+            dispatch(returnProductsToWarehouse(payload));
+          }}
+          style={{
+            backgroundColor: appTheme.COLORS.white,
+            flexDirection: "row",
+            alignItems: "center",
+            paddingVertical: 30,
+            paddingLeft: 15,
+            marginBottom: 20,
+          }}
+        >
+          <Image source={icons.salesReturn} />
+
+          <Text
             style={{
-              backgroundColor: appTheme.COLORS.white,
-              flexDirection: "row",
-              alignItems: "center",
-              paddingVertical: 30,
-              paddingLeft: 15,
-              marginBottom: 20,
+              fontSize: 18,
+              marginLeft: 20,
+              color: appTheme.COLORS.black,
             }}
           >
-            <Image source={icons.salesReturn} />
-
-            <Text
-              style={{
-                fontSize: 18,
-                marginLeft: 20,
-                color: appTheme.COLORS.black,
-              }}
-            >
-              Return products to warehouse
-            </Text>
-          </View>
-        </Pressable>
+            Return products to warehouse
+          </Text>
+        </TouchableOpacity>
 
         {!vanLoading ? (
           <ProductFlatList list={inventory} />
