@@ -1,12 +1,5 @@
 import React from "react";
-import {
-  SafeAreaView,
-  Text,
-  View,
-  Image,
-  FlatList,
-  Pressable,
-} from "react-native";
+import { SafeAreaView, Text, View, Image, FlatList } from "react-native";
 import moment from "moment";
 import { Button } from "react-native-elements";
 
@@ -27,10 +20,6 @@ const Customer = () => {
   const customerOrders = allOrders.filter(
     (od) => od.buyerCompanyId === order?.buyerCompanyId
   );
-
-  const back = () => {
-    navigation.goBack();
-  };
 
   const SingleCustomer = ({ item }) => {
     return (
@@ -157,7 +146,6 @@ const Customer = () => {
       style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
     >
       <Header
-        back={back}
         goBack
         headerText={order !== undefined && order?.buyerDetails[0].buyerName}
       />

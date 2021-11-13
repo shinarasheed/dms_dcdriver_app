@@ -15,9 +15,9 @@ const OrderFooter = ({ getTotalPrice, order, newOrders, empties, driver }) => {
     let orderItems = [];
     newOrders.map((newOrder) => {
       orderItems.push({
-        quantity: neworder?.quantity,
-        productId: neworder?.quantity,
-        price: neworder?.price,
+        quantity: newOrder?.quantity,
+        productId: newOrder?.quantity,
+        price: newOrder?.price,
       });
     });
     return orderItems;
@@ -27,8 +27,8 @@ const OrderFooter = ({ getTotalPrice, order, newOrders, empties, driver }) => {
     let orderItems = [];
     newOrders.map((newOrder) => {
       orderItems.push({
-        quantity: parseInt(neworder?.quantity),
-        productId: parseInt(neworder?.quantity),
+        quantity: parseInt(newOrder?.quantity),
+        productId: parseInt(newOrder?.quantity),
       });
     });
     return orderItems;

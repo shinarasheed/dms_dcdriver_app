@@ -5,20 +5,22 @@ import {
   Image,
   View,
   Pressable,
+  TextInput,
+  StyleSheet,
   ActivityIndicator,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-// import SearchInput from '../../components/SearchInput';
 import Header from "../../components/Header";
 import TopTab from "../../components/CustomersTopTab";
 import CustomerCard from "../../components/CustomerCard";
 import { SafeAreaView } from "react-native-safe-area-context";
-import appTheme from "../../constants/theme";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import { fetchOrder } from "../../redux/actions/orderActions";
 import { icons } from "../../constants";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import appTheme from "../../constants/theme";
 
 const CustomersScreen = () => {
   const categories = ["ALL", "BULKBREAKERS", "POCS", "NEW"];
@@ -45,7 +47,24 @@ const CustomersScreen = () => {
             selectedCategoryIndex={selectedCategoryIndex}
             setSelectedCategoryIndex={setSelectedCategoryIndex}
           />
-          {/* <SearchInput /> */}
+
+          <View
+            style={{
+              marginBottom: 20,
+            }}
+          >
+            <View style={styles.searchInputContainer}>
+              <Icon
+                name="search"
+                size={25}
+                style={{ color: appTheme.COLORS.MainGray }}
+              />
+              <TextInput
+                placeholder="Search"
+                style={{ fontSize: 18, paddingLeft: 5, flex: 1 }}
+              />
+            </View>
+          </View>
         </View>
 
         {!loading ? (
@@ -68,22 +87,13 @@ const CustomersScreen = () => {
             )}
           />
         ) : (
-          <View
-            style={{
-              flex: 1,
-              flexDirection: "column",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <ActivityIndicator
-              color={
-                Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
-              }
-              animating={loading}
-              size="large"
-            />
-          </View>
+          <ActivityIndicator
+            color={
+              Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
+            }
+            animating={loading}
+            size="large"
+          />
         )}
       </CustomVirtualizedView>
 
@@ -112,3 +122,17 @@ const CustomersScreen = () => {
 };
 
 export default CustomersScreen;
+
+const styles = StyleSheet.create({
+  searchInputContainer: {
+    height: 50,
+    backgroundColor: appTheme.COLORS.white,
+    marginTop: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: "#9799A0",
+    borderWidth: 1,
+    borderRadius: 5,
+    paddingHorizontal: 10,
+  },
+});

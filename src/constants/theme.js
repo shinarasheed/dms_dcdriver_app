@@ -1,6 +1,9 @@
 import { Dimensions } from "react-native";
 const { width, height } = Dimensions.get("window");
 
+let scale = width / 360;
+scale = scale.toFixed(2);
+
 export const COLORS = {
   // base colors
   primary: "#FC6D3F", // orange
@@ -37,10 +40,9 @@ export const COLORS = {
 };
 
 export const SIZES = {
-  device: {
-    height: height,
-    width: width,
-  },
+  height: height,
+  width: width,
+  scale: scale,
 };
 
 export const FONTS = {

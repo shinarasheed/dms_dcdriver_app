@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FlatList, SafeAreaView, View, ActivityIndicator } from "react-native";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { FlatList, SafeAreaView, View } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 
 import appTheme from "../../constants/theme";
 
 import Header from "../../components/Header";
-import CustomVirtualizedView from "../../components/VirtualizedList";
 import NotificationsTab from "../../components/NotificationsTab";
 import Notification from "../../components/Notification";
 import { fetchOrder } from "../../redux/actions/orderActions";
+import { Spinner } from "../../components/Spinner";
 
 const index = () => {
   const categories = ["all", "unread", "read"];
   const [index, setIndex] = useState(0);
-  const navigation = useNavigation();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -25,7 +24,7 @@ const index = () => {
   const dispatch = useDispatch();
 
   const allOrders = useSelector((state) => state.orders);
-  const { loading, refreshing, error, order } = allOrders;
+  const { order } = allOrders;
 
   const Notifications = (index) => {
     switch (index) {
@@ -76,10 +75,6 @@ const index = () => {
     }
   };
 
-  const back = () => {
-    navigation.goBack();
-  };
-
   return (
     <SafeAreaView
       style={{
@@ -87,7 +82,7 @@ const index = () => {
         flex: 1,
       }}
     >
-      <Header back={back} goBack headerText="Notifications" />
+      <Header goBack headerText="Notifications" />
 
       <View style={{ paddingHorizontal: 25, marginBottom: 5 }}>
         <NotificationsTab
@@ -100,17 +95,12 @@ const index = () => {
       {order.length > 0 ? (
         Notifications(index)
       ) : (
-        <ActivityIndicator
+        <Spinner
           style={{
             flex: 1,
             justifyContent: "center",
             alignItems: "center",
           }}
-          color={
-            Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
-          }
-          animating={true}
-          size="large"
         />
       )}
     </SafeAreaView>

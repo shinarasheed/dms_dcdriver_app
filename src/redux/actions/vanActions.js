@@ -37,20 +37,16 @@ export const fetchVanProducts = () => async (dispatch) => {
       (product) => product.quantity > 0
     );
 
-    let x = [];
-    await productsWithQuantity.map((item) => {
-      const z = item?.product;
-      x.push({
-        ...z,
-        quantity: 0,
-      });
-    });
+    const newInventory = data?.map((item) => ({
+      ...item.product,
+      quantity: 0,
+    }));
 
     dispatch({
       type: FETCH_INVENTORY_SUCCESS,
       payload: {
         productsWithQuantity,
-        newData: x,
+        newInventory,
         driver,
       },
     });

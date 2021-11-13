@@ -34,7 +34,7 @@ export const vanReducer = (state = initialState, action) => {
     case FETCH_INVENTORY_SUCCESS:
       return {
         inventory: payload.productsWithQuantity,
-        newinventory: payload.newData,
+        newinventory: payload.newInventory,
         loading: false,
         refreshing: false,
         driver: payload.driver,
@@ -96,7 +96,7 @@ export const vanReducer = (state = initialState, action) => {
       const myproduct = state.newinventory.find(
         (item) => item?.productId === payload.productId
       );
-      myproduct.quantity += payload.text;
+      myproduct.quantity = payload.text;
       return {
         ...state,
       };
@@ -105,7 +105,7 @@ export const vanReducer = (state = initialState, action) => {
       const theProduct = state.newinventory.find(
         (item) => item.productId === payload
       );
-      if (theProduct.quantity === 1) {
+      if (theProduct.quantity === 0) {
         let new_items = state.newinventory.filter(
           (item) => item.productId !== payload
         );

@@ -32,14 +32,11 @@ const OrderBottomSheetCard = ({
     productPrice,
   } = order;
 
-  const [value, setValue] = useState(String(quantity));
-
   const incrementQuantityByTyping = (text, productId) => {
-    setValue(text);
-    let product = newOrders?.find(
-      (product) => product?.productId === productId
-    );
-    product.quantity = Number(text);
+    const myproduct = newOrders?.find((item) => item?.productId === productId);
+    console.log(myproduct);
+    console.log(text);
+    myproduct.quantity = String(text);
   };
 
   return (
@@ -191,9 +188,8 @@ const OrderBottomSheetCard = ({
                 color: appTheme.COLORS.mainTextGray,
                 ...appTheme.FONTS.mainFontLight,
               }}
-              value={value}
+              value={String(quantity)}
               onChangeText={(text) =>
-                getQuantity(productId, parseInt(text)) &&
                 incrementQuantityByTyping(text, productId)
               }
             />

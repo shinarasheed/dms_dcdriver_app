@@ -1,20 +1,11 @@
 import React from "react";
-import {
-  ActivityIndicator,
-  View,
-  Text,
-  SafeAreaView,
-  Platform,
-  Alert,
-} from "react-native";
+import { ActivityIndicator, SafeAreaView, Platform } from "react-native";
 import { LoginView } from "ad-b2c-react-native";
 import * as SecureStore from "expo-secure-store";
 import appTheme from "../../constants/theme";
-import Refresh from "../../components/Refresh";
 import { adService } from "ad-b2c-react-native";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
-import { useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 export default class Login extends React.PureComponent {
   static navigationOptions = { header: null };

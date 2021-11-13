@@ -26,7 +26,7 @@ const Notification = ({ item }) => {
       ></View>
 
       <View style={{ marginLeft: 8 }}>
-        <Text style={[styles.orderStore, { fontWeight: "bold" }]}>
+        <Text style={[styles.customer, { fontWeight: "bold" }]}>
           New Deliveries for {item?.buyerDetails[0]?.buyerName}
         </Text>
         <View style={styles.orderDateTimeContainer}>

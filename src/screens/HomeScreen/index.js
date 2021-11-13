@@ -7,7 +7,6 @@ import {
   SafeAreaView,
   Pressable,
   ImageBackground,
-  ActivityIndicator,
 } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
@@ -33,10 +32,8 @@ const HomeScreen = () => {
   const [theDriver, setTheDriver] = useState(null);
   const [distributor, setDistributor] = useState(null);
   const orderStats = useSelector((state) => state.orderStats);
-  const { stats, loading: statsLoading, error: statsError } = orderStats;
-  const updateOrder = useSelector((state) => state.updateOrder);
-  const { updatedOrder } = updateOrder;
-  const { loading, refreshing, error, order } = allOrders;
+  const { stats } = orderStats;
+  const { loading, order } = allOrders;
 
   const newOrders = order?.filter((item) => item.status === "Assigned");
   const dispatch = useDispatch();
@@ -109,17 +106,15 @@ const HomeScreen = () => {
       <CustomVirtualizedView>
         <View style={styles.homeScreenContainer}>
           {/* calendar */}
-          <>
-            <DateRangePicker />
-          </>
+          <DateRangePicker />
 
           <>
             <ImageBackground
               style={{
                 height: 110,
                 width: "100%",
-                marginBottom: 30,
-                marginTop: 30,
+                marginBottom: 30 * appTheme.SIZES.scale,
+                marginTop: 30 * appTheme.SIZES.scale,
               }}
               source={images.saleHistory1}
             >
@@ -137,7 +132,7 @@ const HomeScreen = () => {
               style={{
                 width: "100%",
                 height: 110,
-                marginBottom: 30,
+                marginBottom: 30 * appTheme.SIZES.scale,
               }}
               source={images.saleHistory3}
             >
@@ -172,7 +167,7 @@ const HomeScreen = () => {
               style={{
                 backgroundColor: appTheme.COLORS.white,
                 borderRadius: 20,
-                padding: 20,
+                padding: 20 * appTheme.SIZES.scale,
               }}
               data={newOrders}
               keyExtractor={(item, id) => id.toString()}
@@ -180,11 +175,11 @@ const HomeScreen = () => {
                 <Delivery item={item} newOrders={newOrders} />
               )}
               ListHeaderComponent={() => (
-                <View style={{ marginBottom: 20 }}>
+                <View style={{ marginBottom: 20 * appTheme.SIZES.scale }}>
                   <Text
                     style={{
                       fontWeight: "bold",
-                      fontSize: 17,
+                      fontSize: 17 * appTheme.SIZES.scale,
                       color: appTheme.COLORS.mainTextGray,
                     }}
                   >
@@ -201,15 +196,7 @@ const HomeScreen = () => {
                 alignItems: "center",
               }}
             >
-              <ActivityIndicator
-                color={
-                  Platform.OS === "android"
-                    ? appTheme.COLORS.mainRed
-                    : undefined
-                }
-                animating={loading}
-                size="large"
-              />
+              <Spinner animating={loading} />
             </View>
           )}
         </View>

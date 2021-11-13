@@ -17,6 +17,7 @@ const SellProductFooter = ({
   productsToSell,
   order,
   getQuantity,
+  getQuantity2,
   calNumberOfFull,
   setEmpties,
   empties,
@@ -152,6 +153,7 @@ const SellProductFooter = ({
             productsToSell={productsToSell}
             item={order}
             getQuantity={getQuantity}
+            getQuantity2={getQuantity2}
             calNumberOfFull={calNumberOfFull}
             setEmpties={setEmpties}
             empties={empties}

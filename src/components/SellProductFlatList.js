@@ -3,14 +3,18 @@ import { FlatList, View } from "react-native";
 import appTheme from "../constants/theme";
 import SellProductFlatListCard from "./SellProductFlatListCard";
 
-const SellProductFlatList = ({ inventory, getQuantity }) => {
+const SellProductFlatList = ({ inventory, getQuantity, getQuantity2 }) => {
   return (
     <>
       <FlatList
         data={inventory}
         keyExtractor={(item, id) => id.toString()}
         renderItem={({ item }) => (
-          <SellProductFlatListCard product={item} getQuantity={getQuantity} />
+          <SellProductFlatListCard
+            product={item}
+            getQuantity={getQuantity}
+            getQuantity2={getQuantity2}
+          />
         )}
         ItemSeparatorComponent={() => (
           <View

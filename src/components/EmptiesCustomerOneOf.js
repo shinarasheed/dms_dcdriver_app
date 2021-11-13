@@ -1,9 +1,8 @@
-import React from 'react';
-import {StyleSheet, Pressable, Image, Text, View} from 'react-native';
-import appTheme from '../constants/theme';
-import {icons} from '../constants';
+import React from "react";
+import { StyleSheet, Pressable, Text, View } from "react-native";
+import appTheme from "../constants/theme";
 
-const EmptiesCustomer = ({NumberOfFull, setEmpties, empties}) => {
+const EmptiesCustomer = ({ NumberOfFull, setEmpties, empties }) => {
   return (
     <>
       <View>
@@ -12,18 +11,25 @@ const EmptiesCustomer = ({NumberOfFull, setEmpties, empties}) => {
             fontSize: 17,
             color: appTheme.COLORS.mainTextGray,
             marginBottom: 20,
-          }}>
+          }}
+        >
           Empties returned by customer
         </Text>
         <View
           style={{
-            flexDirection: 'row',
-          }}>
+            flexDirection: "row",
+          }}
+        >
           <View
-            style={[styles.productIncreaseDecreaseContainer, {marginRight: 5}]}>
+            style={[
+              styles.productIncreaseDecreaseContainer,
+              { marginRight: 5 },
+            ]}
+          >
             <Pressable
               disabled={empties === 0 ? true : false}
-              onPress={() => setEmpties(empties - 1)}>
+              onPress={() => setEmpties(empties - 1)}
+            >
               <Text style={styles.IncreaseText}>-</Text>
             </Pressable>
           </View>
@@ -34,22 +40,25 @@ const EmptiesCustomer = ({NumberOfFull, setEmpties, empties}) => {
               borderColor: appTheme.COLORS.borderGRey,
               marginRight: 5,
               borderRadius: 5,
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
             <Text
               style={{
-                fontWeight: 'bold',
+                fontWeight: "bold",
                 color: appTheme.COLORS.mainTextGray,
                 ...appTheme.FONTS.mainFontLight,
-              }}>
+              }}
+            >
               {empties}
             </Text>
           </View>
           <View style={styles.productIncreaseDecreaseContainer}>
             <Pressable
               disabled={empties >= NumberOfFull()}
-              onPress={() => setEmpties(empties + 1)}>
+              onPress={() => setEmpties(empties + 1)}
+            >
               <Text style={styles.IncreaseText}>+</Text>
             </Pressable>
           </View>
@@ -64,15 +73,15 @@ export default EmptiesCustomer;
 const styles = StyleSheet.create({
   productIncreaseDecreaseContainer: {
     backgroundColor: appTheme.COLORS.boxGray,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     width: 30,
     height: 30,
     borderRadius: 5,
   },
   IncreaseText: {
     color: appTheme.COLORS.mainRed,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 20,
   },
 });

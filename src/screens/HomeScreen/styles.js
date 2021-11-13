@@ -47,7 +47,7 @@ export default styles = StyleSheet.create({
   orderDateTimeContainer: {
     flexDirection: "row",
   },
-  orderStore: {
+  customer: {
     marginBottom: 2,
     fontSize: 16,
     color: appTheme.COLORS.textGray,

@@ -6,10 +6,9 @@ import appTheme from "../constants/theme";
 import ProductCard from "./ProductCard";
 
 const ProductFlatList = ({ list }) => {
-  console.log(list);
   return (
     <>
-      {list.length > 0 ? (
+      {list?.length > 0 ? (
         <FlatList
           style={{ marginBottom: 20 }}
           data={list}

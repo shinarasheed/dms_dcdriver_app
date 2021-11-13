@@ -14,7 +14,7 @@ const Delivery = ({ item }) => {
       style={{ marginBottom: 20 }}
       onPress={() => navigation.navigate("DeliveryDetails", item)}
     >
-      <Text style={styles.orderStore}>
+      <Text style={styles.customer}>
         New Deliveries for {item?.buyerDetails[0]?.buyerName}
       </Text>
       <View style={styles.orderDateTimeContainer}>

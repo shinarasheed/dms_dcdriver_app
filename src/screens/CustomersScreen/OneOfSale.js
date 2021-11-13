@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import {
-  SafeAreaView,
-  Pressable,
-  Image,
-  Text,
-  View,
-  ActivityIndicator,
-} from "react-native";
+import { SafeAreaView, Pressable, Image, Text, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import {
   useRoute,
@@ -15,11 +8,11 @@ import {
 } from "@react-navigation/native";
 
 import appTheme from "../../constants/theme";
-import SellProductFlatListOneOf from "../../components/SellProductFlatListOneOf";
+import SellProductFlatList from "../../components/SellProductFlatList";
 import SellProductFooterOneOf from "../../components/SellProductFooterOneOf";
-import CustomVirtualizedView from "../../components/VirtualizedList";
 import { icons } from "../../constants";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
+import { Spinner } from "../../components/Spinner";
 
 const SellToCustomer = () => {
   const navigator = useNavigation();
@@ -42,6 +35,14 @@ const SellToCustomer = () => {
   );
 
   const getQuantity = (productId, quantity) => {
+    return (
+      quantity <=
+      inventory?.find((product) => product?.product?.productId === productId)
+        ?.quantity
+    );
+  };
+
+  const getQuantity2 = (productId, quantity) => {
     return (
       quantity <
       inventory?.find((product) => product?.product?.productId === productId)
@@ -91,7 +92,6 @@ const SellToCustomer = () => {
           flexDirection: "row",
           alignItems: "center",
           paddingBottom: 5,
-          marginBottom: 40,
         }}
       >
         <Pressable onPress={() => navigator.goBack()}>
@@ -112,32 +112,29 @@ const SellToCustomer = () => {
         </Text>
       </View>
 
-      <CustomVirtualizedView>
-        {/* seachbar */}
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
+        {!vanLoading ? (
+          <SellProductFlatList
+            inventory={newinventory}
+            loading={vanLoading}
+            getQuantity={getQuantity}
+            getQuantity2={getQuantity2}
+          />
+        ) : (
+          <Spinner
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          />
+        )}
+      </View>
 
-        <View
-          style={{
-            marginTop: 5,
-            marginBottom: 30,
-          }}
-        >
-          {!vanLoading ? (
-            <SellProductFlatListOneOf
-              inventory={newinventory}
-              loading={vanLoading}
-              getQuantity={getQuantity}
-            />
-          ) : (
-            <ActivityIndicator
-              color={
-                Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
-              }
-              animating={true}
-              size="large"
-            />
-          )}
-        </View>
-      </CustomVirtualizedView>
       {/* 
       {/* Footer */}
       <SellProductFooterOneOf
@@ -147,6 +144,7 @@ const SellToCustomer = () => {
         productsToSell={productsToSell}
         order={order}
         getQuantity={getQuantity}
+        getQuantity2={getQuantity2}
         calNumberOfFull={calNumberOfFull}
         setEmpties={setEmpties}
         empties={empties}

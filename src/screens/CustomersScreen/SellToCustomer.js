@@ -1,13 +1,5 @@
-import React, { useEffect, useState } from "react";
-import {
-  SafeAreaView,
-  Pressable,
-  Image,
-  Text,
-  View,
-  StyleSheet,
-  ActivityIndicator,
-} from "react-native";
+import React, { useState } from "react";
+import { SafeAreaView, Pressable, Image, Text, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import {
   useRoute,
@@ -15,13 +7,12 @@ import {
   useFocusEffect,
 } from "@react-navigation/native";
 
-import SearchBar from "../../components/SearchBar";
 import appTheme from "../../constants/theme";
 import SellProductFlatList from "../../components/SellProductFlatList";
 import SellProductFooter from "../../components/SellProductFooter";
-import CustomVirtualizedView from "../../components/VirtualizedList";
 import { icons } from "../../constants";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
+import { Spinner } from "../../components/Spinner";
 
 const SellToCustomer = () => {
   const navigator = useNavigation();
@@ -40,6 +31,14 @@ const SellToCustomer = () => {
   );
 
   const getQuantity = (productId, quantity) => {
+    return (
+      quantity <=
+      inventory.find((product) => product?.product?.productId === productId)
+        ?.quantity
+    );
+  };
+
+  const getQuantity2 = (productId, quantity) => {
     return (
       quantity <
       inventory.find((product) => product?.product?.productId === productId)
@@ -81,6 +80,7 @@ const SellToCustomer = () => {
         backgroundColor: appTheme.COLORS.mainBackground,
       }}
     >
+      {/* header */}
       <View
         style={{
           backgroundColor: appTheme.COLORS.white,
@@ -88,8 +88,6 @@ const SellToCustomer = () => {
           paddingLeft: 20,
           flexDirection: "row",
           alignItems: "center",
-          paddingBottom: 5,
-          marginBottom: 40,
         }}
       >
         <Pressable onPress={() => navigator.goBack()}>
@@ -108,29 +106,30 @@ const SellToCustomer = () => {
         </Text>
       </View>
 
-      <CustomVirtualizedView>
-        <View
-          style={{
-            marginTop: 5,
-            marginBottom: 30,
-          }}
-        >
-          {!vanLoading ? (
-            <SellProductFlatList
-              inventory={newinventory}
-              getQuantity={getQuantity}
-            />
-          ) : (
-            <ActivityIndicator
-              color={
-                Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
-              }
-              animating={true}
-              size="large"
-            />
-          )}
-        </View>
-      </CustomVirtualizedView>
+      {/* header */}
+
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
+        {!vanLoading ? (
+          <SellProductFlatList
+            inventory={newinventory}
+            getQuantity={getQuantity}
+            getQuantity2={getQuantity2}
+            loading={vanLoading}
+          />
+        ) : (
+          <Spinner
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          />
+        )}
+      </View>
 
       {/* Footer */}
       <SellProductFooter
@@ -140,6 +139,7 @@ const SellToCustomer = () => {
         productsToSell={productsToSell}
         order={order}
         getQuantity={getQuantity}
+        getQuantity2={getQuantity2}
         calNumberOfFull={calNumberOfFull}
         setEmpties={setEmpties}
         empties={empties}
@@ -149,17 +149,3 @@ const SellToCustomer = () => {
 };
 
 export default SellToCustomer;
-
-const styles = StyleSheet.create({
-  searchInputContainer: {
-    height: 50,
-    backgroundColor: appTheme.COLORS.white,
-    marginTop: 15,
-    flexDirection: "row",
-    alignItems: "center",
-    borderColor: "#9799A0",
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-  },
-});

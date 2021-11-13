@@ -7,13 +7,13 @@ import {
   View,
   Text,
   TextInput,
+  Keyboard,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import appTheme from "../../constants/theme";
-import CustomVirtualizedView from "../../components/VirtualizedList";
 import { icons } from "../../constants";
 import DeliveryFlatList from "../../components/DeliveryFlatList";
 import { fetchOrder } from "../../redux/actions/orderActions";
@@ -23,15 +23,14 @@ import { Spinner } from "../../components/Spinner";
 
 export default function DeliveriesScreen() {
   const categories = ["new deliveries", "past deliveries"];
-  const [newDeliveries, setNewDeliveries] = useState([]);
-  const [pastDeliveries, setPastDeliveries] = useState([]);
+  const [textInputValue, setTextInputValue] = React.useState("");
 
   const [index, setIndex] = useState(0);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const allOrders = useSelector((state) => state.orders);
-  const { loading, error, order } = allOrders;
+  const { order } = allOrders;
 
   const theNewDeliveries = order?.filter(
     (item) => item.status === "Assigned" || item.status === "Accepted"
@@ -58,6 +57,10 @@ export default function DeliveriesScreen() {
       default:
         return <DeliveryFlatList list={theNewDeliveries} />;
     }
+  };
+
+  const handleOnChangeText = (text) => {
+    setTextInputValue(text);
   };
 
   return (
@@ -94,7 +97,7 @@ export default function DeliveriesScreen() {
 
       {/* header */}
 
-      <CustomVirtualizedView>
+      <Pressable onPress={() => Keyboard.dismiss()}>
         <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
           <DeliveriesTab
             categories={categories}
@@ -116,13 +119,15 @@ export default function DeliveriesScreen() {
               <TextInput
                 placeholder="Search"
                 style={{ fontSize: 18, paddingLeft: 5, flex: 1 }}
+                onChangeText={(text) => handleOnChangeText(text)}
+                value={textInputValue}
               />
             </View>
           </View>
         </View>
 
         {order?.length !== 0 ? <>{ShowDeliveries(index)}</> : <Spinner />}
-      </CustomVirtualizedView>
+      </Pressable>
     </SafeAreaView>
   );
 }

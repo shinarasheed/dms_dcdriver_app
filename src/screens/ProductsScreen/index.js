@@ -165,7 +165,7 @@ const ProductsScreen = () => {
 
           <Text
             style={{
-              fontSize: 18,
+              fontSize: 17,
               marginLeft: 20,
               color: appTheme.COLORS.black,
             }}

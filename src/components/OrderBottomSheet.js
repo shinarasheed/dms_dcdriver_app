@@ -139,7 +139,7 @@ const OrderBottomSheet = ({ item, toggle, setVisible, visible }) => {
   };
 
   return (
-    <CustomVirtualist>
+    <Pressable>
       <View
         style={{
           paddingHorizontal: 20,
@@ -245,7 +245,7 @@ const OrderBottomSheet = ({ item, toggle, setVisible, visible }) => {
         empties={empties}
         driver={driver}
       />
-    </CustomVirtualist>
+    </Pressable>
   );
 };
 

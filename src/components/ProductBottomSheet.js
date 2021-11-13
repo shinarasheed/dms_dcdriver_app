@@ -21,6 +21,7 @@ const ProductBottomSheet = ({
   toggle,
   item,
   getQuantity,
+  getQuantity2,
   calNumberOfFull,
   setEmpties,
   empties,
@@ -74,6 +75,7 @@ const ProductBottomSheet = ({
             productsToSell={productsToSell}
             item={item}
             getQuantity={getQuantity}
+            getQuantity2={getQuantity2}
           />
         )}
         ItemSeparatorComponent={() => (

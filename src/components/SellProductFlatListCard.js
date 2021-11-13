@@ -21,16 +21,13 @@ import appTheme from "../constants/theme";
 const SellProductFlatListCard = ({
   product: { productId, brand, price, productType, imageUrl, sku, quantity },
   getQuantity,
+  getQuantity2,
 }) => {
-  const [textValue, setTextValue] = useState(quantity);
-
   const dispatch = useDispatch();
 
-  const handleTextChange = (text, productId) => {
-    setTextValue(text);
-    console.log(text);
-    console.log(textValue);
-    dispatch(incrementQuantityByTyping(textValue, productId));
+  const handleTextChange = async (text, productId) => {
+    getQuantity(productId, text) &&
+      dispatch(incrementQuantityByTyping(text, productId));
   };
 
   return (
@@ -153,29 +150,8 @@ const SellProductFlatListCard = ({
                 <Text style={styles.IncreaseText}>-</Text>
               </Pressable>
             </View>
-            <View
-              style={{
-                borderWidth: 1,
-                width: 70,
-                borderColor: appTheme.COLORS.borderGRey,
-                marginRight: 5,
-                borderRadius: 5,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  color: appTheme.COLORS.mainTextGray,
-                  ...appTheme.FONTS.mainFontLight,
-                }}
-              >
-                {quantity}
-              </Text>
-            </View>
 
-            {/* <TextInput
+            <TextInput
               style={{
                 borderWidth: 1,
                 width: 70,
@@ -183,17 +159,17 @@ const SellProductFlatListCard = ({
                 marginRight: 5,
                 borderRadius: 5,
                 textAlign: "center",
-                color: appTheme.COLORS.mainRed,
+                color: appTheme.COLORS.MainGray,
                 fontWeight: "bold",
               }}
-              value={String(textValue)}
+              value={String(quantity)}
               onChangeText={(text) => handleTextChange(text, productId)}
-            /> */}
+            />
 
             <View style={styles.productIncreaseDecreaseContainer}>
               <Pressable
                 onPress={() =>
-                  getQuantity(productId, quantity) &&
+                  getQuantity2(productId, quantity) &&
                   dispatch(incrementQuantity(productId))
                 }
               >

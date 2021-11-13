@@ -15,7 +15,6 @@ import { Button } from "react-native-elements";
 import { useDispatch } from "react-redux";
 
 import { createCustomerOneOf } from "../../redux/actions/customerActions";
-import Header from "../../components/Header";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
 
