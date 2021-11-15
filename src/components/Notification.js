@@ -6,6 +6,7 @@ import moment from "moment";
 import appTheme from "../constants/theme";
 
 import styles from "../screens/HomeScreen/styles";
+import Routes from "../navigation/Routes";
 
 const Notification = ({ item }) => {
   const navigation = useNavigation();
@@ -13,7 +14,9 @@ const Notification = ({ item }) => {
   return (
     <TouchableOpacity
       style={{ marginBottom: 20, flexDirection: "row" }}
-      onPress={() => navigation.navigate("DeliveryDetails", item)}
+      onPress={() =>
+        navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, item)
+      }
     >
       <View
         style={{

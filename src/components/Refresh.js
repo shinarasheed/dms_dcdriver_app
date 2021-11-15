@@ -13,6 +13,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as SecureStore from "expo-secure-store";
+import Routes from "../navigation/Routes";
 
 const wait = (timeout) => {
   return new Promise((resolve) => setTimeout(resolve, timeout));
@@ -25,7 +26,7 @@ const Refresh = () => {
   const checkValid = async () => {
     const data = await adService.getAccessTokenAsync();
     const { isValid } = await adService.getAccessTokenAsync();
-    isValid ? navigation.navigate("HomeScreen") : null;
+    isValid ? navigation.navigate(Routes.HOME_SCREEN) : null;
   };
 
   const onRefresh = async () => {
@@ -44,7 +45,7 @@ const Refresh = () => {
 
     await AsyncStorage.setItem("driverDetails", JSON.stringify(data));
     console.log(isValid);
-    isValid ? navigation.navigate("HomeScreen") : null;
+    isValid ? navigation.navigate(Routes.HOME_SCREEN) : null;
   };
 
   useEffect(() => {

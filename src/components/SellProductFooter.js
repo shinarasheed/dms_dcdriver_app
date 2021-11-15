@@ -10,6 +10,7 @@ import { updateInventory } from "../redux/actions/vanActions";
 
 import appTheme from "../constants/theme";
 import ProductBottomSheet from "./ProductBottomSheet";
+import Routes from "../navigation/Routes";
 
 const SellProductFooter = ({
   getTotalPrice,
@@ -232,7 +233,7 @@ const SellProductFooter = ({
                 onPress={() => {
                   dispatch(confirmVanSales(payload));
                   dispatch(updateInventory(payload2));
-                  navigation.navigate("VanInvoice", {
+                  navigation.navigate(Routes.VANINVOICE_SCREEN, {
                     productsToSell,
                     order,
                     empties,

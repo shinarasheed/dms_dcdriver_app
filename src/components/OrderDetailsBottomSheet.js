@@ -1,8 +1,8 @@
 import React from "react";
-import { Text, View, Pressable } from "react-native";
+import { Text, View, Image, Pressable } from "react-native";
 
 import { BottomSheet } from "react-native-btr";
-import OrderBottomSheet from "../../components/OrderBottomSheet";
+import OrderBottomSheet from "./OrderBottomSheet";
 import { icons } from "../constants";
 import appTheme from "../constants/theme";
 

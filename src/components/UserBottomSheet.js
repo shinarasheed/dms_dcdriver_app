@@ -7,6 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { icons } from "../constants";
 import appTheme from "../constants/theme";
+import Routes from "../navigation/Routes";
 
 export default function UserBottomSheet({
   toggle,
@@ -19,7 +20,7 @@ export default function UserBottomSheet({
   const clearTokens = async () => {
     await adService.logoutAsync();
     await AsyncStorage.clear();
-    navigation.navigate("Logout");
+    navigation.navigate(Routes.LOGOUT_SCREEN);
   };
 
   return (

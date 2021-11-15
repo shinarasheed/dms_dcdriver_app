@@ -21,6 +21,7 @@ import ProductFlatList from "../../components/ProductFlatList";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
 import { returnProductsToWarehouse } from "../../redux/actions/vanActions";
+import Routes from "../../navigation/Routes";
 
 const ProductsScreen = () => {
   const navigation = useNavigation();
@@ -57,7 +58,9 @@ const ProductsScreen = () => {
             paddingLeft: 20,
           }}
         >
-          <Pressable onPress={() => navigation.navigate("AllProducts")}>
+          <Pressable
+            onPress={() => navigation.navigate(Routes.ALLPRODUCTS_SCREEN)}
+          >
             <View
               style={{
                 flexDirection: "row",
@@ -89,7 +92,11 @@ const ProductsScreen = () => {
             </View>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("LiquidEmptyProducts")}>
+          <Pressable
+            onPress={() =>
+              navigation.navigate(Routes.LIQUIDEMPTYPRODUCTS_SCREEN)
+            }
+          >
             <View
               style={{
                 flexDirection: "row",
@@ -114,7 +121,11 @@ const ProductsScreen = () => {
             </View>
           </Pressable>
 
-          <Pressable onPress={() => navigation.navigate("LiquidEmptyProducts")}>
+          <Pressable
+            onPress={() =>
+              navigation.navigate(Routes.LIQUIDEMPTYPRODUCTS_SCREEN)
+            }
+          >
             <View
               style={{
                 flexDirection: "row",

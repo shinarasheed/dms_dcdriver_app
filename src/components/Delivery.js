@@ -5,6 +5,7 @@ import moment from "moment";
 
 import styles from "../screens/HomeScreen/styles";
 import appTheme from "../constants/theme";
+import Routes from "../navigation/Routes";
 
 const Delivery = ({ item }) => {
   const navigation = useNavigation();
@@ -12,7 +13,9 @@ const Delivery = ({ item }) => {
   return (
     <TouchableOpacity
       style={{ marginBottom: 20 }}
-      onPress={() => navigation.navigate("DeliveryDetails", item)}
+      onPress={() =>
+        navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, item)
+      }
     >
       <Text style={styles.customer}>
         New Deliveries for {item?.buyerDetails[0]?.buyerName}

@@ -1,19 +1,27 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FlatList, SafeAreaView, View } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
+import {
+  FlatList,
+  SafeAreaView,
+  View,
+  Pressable,
+  Image,
+  Text,
+} from "react-native";
+import { useFocusEffect, useNavigation } from "@react-navigation/native";
 
 import appTheme from "../../constants/theme";
-
-import Header from "../../components/Header";
 import NotificationsTab from "../../components/NotificationsTab";
 import Notification from "../../components/Notification";
 import { fetchOrder } from "../../redux/actions/orderActions";
 import { Spinner } from "../../components/Spinner";
+import { icons } from "../../constants";
 
 const index = () => {
   const categories = ["all", "unread", "read"];
   const [index, setIndex] = useState(0);
+
+  const navigation = useNavigation();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -82,7 +90,30 @@ const index = () => {
         flex: 1,
       }}
     >
-      <Header goBack headerText="Notifications" />
+      <View
+        style={{
+          backgroundColor: appTheme.COLORS.white,
+          height: 40,
+          paddingLeft: 20,
+          flexDirection: "row",
+          alignItems: "center",
+          paddingBottom: 5,
+        }}
+      >
+        <Pressable onPress={() => navigation.goBack()}>
+          <Image source={icons.backButton} style={{ marginRight: 18 }} />
+        </Pressable>
+
+        <Text
+          style={{
+            fontSize: 17,
+            fontWeight: "700",
+            ...appTheme.FONTS.mainFontBold,
+          }}
+        >
+          Notifications
+        </Text>
+      </View>
 
       <View style={{ paddingHorizontal: 25, marginBottom: 5 }}>
         <NotificationsTab

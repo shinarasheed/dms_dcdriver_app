@@ -20,7 +20,7 @@ import { icons } from "../../constants";
 import { Spinner } from "../../components/Spinner";
 
 const index = () => {
-  const categories = ["liquids", "empties"];
+  const categories = ["fulls", "empties"];
   const [index, setIndex] = useState(0);
 
   const navigation = useNavigation();

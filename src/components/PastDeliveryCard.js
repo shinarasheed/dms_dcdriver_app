@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import moment from "moment";
 
 import appTheme from "../constants/theme";
+import Routes from "../navigation/Routes";
 
 const PastDeliveryCard = ({ item }) => {
   const navigation = useNavigation();
@@ -11,7 +12,9 @@ const PastDeliveryCard = ({ item }) => {
   return (
     <>
       <TouchableOpacity
-        onPress={() => navigation.navigate("DeliveryDetails", item)}
+        onPress={() =>
+          navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, item)
+        }
       >
         <View
           style={{

@@ -21,6 +21,7 @@ import { fetchOrder } from "../../redux/actions/orderActions";
 import { icons } from "../../constants";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import appTheme from "../../constants/theme";
+import Routes from "../../navigation/Routes";
 
 const CustomersScreen = () => {
   const categories = ["ALL", "BULKBREAKERS", "POCS", "NEW"];
@@ -112,7 +113,7 @@ const CustomersScreen = () => {
           right: 10,
           bottom: 10,
         }}
-        onPress={() => navigation.navigate("AddCustomer")}
+        onPress={() => navigation.navigate(Routes.ADDCUSTOMER_SCREEN)}
       >
         <Image style={{ marginRight: 10 }} source={icons.cartIcon} />
         <Text style={{ fontSize: 18 }}>One-Off Sale</Text>

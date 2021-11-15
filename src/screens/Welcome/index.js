@@ -7,6 +7,7 @@ import { adService } from "ad-b2c-react-native";
 import jwt_decode from "jwt-decode";
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Routes from "../../navigation/Routes";
 export default class Login extends React.PureComponent {
   static navigationOptions = { header: null };
 
@@ -20,7 +21,6 @@ export default class Login extends React.PureComponent {
   onLogin() {
     const { navigation } = this.props;
     this.onRefresh();
-    // navigation.navigate("HomeScreen");
     console.log("login");
   }
 
@@ -46,7 +46,7 @@ export default class Login extends React.PureComponent {
 
     await AsyncStorage.setItem("driverDetails", JSON.stringify(data));
     console.log(isValid);
-    isValid ? navigation.navigate("HomeScreen") : null;
+    isValid ? navigation.navigate(Routes.HOME_SCREEN) : null;
   }
 
   spinner() {

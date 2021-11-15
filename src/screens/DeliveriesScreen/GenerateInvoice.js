@@ -21,6 +21,7 @@ import CallCustomer from "../../components/CallCustomer";
 
 import { createAndSavePDF } from "../../utils/helpers";
 import { simpleHtml } from "../../utils/html";
+import Routes from "../../navigation/Routes";
 
 export const createPdf = (htmlFactory) => async () => {
   try {
@@ -131,7 +132,9 @@ const GenerateInvoice = () => {
           paddingLeft: 20,
         }}
       >
-        <Pressable onPress={() => navigation.navigate("Deliveries")}>
+        <Pressable
+          onPress={() => navigation.navigate(Routes.DELIVERIES_SCREEN)}
+        >
           <Image source={icons.backButton} />
         </Pressable>
         <Text

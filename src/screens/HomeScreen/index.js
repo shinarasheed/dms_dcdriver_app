@@ -7,6 +7,7 @@ import {
   SafeAreaView,
   Pressable,
   ImageBackground,
+  TouchableOpacity,
 } from "react-native";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
@@ -23,6 +24,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import Refresh from "../../components/Refresh";
 import { Spinner } from "../../components/Spinner";
 import axios from "axios";
+import Routes from "../../navigation/Routes";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -36,6 +38,8 @@ const HomeScreen = () => {
   const { loading, order } = allOrders;
 
   const newOrders = order?.filter((item) => item.status === "Assigned");
+  const splicedArray = newOrders.splice(0, 4);
+
   const dispatch = useDispatch();
 
   const [visible, setVisible] = useState(false);
@@ -87,7 +91,9 @@ const HomeScreen = () => {
       {/* header section */}
       <View style={styles.header}>
         <Text style={styles.headerHome}>Home</Text>
-        <Pressable onPress={() => navigation.navigate("Notifications")}>
+        <Pressable
+          onPress={() => navigation.navigate(Routes.NOTIFICATIONS_SCREEN)}
+        >
           <View style={styles.headerNotification}>
             <Image source={icons.notificationIcon} />
             <Text style={styles.headerNotificationText}>Notifications</Text>
@@ -169,7 +175,7 @@ const HomeScreen = () => {
                 borderRadius: 20,
                 padding: 20 * appTheme.SIZES.scale,
               }}
-              data={newOrders}
+              data={splicedArray}
               keyExtractor={(item, id) => id.toString()}
               renderItem={({ item }) => (
                 <Delivery item={item} newOrders={newOrders} />
@@ -178,14 +184,30 @@ const HomeScreen = () => {
                 <View style={{ marginBottom: 20 * appTheme.SIZES.scale }}>
                   <Text
                     style={{
-                      fontWeight: "bold",
-                      fontSize: 17 * appTheme.SIZES.scale,
+                      fontWeight: "700",
+                      fontSize: 15 * appTheme.SIZES.scale,
                       color: appTheme.COLORS.mainTextGray,
                     }}
                   >
                     New Deliveries
                   </Text>
                 </View>
+              )}
+              ListFooterComponent={() => (
+                <TouchableOpacity
+                  onPress={() => navigation.navigate(Routes.DELIVERIES_SCREEN)}
+                  style={{ marginTop: 10 }}
+                >
+                  <Text
+                    style={{
+                      fontWeight: "700",
+                      fontSize: 14 * appTheme.SIZES.scale,
+                      color: appTheme.COLORS.mainRed,
+                    }}
+                  >
+                    See More Deliveries
+                  </Text>
+                </TouchableOpacity>
               )}
             />
           ) : (

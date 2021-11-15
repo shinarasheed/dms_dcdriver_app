@@ -1,5 +1,12 @@
 import React from "react";
-import { SafeAreaView, Text, View, Image, FlatList } from "react-native";
+import {
+  SafeAreaView,
+  Text,
+  View,
+  Image,
+  Pressable,
+  FlatList,
+} from "react-native";
 import moment from "moment";
 import { Button } from "react-native-elements";
 
@@ -7,9 +14,10 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
 
-import Header from "../../components/Header";
+// import Header from "../../components/Header";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import CallCustomer from "../../components/CallCustomer";
+import Routes from "../../navigation/Routes";
 
 const Customer = () => {
   const route = useRoute();
@@ -145,10 +153,31 @@ const Customer = () => {
     <SafeAreaView
       style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
     >
-      <Header
-        goBack
-        headerText={order !== undefined && order?.buyerDetails[0].buyerName}
-      />
+      <View
+        style={{
+          backgroundColor: appTheme.COLORS.white,
+          height: 40,
+          paddingLeft: 20,
+          flexDirection: "row",
+          alignItems: "center",
+          paddingBottom: 5,
+        }}
+      >
+        <Pressable onPress={() => navigation.goBack()}>
+          <Image source={icons.backButton} style={{ marginRight: 18 }} />
+        </Pressable>
+
+        <Text
+          style={{
+            fontSize: 17,
+            fontWeight: "700",
+            ...appTheme.FONTS.mainFontBold,
+          }}
+        >
+          {order !== undefined && order?.buyerDetails[0].buyerName}
+        </Text>
+      </View>
+
       <CustomVirtualizedView>
         <View style={{ paddingHorizontal: 20, paddingVertical: 20 }}>
           <View
@@ -306,7 +335,9 @@ const Customer = () => {
         }}
       >
         <Button
-          onPress={() => navigation.navigate("SellToCustomer", order)}
+          onPress={() =>
+            navigation.navigate(Routes.SELLTO_CUSTOMER_SCREEN, order)
+          }
           buttonStyle={{
             width: "100%",
             height: 50,

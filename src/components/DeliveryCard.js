@@ -4,6 +4,7 @@ import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
 
 import appTheme from "../constants/theme";
+import Routes from "../navigation/Routes";
 
 const DeliveryCard = ({ item }) => {
   const navigation = useNavigation();
@@ -14,7 +15,9 @@ const DeliveryCard = ({ item }) => {
         padding: 20,
         paddingBottom: 10,
       }}
-      onPress={() => navigation.navigate("DeliveryDetails", item)}
+      onPress={() =>
+        navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, item)
+      }
     >
       <View style={{ flexDirection: "row", marginBottom: 7 }}>
         <Text
