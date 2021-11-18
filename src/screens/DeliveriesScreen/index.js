@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SafeAreaView,
   StyleSheet,
@@ -14,6 +14,7 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import appTheme from "../../constants/theme";
+import CustomVirtualizedView from "../../components/VirtualizedList";
 import { icons } from "../../constants";
 import DeliveryFlatList from "../../components/DeliveryFlatList";
 import { fetchOrder } from "../../redux/actions/orderActions";
@@ -23,22 +24,17 @@ import { Spinner } from "../../components/Spinner";
 
 export default function DeliveriesScreen() {
   const categories = ["new deliveries", "past deliveries"];
-  const [textInputValue, setTextInputValue] = React.useState("");
+  const [searchValue, setSearchValue] = useState("");
 
   const [index, setIndex] = useState(0);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
   const allOrders = useSelector((state) => state.orders);
-  const { order } = allOrders;
+  const { loading, error, order, newDeliveries, pastDeliveries } = allOrders;
 
-  const theNewDeliveries = order?.filter(
-    (item) => item.status === "Assigned" || item.status === "Accepted"
-  );
-
-  const thePastDeliveries = order?.filter(
-    (item) => item.status === "Completed" || item.status === "Rejected"
-  );
+  const [theNewDelivery, setTheNewDeliveries] = useState([]);
+  const [thePastDeliveries, setPastDeliveries] = useState([]);
 
   useFocusEffect(
     React.useCallback(() => {
@@ -46,21 +42,33 @@ export default function DeliveriesScreen() {
     }, [])
   );
 
+  useEffect(() => {
+    setTheNewDeliveries(newDeliveries);
+    setPastDeliveries(pastDeliveries);
+  }, [order]);
+
+  const handleChangeText = (text) => {
+    setSearchValue(text);
+    const deliveries = newDeliveries?.filter((item) => {
+      return item?.buyerDetails[0]?.buyerName
+        .toLowerCase()
+        .includes(text.toLowerCase());
+    });
+
+    setTheNewDeliveries(deliveries);
+  };
+
   const ShowDeliveries = (index) => {
     switch (index) {
       case 0:
-        return <DeliveryFlatList list={theNewDeliveries} />;
+        return <DeliveryFlatList list={theNewDelivery} />;
 
       case 1:
         return <PastDeliveryFlatList list={thePastDeliveries} />;
 
       default:
-        return <DeliveryFlatList list={theNewDeliveries} />;
+        return <DeliveryFlatList list={theNewDelivery} />;
     }
-  };
-
-  const handleOnChangeText = (text) => {
-    setTextInputValue(text);
   };
 
   return (
@@ -119,8 +127,8 @@ export default function DeliveriesScreen() {
               <TextInput
                 placeholder="Search"
                 style={{ fontSize: 18, paddingLeft: 5, flex: 1 }}
-                onChangeText={(text) => handleOnChangeText(text)}
-                value={textInputValue}
+                value={searchValue}
+                onChangeText={(text) => handleChangeText(text)}
               />
             </View>
           </View>

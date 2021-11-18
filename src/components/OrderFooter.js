@@ -4,10 +4,17 @@ import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import appTheme from "../constants/theme";
-import { confirmOrder } from "../redux/actions/orderActions";
+// import { confirmOrder } from "../redux/actions/orderActions";
 import { updateInventory } from "../redux/actions/vanActions";
 
-const OrderFooter = ({ getTotalPrice, order, newOrders, empties, driver }) => {
+const OrderFooter = ({
+  getTotalPrice,
+  order,
+  newOrders,
+  empties,
+  driver,
+  updateOrderStatus,
+}) => {
   const navigator = useNavigation();
 
   const dispatch = useDispatch();
@@ -49,7 +56,7 @@ const OrderFooter = ({ getTotalPrice, order, newOrders, empties, driver }) => {
             orderItems: await arrayToSubmit2(),
           };
 
-          dispatch(confirmOrder({ payload, orderId: order?.orderId }));
+          updateOrderStatus("Completed");
           dispatch(updateInventory(payload2));
           navigator.navigate("GenerateInvoice", {
             productsToSell: newOrders,

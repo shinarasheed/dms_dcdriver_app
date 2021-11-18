@@ -16,7 +16,10 @@ import {
   CONFIRM_ORDER_FAIL,
 } from "../constants/orderContants";
 
-export const ordersReducer = (state = { order: [] }, action) => {
+export const ordersReducer = (
+  state = { order: [], newDeliveries: [], pastDeliveries: [] },
+  action
+) => {
   switch (action.type) {
     case FETCH_ORDER_REQUEST:
       return {
@@ -30,6 +33,12 @@ export const ordersReducer = (state = { order: [] }, action) => {
         loading: false,
         refreshing: false,
         order: action.payload,
+        newDeliveries: action.payload.filter(
+          (item) => item.status === "Assigned" || item.status === "Accepted"
+        ),
+        pastDeliveries: action.payload.filter(
+          (item) => item.status === "Completed" || item.status === "Rejected"
+        ),
       };
 
     case FETCH_ORDER_FAIL:

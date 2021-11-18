@@ -151,7 +151,10 @@ const Customer = () => {
 
   return (
     <SafeAreaView
-      style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
+      style={{
+        backgroundColor: appTheme.COLORS.mainBackground,
+        flex: 1,
+      }}
     >
       <View
         style={{
@@ -178,7 +181,7 @@ const Customer = () => {
         </Text>
       </View>
 
-      <CustomVirtualizedView>
+      <>
         <View style={{ paddingHorizontal: 20, paddingVertical: 20 }}>
           <View
             style={{
@@ -263,7 +266,7 @@ const Customer = () => {
                 {order?.buyerDetails[0]?.buyerAddress}
               </Text>
 
-              <View style={{ marginTop: 20, flexDirection: "row" }}>
+              <View style={{ marginTop: 10, flexDirection: "row" }}>
                 <Text style={{ fontSize: 15, color: appTheme.COLORS.black }}>
                   {order?.buyerDetails[0]?.buyerPhoneNumber}
                 </Text>
@@ -276,51 +279,34 @@ const Customer = () => {
           </View>
         </View>
 
-        <View
+        <FlatList
           style={{
             backgroundColor: appTheme.COLORS.white,
-            paddingVertical: 10,
+            flex: 1,
+            marginBottom: 30,
           }}
-        >
-          <Text
-            style={{
-              fontSize: 18,
-              ...appTheme.FONTS.mainFontBold,
-              marginLeft: 20,
-            }}
-          >
-            Order History
-          </Text>
-
-          <FlatList
-            style={{
-              backgroundColor: appTheme.COLORS.white,
-              marginTop: 25,
-            }}
-            data={customerOrders}
-            keyExtractor={(item, id) => id.toString()}
-            renderItem={({ item }) => <SingleCustomer item={item} />}
-            ListFooterComponent={() => (
-              <View>
-                <Button
-                  disabled
-                  buttonStyle={{
-                    justifyContent: "center",
-                    alignItems: "center",
-                    alignSelf: "center",
-                    width: "90%",
-                    height: 50,
-                    borderRadius: 4,
-                    backgroundColor: appTheme.COLORS.mainRed,
-                    marginTop: 20,
-                  }}
-                  title="Show More"
-                />
-              </View>
-            )}
-          />
-        </View>
-      </CustomVirtualizedView>
+          data={customerOrders}
+          keyExtractor={(item, id) => id.toString()}
+          renderItem={({ item }) => <SingleCustomer item={item} />}
+          ListHeaderComponent={() => (
+            <View
+              style={{
+                paddingVertical: 10,
+              }}
+            >
+              <Text
+                style={{
+                  fontSize: 18,
+                  ...appTheme.FONTS.mainFontBold,
+                  marginLeft: 20,
+                }}
+              >
+                Order History
+              </Text>
+            </View>
+          )}
+        />
+      </>
 
       {/* footer */}
 
@@ -331,7 +317,6 @@ const Customer = () => {
           paddingVertical: 20,
           paddingHorizontal: 20,
           backgroundColor: appTheme.COLORS.white,
-          marginTop: 30,
         }}
       >
         <Button

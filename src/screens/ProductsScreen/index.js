@@ -37,10 +37,12 @@ const ProductsScreen = () => {
   const Van = useSelector((state) => state.van);
   const { inventory, loading: vanLoading, error: vanError } = Van;
 
-  const stocks = inventory?.map((item) => ({
-    productId: item?.product?.productId,
-    quantity: item?.quantity,
-  }));
+  // const stocks = inventory?.map((item) => ({
+  //   productId: item?.product?.productId,
+  //   quantity: item?.quantity,
+  // }));
+
+  const stocks = [];
 
   return (
     <SafeAreaView

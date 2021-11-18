@@ -38,7 +38,7 @@ const HomeScreen = () => {
   const { loading, order } = allOrders;
 
   const newOrders = order?.filter((item) => item.status === "Assigned");
-  const splicedArray = newOrders.splice(0, 4);
+  // const splicedArray = newOrders.splice(0, 4);
 
   const dispatch = useDispatch();
 
@@ -168,18 +168,16 @@ const HomeScreen = () => {
             </ImageBackground>
           </>
 
-          {newOrders && newOrders.length > 0 ? (
+          {newOrders?.length > 0 ? (
             <FlatList
               style={{
                 backgroundColor: appTheme.COLORS.white,
                 borderRadius: 20,
                 padding: 20 * appTheme.SIZES.scale,
               }}
-              data={splicedArray}
+              data={newOrders}
               keyExtractor={(item, id) => id.toString()}
-              renderItem={({ item }) => (
-                <Delivery item={item} newOrders={newOrders} />
-              )}
+              renderItem={({ item }) => <Delivery item={item} />}
               ListHeaderComponent={() => (
                 <View style={{ marginBottom: 20 * appTheme.SIZES.scale }}>
                   <Text
@@ -216,9 +214,16 @@ const HomeScreen = () => {
                 flex: 1,
                 justifyContent: "center",
                 alignItems: "center",
+                height: 100,
               }}
             >
-              <Spinner animating={loading} />
+              <Text
+                style={{
+                  textTransform: "capitalize",
+                }}
+              >
+                You do not have any new deliveries{" "}
+              </Text>
             </View>
           )}
         </View>

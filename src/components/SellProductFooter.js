@@ -44,9 +44,9 @@ const SellProductFooter = ({
   }
 
   const items = productsToSell?.map((prod) => ({
-    price: toString(prod.price * prod.quantity),
+    price: prod.price * prod.quantity,
     quantity: parseInt(prod.quantity),
-    productId: toString(prod.productId),
+    productId: prod.productId,
     SFlineID: "Van-Sales",
   }));
 
@@ -261,6 +261,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingBottom: 15,
     paddingTop: 15,
+    marginTop: 30,
   },
 
   footerButtonText: {

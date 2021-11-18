@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FlatList,
   Text,
@@ -13,8 +13,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
 import Header from "../../components/Header";
-import TopTab from "../../components/CustomersTopTab";
-import CustomerCard from "../../components/CustomerCard";
 import { SafeAreaView } from "react-native-safe-area-context";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import { fetchOrder } from "../../redux/actions/orderActions";
@@ -22,11 +20,20 @@ import { icons } from "../../constants";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import appTheme from "../../constants/theme";
 import Routes from "../../navigation/Routes";
+import axios from "axios";
+
+import AllCustomers from "../../components/Customers/AllCustomers";
+import Bulkbreakers from "../../components/Customers/BulkBreakers";
+import Pocs from "../../components/Customers/Pocs";
+import Newcustomers from "../../components/Customers/NewCustomers";
+import CustomersTab from "../../components/Customers/CustomerTab";
 
 const CustomersScreen = () => {
-  const categories = ["ALL", "BULKBREAKERS", "POCS", "NEW"];
+  const categories = ["all", "bulkbreakers", "pocs", "new"];
+
+  const [index, setIndex] = useState(0);
+  const [customers, setCustomers] = useState([]);
   const navigation = useNavigation();
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
 
   const orders = useSelector((state) => state.orders);
   const { loading, error, order: allOrders } = orders;
@@ -36,6 +43,49 @@ const CustomersScreen = () => {
     dispatch(fetchOrder());
   }, [dispatch]);
 
+  const ids = allOrders.map((item) => item?.buyerCompanyId);
+
+  const fetchCustomers = async () => {
+    const promises = ids.map((id) => {
+      return axios
+        .get(`http://20.87.38.134/customer/salesforce/${id}`)
+        .then((res) => res.data);
+    });
+    Promise.all(promises).then((data) => {
+      data.forEach((res) => {
+        setCustomers([res?.result[0]]);
+      });
+    });
+  };
+
+  useEffect(() => {
+    fetchCustomers();
+  }, []);
+
+  const bulkbreakers = customers.filter(
+    (customer) => customer.CUST_Type === "Bulkbreaker"
+  );
+  const pocs = customers.filter((customer) => customer.CUST_Type === "POC");
+
+  const ShowCustomers = (index) => {
+    switch (index) {
+      case 0:
+        return <AllCustomers allOrders={allOrders} list={customers} />;
+
+      case 1:
+        return <Bulkbreakers allOrders={allOrders} list={bulkbreakers} />;
+
+      case 1:
+        return <Pocs allOrders={allOrders} list={pocs} />;
+
+      case 1:
+        return <Newcustomers allOrders={allOrders} list={customers} />;
+
+      default:
+        return <AllCustomers allOrders={allOrders} list={customers} />;
+    }
+  };
+
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: appTheme.COLORS.mainBackground }}
@@ -43,10 +93,10 @@ const CustomersScreen = () => {
       <Header headerText="Customers" />
       <CustomVirtualizedView>
         <View style={{ paddingHorizontal: 20 }}>
-          <TopTab
+          <CustomersTab
             categories={categories}
-            selectedCategoryIndex={selectedCategoryIndex}
-            setSelectedCategoryIndex={setSelectedCategoryIndex}
+            index={index}
+            setIndex={setIndex}
           />
 
           <View
@@ -69,24 +119,7 @@ const CustomersScreen = () => {
         </View>
 
         {!loading ? (
-          <FlatList
-            style={{ marginTop: 20, marginBottom: 80 }}
-            data={allOrders}
-            renderItem={({ item }) => (
-              <CustomerCard order={item} allOrders={allOrders} />
-            )}
-            keyExtractor={(item, id) => id.toString()}
-            showsVerticalScrollIndicator={false}
-            ItemSeparatorComponent={() => (
-              <View
-                style={{
-                  height: 1,
-                  width: "100%",
-                  backgroundColor: appTheme.COLORS.borderGRey,
-                }}
-              ></View>
-            )}
-          />
+          ShowCustomers(index)
         ) : (
           <ActivityIndicator
             color={

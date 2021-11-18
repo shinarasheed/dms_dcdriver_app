@@ -23,9 +23,9 @@ const SellProductFooter = ({
   const { driver } = Van;
 
   const items = productsToSell?.map((prod) => ({
-    price: toString(prod.price * prod.quantity),
+    price: prod.price * prod.quantity,
     quantity: parseInt(prod.quantity),
-    productId: toString(prod.productId),
+    productId: prod.productId,
     SFlineID: "Van-Sales",
   }));
 
@@ -60,38 +60,40 @@ const SellProductFooter = ({
 
   return (
     <View style={styles.footerContainer}>
-      <TouchableOpacity
-        onPress={() => {
-          dispatch(confirmVanSales(payload));
-          navigator.navigate("VanInvoice", {
-            productsToSell,
-            order,
-            empties,
-          });
-          dispatch(updateInventory(payload2));
-          toggle();
-        }}
-        style={{
-          backgroundColor: appTheme.COLORS.mainRed,
-          width: "100%",
-          height: 50,
-          justifyContent: "center",
-          borderRadius: 5,
-          marginTop: 10,
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Text
+      {getTotalPrice() !== undefined && (
+        <TouchableOpacity
+          onPress={() => {
+            dispatch(confirmVanSales(payload));
+            navigator.navigate("VanInvoice", {
+              productsToSell,
+              order,
+              empties,
+            });
+            dispatch(updateInventory(payload2));
+            toggle();
+          }}
           style={{
-            color: appTheme.COLORS.white,
-            fontSize: 16,
-            fontWeight: "bold",
+            backgroundColor: appTheme.COLORS.mainRed,
+            width: "100%",
+            height: 50,
+            justifyContent: "center",
+            borderRadius: 5,
+            marginTop: 10,
+            alignItems: "center",
+            justifyContent: "center",
           }}
         >
-          {`Confirm \u20A6${getTotalPrice()}`}
-        </Text>
-      </TouchableOpacity>
+          <Text
+            style={{
+              color: appTheme.COLORS.white,
+              fontSize: 16,
+              fontWeight: "bold",
+            }}
+          >
+            {`Confirm \u20A6${getTotalPrice()}`}
+          </Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

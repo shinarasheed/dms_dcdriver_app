@@ -1,30 +1,37 @@
-import React from 'react';
-import {StyleSheet, Linking, Pressable, Image, Text, View} from 'react-native';
-import {icons} from '../constants';
-import appTheme from '../constants/theme';
+import React from "react";
+import {
+  StyleSheet,
+  Linking,
+  Image,
+  Text,
+  TouchableOpacity,
+} from "react-native";
+import { icons } from "../constants";
+import appTheme from "../constants/theme";
 
-const CallCustomer = ({phoneNumber}) => {
+const CallCustomer = ({ phoneNumber }) => {
   return (
-    <View
+    <TouchableOpacity
+      onPress={() => Linking.openURL(`tel:${phoneNumber}`)}
       style={{
-        flexDirection: 'row',
-        alignItems: 'center',
+        flexDirection: "row",
+        alignItems: "center",
         marginLeft: 60,
-      }}>
-      <Pressable onPress={() => Linking.openURL(`tel:${phoneNumber}`)}>
-        <Image source={icons.phoneIcon} />
-      </Pressable>
+      }}
+    >
+      <Image source={icons.phoneIcon} />
 
       <Text
         style={{
           fontSize: 15,
-          fontWeight: '500',
+          fontWeight: "500",
           marginLeft: 5,
           color: appTheme.COLORS.black,
-        }}>
+        }}
+      >
         Call
       </Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 

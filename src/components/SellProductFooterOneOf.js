@@ -44,19 +44,21 @@ const SellProductFooterOneOf = ({
   }
 
   const items = productsToSell?.map((prod) => ({
-    price: toString(prod.price * prod.quantity),
+    price: prod.price * prod.quantity,
     quantity: parseInt(prod.quantity),
-    productId: toString(prod.productId),
+    productId: prod.productId,
     SFlineID: "One-Off",
   }));
 
   const payload = {
-    sellerCompanyId: "One-Off",
+    sellerCompanyId: driver?.ownerCompanyId,
+    buyerCompanyId: "One-Off Customer",
     routeName: "One-Off",
     referenceId: "One-Off",
     emptiesReturned: empties,
     costOfEmptiesReturned: getEmptiesPrice(),
     datePlaced: new Date(new Date().getTime()),
+    vehicleId: driver?.vehicleId,
     buyerDetails: {
       buyerName: customer?.CUST_Name,
       buyerPhoneNumber: customer?.phoneNumber,
@@ -256,6 +258,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingBottom: 15,
     paddingTop: 15,
+    marginTop: 20,
   },
 
   footerButtonText: {
@@ -270,7 +273,6 @@ const styles = StyleSheet.create({
   },
 
   bottomSheetCard: {
-    // height: Dimensions.get('window').height - StatusBar.currentHeight,
     backgroundColor: appTheme.COLORS.white,
   },
   card: {

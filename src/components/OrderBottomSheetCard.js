@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -18,6 +18,7 @@ const OrderBottomSheetCard = ({
   deleteProduct,
   getQuantity,
   newOrders,
+  getTotalPrice,
 }) => {
   const {
     orderId,
@@ -32,11 +33,16 @@ const OrderBottomSheetCard = ({
     productPrice,
   } = order;
 
+  const [value, setValue] = React.useState(quantity.toString());
+
+  useEffect(() => {
+    getTotalPrice();
+  }, [quantity]);
+
   const incrementQuantityByTyping = (text, productId) => {
+    setValue(text);
     const myproduct = newOrders?.find((item) => item?.productId === productId);
-    console.log(myproduct);
-    console.log(text);
-    myproduct.quantity = String(text);
+    myproduct.quantity = text;
   };
 
   return (
@@ -154,28 +160,6 @@ const OrderBottomSheetCard = ({
               </Pressable>
             </View>
 
-            {/* <View
-              style={{
-                borderWidth: 1,
-                width: 70,
-                borderColor: appTheme.COLORS.borderGRey,
-                marginRight: 5,
-                borderRadius: 5,
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  color: appTheme.COLORS.mainTextGray,
-                  ...appTheme.FONTS.mainFontLight,
-                }}
-              >
-                {quantity}
-              </Text>
-            </View> */}
-
             <TextInput
               style={{
                 borderWidth: 1,
@@ -188,7 +172,7 @@ const OrderBottomSheetCard = ({
                 color: appTheme.COLORS.mainTextGray,
                 ...appTheme.FONTS.mainFontLight,
               }}
-              value={String(quantity)}
+              value={value}
               onChangeText={(text) =>
                 incrementQuantityByTyping(text, productId)
               }
@@ -214,7 +198,7 @@ const OrderBottomSheetCard = ({
             }}
           >
             {"\u20A6"}
-            {quantity * productPrice}
+            {value * productPrice}
           </Text>
         </View>
       </View>

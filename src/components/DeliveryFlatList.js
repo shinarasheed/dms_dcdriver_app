@@ -8,7 +8,7 @@ const DeliveryFlatList = ({ list }) => {
     <>
       <FlatList
         data={list}
-        style={{ backgroundColor: appTheme.COLORS.white, marginBottom: 20 }}
+        style={{ marginBottom: 20 }}
         keyExtractor={(item, id) => id.toString()}
         listKey={(item) => id.toString()}
         showsVerticalScrollIndicator={false}
@@ -22,6 +22,9 @@ const DeliveryFlatList = ({ list }) => {
             }}
           ></View>
         )}
+        contentContainerStyle={{
+          backgroundColor: appTheme.COLORS.white,
+        }}
       />
     </>
   );

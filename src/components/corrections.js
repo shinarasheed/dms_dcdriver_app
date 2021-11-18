@@ -7,6 +7,7 @@ import {
   Pressable,
   Text,
   View,
+  TextInput,
 } from "react-native";
 import icons from "../constants/icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -63,6 +64,11 @@ const OrderBottomSheet = ({
 
   const getEmptiesPrice = () => {
     return empties * 1000;
+  };
+
+  const handleSetEmpties = (text) => {
+    setEmpties(text);
+    console.log(empties);
   };
 
   useEffect(() => {
@@ -146,7 +152,7 @@ const OrderBottomSheet = ({
   };
 
   return (
-    <CustomVirtualizedView>
+    <>
       <View
         style={{
           paddingHorizontal: 20,
@@ -170,12 +176,67 @@ const OrderBottomSheet = ({
         </View>
 
         {calNumberOfFull() ? (
-          <Empties
-            empties={empties}
-            setEmpties={setEmpties}
-            NumberOfFull={calNumberOfFull}
-            toggle={toggle}
-          />
+          // <Empties
+          //   empties={empties}
+          //   setEmpties={setEmpties}
+          //   NumberOfFull={calNumberOfFull}
+          //   toggle={toggle}
+          // />
+
+          <View>
+            <Text
+              style={{
+                fontSize: 17,
+                color: appTheme.COLORS.mainTextGray,
+                marginBottom: 20,
+              }}
+            >
+              Empties returned by customer
+            </Text>
+            <View
+              style={{
+                flexDirection: "row",
+              }}
+            >
+              <View
+                style={[
+                  styles.productIncreaseDecreaseContainer,
+                  { marginRight: 5 },
+                ]}
+              >
+                <Pressable
+                  disabled={empties === 0 ? true : false}
+                  onPress={() => setEmpties(empties - 1)}
+                >
+                  <Text style={styles.IncreaseText}>-</Text>
+                </Pressable>
+              </View>
+
+              <TextInput
+                style={{
+                  borderWidth: 1,
+                  width: 70,
+                  borderColor: appTheme.COLORS.borderGRey,
+                  marginRight: 5,
+                  borderRadius: 5,
+                  textAlign: "center",
+                  fontWeight: "bold",
+                  color: appTheme.COLORS.mainTextGray,
+                  ...appTheme.FONTS.mainFontLight,
+                }}
+                value={empties}
+                onChangeText={(text) => handleSetEmpties(text)}
+              />
+              <View style={styles.productIncreaseDecreaseContainer}>
+                <Pressable
+                  disabled={empties >= calNumberOfFull()}
+                  onPress={() => setEmpties(empties + 1)}
+                >
+                  <Text style={styles.IncreaseText}>+</Text>
+                </Pressable>
+              </View>
+            </View>
+          </View>
         ) : null}
       </View>
 
@@ -254,7 +315,7 @@ const OrderBottomSheet = ({
         driver={driver}
         updateOrderStatus={updateOrderStatus}
       />
-    </CustomVirtualizedView>
+    </>
   );
 };
 

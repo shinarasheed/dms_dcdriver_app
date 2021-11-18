@@ -12,17 +12,22 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "react-native-elements";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { createCustomerOneOf } from "../../redux/actions/customerActions";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
+import Routes from "../../navigation/Routes";
 
 const AddCustomer = () => {
   const navigator = useNavigation();
   const dispatch = useDispatch();
   const [phoneNumber, setPhoneNumber] = useState("");
   const [customerName, setCustomerName] = useState("");
+
+  const theCustomer = useSelector((state) => state.customerOneOf);
+
+  const { error, customer } = theCustomer;
 
   const handleRegister = () => {
     if (!phoneNumber) {
@@ -36,9 +41,13 @@ const AddCustomer = () => {
     }
 
     dispatch(createCustomerOneOf({ phoneNumber, customerName }));
-    navigator.navigate("OneOfSale");
-    setPhoneNumber("");
-    setCustomerName("");
+    if (error) {
+      Alert.alert(error);
+    } else {
+      navigator.navigate(Routes.ONEOF_SALE_SCREEN);
+      setPhoneNumber("");
+      setCustomerName("");
+    }
   };
 
   return (

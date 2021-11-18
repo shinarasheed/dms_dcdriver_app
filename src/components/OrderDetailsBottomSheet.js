@@ -14,6 +14,7 @@ const OrderDetailsBottomSheet = ({
   theOrder,
   visible,
   setProductsVisible,
+  updateOrderStatus,
 }) => {
   return (
     <>
@@ -33,6 +34,7 @@ const OrderDetailsBottomSheet = ({
             item={theOrder}
             setVisible={setProductsVisible}
             visible={productsVisibile}
+            updateOrderStatus={updateOrderStatus}
           />
         </View>
       </BottomSheet>

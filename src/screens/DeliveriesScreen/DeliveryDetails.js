@@ -149,6 +149,7 @@ const DeliveryDetails = () => {
         theOrder={theOrder}
         visible={visible}
         setProductsVisible={setProductsVisible}
+        updateOrderStatus={updateOrderStatus}
       />
     </SafeAreaView>
   );

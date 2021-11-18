@@ -130,17 +130,6 @@ const ProductBottomSheet = ({
                   {empties}
                 </Text>
               </View>
-              {/* <Text
-                style={{
-                  fontSize: 16,
-                  ...appTheme.FONTS.mainFontBold,
-                  color: appTheme.COLORS.mainRed,
-                  marginRight: 15,
-                }}
-              >
-                {"\u20A6"}
-                {getEmptiesPrice()}
-              </Text> */}
             </View>
           </View>
         )}

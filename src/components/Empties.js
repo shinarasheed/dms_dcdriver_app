@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { StyleSheet, Pressable, Text, View } from "react-native";
+import { StyleSheet, Pressable, Text, TextInput, View } from "react-native";
 import appTheme from "../constants/theme";
 import { icons } from "../constants";
 
@@ -34,27 +34,20 @@ const Empties = ({ NumberOfFull, setEmpties, empties }) => {
               <Text style={styles.IncreaseText}>-</Text>
             </Pressable>
           </View>
-          <View
+          <TextInput
             style={{
               borderWidth: 1,
               width: 70,
               borderColor: appTheme.COLORS.borderGRey,
               marginRight: 5,
               borderRadius: 5,
-              alignItems: "center",
-              justifyContent: "center",
+              textAlign: "center",
+              color: appTheme.COLORS.MainGray,
+              fontWeight: "bold",
             }}
-          >
-            <Text
-              style={{
-                fontWeight: "bold",
-                color: appTheme.COLORS.mainTextGray,
-                ...appTheme.FONTS.mainFontLight,
-              }}
-            >
-              {empties}
-            </Text>
-          </View>
+            value={empties}
+            onChangeText={(text) => setEmpties(text)}
+          />
           <View style={styles.productIncreaseDecreaseContainer}>
             <Pressable
               disabled={empties >= NumberOfFull()}

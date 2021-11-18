@@ -37,7 +37,7 @@ export const fetchVanProducts = () => async (dispatch) => {
       (product) => product.quantity > 0
     );
 
-    const newInventory = data?.map((item) => ({
+    const newInventory = productsWithQuantity?.map((item) => ({
       ...item.product,
       quantity: 0,
     }));
@@ -72,6 +72,8 @@ export const updateInventory = (payload) => async (dispatch) => {
         "Content-Type": "application/json",
       },
     };
+
+    console.log(payload);
 
     const { data } = await axios.put(
       `${vanurl}/van/update-quantity`,
