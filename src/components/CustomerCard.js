@@ -77,8 +77,8 @@ const CustomerCard = ({ order, allOrders }) => {
                 ...appTheme.FONTS.mainFontLight,
               }}
             >
-              {"\u20A6"}
-              {totalAmountSpent()}
+              {/* {"\u20A6"}
+              {totalAmountSpent()} */}
             </Text>
           </View>
         </View>

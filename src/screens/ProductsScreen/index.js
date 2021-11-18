@@ -8,6 +8,7 @@ import {
   Pressable,
   ActivityIndicator,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -37,12 +38,10 @@ const ProductsScreen = () => {
   const Van = useSelector((state) => state.van);
   const { inventory, loading: vanLoading, error: vanError } = Van;
 
-  // const stocks = inventory?.map((item) => ({
-  //   productId: item?.product?.productId,
-  //   quantity: item?.quantity,
-  // }));
-
-  const stocks = [];
+  const stocks = inventory?.map((item) => ({
+    productId: item?.product?.productId,
+    quantity: item?.quantity,
+  }));
 
   return (
     <SafeAreaView
@@ -163,7 +162,17 @@ const ProductsScreen = () => {
               vehicleId: driver.vehicleId,
               stocks,
             };
-            dispatch(returnProductsToWarehouse(payload));
+            Alert.alert(
+              "Confirm",
+              "Are you sure?",
+              [
+                {
+                  text: "Ok",
+                  onPress: () => dispatch(returnProductsToWarehouse(payload)),
+                },
+              ],
+              { cancelable: false }
+            );
           }}
           style={{
             backgroundColor: appTheme.COLORS.white,

@@ -66,6 +66,11 @@ const CustomersScreen = () => {
           ShowCustomers(index)
         ) : (
           <ActivityIndicator
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
             color={
               Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
             }
