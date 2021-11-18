@@ -3,26 +3,25 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import appTheme from "../constants/theme";
-import Routes from "../navigation/Routes";
 
-const CustomerCard = ({ customer, allOrders }) => {
+const CustomerCard = ({ order, allOrders }) => {
   const navigation = useNavigation();
 
   const numberOfOrders = allOrders.filter(
-    (order) => order?.buyerCompanyId === customer?.SF_Code
+    (od) => od.buyerCompanyId === order?.buyerCompanyId
   );
 
   const totalAmountSpent = () => {
     return allOrders
-      ?.filter((order) => order?.buyerCompanyId === customer.SF_Code)
+      ?.filter((theOrder) => theOrder?.buyerCompanyId === order?.buyerCompanyId)
       ?.reduce((accumulator, order) => accumulator + order?.totalPrice, 0);
   };
 
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate(Routes.CUSTOMER_DETAILS_SCREEN, {
-          customer,
+        navigation.navigate("CustomerDetails", {
+          order,
           numberOfOrders,
           allOrders,
         })
@@ -56,8 +55,7 @@ const CustomerCard = ({ customer, allOrders }) => {
               ...appTheme.FONTS.mainFontBold,
             }}
           >
-            {/* {order?.buyerDetails[0].buyerName} */}
-            {customer.CUST_Name}
+            {order?.buyerDetails[0]?.buyerName}
           </Text>
           <View style={{ flexDirection: "row" }}>
             <Text

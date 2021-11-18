@@ -12,10 +12,7 @@ import {
 } from "./reducers/orderReducer";
 import { vanReducer } from "./reducers/vanReducers";
 import { productsReducer } from "./reducers/productReducer";
-import {
-  customerOneOfReducer,
-  customerReducer,
-} from "./reducers/customerReducer";
+import { customerOneOfReducer } from "./reducers/customerReducer";
 
 const reducer = combineReducers({
   orders: ordersReducer,
@@ -26,7 +23,6 @@ const reducer = combineReducers({
   products: productsReducer,
   customerOneOf: customerOneOfReducer,
   van: vanReducer,
-  customer: customerReducer,
 });
 
 const initialState = {};

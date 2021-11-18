@@ -1,13 +1,13 @@
 import React from "react";
 import { FlatList, View } from "react-native";
-import CustomerCard from "../CustomerCard";
 import appTheme from "../../constants/theme";
+import CustomerCard from "../CustomerCard";
 
-const Pocs = ({ list, allOrders }) => {
+const AllCustomers = ({ allOrders }) => {
   return (
     <FlatList
       style={{ marginTop: 20, marginBottom: 80 }}
-      data={list}
+      data={allOrders}
       renderItem={({ item }) => (
         <CustomerCard order={item} allOrders={allOrders} />
       )}
@@ -26,4 +26,4 @@ const Pocs = ({ list, allOrders }) => {
   );
 };
 
-export default Pocs;
+export default AllCustomers;

@@ -3,11 +3,11 @@ import { FlatList, View } from "react-native";
 import appTheme from "../../constants/theme";
 import CustomerCard from "../CustomerCard";
 
-const Newcustomers = ({ list, allOrders }) => {
+const AllCustomers = ({ allOrders }) => {
   return (
     <FlatList
       style={{ marginTop: 20, marginBottom: 80 }}
-      data={list}
+      data={allOrders}
       renderItem={({ item }) => (
         <CustomerCard order={item} allOrders={allOrders} />
       )}
@@ -26,4 +26,4 @@ const Newcustomers = ({ list, allOrders }) => {
   );
 };
 
-export default Newcustomers;
+export default AllCustomers;

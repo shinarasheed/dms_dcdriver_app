@@ -1,26 +1,15 @@
 import React, { useState, useEffect } from "react";
-import {
-  FlatList,
-  Text,
-  Image,
-  View,
-  Pressable,
-  TextInput,
-  StyleSheet,
-  ActivityIndicator,
-} from "react-native";
+import { Text, Image, View, Pressable, ActivityIndicator } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
+// import SearchInput from '../../components/SearchInput';
 import Header from "../../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
+import appTheme from "../../constants/theme";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import { fetchOrder } from "../../redux/actions/orderActions";
 import { icons } from "../../constants";
-import Icon from "react-native-vector-icons/MaterialIcons";
-import appTheme from "../../constants/theme";
-import Routes from "../../navigation/Routes";
-import axios from "axios";
 
 import AllCustomers from "../../components/Customers/AllCustomers";
 import Bulkbreakers from "../../components/Customers/BulkBreakers";
@@ -29,63 +18,35 @@ import Newcustomers from "../../components/Customers/NewCustomers";
 import CustomersTab from "../../components/Customers/CustomerTab";
 
 const CustomersScreen = () => {
-  const categories = ["all", "bulkbreakers", "pocs", "new"];
-
+  const categories = ["all", "one-off"];
   const [index, setIndex] = useState(0);
-  const [customers, setCustomers] = useState([]);
+
   const navigation = useNavigation();
 
   const orders = useSelector((state) => state.orders);
   const { loading, error, order: allOrders } = orders;
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchOrder());
-  }, [dispatch]);
-
-  const ids = allOrders.map((item) => item?.buyerCompanyId);
-
-  const fetchCustomers = async () => {
-    const promises = ids.map((id) => {
-      return axios
-        .get(`http://20.87.38.134/customer/salesforce/${id}`)
-        .then((res) => res.data);
-    });
-    Promise.all(promises).then((data) => {
-      data.forEach((res) => {
-        setCustomers([res?.result[0]]);
-      });
-    });
-  };
-
-  useEffect(() => {
-    fetchCustomers();
-  }, []);
-
-  const bulkbreakers = customers.filter(
-    (customer) => customer.CUST_Type === "Bulkbreaker"
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(fetchOrder());
+    }, [])
   );
-  const pocs = customers.filter((customer) => customer.CUST_Type === "POC");
+
+  const oneOff = allOrders.filter((order) => order.routeName === "One-Off");
 
   const ShowCustomers = (index) => {
     switch (index) {
       case 0:
-        return <AllCustomers allOrders={allOrders} list={customers} />;
+        return <AllCustomers allOrders={allOrders} />;
 
       case 1:
-        return <Bulkbreakers allOrders={allOrders} list={bulkbreakers} />;
-
-      case 1:
-        return <Pocs allOrders={allOrders} list={pocs} />;
-
-      case 1:
-        return <Newcustomers allOrders={allOrders} list={customers} />;
+        return <Newcustomers allOrders={oneOff} />;
 
       default:
-        return <AllCustomers allOrders={allOrders} list={customers} />;
+        return <AllCustomers allOrders={allOrders} />;
     }
   };
-
   return (
     <SafeAreaView
       style={{ flex: 1, backgroundColor: appTheme.COLORS.mainBackground }}
@@ -98,24 +59,7 @@ const CustomersScreen = () => {
             index={index}
             setIndex={setIndex}
           />
-
-          <View
-            style={{
-              marginBottom: 20,
-            }}
-          >
-            <View style={styles.searchInputContainer}>
-              <Icon
-                name="search"
-                size={25}
-                style={{ color: appTheme.COLORS.MainGray }}
-              />
-              <TextInput
-                placeholder="Search"
-                style={{ fontSize: 18, paddingLeft: 5, flex: 1 }}
-              />
-            </View>
-          </View>
+          {/* <SearchInput /> */}
         </View>
 
         {!loading ? (
@@ -146,7 +90,7 @@ const CustomersScreen = () => {
           right: 10,
           bottom: 10,
         }}
-        onPress={() => navigation.navigate(Routes.ADDCUSTOMER_SCREEN)}
+        onPress={() => navigation.navigate("AddCustomer")}
       >
         <Image style={{ marginRight: 10 }} source={icons.cartIcon} />
         <Text style={{ fontSize: 18 }}>One-Off Sale</Text>
@@ -156,17 +100,3 @@ const CustomersScreen = () => {
 };
 
 export default CustomersScreen;
-
-const styles = StyleSheet.create({
-  searchInputContainer: {
-    height: 50,
-    backgroundColor: appTheme.COLORS.white,
-    marginTop: 15,
-    flexDirection: "row",
-    alignItems: "center",
-    borderColor: "#9799A0",
-    borderWidth: 1,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-  },
-});

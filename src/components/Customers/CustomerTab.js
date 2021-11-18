@@ -11,6 +11,9 @@ const CustomersTab = ({ categories, index, setIndex }) => {
           key={i}
           activeOpacity={0.8}
           onPress={() => setIndex(i)}
+          style={{
+            marginRight: 100,
+          }}
         >
           <View>
             <Text
@@ -46,7 +49,6 @@ export default CustomersTab;
 const styles = StyleSheet.create({
   categoryListContainer: {
     flexDirection: "row",
-    justifyContent: "space-between",
     marginTop: 30,
   },
   categoryListText: {

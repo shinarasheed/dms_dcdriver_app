@@ -263,7 +263,9 @@ const Customer = () => {
                   color: appTheme.COLORS.MainGray,
                 }}
               >
-                {order?.buyerDetails[0]?.buyerAddress}
+                {order?.buyerDetails[0]?.buyerAddress === "undefined"
+                  ? "Nigeria"
+                  : order?.buyerDetails[0]?.buyerAddress}
               </Text>
 
               <View style={{ marginTop: 10, flexDirection: "row" }}>

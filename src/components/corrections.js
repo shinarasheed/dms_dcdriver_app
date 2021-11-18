@@ -1,338 +1,172 @@
-import React, { useEffect, useState } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React, { useState, useEffect } from "react";
 import {
   FlatList,
-  StyleSheet,
-  Image,
-  Pressable,
   Text,
+  Image,
   View,
+  Pressable,
   TextInput,
+  StyleSheet,
+  ActivityIndicator,
 } from "react-native";
-import icons from "../constants/icons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
-import appTheme from "../constants/theme";
-import OrderBottomSheetCard from "./OrderBottomSheetCard";
-import CustomVirtualist from "./VirtualizedList";
-// import ProductFooter from './ProductFooter';
-import OrderFooter from "./OrderFooter";
-import { fetchProducts } from "../redux/actions/productActions";
-import { fetchVanProducts } from "../redux/actions/vanActions";
-import Empties from "./Empties";
-import CustomVirtualizedView from "./VirtualizedList";
+import Header from "../../components/Header";
+import { SafeAreaView } from "react-native-safe-area-context";
+import CustomVirtualizedView from "../../components/VirtualizedList";
+import { fetchOrder } from "../../redux/actions/orderActions";
+import { icons } from "../../constants";
+import Icon from "react-native-vector-icons/MaterialIcons";
+import appTheme from "../../constants/theme";
+import Routes from "../../navigation/Routes";
+import axios from "axios";
 
-const OrderBottomSheet = ({
-  item,
-  toggle,
-  setVisible,
-  updateOrderStatus,
-  visible,
-}) => {
-  const [driver, setDriver] = useState(null);
+import AllCustomers from "../../components/Customers/AllCustomers";
+import Bulkbreakers from "../../components/Customers/BulkBreakers";
+import Pocs from "../../components/Customers/Pocs";
+import Newcustomers from "../../components/Customers/NewCustomers";
+import CustomersTab from "../../components/Customers/CustomerTab";
 
-  const allProducts = useSelector((state) => state.products);
-  const [newOrders, setNewOrders] = useState([]);
+const CustomersScreen = () => {
+  const categories = ["all", "bulkbreakers", "pocs", "new"];
 
-  const Van = useSelector((state) => state.van);
-  const { inventory, loading: vanLoading, error: vanError } = Van;
+  const [index, setIndex] = useState(0);
+  const [customers, setCustomers] = useState([]);
+  const navigation = useNavigation();
 
-  const setTheDriver = async () => {
-    const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
-    setDriver(driver);
-  };
-
-  useEffect(() => {
-    setTheDriver();
-  }, []);
-
-  useEffect(() => {
-    dispatch(fetchVanProducts());
-  }, []);
-
-  const getQuantity = (productId, quantity) => {
-    return (
-      quantity <
-      inventory.find((product) => product?.product?.productId === productId)
-        ?.quantity
-    );
-  };
-
+  const orders = useSelector((state) => state.orders);
+  const { loading, error, order: allOrders } = orders;
   const dispatch = useDispatch();
 
-  const [empties, setEmpties] = useState(String(0));
-
-  const getEmptiesPrice = () => {
-    return empties * 1000;
-  };
-
-  const handleSetEmpties = (text) => {
-    setEmpties(text);
-    console.log(empties);
-  };
-
   useEffect(() => {
-    dispatch(fetchProducts());
-  }, []);
+    dispatch(fetchOrder());
+  }, [dispatch]);
 
-  const { products, loading } = allProducts;
+  const ids = allOrders.map((item) => item?.buyerCompanyId);
 
-  const createNewProducts = () => {
-    item?.orderItems?.map((theOrder, index) => {
-      const orderDetails = products?.filter(
-        (item) => parseInt(item.productId) === parseInt(theOrder?.productId)
-      )[0];
-
-      newOrders.push({
-        productId: theOrder?.productId,
-        quantity: parseInt(theOrder?.quantity),
-        brand: orderDetails?.brand,
-        price: parseInt(theOrder?.price),
-        productType: orderDetails?.productType,
-        unitPrice: parseInt(theOrder?.price / theOrder?.quantity),
-        orderId: theOrder?.orderId,
-        imageUrl: orderDetails?.imageUrl,
-        sku: orderDetails?.sku,
-        productPrice: orderDetails?.price,
+  const fetchCustomers = async () => {
+    const promises = ids.map((id) => {
+      return axios
+        .get(`http://20.87.38.134/customer/salesforce/${id}`)
+        .then((res) => res.data);
+    });
+    Promise.all(promises).then((data) => {
+      data.forEach((res) => {
+        setCustomers([res?.result[0]]);
       });
     });
   };
 
   useEffect(() => {
-    createNewProducts();
+    fetchCustomers();
   }, []);
 
-  const getTotalPrice = () => {
-    return newOrders.reduce(
-      (accumulator, item) => accumulator + item.productPrice * item.quantity,
-      0
-    );
-  };
+  const bulkbreakers = customers.filter(
+    (customer) => customer.CUST_Type === "Bulkbreaker"
+  );
+  const pocs = customers.filter((customer) => customer.CUST_Type === "POC");
 
-  const incrementQuantity = (productId) => {
-    let product = newOrders?.find(
-      (product) => product?.productId === productId
-    );
-    product.quantity++;
-    setNewOrders([...newOrders]);
-  };
+  const ShowCustomers = (index) => {
+    switch (index) {
+      case 0:
+        return <AllCustomers allOrders={allOrders} list={customers} />;
 
-  const decrementQuantity = (productId) => {
-    const product = newOrders?.find(
-      (product) => product?.productId === productId
-    );
-    if (product.quantity === 1) {
-      const index = newOrders?.findIndex(
-        (product) => product?.productId === productId
-      );
-      newOrders.splice(index, 1);
-      setNewOrders([...newOrders]);
-    } else {
-      product.quantity--;
-      setNewOrders([...newOrders]);
+      case 1:
+        return <Bulkbreakers allOrders={allOrders} list={bulkbreakers} />;
+
+      case 1:
+        return <Pocs allOrders={allOrders} list={pocs} />;
+
+      case 1:
+        return <Newcustomers allOrders={allOrders} list={customers} />;
+
+      default:
+        return <AllCustomers allOrders={allOrders} list={customers} />;
     }
   };
 
-  const deleteProduct = (productId) => {
-    const index = newOrders?.findIndex(
-      (product) => product?.productId === productId
-    );
-    newOrders.splice(index, 1);
-    setNewOrders([...newOrders]);
-  };
-
-  const calNumberOfFull = () => {
-    return newOrders
-      ?.filter((product) => product.productType === "full")
-      ?.reduce((acc, index) => parseInt(acc) + parseInt(index?.quantity), 0);
-  };
-
-  const getTotal = () => {
-    return getTotalPrice() + (calNumberOfFull() - empties) * 1000;
-  };
-
   return (
-    <>
-      <View
-        style={{
-          paddingHorizontal: 20,
-          paddingTop: 20,
-          borderBottomWidth: 1,
-          borderBottomColor: appTheme.COLORS.borderGRey,
-          paddingBottom: 30,
-        }}
-      >
-        <View
-          style={{
-            justifyContent: "space-between",
-            flexDirection: "row",
-            marginBottom: 20,
-          }}
-        >
-          <Text style={{ fontSize: 20 }}>Order Delivery</Text>
-          <Pressable onPress={() => toggle()}>
-            <Image source={icons.cancelIcon} />
-          </Pressable>
-        </View>
-
-        {calNumberOfFull() ? (
-          // <Empties
-          //   empties={empties}
-          //   setEmpties={setEmpties}
-          //   NumberOfFull={calNumberOfFull}
-          //   toggle={toggle}
-          // />
-
-          <View>
-            <Text
-              style={{
-                fontSize: 17,
-                color: appTheme.COLORS.mainTextGray,
-                marginBottom: 20,
-              }}
-            >
-              Empties returned by customer
-            </Text>
-            <View
-              style={{
-                flexDirection: "row",
-              }}
-            >
-              <View
-                style={[
-                  styles.productIncreaseDecreaseContainer,
-                  { marginRight: 5 },
-                ]}
-              >
-                <Pressable
-                  disabled={empties === 0 ? true : false}
-                  onPress={() => setEmpties(empties - 1)}
-                >
-                  <Text style={styles.IncreaseText}>-</Text>
-                </Pressable>
-              </View>
-
-              <TextInput
-                style={{
-                  borderWidth: 1,
-                  width: 70,
-                  borderColor: appTheme.COLORS.borderGRey,
-                  marginRight: 5,
-                  borderRadius: 5,
-                  textAlign: "center",
-                  fontWeight: "bold",
-                  color: appTheme.COLORS.mainTextGray,
-                  ...appTheme.FONTS.mainFontLight,
-                }}
-                value={empties}
-                onChangeText={(text) => handleSetEmpties(text)}
-              />
-              <View style={styles.productIncreaseDecreaseContainer}>
-                <Pressable
-                  disabled={empties >= calNumberOfFull()}
-                  onPress={() => setEmpties(empties + 1)}
-                >
-                  <Text style={styles.IncreaseText}>+</Text>
-                </Pressable>
-              </View>
-            </View>
-          </View>
-        ) : null}
-      </View>
-
-      <FlatList
-        style={{
-          backgroundColor: appTheme.COLORS.white,
-          marginTop: 25,
-          marginBottom: 25,
-        }}
-        data={newOrders}
-        keyExtractor={(item, id) => id.toString()}
-        renderItem={({ item }) => (
-          <OrderBottomSheetCard
-            order={item}
-            incrementQuantity={incrementQuantity}
-            decrementQuantity={decrementQuantity}
-            deleteProduct={deleteProduct}
-            getQuantity={getQuantity}
-            newOrders={newOrders}
-            setNewOrders={setNewOrders}
-            getTotalPrice={getTotal}
+    <SafeAreaView
+      style={{ flex: 1, backgroundColor: appTheme.COLORS.mainBackground }}
+    >
+      <Header headerText="Customers" />
+      <CustomVirtualizedView>
+        <View style={{ paddingHorizontal: 20 }}>
+          <CustomersTab
+            categories={categories}
+            index={index}
+            setIndex={setIndex}
           />
-        )}
-      />
 
-      <View style={{ marginLeft: 20, marginTop: 20 }}>
-        <View
-          style={{
-            flexDirection: "row",
-          }}
-        >
-          <Text
+          <View
             style={{
-              fontSize: 14,
-              fontWeight: "bold",
-              color: appTheme.COLORS.black,
+              marginBottom: 20,
             }}
           >
-            EMPTIES
-          </Text>
-          <Text> ({"\u20A6"}1000/Empty) </Text>
-        </View>
-        <View
-          style={{
-            flexDirection: "row",
-            justifyContent: "space-between",
-            marginTop: 10,
-            marginRight: 30,
-          }}
-        >
-          <View style={{ flexDirection: "row" }}>
-            <View
-              style={{
-                flexDirection: "row",
-              }}
-            >
-              <Text style={{ fontSize: 16, color: appTheme.COLORS.MainGray }}>
-                Empties returning:{" "}
-              </Text>
-              <Text style={{ fontSize: 16, color: appTheme.COLORS.black }}>
-                {empties}
-              </Text>
+            <View style={styles.searchInputContainer}>
+              <Icon
+                name="search"
+                size={25}
+                style={{ color: appTheme.COLORS.MainGray }}
+              />
+              <TextInput
+                placeholder="Search"
+                style={{ fontSize: 18, paddingLeft: 5, flex: 1 }}
+              />
             </View>
           </View>
         </View>
-      </View>
-      <OrderFooter
-        order={item}
-        productsToSell={newOrders}
-        getTotalPrice={getTotal}
-        getEmptiesPrice={getEmptiesPrice}
-        setVisible={setVisible}
-        visible={visible}
-        newOrders={newOrders}
-        empties={empties}
-        driver={driver}
-        updateOrderStatus={updateOrderStatus}
-      />
-    </>
+
+        {!loading ? (
+          ShowCustomers(index)
+        ) : (
+          <ActivityIndicator
+            color={
+              Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
+            }
+            animating={loading}
+            size="large"
+          />
+        )}
+      </CustomVirtualizedView>
+
+      <Pressable
+        style={{
+          backgroundColor: appTheme.COLORS.white,
+          width: 180,
+          height: 50,
+          justifyContent: "center",
+          alignItems: "center",
+          flexDirection: "row",
+          borderRadius: 40,
+          borderWidth: 1,
+          borderColor: appTheme.COLORS.borderGRey,
+          position: "absolute",
+          right: 10,
+          bottom: 10,
+        }}
+        onPress={() => navigation.navigate(Routes.ADDCUSTOMER_SCREEN)}
+      >
+        <Image style={{ marginRight: 10 }} source={icons.cartIcon} />
+        <Text style={{ fontSize: 18 }}>One-Off Sale</Text>
+      </Pressable>
+    </SafeAreaView>
   );
 };
 
-export default OrderBottomSheet;
+export default CustomersScreen;
 
 const styles = StyleSheet.create({
-  productIncreaseDecreaseContainer: {
-    backgroundColor: appTheme.COLORS.boxGray,
+  searchInputContainer: {
+    height: 50,
+    backgroundColor: appTheme.COLORS.white,
+    marginTop: 15,
+    flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    width: 30,
-    height: 30,
+    borderColor: "#9799A0",
+    borderWidth: 1,
     borderRadius: 5,
-  },
-  IncreaseText: {
-    color: appTheme.COLORS.mainRed,
-    fontWeight: "bold",
-    fontSize: 20,
+    paddingHorizontal: 10,
   },
 });
