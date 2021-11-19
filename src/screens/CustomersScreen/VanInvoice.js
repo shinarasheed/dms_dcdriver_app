@@ -159,10 +159,10 @@ const GenerateInvoice = () => {
               {moment(order?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"
               )}{" "}
-              at{" "}
+              {/* at{" "}
               {new Date(
                 order?.orderStatus[0]?.timeAssigned
-              ).toLocaleTimeString()}{" "}
+              ).toLocaleTimeString()}{" "} */}
               from
             </Text>
             <Text

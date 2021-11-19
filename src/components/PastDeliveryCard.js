@@ -49,7 +49,7 @@ const PastDeliveryCard = ({ item }) => {
                     "MMM Do, YYYY"
                   )}
             </Text>
-            <Text
+            {/* <Text
               style={{
                 textTransform: "lowercase",
                 color: appTheme.COLORS.MainGray,
@@ -65,7 +65,7 @@ const PastDeliveryCard = ({ item }) => {
                 : new Date(
                     item?.orderStatus[0]?.timeRejected
                   ).toLocaleTimeString()}
-            </Text>
+            </Text> */}
           </View>
 
           <View

@@ -114,7 +114,7 @@ const index = () => {
         </View>
       </View>
 
-      {inventory.length !== 0 ? <>{ShowProducts(index)}</> : <Spinner />}
+      {ShowProducts(index)}
     </SafeAreaView>
   );
 };

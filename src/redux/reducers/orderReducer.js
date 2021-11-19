@@ -17,7 +17,12 @@ import {
 } from "../constants/orderContants";
 
 export const ordersReducer = (
-  state = { order: [], newDeliveries: [], pastDeliveries: [] },
+  state = {
+    order: [],
+    newDeliveries: [],
+    pastDeliveries: [],
+    newCustomers: [],
+  },
   action
 ) => {
   switch (action.type) {
@@ -38,6 +43,9 @@ export const ordersReducer = (
         ),
         pastDeliveries: action.payload.filter(
           (item) => item.status === "Completed" || item.status === "Rejected"
+        ),
+        newCustomers: action.payload.filter(
+          (order) => order.routeName === "One-Off"
         ),
       };
 

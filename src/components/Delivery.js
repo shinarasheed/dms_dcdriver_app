@@ -30,7 +30,7 @@ const Delivery = ({ item }) => {
             textTransform: "lowercase",
           }}
         >
-          {new Date(item?.orderStatus[0]?.timeAssigned).toLocaleTimeString()}
+          {/* {new Date(item?.orderStatus[0]?.timeAssigned).toLocaleTimeString()} */}
         </Text>
       </View>
     </TouchableOpacity>

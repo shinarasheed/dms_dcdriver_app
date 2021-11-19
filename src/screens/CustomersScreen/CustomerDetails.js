@@ -69,7 +69,7 @@ const Customer = () => {
               ...appTheme.FONTS.mainFontLight,
             }}
           >
-            at {moment(item?.orderStatus[0]?.timeAssigned).format("hh:mm")}
+            {/* at {moment(item?.orderStatus[0]?.timeAssigned).format("hh:mm")} */}
           </Text>
         </View>
 

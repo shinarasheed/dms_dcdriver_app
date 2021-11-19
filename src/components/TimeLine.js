@@ -45,10 +45,10 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateCompleted).format(
                 "MMM Do, YYYY"
               )}{" "}
-              at{" "}
+              {/* at{" "}
               {new Date(
                 theOrder?.orderStatus[0]?.timeCompleted
-              ).toLocaleTimeString()}
+              ).toLocaleTimeString()} */}
             </Text>
           </View>
 
@@ -69,10 +69,10 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateAccepted).format(
                 "MMM Do, YYYY"
               )}{" "}
-              at{" "}
+              {/* at{" "}
               {new Date(
                 theOrder?.orderStatus[0]?.timeAccepted
-              ).toLocaleTimeString()}
+              ).toLocaleTimeString()} */}
             </Text>
           </View>
 
@@ -87,10 +87,10 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"
               )}{" "}
-              at{" "}
+              {/* at{" "}
               {new Date(
                 theOrder?.orderStatus[0]?.timeAssigned
-              ).toLocaleTimeString()}
+              ).toLocaleTimeString()} */}
             </Text>
           </View>
         </>
@@ -108,10 +108,10 @@ const TimeLine = ({ theOrder }) => {
             {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
               "MMM Do, YYYY"
             )}{" "}
-            at{" "}
+            {/* at{" "}
             {new Date(
               theOrder?.orderStatus[0]?.timeAssigned
-            ).toLocaleTimeString()}
+            ).toLocaleTimeString()} */}
           </Text>
         </View>
       )}
@@ -138,10 +138,10 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateRejected).format(
                 "MMM Do, YYYY"
               )}
-              at{" "}
+              {/* at{" "}
               {new Date(
                 theOrder?.orderStatus[0]?.timeRejected
-              ).toLocaleTimeString()}
+              ).toLocaleTimeString()} */}
             </Text>
           </View>
 
@@ -156,10 +156,10 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YY"
               )}{" "}
-              at{" "}
+              {/* at{" "}
               {new Date(
                 theOrder?.orderStatus[0]?.timeAssigned
-              ).toLocaleTimeString()}
+              ).toLocaleTimeString()} */}
             </Text>
           </View>
         </>
@@ -185,12 +185,12 @@ const TimeLine = ({ theOrder }) => {
             <Text> Accepted on </Text>
             <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
               {moment(theOrder?.orderStatus[0]?.dateAccepted).format(
-                "MMM Do, YY"
+                "MMM Do, YYYY"
               )}{" "}
-              at{" "}
+              {/* at{" "}
               {new Date(
                 theOrder?.orderStatus[0]?.timeAccepted
-              ).toLocaleTimeString()}
+              ).toLocaleTimeString()} */}
             </Text>
           </View>
 
@@ -203,12 +203,12 @@ const TimeLine = ({ theOrder }) => {
             <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
               to you on{" "}
               {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
-                "MMM Do, YY"
+                "MMM Do, YYYY"
               )}{" "}
-              at{" "}
+              {/* at{" "}
               {new Date(
                 theOrder?.orderStatus[0]?.timeAssigned
-              ).toLocaleTimeString()}
+              ).toLocaleTimeString()} */}
             </Text>
           </View>
         </View>

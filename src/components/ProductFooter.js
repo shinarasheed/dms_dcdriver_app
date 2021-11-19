@@ -60,7 +60,7 @@ const SellProductFooter = ({
 
   return (
     <View style={styles.footerContainer}>
-      {getTotalPrice() !== undefined && (
+      {getTotalPrice() !== "undefined" && (
         <TouchableOpacity
           onPress={() => {
             dispatch(confirmVanSales(payload));

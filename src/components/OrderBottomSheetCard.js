@@ -181,7 +181,7 @@ const OrderBottomSheetCard = ({
             <View style={styles.container}>
               <Pressable
                 onPress={() =>
-                  getQuantity(productId, quantity) &&
+                  // getQuantity(productId, quantity) &&
                   incrementQuantity(productId)
                 }
               >

@@ -44,7 +44,9 @@ const GenerateInvoice = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const { productsToSell, empties, order } = route.params;
+  const { productsToSell, totalPrice, empties, order } = route.params;
+
+  console.log(productsToSell);
 
   const getEmptiesPrice = () => {
     return empties * 1000;
@@ -52,7 +54,7 @@ const GenerateInvoice = () => {
 
   const getTotalPrice = () => {
     return productsToSell?.reduce(
-      (accumulator, order) => accumulator + order?.quantity * order?.price,
+      (accumulator, order) => accumulator + order?.quantity * order?.product,
       0
     );
   };
@@ -162,10 +164,10 @@ const GenerateInvoice = () => {
               {moment(order?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"
               )}{" "}
-              at{" "}
+              {/* at{" "}
               {new Date(
                 order?.orderStatus[0]?.timeAssigned
-              ).toLocaleTimeString()}{" "}
+              ).toLocaleTimeString()}{" "} */}
               from
             </Text>
             <Text
@@ -292,7 +294,7 @@ const GenerateInvoice = () => {
                 }}
               >
                 {"\u20A6"}
-                {getTotalPrice()}
+                {totalPrice}
               </Text>
             </View>
           )}
@@ -338,7 +340,7 @@ const GenerateInvoice = () => {
                 {moment(
                   new Date(new Date().getTime()).toISOString().split("T")[0]
                 ).format("MMM Do, YYYY")}{" "}
-                at {new Date(new Date().getTime()).toLocaleTimeString()}
+                {/* at {new Date(new Date().getTime()).toLocaleTimeString()} */}
               </Text>
             </View>
 
@@ -361,10 +363,10 @@ const GenerateInvoice = () => {
                   {moment(order?.orderStatus[0]?.dateAccepted).format(
                     "MMM Do, YYYY"
                   )}{" "}
-                  at{" "}
+                  {/* at{" "}
                   {new Date(
                     order?.orderStatus[0]?.timeAccepted
-                  ).toLocaleTimeString()}
+                  ).toLocaleTimeString()} */}
                 </Text>
               </View>
             </View>
@@ -381,10 +383,10 @@ const GenerateInvoice = () => {
                 {moment(order?.orderStatus[0]?.dateAssigned).format(
                   "MMM Do, YYYY"
                 )}{" "}
-                at{" "}
+                {/* at{" "}
                 {new Date(
                   order?.orderStatus[0]?.timeAssigned
-                ).toLocaleTimeString()}
+                ).toLocaleTimeString()} */}
               </Text>
             </View>
           </View>

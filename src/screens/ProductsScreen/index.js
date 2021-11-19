@@ -38,11 +38,6 @@ const ProductsScreen = () => {
   const Van = useSelector((state) => state.van);
   const { inventory, loading: vanLoading, error: vanError } = Van;
 
-  const stocks = inventory?.map((item) => ({
-    productId: item?.product?.productId,
-    quantity: item?.quantity,
-  }));
-
   return (
     <SafeAreaView
       style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
@@ -160,7 +155,10 @@ const ProductsScreen = () => {
             const payload = {
               companyCode: driver.ownerCompanyId,
               vehicleId: driver.vehicleId,
-              stocks,
+              stocks: inventory.map((item) => ({
+                productId: item?.product?.productId,
+                quantity: item?.quantity,
+              })),
             };
             Alert.alert(
               "Confirm",
@@ -170,8 +168,12 @@ const ProductsScreen = () => {
                   text: "Ok",
                   onPress: () => dispatch(returnProductsToWarehouse(payload)),
                 },
+                {
+                  text: "Cancel",
+                  style: "cancel",
+                },
               ],
-              { cancelable: false }
+              { cancelable: true }
             );
           }}
           style={{

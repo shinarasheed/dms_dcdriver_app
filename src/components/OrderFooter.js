@@ -17,6 +17,8 @@ const OrderFooter = ({
 }) => {
   const navigator = useNavigation();
 
+  const totalPrice = getTotalPrice();
+
   const dispatch = useDispatch();
   const arrayToSubmit = async () => {
     let orderItems = [];
@@ -62,6 +64,7 @@ const OrderFooter = ({
             productsToSell: newOrders,
             order,
             empties,
+            totalPrice,
           });
         }}
         style={{

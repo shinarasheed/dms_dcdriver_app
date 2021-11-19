@@ -3,7 +3,8 @@ import { Image, Text, View } from "react-native";
 import appTheme from "../constants/theme";
 
 const InvoiceCard = ({ product }) => {
-  const { imageUrl, brand, sku, productType, quantity, price } = product;
+  const { imageUrl, brand, sku, productType, quantity, productPrice, price } =
+    product;
   return (
     <>
       <View
@@ -111,7 +112,7 @@ const InvoiceCard = ({ product }) => {
                 }}
               >
                 {"\u20A6"}
-                {quantity * price}
+                {quantity * productPrice}
               </Text>
             </View>
           </View>

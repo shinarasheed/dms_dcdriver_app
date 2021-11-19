@@ -59,7 +59,7 @@ const OrderBottomSheet = ({
 
   const dispatch = useDispatch();
 
-  const [empties, setEmpties] = useState(String(0));
+  const [empties, setEmpties] = useState(0);
 
   const getEmptiesPrice = () => {
     return empties * 1000;
