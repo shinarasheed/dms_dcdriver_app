@@ -30,6 +30,8 @@ const SellProductFooter = ({
   const [salesCompleted, setSalesCompleted] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false);
 
+  // const totalPrice = getTotalPrice();
+
   const dispatch = useDispatch();
 
   const Van = useSelector((state) => state.van);
@@ -239,6 +241,7 @@ const SellProductFooter = ({
                     productsToSell,
                     order,
                     empties,
+                    // totalPrice,
                   });
                 }}
               >

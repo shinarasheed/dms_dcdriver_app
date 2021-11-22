@@ -160,6 +160,8 @@ const ProductsScreen = () => {
                 quantity: item?.quantity,
               })),
             };
+
+            console.log(payload);
             Alert.alert(
               "Confirm",
               "Are you sure?",

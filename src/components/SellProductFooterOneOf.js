@@ -137,7 +137,9 @@ const SellProductFooterOneOf = ({
           borderRadius: 5,
           marginTop: 10,
         }}
-        title={` Confirm \u20A6${getProductPrice()}`}
+        title={` Confirm  ${
+          getProductPrice() === undefined ? "" : `\u20A6${getProductPrice()}`
+        }`}
       />
 
       <BottomSheet
