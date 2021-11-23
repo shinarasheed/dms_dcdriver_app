@@ -112,7 +112,7 @@ const InvoiceCard = ({ product }) => {
                 }}
               >
                 {"\u20A6"}
-                {quantity * price}
+                {quantity * productPrice}
               </Text>
             </View>
           </View>

@@ -36,7 +36,7 @@ const ProductsScreen = () => {
   );
 
   const Van = useSelector((state) => state.van);
-  const { inventory, loading: vanLoading, error: vanError } = Van;
+  const { inventory, loading, error: vanError } = Van;
 
   return (
     <SafeAreaView
@@ -161,10 +161,9 @@ const ProductsScreen = () => {
               })),
             };
 
-            console.log(payload);
             Alert.alert(
               "Confirm",
-              "Are you sure?",
+              "Are you sure you want to return products?",
               [
                 {
                   text: "Ok",
@@ -200,14 +199,14 @@ const ProductsScreen = () => {
           </Text>
         </TouchableOpacity>
 
-        {!vanLoading ? (
+        {!loading ? (
           <ProductFlatList list={inventory} />
         ) : (
           <ActivityIndicator
             color={
               Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined
             }
-            animating={vanLoading}
+            animating={loading}
             size="large"
           />
         )}

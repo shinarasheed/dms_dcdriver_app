@@ -12,6 +12,9 @@ import {
   DECREMENT_QUANTITY,
   INCREMENT_QUANTITY,
   INCREMENT_QUANTITY_TYPING,
+  RETURN_PRODUCTS_REQUEST,
+  RETURN_PRODUCTS_SUCCESS,
+  RETURN_PRODUCTS_FAIL,
 } from "../constants/vanConstants";
 
 const initialState = {
@@ -45,6 +48,21 @@ export const vanReducer = (state = initialState, action) => {
         loading: false,
         error: payload,
         refreshing: false,
+      };
+
+    case RETURN_PRODUCTS_REQUEST:
+      return {
+        loading: true,
+      };
+
+    case RETURN_PRODUCTS_SUCCESS:
+      return {
+        loading: false,
+      };
+
+    case RETURN_PRODUCTS_FAIL:
+      return {
+        loading: false,
       };
 
     case UPDATE_INVENTORY_REQUEST:

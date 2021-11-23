@@ -21,8 +21,8 @@ const Notification = ({ item }) => {
       <View
         style={{
           backgroundColor: appTheme.COLORS.mainGreen,
-          width: 9,
-          height: 9,
+          width: 7,
+          height: 7,
           borderRadius: 50,
           top: 7,
         }}
@@ -42,8 +42,8 @@ const Notification = ({ item }) => {
               textTransform: "lowercase",
             }}
           >
-            ({new Date(item?.orderStatus[0]?.timeAssigned).toLocaleTimeString()}
-            )
+            {/* ({new Date(item?.orderStatus[0]?.timeAssigned).toLocaleTimeString()}
+            ) */}
           </Text>
         </View>
       </View>

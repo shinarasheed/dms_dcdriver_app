@@ -33,11 +33,11 @@ const index = () => {
   const Van = useSelector((state) => state.van);
   const { inventory, vanLoading, error: vanError } = Van;
 
-  const fulls = inventory.filter(
+  const fulls = inventory?.filter(
     (product) => product?.product?.productType === "full"
   );
 
-  const notfulls = inventory.filter(
+  const notfulls = inventory?.filter(
     (product) => product?.product?.productType !== "full"
   );
 

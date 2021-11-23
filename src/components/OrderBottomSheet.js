@@ -69,7 +69,7 @@ const OrderBottomSheet = ({
     dispatch(fetchProducts());
   }, []);
 
-  const { products, loading } = allProducts;
+  const { products } = allProducts;
 
   const createNewProducts = () => {
     item?.orderItems?.map((theOrder, index) => {
@@ -146,7 +146,7 @@ const OrderBottomSheet = ({
   };
 
   return (
-    <CustomVirtualizedView>
+    <CustomVirtualizedViews>
       <View
         style={{
           paddingHorizontal: 20,
@@ -250,11 +250,12 @@ const OrderBottomSheet = ({
         setVisible={setVisible}
         visible={visible}
         newOrders={newOrders}
+        setNewOrders={setNewOrders}
         empties={empties}
         driver={driver}
         updateOrderStatus={updateOrderStatus}
       />
-    </CustomVirtualizedView>
+    </CustomVirtualizedViews>
   );
 };
 

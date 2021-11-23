@@ -30,23 +30,17 @@ const AddCustomer = () => {
   const { error, customer } = theCustomer;
 
   const handleRegister = () => {
-    if (!phoneNumber) {
-      Alert.alert("Please enter phone number");
-      return;
-    }
-
-    if (!customerName) {
-      Alert.alert("Please enter name");
-      return;
-    }
-
-    dispatch(createCustomerOneOf({ phoneNumber, customerName }));
-    if (error) {
-      Alert.alert(error);
-    } else {
+    try {
+      if (error) {
+        Alert.alert("customer already exist");
+        return;
+      }
+      dispatch(createCustomerOneOf({ phoneNumber, customerName }));
       navigator.navigate(Routes.ONEOF_SALE_SCREEN);
       setPhoneNumber("");
       setCustomerName("");
+    } catch (error) {
+      console.log(error);
     }
   };
 

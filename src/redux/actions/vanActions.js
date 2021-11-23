@@ -73,8 +73,6 @@ export const updateInventory = (payload) => async (dispatch) => {
       },
     };
 
-    console.log(payload);
-
     const { data } = await axios.put(
       `${vanurl}/van/update-quantity`,
       payload,

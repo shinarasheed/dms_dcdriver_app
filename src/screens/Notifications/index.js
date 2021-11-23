@@ -16,6 +16,8 @@ import Notification from "../../components/Notification";
 import { fetchOrder } from "../../redux/actions/orderActions";
 import { Spinner } from "../../components/Spinner";
 import { icons } from "../../constants";
+import CustomVirtualizedView from "../../components/VirtualizedList";
+import { or } from "react-native-reanimated";
 
 const index = () => {
   const categories = ["all", "unread", "read"];
@@ -34,12 +36,14 @@ const index = () => {
   const allOrders = useSelector((state) => state.orders);
   const { order } = allOrders;
 
+  const theOrder = order.filter((od) => od.routeName === "SalesForce");
+
   const Notifications = (index) => {
     switch (index) {
       case 0:
         return (
           <FlatList
-            data={order}
+            data={theOrder}
             keyExtractor={(item, id) => id.toString()}
             renderItem={({ item }) => <Notification item={item} />}
             contentContainerStyle={{
@@ -54,7 +58,7 @@ const index = () => {
       case 1:
         return (
           <FlatList
-            data={order}
+            data={theOrder}
             keyExtractor={(item, id) => id.toString()}
             renderItem={({ item }) => <Notification item={item} />}
             contentContainerStyle={{
@@ -69,7 +73,7 @@ const index = () => {
       default:
         return (
           <FlatList
-            data={order}
+            data={theOrder}
             keyExtractor={(item, id) => id.toString()}
             renderItem={({ item }) => <Notification item={item} />}
             contentContainerStyle={{
@@ -115,25 +119,33 @@ const index = () => {
         </Text>
       </View>
 
-      <View style={{ paddingHorizontal: 25, marginBottom: 5 }}>
-        <NotificationsTab
-          categories={categories}
-          index={index}
-          setIndex={setIndex}
-        />
-      </View>
-
-      {order.length > 0 ? (
-        Notifications(index)
-      ) : (
-        <Spinner
+      <CustomVirtualizedView>
+        <View
           style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
+            paddingHorizontal: 20,
           }}
-        />
-      )}
+        >
+          <View style={{ marginBottom: 20 }}>
+            <NotificationsTab
+              categories={categories}
+              index={index}
+              setIndex={setIndex}
+            />
+          </View>
+
+          {order.length > 0 ? (
+            Notifications(index)
+          ) : (
+            <Spinner
+              style={{
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            />
+          )}
+        </View>
+      </CustomVirtualizedView>
     </SafeAreaView>
   );
 };

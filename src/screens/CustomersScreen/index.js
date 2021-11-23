@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Text, Image, View, Pressable, ActivityIndicator } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -18,7 +18,7 @@ import Newcustomers from "../../components/Customers/NewCustomers";
 import CustomersTab from "../../components/Customers/CustomerTab";
 
 const CustomersScreen = () => {
-  const categories = ["all", "one-off"];
+  const categories = ["all", "registered", "one-off"];
   const [index, setIndex] = useState(0);
 
   const navigation = useNavigation();
@@ -34,6 +34,10 @@ const CustomersScreen = () => {
   );
 
   const oneOff = allOrders.filter((order) => order.routeName === "One-Off");
+  const registeredCustomers = allOrders.filter(
+    (order) =>
+      order.routeName === "SalesForce" || order.routeName === "Walk-In-Sales"
+  );
 
   const ShowCustomers = (index) => {
     switch (index) {
@@ -41,6 +45,9 @@ const CustomersScreen = () => {
         return <AllCustomers allOrders={allOrders} />;
 
       case 1:
+        return <Newcustomers allOrders={registeredCustomers} />;
+
+      case 2:
         return <Newcustomers allOrders={oneOff} />;
 
       default:

@@ -6,6 +6,7 @@ import {
   Text,
   View,
   Pressable,
+  Keyboard,
 } from "react-native";
 
 import appTheme from "../constants/theme";
@@ -18,7 +19,7 @@ const OrderBottomSheetCard = ({
   deleteProduct,
   getQuantity,
   newOrders,
-  getTotalPrice,
+  setNewOrders,
 }) => {
   const {
     orderId,
@@ -35,14 +36,11 @@ const OrderBottomSheetCard = ({
 
   const [value, setValue] = React.useState(quantity.toString());
 
-  useEffect(() => {
-    getTotalPrice();
-  }, [quantity]);
-
   const incrementQuantityByTyping = (text, productId) => {
     setValue(text);
     const myproduct = newOrders?.find((item) => item?.productId === productId);
     myproduct.quantity = text;
+    setNewOrders([...newOrders]);
   };
 
   return (
