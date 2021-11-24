@@ -123,8 +123,9 @@ const Order = ({ order, getProductDetails }) => {
                     }}
                   >
                     {"\u20A6"}
-                    {order?.price}
-                    {/* {getProductDetails(order?.productId)?.price} */}
+                    {/* {order?.price} */}
+                    {getProductDetails(order?.productId)?.price *
+                      order?.quantity}
                   </Text>
                 )}
               </View>

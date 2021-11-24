@@ -147,8 +147,8 @@ const GenerateInvoice = () => {
       </View>
 
       <CustomVirtualizedView>
-        <View style={{ paddingLeft: 20, paddingVertical: 20 }}>
-          <View style={{ flexDirection: "row", marginBottom: 10 }}>
+        <View style={{ paddingLeft: 20, paddingBottom: 20 }}>
+          <View style={{ flexDirection: "row" }}>
             <Text
               style={{
                 fontSize: 15,
@@ -156,16 +156,16 @@ const GenerateInvoice = () => {
                 textTransform: "lowercase",
               }}
             >
-              {moment(order?.orderStatus[0]?.dateAssigned).format(
+              {/* {moment(order?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"
-              )}{" "}
+              )}{" "} */}
               {/* at{" "}
               {new Date(
                 order?.orderStatus[0]?.timeAssigned
-              ).toLocaleTimeString()}{" "} */}
-              from
+              ).toLocaleTimeString()}{" "}
+              from */}
             </Text>
-            <Text
+            {/* <Text
               style={{
                 fontSize: 17,
                 fontWeight: "bold",
@@ -173,7 +173,7 @@ const GenerateInvoice = () => {
               }}
             >
               {order?.buyerDetails[0]?.buyerName}
-            </Text>
+            </Text> */}
           </View>
 
           <View
@@ -231,7 +231,9 @@ const GenerateInvoice = () => {
                   color: appTheme.COLORS.MainGray,
                 }}
               >
-                {order?.buyerDetails[0]?.buyerAddress}
+                {order?.buyerDetails[0]?.buyerAddress === "undefined"
+                  ? "Nigeria"
+                  : order?.buyerDetails[0]?.buyerAddress}
               </Text>
 
               <View style={{ marginTop: 20, flexDirection: "row" }}>

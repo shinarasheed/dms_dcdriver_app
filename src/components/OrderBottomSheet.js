@@ -146,7 +146,7 @@ const OrderBottomSheet = ({
   };
 
   return (
-    <CustomVirtualizedViews>
+    <CustomVirtualizedView>
       <View
         style={{
           paddingHorizontal: 20,
@@ -255,7 +255,7 @@ const OrderBottomSheet = ({
         driver={driver}
         updateOrderStatus={updateOrderStatus}
       />
-    </CustomVirtualizedViews>
+    </CustomVirtualizedView>
   );
 };
 

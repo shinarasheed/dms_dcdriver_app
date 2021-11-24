@@ -22,6 +22,8 @@ export const ordersReducer = (
     newDeliveries: [],
     pastDeliveries: [],
     newCustomers: [],
+    oneOfCustomers: [],
+    registeredCustomers: [],
   },
   action
 ) => {
@@ -46,6 +48,14 @@ export const ordersReducer = (
         ),
         newCustomers: action.payload.filter(
           (order) => order.routeName === "One-Off"
+        ),
+        oneOfCustomers: action.payload.filter(
+          (order) => order.routeName === "One-Off"
+        ),
+        registeredCustomers: action.payload.filter(
+          (order) =>
+            order.routeName === "SalesForce" ||
+            order.routeName === "Walk-In-Sales"
         ),
       };
 

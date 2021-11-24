@@ -8,6 +8,7 @@ import {
   Text,
   View,
 } from "react-native";
+import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
@@ -22,35 +23,49 @@ import { Spinner } from "../../components/Spinner";
 const index = () => {
   const categories = ["full", "empties"];
   const [index, setIndex] = useState(0);
+  const [searchValue, setSearchValue] = useState("");
+  const [fullproducts, setfullProducts] = useState([]);
+  const [emptyproducts, setemptyProducts] = useState([]);
 
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(fetchVanProducts());
-  }, []);
-
   const Van = useSelector((state) => state.van);
-  const { inventory, vanLoading, error: vanError } = Van;
+  const { fullProducts, emptyProducts } = Van;
 
-  const fulls = inventory?.filter(
-    (product) => product?.product?.productType === "full"
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(fetchVanProducts());
+      setfullProducts(fullProducts);
+      setemptyProducts(emptyProducts);
+    }, [])
   );
 
-  const notfulls = inventory?.filter(
-    (product) => product?.product?.productType !== "full"
-  );
+  const searchFunction = (text) => {
+    setSearchValue(text);
+    const updatedData = fullProducts.filter(
+      (item) =>
+        item.product.brand.toUpperCase().indexOf(text.toUpperCase()) > -1
+    );
+
+    const updatedData2 = emptyProducts.filter(
+      (item) =>
+        item.product.brand.toUpperCase().indexOf(text.toUpperCase()) > -1
+    );
+    setfullProducts(updatedData);
+    setemptyProducts(updatedData2);
+  };
 
   const ShowProducts = (index) => {
     switch (index) {
       case 0:
-        return <ProductFlastlist list={fulls} />;
+        return <ProductFlastlist list={fullproducts} />;
 
       case 1:
-        return <ProductFlastlist list={notfulls} />;
+        return <ProductFlastlist list={emptyproducts} />;
 
       default:
-        return <ProductFlastlist list={fulls} />;
+        return <ProductFlastlist list={fullproducts} />;
     }
   };
 
@@ -110,6 +125,9 @@ const index = () => {
           <TextInput
             placeholder="Search"
             style={{ fontSize: 18, paddingLeft: 5, flex: 1 }}
+            value={searchValue}
+            onChangeText={(text) => searchFunction(text)}
+            autoCorrect={false}
           />
         </View>
       </View>

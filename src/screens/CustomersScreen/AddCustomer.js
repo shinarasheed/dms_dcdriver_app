@@ -27,18 +27,20 @@ const AddCustomer = () => {
 
   const theCustomer = useSelector((state) => state.customerOneOf);
 
-  const { error, customer } = theCustomer;
+  const { error } = theCustomer;
 
   const handleRegister = () => {
     try {
-      if (error) {
-        Alert.alert("customer already exist");
-        return;
-      }
       dispatch(createCustomerOneOf({ phoneNumber, customerName }));
-      navigator.navigate(Routes.ONEOF_SALE_SCREEN);
-      setPhoneNumber("");
-      setCustomerName("");
+
+      console.log(error);
+      if (!error && error !== "sundefined") {
+        navigator.navigate(Routes.ONEOF_SALE_SCREEN);
+        setPhoneNumber("");
+        setCustomerName("");
+      } else {
+        Alert.alert("Error!", "This customer already exist!");
+      }
     } catch (error) {
       console.log(error);
     }

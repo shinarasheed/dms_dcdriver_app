@@ -13,7 +13,7 @@ import { useRoute, useNavigation } from "@react-navigation/native";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import InvoiceCard from "../../components/InvoiceCard";
+import InvoiceCard2 from "../../components/InvoiceCard2";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
@@ -257,7 +257,7 @@ const GenerateInvoice = () => {
           }}
           data={productsToSell}
           keyExtractor={(item, id) => id.toString()}
-          renderItem={({ item }) => <InvoiceCard product={item} />}
+          renderItem={({ item }) => <InvoiceCard2 product={item} />}
           ListHeaderComponent={() => (
             <View
               style={{

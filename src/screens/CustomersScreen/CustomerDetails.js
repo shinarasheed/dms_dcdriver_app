@@ -26,7 +26,9 @@ const Customer = () => {
   const { order, numberOfOrders, allOrders } = route.params;
 
   const customerOrders = allOrders.filter(
-    (od) => od.buyerCompanyId === order?.buyerCompanyId
+    (od) =>
+      od.buyerDetails[0]?.buyerPhoneNumber ===
+      order?.buyerDetails[0]?.buyerPhoneNumber
   );
 
   const SingleCustomer = ({ item }) => {
@@ -59,7 +61,7 @@ const Customer = () => {
               ...appTheme.FONTS.mainFontLight,
             }}
           >
-            {moment(item?.orderStatus[0]?.dateAssigned).format("MMM Do, YYYY")}
+            {/* {moment(item?.orderStatus[0]?.dateAssigned).format("MMM Do, YYYY")} */}
           </Text>
           <Text
             style={{

@@ -20,6 +20,8 @@ import {
 const initialState = {
   inventory: [],
   newinventory: [],
+  fullProducts: [],
+  emptyProducts: [],
   response: [],
   refreshing: true,
   loading: false,
@@ -38,6 +40,12 @@ export const vanReducer = (state = initialState, action) => {
       return {
         inventory: payload.productsWithQuantity,
         newinventory: payload.newInventory,
+        fullProducts: payload.productsWithQuantity?.filter(
+          (product) => product?.product?.productType === "full"
+        ),
+        emptyProducts: payload.productsWithQuantity?.filter(
+          (product) => product?.product?.productType !== "full"
+        ),
         loading: false,
         refreshing: false,
         driver: payload.driver,

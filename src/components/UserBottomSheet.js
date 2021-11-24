@@ -68,18 +68,13 @@ export default function UserBottomSheet({
                 {driver?.email}
               </Text>
 
-              <View style={{ flexDirection: "column" }}>
+              <View>
                 <Text
                   style={{
-                    color: appTheme.COLORS.mainTextGray,
+                    fontWeight: "bold",
                     fontSize: 17,
-                    textAlign: "center",
+                    color: appTheme.COLORS.black,
                   }}
-                >
-                  Distributor
-                </Text>
-                <Text
-                  style={{ fontWeight: "bold", fontSize: 17, marginLeft: 5 }}
                 >
                   {distributor?.company_name}
                 </Text>

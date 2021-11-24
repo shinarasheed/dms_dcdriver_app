@@ -69,9 +69,18 @@ const DeliveryDetails = () => {
     return x;
   };
 
+  // const getTotalPrice = () => {
+  //   return theOrder?.orderItems.reduce(
+  //     (accumulator, order) => accumulator + parseFloat(order?.price),
+  //     0
+  //   );
+  // };
+
   const getTotalPrice = () => {
     return theOrder?.orderItems.reduce(
-      (accumulator, order) => accumulator + parseFloat(order?.price),
+      (accumulator, order) =>
+        accumulator +
+        getProductDetails(order?.productId)?.price * order?.quantity,
       0
     );
   };
