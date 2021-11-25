@@ -1,13 +1,29 @@
 import React from "react";
-import { View, Text, Pressable, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity } from "react-native";
 import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
 
 import appTheme from "../constants/theme";
 import Routes from "../navigation/Routes";
 
-const DeliveryCard = ({ item }) => {
+const DeliveryCard = ({ item, products }) => {
   const navigation = useNavigation();
+
+  const getProductDetails = (productId) => {
+    const x = products?.filter(
+      (product) => product?.productId === productId.toString()
+    )[0];
+    return x;
+  };
+
+  const getTotalPrice = () => {
+    return item?.orderItems?.reduce(
+      (accumulator, order) =>
+        accumulator +
+        getProductDetails(order?.productId)?.price * order?.quantity,
+      0
+    );
+  };
 
   return (
     <TouchableOpacity
@@ -111,11 +127,11 @@ const DeliveryCard = ({ item }) => {
             fontSize: 14,
             fontWeight: "700",
             ...appTheme.FONTS.mainFontBold,
-            color: appTheme.COLORS.mainTextGray,
+            color: appTheme.COLORS.MainGray,
           }}
         >
           {"\u20A6"}
-          {item?.totalPrice}
+          {getTotalPrice()}
         </Text>
       </View>
     </TouchableOpacity>

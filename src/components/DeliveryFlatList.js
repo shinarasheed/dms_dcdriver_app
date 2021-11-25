@@ -3,7 +3,7 @@ import { View, FlatList } from "react-native";
 import DeliveryCard from "./DeliveryCard";
 import appTheme from "../constants/theme";
 
-const DeliveryFlatList = ({ list }) => {
+const DeliveryFlatList = ({ list, products }) => {
   return (
     <>
       <FlatList
@@ -12,7 +12,9 @@ const DeliveryFlatList = ({ list }) => {
         keyExtractor={(item, id) => id.toString()}
         listKey={(item) => id.toString()}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => <DeliveryCard item={item} />}
+        renderItem={({ item }) => (
+          <DeliveryCard item={item} products={products} />
+        )}
         ItemSeparatorComponent={() => (
           <View
             style={{

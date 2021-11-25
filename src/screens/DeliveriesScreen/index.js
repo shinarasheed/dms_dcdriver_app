@@ -21,6 +21,7 @@ import { fetchOrder } from "../../redux/actions/orderActions";
 import PastDeliveryFlatList from "../../components/PastDeliveryFlatlist";
 import DeliveriesTab from "../../components/DeliveriesTab";
 import { Spinner } from "../../components/Spinner";
+import { fetchProducts } from "../../redux/actions/productActions";
 
 export default function DeliveriesScreen() {
   const categories = ["new deliveries", "past deliveries"];
@@ -32,6 +33,14 @@ export default function DeliveriesScreen() {
 
   const allOrders = useSelector((state) => state.orders);
   const { loading, error, order, newDeliveries, pastDeliveries } = allOrders;
+
+  const allProducts = useSelector((state) => state.products);
+
+  const { products } = allProducts;
+
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
 
   const [theNewDelivery, setTheNewDeliveries] = useState([]);
   const [thePastDeliveries, setPastDeliveries] = useState([]);
@@ -61,13 +70,15 @@ export default function DeliveriesScreen() {
   const ShowDeliveries = (index) => {
     switch (index) {
       case 0:
-        return <DeliveryFlatList list={theNewDelivery} />;
+        return <DeliveryFlatList list={theNewDelivery} products={products} />;
 
       case 1:
-        return <PastDeliveryFlatList list={thePastDeliveries} />;
+        return (
+          <PastDeliveryFlatList list={thePastDeliveries} products={products} />
+        );
 
       default:
-        return <DeliveryFlatList list={theNewDelivery} />;
+        return <DeliveryFlatList list={theNewDelivery} products={products} />;
     }
   };
 
