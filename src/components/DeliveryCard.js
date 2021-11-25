@@ -131,7 +131,7 @@ const DeliveryCard = ({ item, products }) => {
           }}
         >
           {"\u20A6"}
-          {getTotalPrice()}
+          {getTotalPrice() === "NaN" ? null : getTotalPrice()}
         </Text>
       </View>
     </TouchableOpacity>

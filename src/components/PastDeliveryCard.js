@@ -6,8 +6,24 @@ import moment from "moment";
 import appTheme from "../constants/theme";
 import Routes from "../navigation/Routes";
 
-const PastDeliveryCard = ({ item }) => {
+const PastDeliveryCard = ({ item, products }) => {
   const navigation = useNavigation();
+
+  const getProductDetails = (productId) => {
+    const x = products?.filter(
+      (product) => product?.productId === productId.toString()
+    )[0];
+    return x;
+  };
+
+  const getTotalPrice = () => {
+    return item?.orderItems?.reduce(
+      (accumulator, order) =>
+        accumulator +
+        getProductDetails(order?.productId)?.price * order?.quantity,
+      0
+    );
+  };
 
   return (
     <>
@@ -130,7 +146,7 @@ const PastDeliveryCard = ({ item }) => {
               }}
             >
               {"\u20A6"}
-              {item?.totalPrice}
+              {getTotalPrice() === "NaN" ? null : getTotalPrice()}
             </Text>
           </View>
         </View>

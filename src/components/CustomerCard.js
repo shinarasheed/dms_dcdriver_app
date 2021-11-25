@@ -7,10 +7,6 @@ import appTheme from "../constants/theme";
 const CustomerCard = ({ order, allOrders }) => {
   const navigation = useNavigation();
 
-  // const numberOfOrders = allOrders.filter(
-  //   (od) => od.buyerCompanyId === order?.buyerCompanyId
-  // );
-
   const numberOfOrders = allOrders.filter(
     (od) =>
       od.buyerDetails[0]?.buyerPhoneNumber ===
@@ -21,10 +17,12 @@ const CustomerCard = ({ order, allOrders }) => {
     (od) => od.buyerCompanyId === order?.buyerCompanyId
   );
 
-  // const totalAmount = customerOrders.reduce(
-  //   (accumulator, order) => accumulator + order?.totalPrice,
-  //   0
-  // );
+  const items = customerOrders.map((item) => item.orderItems[0]);
+
+  const totalAmount = items.reduce(
+    (accumulator, order) => accumulator + parseInt(order?.price),
+    0
+  );
 
   return (
     <TouchableOpacity
@@ -86,8 +84,8 @@ const CustomerCard = ({ order, allOrders }) => {
                 ...appTheme.FONTS.mainFontLight,
               }}
             >
-              {/* {"\u20A6"}
-              {totalAmount} */}
+              {"\u20A6"}
+              {totalAmount}
             </Text>
           </View>
         </View>

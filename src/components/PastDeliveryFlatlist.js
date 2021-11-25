@@ -3,7 +3,7 @@ import { View, FlatList } from "react-native";
 import PastDeliveryCard from "./PastDeliveryCard";
 import appTheme from "../constants/theme";
 
-const PastDeliveryFlatList = ({ list }) => {
+const PastDeliveryFlatList = ({ list, products }) => {
   return (
     <>
       <FlatList
@@ -12,7 +12,9 @@ const PastDeliveryFlatList = ({ list }) => {
         keyExtractor={(item, id) => id.toString()}
         listKey={(item) => id.toString()}
         showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => <PastDeliveryCard item={item} />}
+        renderItem={({ item }) => (
+          <PastDeliveryCard item={item} products={products} />
+        )}
         ItemSeparatorComponent={() => (
           <View
             style={{

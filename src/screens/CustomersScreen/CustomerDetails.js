@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   SafeAreaView,
   Text,
@@ -6,13 +6,16 @@ import {
   Image,
   Pressable,
   FlatList,
+  TouchableOpacity,
 } from "react-native";
 import moment from "moment";
 import { Button } from "react-native-elements";
+import { useSelector, useDispatch } from "react-redux";
 
 import { useRoute, useNavigation } from "@react-navigation/native";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
+import { fetchProducts } from "../../redux/actions/productActions";
 
 // import Header from "../../components/Header";
 import CustomVirtualizedView from "../../components/VirtualizedList";
@@ -31,9 +34,37 @@ const Customer = () => {
       order?.buyerDetails[0]?.buyerPhoneNumber
   );
 
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
+
+  const allProducts = useSelector((state) => state.products);
+  const dispatch = useDispatch();
+
+  const { products } = allProducts;
+
+  const getProductDetails = (productId) => {
+    const x = products?.filter(
+      (product) => product?.productId === productId.toString()
+    )[0];
+    return x;
+  };
+
+  const getTotalPrice = () => {
+    return order?.orderItems.reduce(
+      (accumulator, order) =>
+        accumulator +
+        getProductDetails(order?.productId)?.price * order?.quantity,
+      0
+    );
+  };
+
   const SingleCustomer = ({ item }) => {
     return (
-      <View
+      <TouchableOpacity
+        onPress={() =>
+          navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, item)
+        }
         style={{
           borderTopWidth: 1,
           borderTopColor: appTheme.COLORS.Grey,
@@ -144,10 +175,10 @@ const Customer = () => {
             }}
           >
             {"\u20A6"}
-            {item.totalPrice}
+            {getTotalPrice() === NaN ? null : getTotalPrice()}
           </Text>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   };
 
@@ -214,9 +245,18 @@ const Customer = () => {
           </View>
 
           <View>
-            {/* <Text style={{fontSize: 15}}>Total Amount Spent</Text> */}
-            <Text style={{ fontSize: 20, ...appTheme.FONTS.mainFontBold }}>
-              {/* {'\u20A6'}10,040,888.33 */}
+            <Text style={{ fontSize: 15, marginBottom: 5 }}>
+              Total Amount Spent
+            </Text>
+            <Text
+              style={{
+                fontSize: 16,
+                marginBottom: 5,
+                ...appTheme.FONTS.mainFontBold,
+              }}
+            >
+              {"\u20A6"}
+              {getTotalPrice() === NaN ? null : getTotalPrice()}
             </Text>
             <Text style={{ fontSize: 15, ...appTheme.FONTS.mainFontLight }}>
               {numberOfOrders.length}{" "}

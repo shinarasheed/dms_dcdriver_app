@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Text, Image, View, Pressable, ActivityIndicator } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -12,10 +12,10 @@ import { fetchOrder } from "../../redux/actions/orderActions";
 import { icons } from "../../constants";
 
 import AllCustomers from "../../components/Customers/AllCustomers";
-import Bulkbreakers from "../../components/Customers/BulkBreakers";
-import Pocs from "../../components/Customers/Pocs";
 import Newcustomers from "../../components/Customers/NewCustomers";
+import OneOfCustomers from "../../components/Customers/OneOfCustomers";
 import CustomersTab from "../../components/Customers/CustomerTab";
+import { fetchProducts } from "../../redux/actions/productActions";
 
 const CustomersScreen = () => {
   const categories = ["all", "registered", "one-off"];
@@ -33,6 +33,14 @@ const CustomersScreen = () => {
     }, [])
   );
 
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
+
+  const allProducts = useSelector((state) => state.products);
+
+  const { products } = allProducts;
+
   const oneOff = allOrders.filter((order) => order.routeName === "One-Off");
   const registeredCustomers = allOrders.filter(
     (order) =>
@@ -42,16 +50,18 @@ const CustomersScreen = () => {
   const ShowCustomers = (index) => {
     switch (index) {
       case 0:
-        return <AllCustomers allOrders={allOrders} />;
+        return <AllCustomers allOrders={allOrders} products={products} />;
 
       case 1:
-        return <Newcustomers allOrders={registeredCustomers} />;
+        return (
+          <Newcustomers allOrders={registeredCustomers} products={products} />
+        );
 
       case 2:
-        return <Newcustomers allOrders={oneOff} />;
+        return <OneOfCustomers allOrders={oneOff} products={products} />;
 
       default:
-        return <AllCustomers allOrders={allOrders} />;
+        return <AllCustomers allOrders={allOrders} products={products} />;
     }
   };
   return (
