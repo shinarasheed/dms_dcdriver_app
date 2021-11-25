@@ -25,6 +25,7 @@ const initialState = {
   response: [],
   refreshing: true,
   loading: false,
+  productsReturned: false,
 };
 
 export const vanReducer = (state = initialState, action) => {
@@ -66,6 +67,7 @@ export const vanReducer = (state = initialState, action) => {
     case RETURN_PRODUCTS_SUCCESS:
       return {
         loading: false,
+        productsReturned: true,
       };
 
     case RETURN_PRODUCTS_FAIL:

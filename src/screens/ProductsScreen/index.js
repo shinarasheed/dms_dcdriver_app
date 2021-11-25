@@ -9,6 +9,7 @@ import {
   ActivityIndicator,
   TouchableOpacity,
   Alert,
+  ToastAndroid,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -35,8 +36,16 @@ const ProductsScreen = () => {
     }, [])
   );
 
+  const showToastWithGravity = () => {
+    ToastAndroid.showWithGravity(
+      "Products Returned to Warehouse",
+      ToastAndroid.SHORT,
+      ToastAndroid.CENTER
+    );
+  };
+
   const Van = useSelector((state) => state.van);
-  const { inventory, loading, error: vanError } = Van;
+  const { inventory, loading, error: vanError, productsReturned } = Van;
 
   return (
     <SafeAreaView
@@ -146,6 +155,8 @@ const ProductsScreen = () => {
             </View>
           </Pressable>
         </View>
+
+        {productsReturned && showToastWithGravity()}
 
         <TouchableOpacity
           onPress={async () => {

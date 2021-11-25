@@ -8,7 +8,7 @@ import ProductCard from "./ProductCard";
 const ProductFlatList = ({ list }) => {
   return (
     <>
-      {list?.length > 0 ? (
+      {list?.length !== 0 ? (
         <FlatList
           style={{ marginBottom: 20 }}
           data={list}

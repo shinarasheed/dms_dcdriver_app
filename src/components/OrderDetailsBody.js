@@ -110,8 +110,9 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
                 color: appTheme.COLORS.MainGray,
               }}
             >
-              {theOrder !== undefined &&
-                theOrder?.buyerDetails[0]?.buyerAddress}
+              {theOrder?.buyerDetails[0]?.buyerAddress === "undefined"
+                ? "Nigeria"
+                : theOrder?.buyerDetails[0]?.buyerAddress}
             </Text>
 
             <View style={{ marginTop: 20, flexDirection: "row" }}>
