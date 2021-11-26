@@ -21,6 +21,7 @@ import { fetchProducts } from "../../redux/actions/productActions";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import CallCustomer from "../../components/CallCustomer";
 import Routes from "../../navigation/Routes";
+import { or } from "react-native-reanimated";
 
 const Customer = () => {
   const route = useRoute();
@@ -55,6 +56,17 @@ const Customer = () => {
       (accumulator, order) =>
         accumulator +
         getProductDetails(order?.productId)?.price * order?.quantity,
+      0
+    );
+  };
+
+  const items = customerOrders.map((od) => od.orderItems);
+
+  let flatArray = [].concat.apply([], items);
+
+  const getTotal = () => {
+    return flatArray.reduce(
+      (accumulator, order) => accumulator + order?.price * order?.quantity,
       0
     );
   };
@@ -175,7 +187,7 @@ const Customer = () => {
             }}
           >
             {"\u20A6"}
-            {getTotalPrice() === NaN ? null : getTotalPrice()}
+            {isNaN(getTotalPrice()) ? null : getTotalPrice()}
           </Text>
         </View>
       </TouchableOpacity>
@@ -251,12 +263,12 @@ const Customer = () => {
             <Text
               style={{
                 fontSize: 16,
-                marginBottom: 5,
+                // marginBottom: 5,
                 ...appTheme.FONTS.mainFontBold,
               }}
             >
-              {"\u20A6"}
-              {getTotalPrice() === NaN ? null : getTotalPrice()}
+              {/* {"\u20A6"}
+              {getTotal()} */}
             </Text>
             <Text style={{ fontSize: 15, ...appTheme.FONTS.mainFontLight }}>
               {numberOfOrders.length}{" "}

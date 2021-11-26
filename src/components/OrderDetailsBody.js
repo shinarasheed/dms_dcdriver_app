@@ -74,7 +74,7 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
         style={{
           backgroundColor: appTheme.COLORS.white,
           paddingLeft: 20,
-          paddingVertical: 20,
+          paddingVertical: 10,
         }}
       >
         <View>
@@ -82,8 +82,8 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
             style={{
               fontWeight: "bold",
               color: appTheme.COLORS.MainGray,
-              fontSize: 20,
-              marginBottom: 20,
+              fontSize: 18,
+              marginBottom: 5,
             }}
           >
             Customer
@@ -115,7 +115,7 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
                 : theOrder?.buyerDetails[0]?.buyerAddress}
             </Text>
 
-            <View style={{ marginTop: 20, flexDirection: "row" }}>
+            <View style={{ marginTop: 5, flexDirection: "row" }}>
               <Text style={{ fontSize: 15, color: appTheme.COLORS.black }}>
                 {theOrder !== undefined &&
                   theOrder?.buyerDetails[0]?.buyerPhoneNumber}
@@ -174,7 +174,7 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
               }}
             >
               {"\u20A6"}
-              {getTotalPrice()}
+              {isNaN(getTotalPrice()) ? null : getTotalPrice()}
             </Text>
           </View>
         )}

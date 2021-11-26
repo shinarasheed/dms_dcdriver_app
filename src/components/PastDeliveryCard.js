@@ -146,7 +146,7 @@ const PastDeliveryCard = ({ item, products }) => {
               }}
             >
               {"\u20A6"}
-              {getTotalPrice() === "NaN" ? null : getTotalPrice()}
+              {isNaN(getTotalPrice()) ? null : getTotalPrice()}
             </Text>
           </View>
         </View>

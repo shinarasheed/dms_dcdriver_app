@@ -3,7 +3,6 @@ import { Text, Image, View, Pressable, ActivityIndicator } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
-// import SearchInput from '../../components/SearchInput';
 import Header from "../../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import appTheme from "../../constants/theme";
