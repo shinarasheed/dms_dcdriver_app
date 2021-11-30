@@ -241,7 +241,7 @@ const Customer = () => {
               style={{
                 backgroundColor: appTheme.COLORS.mainGreen,
                 paddingHorizontal: 10,
-                paddingVertical: 3,
+                // paddingVertical: 3,
                 borderRadius: 20,
               }}
             >
@@ -257,9 +257,9 @@ const Customer = () => {
           </View>
 
           <View>
-            <Text style={{ fontSize: 15, marginBottom: 5 }}>
+            {/* <Text style={{ fontSize: 15, marginBottom: 5 }}>
               Total Amount Spent
-            </Text>
+            </Text> */}
             <Text
               style={{
                 fontSize: 16,
