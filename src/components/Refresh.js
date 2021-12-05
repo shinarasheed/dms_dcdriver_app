@@ -26,7 +26,9 @@ const Refresh = () => {
   const checkValid = async () => {
     const data = await adService.getAccessTokenAsync();
     const { isValid } = await adService.getAccessTokenAsync();
-    isValid ? navigation.navigate(Routes.HOME_SCREEN) : null;
+    isValid
+      ? navigation.navigate(Routes.HOME_SCREEN)
+      : navigation.navigate(Routes.WELCOME_SCREEN);
   };
 
   const onRefresh = async () => {
@@ -41,7 +43,7 @@ const Refresh = () => {
     } = await axios.get(
       `http://102.133.206.181/GetVehicle/GetByEmail/${email}`
     );
-    console.log(data, "+++++++++++++++++++++++");
+    console.log(data, "================");
 
     await AsyncStorage.setItem("driverDetails", JSON.stringify(data));
     console.log(isValid);

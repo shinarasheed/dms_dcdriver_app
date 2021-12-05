@@ -25,7 +25,7 @@ const SellProductFlatListCard = ({
 }) => {
   const dispatch = useDispatch();
 
-  const handleTextChange = async (text, productId) => {
+  const handleTextChange = (text, productId) => {
     getQuantity(productId, text) &&
       dispatch(incrementQuantityByTyping(text, productId));
   };

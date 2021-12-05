@@ -26,9 +26,10 @@ const ProductBottomSheet = ({
   setEmpties,
   empties,
   getEmptiesPrice,
+  getProductPrice,
 }) => {
   return (
-    <CustomVirtualist>
+    <>
       <View
         style={{
           paddingHorizontal: 20,
@@ -142,8 +143,9 @@ const ProductBottomSheet = ({
         toggle={toggle}
         empties={empties}
         getEmptiesPrice={getEmptiesPrice}
+        getProductPrice={getProductPrice}
       />
-    </CustomVirtualist>
+    </>
   );
 };
 

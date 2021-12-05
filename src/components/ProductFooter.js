@@ -14,6 +14,7 @@ const SellProductFooter = ({
   productsToSell,
   empties,
   getEmptiesPrice,
+  getProductPrice,
 }) => {
   const navigator = useNavigation();
 

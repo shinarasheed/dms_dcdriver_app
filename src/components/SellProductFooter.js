@@ -163,6 +163,7 @@ const SellProductFooter = ({
             setEmpties={setEmpties}
             empties={empties}
             getEmptiesPrice={getEmptiesPrice}
+            getProductPrice={getProductPrice}
           />
         </View>
       </BottomSheet>

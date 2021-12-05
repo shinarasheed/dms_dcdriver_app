@@ -1,6 +1,13 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { StyleSheet, Image, Text, View, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Image,
+  Text,
+  View,
+  Pressable,
+  TextInput,
+} from "react-native";
 
 import appTheme from "../constants/theme";
 import icons from "../constants/icons";
@@ -8,12 +15,18 @@ import {
   incrementQuantity,
   decrementQuantity,
   deleteProduct,
+  incrementQuantityByTyping,
 } from "../redux/actions/vanActions";
 
 const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
   const dispatch = useDispatch();
   const { brand, sku, imageUrl, price, quantity, productType, productId } =
     item;
+
+  const handleTextChange = (text, productId) => {
+    getQuantity(productId, text) &&
+      dispatch(incrementQuantityByTyping(text, productId));
+  };
 
   return (
     <View
@@ -134,27 +147,22 @@ const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
                 <Text style={styles.IncreaseText}>-</Text>
               </Pressable>
             </View>
-            <View
+
+            <TextInput
               style={{
                 borderWidth: 1,
                 width: 70,
                 borderColor: appTheme.COLORS.borderGRey,
                 marginRight: 5,
                 borderRadius: 5,
-                alignItems: "center",
-                justifyContent: "center",
+                textAlign: "center",
+                color: appTheme.COLORS.MainGray,
+                fontWeight: "bold",
               }}
-            >
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  color: appTheme.COLORS.mainTextGray,
-                  ...appTheme.FONTS.mainFontLight,
-                }}
-              >
-                {quantity}
-              </Text>
-            </View>
+              value={String(quantity)}
+              onChangeText={(text) => handleTextChange(text, productId)}
+            />
+
             <View style={styles.productIncreaseDecreaseContainer}>
               <Pressable
                 onPress={() =>
