@@ -3,8 +3,6 @@ import { StyleSheet, Pressable, Text, View, TextInput } from "react-native";
 import appTheme from "../constants/theme";
 
 const Empties = ({ NumberOfFull, setEmpties, empties }) => {
-  // const [value, setValue] = React.useState(empties.toString());
-
   const newOrders = [];
   const incrementQuantityByTyping = (text, productId) => {
     // setValue(text);
