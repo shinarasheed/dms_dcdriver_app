@@ -11,63 +11,58 @@ const Empties = ({ NumberOfFull, setEmpties, empties }) => {
     // setNewOrders([...newOrders]);
   };
   return (
-    <>
-      <View>
-        <Text
-          style={{
-            fontSize: 17,
-            color: appTheme.COLORS.mainTextGray,
-            marginBottom: 20,
-          }}
-        >
-          Empties returned by customer
-        </Text>
+    <View>
+      <Text
+        style={{
+          fontSize: 17,
+          color: appTheme.COLORS.mainTextGray,
+          marginBottom: 20,
+        }}
+      >
+        Empties returned by customer
+      </Text>
+      <View
+        style={{
+          flexDirection: "row",
+        }}
+      >
         <View
-          style={{
-            flexDirection: "row",
-          }}
+          style={[styles.productIncreaseDecreaseContainer, { marginRight: 5 }]}
         >
-          <View
-            style={[
-              styles.productIncreaseDecreaseContainer,
-              { marginRight: 5 },
-            ]}
+          <Pressable
+            disabled={empties === 0 ? true : false}
+            onPress={() => setEmpties(empties - 1)}
           >
-            <Pressable
-              disabled={empties === 0 ? true : false}
-              onPress={() => setEmpties(empties - 1)}
-            >
-              <Text style={styles.IncreaseText}>-</Text>
-            </Pressable>
-          </View>
+            <Text style={styles.IncreaseText}>-</Text>
+          </Pressable>
+        </View>
 
-          <TextInput
-            style={{
-              borderWidth: 1,
-              width: 70,
-              borderColor: appTheme.COLORS.borderGRey,
-              marginRight: 5,
-              borderRadius: 5,
-              textAlign: "center",
-              fontWeight: "bold",
-              color: appTheme.COLORS.mainTextGray,
-              ...appTheme.FONTS.mainFontLight,
-            }}
-            value={empties.toString()}
-            onChangeText={(text) => setEmpties(text)}
-          />
+        <TextInput
+          style={{
+            borderWidth: 1,
+            width: 70,
+            borderColor: appTheme.COLORS.borderGRey,
+            marginRight: 5,
+            borderRadius: 5,
+            textAlign: "center",
+            fontWeight: "bold",
+            color: appTheme.COLORS.mainTextGray,
+            ...appTheme.FONTS.mainFontLight,
+          }}
+          value={empties.toString()}
+          onChangeText={(text) => setEmpties(text)}
+        />
 
-          <View style={styles.productIncreaseDecreaseContainer}>
-            <Pressable
-              disabled={empties >= NumberOfFull()}
-              onPress={() => setEmpties(empties + 1)}
-            >
-              <Text style={styles.IncreaseText}>+</Text>
-            </Pressable>
-          </View>
+        <View style={styles.productIncreaseDecreaseContainer}>
+          <Pressable
+            disabled={empties >= NumberOfFull()}
+            onPress={() => setEmpties(empties + 1)}
+          >
+            <Text style={styles.IncreaseText}>+</Text>
+          </Pressable>
         </View>
       </View>
-    </>
+    </View>
   );
 };
 

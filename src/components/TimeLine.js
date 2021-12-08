@@ -45,10 +45,7 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateCompleted).format(
                 "MMM Do, YYYY"
               )}{" "}
-              {/* at{" "}
-              {new Date(
-                theOrder?.orderStatus[0]?.timeCompleted
-              ).toLocaleTimeString()} */}
+              at {theOrder?.orderStatus[0]?.timeCompleted.replace(/\s/g, "")}
             </Text>
           </View>
 
@@ -69,10 +66,7 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateAccepted).format(
                 "MMM Do, YYYY"
               )}{" "}
-              {/* at{" "}
-              {new Date(
-                theOrder?.orderStatus[0]?.timeAccepted
-              ).toLocaleTimeString()} */}
+              at {theOrder?.orderStatus[0]?.timeAccepted.replace(/\s/g, "")}
             </Text>
           </View>
 
@@ -87,10 +81,7 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"
               )}{" "}
-              {/* at{" "}
-              {new Date(
-                theOrder?.orderStatus[0]?.timeAssigned
-              ).toLocaleTimeString()} */}
+              at {theOrder?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
             </Text>
           </View>
         </>
@@ -108,10 +99,7 @@ const TimeLine = ({ theOrder }) => {
             {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
               "MMM Do, YYYY"
             )}{" "}
-            {/* at{" "}
-            {new Date(
-              theOrder?.orderStatus[0]?.timeAssigned
-            ).toLocaleTimeString()} */}
+            at {theOrder?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
           </Text>
         </View>
       )}
@@ -138,10 +126,7 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateRejected).format(
                 "MMM Do, YYYY"
               )}
-              {/* at{" "}
-              {new Date(
-                theOrder?.orderStatus[0]?.timeRejected
-              ).toLocaleTimeString()} */}
+              at {theOrder?.orderStatus[0]?.timeRejected.replace(/\s/g, "")}
             </Text>
           </View>
 
@@ -156,10 +141,7 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YY"
               )}{" "}
-              {/* at{" "}
-              {new Date(
-                theOrder?.orderStatus[0]?.timeAssigned
-              ).toLocaleTimeString()} */}
+              at {theOrder?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
             </Text>
           </View>
         </>
@@ -187,10 +169,7 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateAccepted).format(
                 "MMM Do, YYYY"
               )}{" "}
-              {/* at{" "}
-              {new Date(
-                theOrder?.orderStatus[0]?.timeAccepted
-              ).toLocaleTimeString()} */}
+              at {theOrder?.orderStatus[0]?.timeAccepted.replace(/\s/g, "")}
             </Text>
           </View>
 
@@ -205,10 +184,7 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"
               )}{" "}
-              {/* at{" "}
-              {new Date(
-                theOrder?.orderStatus[0]?.timeAssigned
-              ).toLocaleTimeString()} */}
+              at {theOrder?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
             </Text>
           </View>
         </View>

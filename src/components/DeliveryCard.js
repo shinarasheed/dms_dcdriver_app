@@ -64,8 +64,8 @@ const DeliveryCard = ({ item, products }) => {
             ...appTheme.FONTS.mainFontLight,
           }}
         >
-          {/* at {""}
-          {new Date(item?.orderStatus[0]?.timeAssigned).toLocaleTimeString()} */}
+          at {""}
+          {item?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
         </Text>
       </View>
 

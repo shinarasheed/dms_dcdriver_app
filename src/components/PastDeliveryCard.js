@@ -65,7 +65,7 @@ const PastDeliveryCard = ({ item, products }) => {
                     "MMM Do, YYYY"
                   )}
             </Text>
-            {/* <Text
+            <Text
               style={{
                 textTransform: "lowercase",
                 color: appTheme.COLORS.MainGray,
@@ -75,13 +75,9 @@ const PastDeliveryCard = ({ item, products }) => {
             >
               at{" "}
               {item.status === "Completed"
-                ? new Date(
-                    item?.orderStatus[0]?.timeCompleted
-                  ).toLocaleTimeString()
-                : new Date(
-                    item?.orderStatus[0]?.timeRejected
-                  ).toLocaleTimeString()}
-            </Text> */}
+                ? item?.orderStatus[0]?.timeCompleted.replace(/\s/g, "")
+                : item?.orderStatus[0]?.timeRejected.replace(/\s/g, "")}
+            </Text>
           </View>
 
           <View

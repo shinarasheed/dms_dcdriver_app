@@ -104,7 +104,7 @@ const Customer = () => {
               ...appTheme.FONTS.mainFontLight,
             }}
           >
-            {/* {moment(item?.orderStatus[0]?.dateAssigned).format("MMM Do, YYYY")} */}
+            {moment(item?.orderStatus[0]?.dateAssigned).format("MMM Do, YYYY")}
           </Text>
           <Text
             style={{
@@ -114,7 +114,7 @@ const Customer = () => {
               ...appTheme.FONTS.mainFontLight,
             }}
           >
-            {/* at {moment(item?.orderStatus[0]?.timeAssigned).format("hh:mm")} */}
+            at {item?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
           </Text>
         </View>
 
@@ -199,6 +199,7 @@ const Customer = () => {
       style={{
         backgroundColor: appTheme.COLORS.mainBackground,
         flex: 1,
+        justifyContent: "space-between",
       }}
     >
       <View
@@ -290,7 +291,7 @@ const Customer = () => {
               style={{
                 color: appTheme.COLORS.MainGray,
                 fontSize: 18,
-                marginBottom: 15,
+                marginBottom: 5,
               }}
             >
               Contact Details
@@ -311,7 +312,6 @@ const Customer = () => {
             <View style={{ marginLeft: 10, paddingRight: 50 }}>
               <Text
                 style={{
-                  marginBottom: 5,
                   fontSize: 15,
                   lineHeight: 25,
                   color: appTheme.COLORS.MainGray,
@@ -338,7 +338,7 @@ const Customer = () => {
         <FlatList
           style={{
             backgroundColor: appTheme.COLORS.white,
-            flex: 1,
+            // flex: 1,
             marginBottom: 30,
           }}
           data={customerOrders}

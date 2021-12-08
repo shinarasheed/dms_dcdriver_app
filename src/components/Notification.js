@@ -42,8 +42,7 @@ const Notification = ({ item }) => {
               textTransform: "lowercase",
             }}
           >
-            {/* ({new Date(item?.orderStatus[0]?.timeAssigned).toLocaleTimeString()}
-            ) */}
+            {item?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
           </Text>
         </View>
       </View>

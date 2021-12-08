@@ -19,11 +19,7 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
               moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"
               )}{" "}
-            {/* at{" "}
-            {new Date(
-              theOrder?.orderStatus[0]?.timeAssigned
-            ).toLocaleTimeString()}{" "} */}
-            from{" "}
+            at {theOrder?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")} from{" "}
           </Text>
           <Text
             style={{

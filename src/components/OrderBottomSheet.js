@@ -7,13 +7,14 @@ import {
   Pressable,
   Text,
   View,
+  KeyboardAvoidingView,
+  SafeAreaView,
 } from "react-native";
 import icons from "../constants/icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import appTheme from "../constants/theme";
 import OrderBottomSheetCard from "./OrderBottomSheetCard";
-import CustomVirtualist from "./VirtualizedList";
 // import ProductFooter from './ProductFooter';
 import OrderFooter from "./OrderFooter";
 import { fetchProducts } from "../redux/actions/productActions";
@@ -178,7 +179,6 @@ const OrderBottomSheet = ({
           />
         ) : null}
       </View>
-
       <FlatList
         style={{
           backgroundColor: appTheme.COLORS.white,

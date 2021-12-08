@@ -162,11 +162,7 @@ const GenerateInvoice = () => {
               {moment(order?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"
               )}{" "}
-              {/* at{" "}
-              {new Date(
-                order?.orderStatus[0]?.timeAssigned
-              ).toLocaleTimeString()}{" "} */}
-              from
+              at {order?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")} from
             </Text>
             <Text
               style={{
@@ -361,10 +357,7 @@ const GenerateInvoice = () => {
                   {moment(order?.orderStatus[0]?.dateAccepted).format(
                     "MMM Do, YYYY"
                   )}{" "}
-                  {/* at{" "}
-                  {new Date(
-                    order?.orderStatus[0]?.timeAccepted
-                  ).toLocaleTimeString()} */}
+                  at {order?.orderStatus[0]?.timeAccepted.replace(/\s/g, "")}
                 </Text>
               </View>
             </View>
@@ -381,10 +374,7 @@ const GenerateInvoice = () => {
                 {moment(order?.orderStatus[0]?.dateAssigned).format(
                   "MMM Do, YYYY"
                 )}{" "}
-                {/* at{" "}
-                {new Date(
-                  order?.orderStatus[0]?.timeAssigned
-                ).toLocaleTimeString()} */}
+                at {order?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
               </Text>
             </View>
           </View>

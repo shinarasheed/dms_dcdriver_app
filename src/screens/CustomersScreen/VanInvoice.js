@@ -156,16 +156,12 @@ const GenerateInvoice = () => {
                 textTransform: "lowercase",
               }}
             >
-              {/* {moment(order?.orderStatus[0]?.dateAssigned).format(
+              {moment(order?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"
-              )}{" "} */}
-              {/* at{" "}
-              {new Date(
-                order?.orderStatus[0]?.timeAssigned
-              ).toLocaleTimeString()}{" "}
-              from */}
+              )}{" "}
+              at {order?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")} from
             </Text>
-            {/* <Text
+            <Text
               style={{
                 fontSize: 17,
                 fontWeight: "bold",
@@ -173,7 +169,7 @@ const GenerateInvoice = () => {
               }}
             >
               {order?.buyerDetails[0]?.buyerName}
-            </Text> */}
+            </Text>
           </View>
 
           <View
