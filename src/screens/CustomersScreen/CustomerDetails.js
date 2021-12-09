@@ -21,7 +21,6 @@ import { fetchProducts } from "../../redux/actions/productActions";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import CallCustomer from "../../components/CallCustomer";
 import Routes from "../../navigation/Routes";
-import { or } from "react-native-reanimated";
 
 const Customer = () => {
   const route = useRoute();
@@ -242,7 +241,7 @@ const Customer = () => {
               style={{
                 backgroundColor: appTheme.COLORS.mainGreen,
                 paddingHorizontal: 10,
-                // paddingVertical: 3,
+                paddingVertical: 3,
                 borderRadius: 20,
               }}
             >

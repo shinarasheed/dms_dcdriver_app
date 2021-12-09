@@ -9,6 +9,7 @@ import {
   View,
   KeyboardAvoidingView,
   SafeAreaView,
+  ScrollView,
 } from "react-native";
 import icons from "../constants/icons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -109,6 +110,7 @@ const OrderBottomSheet = ({
       (product) => product?.productId === productId
     );
     product.quantity++;
+    console.log("increment");
     setNewOrders([...newOrders]);
   };
 
@@ -147,7 +149,7 @@ const OrderBottomSheet = ({
   };
 
   return (
-    <CustomVirtualizedView>
+    <ScrollView>
       <View
         style={{
           paddingHorizontal: 20,
@@ -179,27 +181,30 @@ const OrderBottomSheet = ({
           />
         ) : null}
       </View>
-      <FlatList
+
+      <View
         style={{
           backgroundColor: appTheme.COLORS.white,
           marginTop: 25,
           marginBottom: 25,
         }}
-        data={newOrders}
-        keyExtractor={(item, id) => id.toString()}
-        renderItem={({ item }) => (
-          <OrderBottomSheetCard
-            order={item}
-            incrementQuantity={incrementQuantity}
-            decrementQuantity={decrementQuantity}
-            deleteProduct={deleteProduct}
-            getQuantity={getQuantity}
-            newOrders={newOrders}
-            setNewOrders={setNewOrders}
-            getTotalPrice={getTotal}
-          />
-        )}
-      />
+      >
+        {newOrders.map((item, index) => {
+          return (
+            <OrderBottomSheetCard
+              key={index}
+              order={item}
+              incrementQuantity={incrementQuantity}
+              decrementQuantity={decrementQuantity}
+              deleteProduct={deleteProduct}
+              getQuantity={getQuantity}
+              newOrders={newOrders}
+              setNewOrders={setNewOrders}
+              getTotalPrice={getTotal}
+            />
+          );
+        })}
+      </View>
 
       <View style={{ marginLeft: 20, marginTop: 20 }}>
         <View
@@ -233,7 +238,7 @@ const OrderBottomSheet = ({
               }}
             >
               <Text style={{ fontSize: 16, color: appTheme.COLORS.MainGray }}>
-                Empties returning:{" "}
+                Empties returning:
               </Text>
               <Text style={{ fontSize: 16, color: appTheme.COLORS.black }}>
                 {empties}
@@ -255,7 +260,7 @@ const OrderBottomSheet = ({
         driver={driver}
         updateOrderStatus={updateOrderStatus}
       />
-    </CustomVirtualizedView>
+    </ScrollView>
   );
 };
 
