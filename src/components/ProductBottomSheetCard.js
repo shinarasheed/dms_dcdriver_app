@@ -18,10 +18,12 @@ import {
   incrementQuantityByTyping,
 } from "../redux/actions/vanActions";
 
-const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
+const ProductBottomSheetCard = ({
+  item: { brand, sku, imageUrl, price, quantity, productType, productId },
+  getQuantity,
+  getQuantity2,
+}) => {
   const dispatch = useDispatch();
-  const { brand, sku, imageUrl, price, quantity, productType, productId } =
-    item;
 
   const handleTextChange = (text, productId) => {
     getQuantity(productId, text) &&
@@ -65,7 +67,7 @@ const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
         </View>
 
         <Pressable
-          onPress={() => deleteProduct(productId)}
+          onPress={() => dispatch(deleteProduct(productId))}
           style={{ position: "absolute", right: 10 }}
         >
           <Image source={icons.deleteIcon} />

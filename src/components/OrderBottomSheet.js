@@ -110,7 +110,6 @@ const OrderBottomSheet = ({
       (product) => product?.productId === productId
     );
     product.quantity++;
-    console.log("increment");
     setNewOrders([...newOrders]);
   };
 

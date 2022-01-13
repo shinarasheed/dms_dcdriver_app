@@ -148,7 +148,9 @@ const GenerateInvoice = () => {
 
       <CustomVirtualizedView>
         <View style={{ paddingLeft: 20, paddingBottom: 20 }}>
-          <View style={{ flexDirection: "row" }}>
+          <View
+            style={{ flexDirection: "row", marginTop: 10, marginBottom: 10 }}
+          >
             <Text
               style={{
                 fontSize: 15,
@@ -156,10 +158,16 @@ const GenerateInvoice = () => {
                 textTransform: "lowercase",
               }}
             >
-              {moment(order?.orderStatus[0]?.dateAssigned).format(
-                "MMM Do, YYYY"
-              )}{" "}
-              at {order?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")} from
+              {order?.orderStatus[0]?.dateAssigned !== null &&
+                moment(order?.orderStatus[0]?.dateAssigned).format(
+                  "MMM Do, YYYY"
+                )}{" "}
+              {order?.orderStatus[0]?.timeAssigned !== null &&
+                `at ${order?.orderStatus[0]?.timeAssigned.replace(
+                  /\s/g,
+                  ""
+                )}`}{" "}
+              from
             </Text>
             <Text
               style={{

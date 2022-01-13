@@ -32,15 +32,9 @@ const AddCustomer = () => {
   const handleRegister = () => {
     try {
       dispatch(createCustomerOneOf({ phoneNumber, customerName }));
-
-      console.log(error);
-      if (!error && error !== "sundefined") {
-        navigator.navigate(Routes.ONEOF_SALE_SCREEN);
-        setPhoneNumber("");
-        setCustomerName("");
-      } else {
-        Alert.alert("Error!", "This customer already exist!");
-      }
+      navigator.navigate(Routes.ONEOF_SALE_SCREEN);
+      setPhoneNumber("");
+      setCustomerName("");
     } catch (error) {
       console.log(error);
     }
@@ -108,7 +102,7 @@ const AddCustomer = () => {
 
       <View style={styles.footer}>
         <Button
-          disabled={!phoneNumber || !customerName ? true : false}
+          // disabled={!phoneNumber || !customerName ? true : false}
           buttonStyle={{
             backgroundColor: appTheme.COLORS.mainRed,
             height: 50,

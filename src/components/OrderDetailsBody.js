@@ -12,14 +12,15 @@ import Order from "./Order";
 const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
   return (
     <CustomVirtualizedView>
-      <View style={{ paddingLeft: 20, paddingVertical: 20 }}>
-        <View style={{ marginBottom: 10, flexDirection: "row" }}>
-          <Text style={{ fontSize: 15, marginRight: 5 }}>
-            {theOrder !== undefined &&
+      <View style={{ paddingLeft: 20, paddingBottom: 20 }}>
+        <View style={{ marginBottom: 10, flexDirection: "column" }}>
+          <Text style={{ fontSize: 15, marginTop: 5, marginRight: 5 }}>
+            {theOrder?.orderStatus[0]?.dateAssigned !== null &&
               moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"
               )}{" "}
-            at {theOrder?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")} from{" "}
+            {theOrder?.orderStatus[0]?.timeAssigned !== null &&
+              `at ${theOrder?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}`}
           </Text>
           <Text
             style={{

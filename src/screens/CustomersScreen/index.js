@@ -40,8 +40,8 @@ const CustomersScreen = () => {
 
   const { products } = allProducts;
 
-  const oneOff = allOrders.filter((order) => order.routeName === "One-Off");
-  const registeredCustomers = allOrders.filter(
+  const oneOff = allOrders?.filter((order) => order.routeName === "One-Off");
+  const registeredCustomers = allOrders?.filter(
     (order) =>
       order.routeName === "SalesForce" || order.routeName === "Walk-In-Sales"
   );

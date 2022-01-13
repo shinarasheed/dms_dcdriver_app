@@ -65,7 +65,7 @@ export default function UserBottomSheet({
                   marginBottom: 10,
                 }}
               >
-                {driver?.email}
+                {driver?.phoneNumber}
               </Text>
 
               <View>

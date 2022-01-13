@@ -21,7 +21,6 @@ import CustomVirtualizedView from "../../components/VirtualizedList";
 import UserBottomSheet from "../../components/UserBottomSheet";
 import { fetchOrder, fetchOrderStats } from "../../redux/actions/orderActions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Refresh from "../../components/Refresh";
 import { Spinner } from "../../components/Spinner";
 import axios from "axios";
 import Routes from "../../navigation/Routes";
@@ -86,8 +85,6 @@ const HomeScreen = () => {
         flex: 1,
       }}
     >
-      <Refresh />
-
       {/* header section */}
       <View style={styles.header}>
         <Text style={styles.headerHome}>Home</Text>

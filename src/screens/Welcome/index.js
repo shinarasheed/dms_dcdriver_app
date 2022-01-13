@@ -1,14 +1,21 @@
 import React from "react";
-import { ActivityIndicator, SafeAreaView, Platform } from "react-native";
+import { connect } from "react-redux";
 import { LoginView } from "ad-b2c-react-native";
 import * as SecureStore from "expo-secure-store";
+import {
+  SafeAreaView,
+  ActivityIndicator,
+  Text,
+  View,
+  Image,
+} from "react-native";
+import { register } from "../../redux/actions/userActions";
+import { images } from "../../constants";
 import appTheme from "../../constants/theme";
-import { adService } from "ad-b2c-react-native";
-import jwt_decode from "jwt-decode";
-import axios from "axios";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import Routes from "../../navigation/Routes";
-export default class Login extends React.PureComponent {
+
+// import Loading from "../../components/Loading";
+
+class Login extends React.PureComponent {
   static navigationOptions = { header: null };
 
   constructor(props) {
@@ -18,38 +25,16 @@ export default class Login extends React.PureComponent {
     this.spinner = this.spinner.bind(this);
   }
 
-  onLogin() {
+  onLogin = async () => {
     const { navigation } = this.props;
-    this.onRefresh();
-    console.log("login");
-  }
-
-  onFail(reason) {
+    this.props.register(navigation);
+    console.log("hello called");
+  };
+  onFail = (reason) => {
     console.log("failed");
-  }
+  };
 
-  async onRefresh() {
-    const { navigation } = this.props;
-
-    // setRefreshing(true);
-    // wait(2000).then(() => setRefreshing(false));
-    const token = await adService.getIdToken();
-    const { isValid } = await adService.getAccessTokenAsync();
-    const decoded = jwt_decode(token);
-    const email = decoded.emails[0];
-    const {
-      data: { data },
-    } = await axios.get(
-      `http://102.133.206.181/GetVehicle/GetByEmail/${email}`
-    );
-    console.log(data, "+++++++++++++++++++++++");
-
-    await AsyncStorage.setItem("driverDetails", JSON.stringify(data));
-    console.log(isValid);
-    isValid ? navigation.navigate(Routes.HOME_SCREEN) : null;
-  }
-
-  spinner() {
+  spinner = () => {
     return (
       <ActivityIndicator
         color={Platform.OS === "android" ? appTheme.COLORS.mainRed : undefined}
@@ -57,26 +42,69 @@ export default class Login extends React.PureComponent {
         size="large"
       />
     );
-  }
+  };
 
   render() {
+    const { isLoading } = this.props.user;
+    if (isLoading)
+      return (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <View>
+            <Image
+              source={images.AbInBev}
+              style={{
+                width: 300,
+                resizeMode: "center",
+              }}
+            />
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 18,
+                marginBottom: 20,
+                color: appTheme.COLORS.textGray,
+              }}
+            >
+              Welcome to ABInBev Distribution Central
+            </Text>
+            <Text
+              style={{
+                textAlign: "center",
+                fontSize: 20,
+                color: appTheme.COLORS.mainRed,
+              }}
+            >
+              Please wait...
+            </Text>
+          </View>
+        </View>
+      );
+
     return (
       <SafeAreaView style={{ flex: 1 }}>
-        {/* {1 ? <Refresh /> : null} */}
         <LoginView
           appId="8c11baca-fdbc-4b7f-b2cf-3a177588f37c"
-          redirectURI="https://abi-distributorcentral.com/driver/redirect-driver"
+          redirectURI="https://devdms2.b2clogin.com/oauth2/nativeclient"
           tenant="devdms2"
-          loginPolicy="B2C_1_dms_signup_signin"
-          passwordResetPolicy="B2C_1_PasswordReset"
-          profileEditPolicy="B2C_1_ProfileEdit"
-          onSuccess={this.onLogin}
-          onFail={this.onFail}
+          loginPolicy="B2C_1_dms_mobile_signup_signin"
           secureStore={SecureStore}
           renderLoading={this.spinner}
-          scope="8c11baca-fdbc-4b7f-b2cf-3a177588f37c offline_access"
+          onSuccess={this.onLogin}
+          onFail={this.onFail}
         />
       </SafeAreaView>
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  user: state.user,
+});
+
+export default connect(mapStateToProps, { register })(Login);

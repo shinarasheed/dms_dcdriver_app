@@ -28,62 +28,76 @@ const TimeLine = ({ theOrder }) => {
 
       {theOrder !== undefined && theOrder?.status === "Completed" && (
         <>
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginBottom: 10,
-            }}
-          >
-            <Image
-              style={{ width: 16, height: 16, marginRight: 5 }}
-              source={icons.smallCheckIcon}
-            />
-            <Text> Completed </Text>
-            <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
-              on{" "}
-              {moment(theOrder?.orderStatus[0]?.dateCompleted).format(
-                "MMM Do, YYYY"
-              )}{" "}
-              at {theOrder?.orderStatus[0]?.timeCompleted.replace(/\s/g, "")}
-            </Text>
-          </View>
+          {theOrder?.orderStatus[0]?.dateCompleted !== null && (
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginBottom: 10,
+              }}
+            >
+              <Image
+                style={{ width: 16, height: 16, marginRight: 5 }}
+                source={icons.smallCheckIcon}
+              />
+              <Text> Completed </Text>
+              <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+                on{" "}
+                {moment(theOrder?.orderStatus[0]?.dateCompleted).format(
+                  "MMM Do, YYYY"
+                )}{" "}
+                at {theOrder?.orderStatus[0]?.timeCompleted.replace(/\s/g, "")}
+              </Text>
+            </View>
+          )}
 
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginBottom: 10,
-            }}
-          >
-            <Image
-              style={{ width: 16, height: 16, marginRight: 5 }}
-              source={icons.smallCheckIcon}
-            />
-            <Text> Accepted </Text>
-            <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
-              on{" "}
-              {moment(theOrder?.orderStatus[0]?.dateAccepted).format(
-                "MMM Do, YYYY"
-              )}{" "}
-              at {theOrder?.orderStatus[0]?.timeAccepted.replace(/\s/g, "")}
-            </Text>
-          </View>
+          {theOrder?.orderStatus[0]?.dateAccepted !== null && (
+            <View
+              style={{
+                flexDirection: "row",
+                alignItems: "center",
+                marginBottom: 10,
+              }}
+            >
+              <Image
+                style={{ width: 16, height: 16, marginRight: 5 }}
+                source={icons.smallCheckIcon}
+              />
+              <Text> Accepted </Text>
+              <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+                on{" "}
+                {moment(theOrder?.orderStatus[0]?.dateAccepted).format(
+                  "MMM Do, YYYY"
+                )}{" "}
+                {theOrder?.orderStatus[0]?.timeAssigned !== null &&
+                  `at ${theOrder?.orderStatus[0]?.timeAssigned.replace(
+                    /\s/g,
+                    ""
+                  )}`}
+              </Text>
+            </View>
+          )}
 
-          <View style={{ flexDirection: "row", alignItems: "center" }}>
-            <Image
-              style={{ width: 16, height: 16, marginRight: 5 }}
-              source={icons.smallCheckIcon}
-            />
-            <Text> Assigned </Text>
-            <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
-              to you on{" "}
-              {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
-                "MMM Do, YYYY"
-              )}{" "}
-              at {theOrder?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
-            </Text>
-          </View>
+          {theOrder?.orderStatus[0]?.dateAssigned !== null && (
+            <View style={{ flexDirection: "row", alignItems: "center" }}>
+              <Image
+                style={{ width: 16, height: 16, marginRight: 5 }}
+                source={icons.smallCheckIcon}
+              />
+              <Text> Assigned </Text>
+              <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+                to you on{" "}
+                {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
+                  "MMM Do, YYYY"
+                )}{" "}
+                {theOrder?.orderStatus[0]?.timeAssigned !== null &&
+                  `at ${theOrder?.orderStatus[0]?.timeAssigned.replace(
+                    /\s/g,
+                    ""
+                  )}`}
+              </Text>
+            </View>
+          )}
         </>
       )}
 
@@ -99,7 +113,8 @@ const TimeLine = ({ theOrder }) => {
             {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
               "MMM Do, YYYY"
             )}{" "}
-            at {theOrder?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
+            {theOrder?.orderStatus[0]?.timeAssigned !== null &&
+              `at ${theOrder?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}`}
           </Text>
         </View>
       )}
@@ -141,7 +156,11 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YY"
               )}{" "}
-              at {theOrder?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
+              {theOrder?.orderStatus[0]?.timeAssigned !== null &&
+                `at ${theOrder?.orderStatus[0]?.timeAssigned.replace(
+                  /\s/g,
+                  ""
+                )}`}
             </Text>
           </View>
         </>
@@ -169,7 +188,9 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateAccepted).format(
                 "MMM Do, YYYY"
               )}{" "}
-              at {theOrder?.orderStatus[0]?.timeAccepted.replace(/\s/g, "")}
+              at{" "}
+              {theOrder?.orderStatus[0]?.timeAccepted !== null &&
+                theOrder?.orderStatus[0]?.timeAccepted.replace(/\s/g, "")}
             </Text>
           </View>
 
@@ -184,7 +205,11 @@ const TimeLine = ({ theOrder }) => {
               {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"
               )}{" "}
-              at {theOrder?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
+              {theOrder?.orderStatus[0]?.timeAssigned !== null &&
+                `at ${theOrder?.orderStatus[0]?.timeAssigned.replace(
+                  /\s/g,
+                  ""
+                )}`}
             </Text>
           </View>
         </View>

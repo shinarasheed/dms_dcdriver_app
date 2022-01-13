@@ -15,6 +15,8 @@ import Welcome from "./Welcome";
 import SalesInvoice from "./CustomersScreen/SalesInVoice";
 import VanInvoice from "./CustomersScreen/VanInvoice";
 import Logout from "./Logout";
+import Login from "./Login";
+import Continue from "./Continue";
 
 export {
   HomeScreen,
@@ -34,4 +36,6 @@ export {
   SalesInvoice,
   VanInvoice,
   Logout,
+  Login,
+  Continue,
 };

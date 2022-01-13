@@ -16,6 +16,8 @@ const Routes = {
   ONEOF_SALEINVOINCE_SCREEN: "SalesInvoice",
   ALLPRODUCTS_SCREEN: "AllProducts",
   LIQUIDEMPTYPRODUCTS_SCREEN: "LiquidEmptyProducts",
+  LOGIN_SCREEN: "Login",
+  CONTINUE_SCREEN: "Continue",
 };
 
 export default Routes;

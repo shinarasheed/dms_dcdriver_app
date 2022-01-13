@@ -174,7 +174,7 @@ export const decrementQuantity = (productId) => async (dispatch, getState) => {
   });
 };
 
-export const deleteProduct = (productId) => async (dispatch, getState) => {
+export const deleteProduct = (productId) => async (dispatch) => {
   dispatch({
     type: DELETE_PRODUCT,
     payload: productId,

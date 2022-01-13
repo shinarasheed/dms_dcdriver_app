@@ -64,8 +64,8 @@ const DeliveryCard = ({ item, products }) => {
             ...appTheme.FONTS.mainFontLight,
           }}
         >
-          at {""}
-          {item?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
+          {item?.orderStatus[0]?.timeAssigned !== null &&
+            `at ${item?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}`}
         </Text>
       </View>
 

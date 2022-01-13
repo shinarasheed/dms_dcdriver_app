@@ -1,17 +1,16 @@
 import React from "react";
 import {
-  FlatList,
   StyleSheet,
   Image,
   Pressable,
   Text,
   View,
+  ScrollView,
 } from "react-native";
 import icons from "../constants/icons";
 
 import appTheme from "../constants/theme";
 import ProductBottomSheetCard from "./ProductBottomSheetCardOneOf";
-import CustomVirtualist from "./VirtualizedList";
 import ProductFooterOneOf from "./ProductFooterOneOf";
 import EmptiesCustomer from "./EmptiesCustomerOneOf";
 
@@ -29,7 +28,7 @@ const ProductBottomSheetOneOf = ({
   empties,
 }) => {
   return (
-    <CustomVirtualist>
+    <ScrollView>
       <View
         style={{
           paddingHorizontal: 20,
@@ -65,7 +64,64 @@ const ProductBottomSheetOneOf = ({
         </View>
       </View>
 
-      <FlatList
+      <View>
+        {productsToSell?.map((item, index) => {
+          return (
+            <ProductBottomSheetCard
+              key={index}
+              productsToSell={productsToSell}
+              item={item}
+              getQuantity={getQuantity}
+              getQuantity2={getQuantity2}
+            />
+          );
+        })}
+      </View>
+
+      <View
+        style={{
+          borderTopWidth: 1,
+          borderTopColor: appTheme.COLORS.borderGRey,
+          paddingTop: 20,
+          paddingHorizontal: 20,
+        }}
+      >
+        <Text
+          style={{
+            fontSize: 13,
+            fontWeight: "700",
+            marginBottom: 10,
+            color: appTheme.COLORS.black,
+          }}
+        >
+          EMPTIES
+        </Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
+          <View style={{ flexDirection: "row" }}>
+            <Text
+              style={{
+                fontSize: 15,
+                fontWeight: "600",
+                color: appTheme.COLORS.MainGray,
+              }}
+            >
+              Empties returning:
+            </Text>
+            <Text
+              style={{
+                fontSize: 15,
+                fontWeight: "600",
+                color: appTheme.COLORS.black,
+              }}
+            >
+              {" "}
+              {empties}
+            </Text>
+          </View>
+        </View>
+      </View>
+
+      {/* <FlatList
         data={productsToSell}
         keyExtractor={(item, id) => id.toString()}
         showsVerticalScrollIndicator={false}
@@ -131,7 +187,7 @@ const ProductBottomSheetOneOf = ({
             </View>
           </View>
         )}
-      />
+      /> */}
 
       <ProductFooterOneOf
         getTotalPrice={getTotalPrice}
@@ -142,7 +198,7 @@ const ProductBottomSheetOneOf = ({
         empties={empties}
         getEmptiesPrice={getEmptiesPrice}
       />
-    </CustomVirtualist>
+    </ScrollView>
   );
 };
 

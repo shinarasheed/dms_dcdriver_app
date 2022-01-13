@@ -12,7 +12,6 @@ import icons from "../constants/icons";
 
 import appTheme from "../constants/theme";
 import ProductBottomSheetCard from "./ProductBottomSheetCard";
-import CustomVirtualist from "./VirtualizedList";
 import ProductFooter from "./ProductFooter";
 import EmptiesCustomer from "./EmptiesCustomer";
 
@@ -72,6 +71,7 @@ const ProductBottomSheet = ({
         {productsToSell.map((item, index) => {
           return (
             <ProductBottomSheetCard
+              key={index}
               productsToSell={productsToSell}
               item={item}
               getQuantity={getQuantity}

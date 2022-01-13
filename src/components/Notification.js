@@ -42,7 +42,8 @@ const Notification = ({ item }) => {
               textTransform: "lowercase",
             }}
           >
-            {item?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
+            {item?.orderStatus[0]?.timeAssigned !== null &&
+              item?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
           </Text>
         </View>
       </View>

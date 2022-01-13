@@ -162,7 +162,12 @@ const GenerateInvoice = () => {
               {moment(order?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"
               )}{" "}
-              at {order?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")} from
+              {order?.orderStatus[0]?.timeAssigned !== null &&
+                `at ${order?.orderStatus[0]?.timeAssigned.replace(
+                  /\s/g,
+                  ""
+                )}`}{" "}
+              from
             </Text>
             <Text
               style={{
@@ -338,45 +343,53 @@ const GenerateInvoice = () => {
               </Text>
             </View>
 
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                marginBottom: 10,
-              }}
-            >
+            {order?.orderStatus[0]?.dateAccepted !== null && (
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  marginBottom: 10,
+                }}
+              >
+                <View style={{ flexDirection: "row", alignItems: "center" }}>
+                  <Image
+                    style={{ width: 16, height: 16, marginRight: 10 }}
+                    source={icons.smallCheckIcon}
+                  />
+
+                  <Text>Accepted </Text>
+                  <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
+                    on{" "}
+                    {moment(order?.orderStatus[0]?.dateAccepted).format(
+                      "MMM Do, YYYY"
+                    )}{" "}
+                    at {order?.orderStatus[0]?.timeAccepted.replace(/\s/g, "")}
+                  </Text>
+                </View>
+              </View>
+            )}
+
+            {order?.orderStatus[0]?.dateAssigned !== null && (
               <View style={{ flexDirection: "row", alignItems: "center" }}>
                 <Image
                   style={{ width: 16, height: 16, marginRight: 10 }}
                   source={icons.smallCheckIcon}
                 />
 
-                <Text>Accepted </Text>
+                <Text>Assigned </Text>
                 <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
-                  on{" "}
-                  {moment(order?.orderStatus[0]?.dateAccepted).format(
+                  to you on{" "}
+                  {moment(order?.orderStatus[0]?.dateAssigned).format(
                     "MMM Do, YYYY"
                   )}{" "}
-                  at {order?.orderStatus[0]?.timeAccepted.replace(/\s/g, "")}
+                  {order?.orderStatus[0]?.timeAssigned !== null &&
+                    `at ${order?.orderStatus[0]?.timeAssigned.replace(
+                      /\s/g,
+                      ""
+                    )}`}
                 </Text>
               </View>
-            </View>
-
-            <View style={{ flexDirection: "row", alignItems: "center" }}>
-              <Image
-                style={{ width: 16, height: 16, marginRight: 10 }}
-                source={icons.smallCheckIcon}
-              />
-
-              <Text>Assigned </Text>
-              <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
-                to you on{" "}
-                {moment(order?.orderStatus[0]?.dateAssigned).format(
-                  "MMM Do, YYYY"
-                )}{" "}
-                at {order?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
-              </Text>
-            </View>
+            )}
           </View>
         </View>
 

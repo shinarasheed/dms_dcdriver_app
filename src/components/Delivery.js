@@ -30,7 +30,8 @@ const Delivery = ({ item }) => {
             textTransform: "lowercase",
           }}
         >
-          at {item?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}
+          {item?.orderStatus[0]?.timeAssigned !== null &&
+            `at ${item?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}`}
         </Text>
       </View>
     </TouchableOpacity>
