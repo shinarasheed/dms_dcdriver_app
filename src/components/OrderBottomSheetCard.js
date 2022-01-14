@@ -10,6 +10,7 @@ import {
 
 import appTheme from "../constants/theme";
 import icons from "../constants/icons";
+import { formatPrice } from "../utils/formatPrice";
 
 const OrderBottomSheetCard = ({
   order,
@@ -195,7 +196,7 @@ const OrderBottomSheetCard = ({
             }}
           >
             {"\u20A6"}
-            {value * productPrice}
+            {formatPrice(value * productPrice)}
           </Text>
         </View>
       </View>

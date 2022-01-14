@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import appTheme from "../constants/theme";
 // import { confirmOrder } from "../redux/actions/orderActions";
 import { updateInventory } from "../redux/actions/vanActions";
+import { formatPrice } from "../utils/formatPrice";
 
 const OrderFooter = ({
   getTotalPrice,
@@ -85,7 +86,7 @@ const OrderFooter = ({
             fontWeight: "bold",
           }}
         >
-          {` Confirm \u20A6${getTotalPrice()}`}
+          {` Confirm \u20A6${formatPrice(totalPrice)}`}
         </Text>
       </TouchableOpacity>
     </View>

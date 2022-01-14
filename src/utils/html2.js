@@ -6,6 +6,7 @@ import {
   processLocalImage,
 } from "./helpers";
 import appTheme from "../constants/theme";
+import { formatPrice } from "./formatPrice";
 
 function getRandomIntBetween(min, max) {
   min = Math.ceil(min);
@@ -121,8 +122,12 @@ export const simpleHtml =
                  <td style="padding: 1rem 1rem">${index + 1}</td>
                  <td style="padding: 1rem 1rem">${item?.brand} ${item?.sku}</td>
                  <td style="padding: 1rem 1rem">${item?.quantity}</td>
-                 <td style="padding: 1rem 1rem">\u20A6${item?.price}</td>
-                 <td style="padding: 1rem 1rem">\u20A6${item?.price}</td>
+                 <td style="padding: 1rem 1rem">\u20A6${formatPrice(
+                   item?.unitPrice
+                 )}</td>
+                 <td style="padding: 1rem 1rem">\u20A6${formatPrice(
+                   item?.unitPrice * item.quantity
+                 )}</td>
                </tr>`
                  )}
 
@@ -150,14 +155,20 @@ export const simpleHtml =
               border-bottom: 2px solid black;"> 
                   <div>
                       <div style="margin-bottom: 5px">
-                          <span style="font-size: 18px">Subtotal:</span><span> \u20A6${getTotalPrice()}</span>
+                          <span style="font-size: 18px">Subtotal:</span><span> \u20A6${formatPrice(
+                            getTotalPrice()
+                          )}</span>
                       </div>
                       <div style="margin-bottom: 5px">
-                          <span  style="font-size: 18px">Empties:</span><span> \u20A6${getEmptiesPrice()}</span>
+                          <span  style="font-size: 18px">Empties:</span><span> \u20A6${formatPrice(
+                            getEmptiesPrice()
+                          )}</span>
                       </div>
                   </div>
                   <div>
-                      <h5 style=" font-size: 30px">\u20A6${getTotalPrice()}</h5>
+                      <h5 style=" font-size: 30px">\u20A6${formatPrice(
+                        getTotalPrice()
+                      )}</h5>
                   </div>
               </div>
             </article>

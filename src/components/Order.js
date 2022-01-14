@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
 import appTheme from "../constants/theme";
+import { formatPrice } from "../utils/formatPrice";
 
 const Order = ({ order, getProductDetails }) => {
   return (
@@ -124,8 +125,10 @@ const Order = ({ order, getProductDetails }) => {
                   >
                     {"\u20A6"}
                     {/* {order?.price} */}
-                    {getProductDetails(order?.productId)?.price *
-                      order?.quantity}
+                    {formatPrice(
+                      getProductDetails(order?.productId)?.price *
+                        order?.quantity
+                    )}
                   </Text>
                 )}
               </View>

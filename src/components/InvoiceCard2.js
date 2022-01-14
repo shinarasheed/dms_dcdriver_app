@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
 import appTheme from "../constants/theme";
+import { formatPrice } from "../utils/formatPrice";
 
 const InvoiceCard = ({ product }) => {
   const { imageUrl, brand, sku, productType, quantity, productPrice, price } =
@@ -121,7 +122,7 @@ const InvoiceCard = ({ product }) => {
               >
                 {"\u20A6"}
                 {/* {quantity * price} */}
-                {quantity * productPrice}
+                {formatPrice(quantity * productPrice)}
               </Text>
             </View>
           </View>

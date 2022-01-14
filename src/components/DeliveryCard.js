@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import appTheme from "../constants/theme";
 import Routes from "../navigation/Routes";
+import { formatPrice } from "../utils/formatPrice";
 
 const DeliveryCard = ({ item, products }) => {
   const navigation = useNavigation();
@@ -30,6 +31,9 @@ const DeliveryCard = ({ item, products }) => {
       style={{
         padding: 20,
         paddingBottom: 10,
+        backgroundColor: appTheme.COLORS.white,
+        borderBottomColor: appTheme.COLORS.boxGray,
+        borderBottomWidth: 1,
       }}
       onPress={() =>
         navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, item)
@@ -131,7 +135,7 @@ const DeliveryCard = ({ item, products }) => {
           }}
         >
           {"\u20A6"}
-          {isNaN(getTotalPrice()) ? null : getTotalPrice()}
+          {isNaN(getTotalPrice()) ? null : formatPrice(getTotalPrice())}
         </Text>
       </View>
     </TouchableOpacity>

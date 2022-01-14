@@ -22,6 +22,7 @@ import CallCustomer from "../../components/CallCustomer";
 import { createAndSavePDF } from "../../utils/helpers";
 import { simpleHtml } from "../../utils/html";
 import Routes from "../../navigation/Routes";
+import { formatPrice } from "../../utils/formatPrice";
 
 export const createPdf = (htmlFactory) => async () => {
   try {
@@ -52,7 +53,8 @@ const GenerateInvoice = () => {
 
   const getTotalPrice = () => {
     return productsToSell?.reduce(
-      (accumulator, order) => accumulator + order?.quantity * order?.price,
+      (accumulator, order) =>
+        accumulator + order?.quantity * order?.productPrice,
       0
     );
   };
@@ -293,7 +295,7 @@ const GenerateInvoice = () => {
                 }}
               >
                 {"\u20A6"}
-                {totalPrice}
+                {formatPrice(totalPrice)}
               </Text>
             </View>
           )}

@@ -8,6 +8,7 @@ import appTheme from "../constants/theme";
 import { icons } from "../constants";
 import CallCustomer from "./CallCustomer";
 import Order from "./Order";
+import { formatPrice } from "../utils/formatPrice";
 
 const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
   return (
@@ -171,7 +172,7 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
               }}
             >
               {"\u20A6"}
-              {isNaN(getTotalPrice()) ? null : getTotalPrice()}
+              {isNaN(getTotalPrice()) ? null : formatPrice(getTotalPrice())}
             </Text>
           </View>
         )}
