@@ -52,7 +52,7 @@ const GenerateInvoice = () => {
 
   const getTotalPrice = () => {
     return productsToSell?.reduce(
-      (accumulator, order) => accumulator + order?.quantity * order?.product,
+      (accumulator, order) => accumulator + order?.quantity * order?.price,
       0
     );
   };
