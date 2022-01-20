@@ -31,10 +31,10 @@ const Order = ({ order, getProductDetails }) => {
             >
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 14,
                   ...appTheme.FONTS.mainFontBold,
                   textTransform: "capitalize",
-                  marginRight: 5,
+                  // marginRight: 4,
                   color: appTheme.COLORS.black,
                 }}
               >
@@ -43,7 +43,7 @@ const Order = ({ order, getProductDetails }) => {
               </Text>
               <Text
                 style={{
-                  fontSize: 16,
+                  fontSize: 14,
                   ...appTheme.FONTS.mainFontBold,
                   textTransform: "capitalize",
                   color: appTheme.COLORS.black,
@@ -109,8 +109,8 @@ const Order = ({ order, getProductDetails }) => {
               <View
                 style={{
                   flexDirection: "row",
-                  marginLeft: 80,
                   alignItems: "center",
+                  marginLeft: 80,
                 }}
               >
                 <Text style={{ fontSize: 14, marginRight: 2 }}>Price:</Text>

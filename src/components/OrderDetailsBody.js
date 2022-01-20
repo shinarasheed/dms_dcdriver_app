@@ -143,8 +143,8 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
               borderBottomWidth: 1,
               borderBottomColor: appTheme.COLORS.Grey,
               paddingVertical: 20,
-              paddingLeft: 10,
               marginBottom: 20,
+              paddingHorizontal: 18,
             }}
           >
             <Text style={{ fontWeight: "bold", fontSize: 17 }}>
@@ -157,9 +157,9 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
             style={{
               flexDirection: "row",
               alignItems: "center",
-              paddingRight: 30,
-              paddingLeft: 100,
               paddingBottom: 20,
+              paddingHorizontal: 18,
+              justifyContent: "center",
             }}
           >
             <Text style={{ fontSize: 15 }}>Total amount</Text>
@@ -168,7 +168,7 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
               style={{
                 fontWeight: "bold",
                 fontSize: 14,
-                marginLeft: 65,
+                marginLeft: 100,
               }}
             >
               {"\u20A6"}
