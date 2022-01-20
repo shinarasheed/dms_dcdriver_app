@@ -153,12 +153,12 @@ const GenerateInvoice = () => {
 
       <CustomVirtualizedView>
         <View style={{ paddingLeft: 20, paddingVertical: 20 }}>
-          <View style={{ flexDirection: "row", marginBottom: 10 }}>
+          <View style={{ flexDirection: "row", marginBottom: 5 }}>
             <Text
               style={{
                 fontSize: 15,
                 marginRight: 5,
-                textTransform: "lowercase",
+                textTransform: "capitalize",
               }}
             >
               {moment(order?.orderStatus[0]?.dateAssigned).format(
@@ -171,6 +171,13 @@ const GenerateInvoice = () => {
                 )}`}{" "}
               from
             </Text>
+          </View>
+
+          <View
+            style={{
+              marginBottom: 10,
+            }}
+          >
             <Text
               style={{
                 fontSize: 14,

@@ -37,7 +37,9 @@ const PastDeliveryCard = ({ item, products }) => {
             padding: 20,
             paddingBottom: 10,
             borderBottomWidth: 1,
-            borderBottomColor: appTheme.COLORS.borderGRey,
+            backgroundColor: appTheme.COLORS.white,
+            borderBottomColor: appTheme.COLORS.boxGray,
+            borderBottomWidth: 1,
           }}
         >
           <View style={{ flexDirection: "row", marginBottom: 7 }}>

@@ -41,7 +41,7 @@ const TimeLine = ({ theOrder }) => {
                 source={icons.smallCheckIcon}
               />
               <Text> Completed </Text>
-              <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+              <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
                 on{" "}
                 {moment(theOrder?.orderStatus[0]?.dateCompleted).format(
                   "MMM Do, YYYY"
@@ -64,7 +64,7 @@ const TimeLine = ({ theOrder }) => {
                 source={icons.smallCheckIcon}
               />
               <Text> Accepted </Text>
-              <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+              <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
                 on{" "}
                 {moment(theOrder?.orderStatus[0]?.dateAccepted).format(
                   "MMM Do, YYYY"
@@ -85,7 +85,7 @@ const TimeLine = ({ theOrder }) => {
                 source={icons.smallCheckIcon}
               />
               <Text> Assigned </Text>
-              <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+              <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
                 to you on{" "}
                 {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                   "MMM Do, YYYY"
@@ -108,7 +108,7 @@ const TimeLine = ({ theOrder }) => {
             source={icons.smallCheckIcon}
           />
           <Text> Assigned </Text>
-          <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+          <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
             to you on{" "}
             {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
               "MMM Do, YYYY"
@@ -136,7 +136,7 @@ const TimeLine = ({ theOrder }) => {
             />
 
             <Text> Rejected </Text>
-            <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+            <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
               on{" "}
               {moment(theOrder?.orderStatus[0]?.dateRejected).format(
                 "MMM Do, YYYY"
@@ -151,7 +151,7 @@ const TimeLine = ({ theOrder }) => {
               source={icons.smallCheckIcon}
             />
             <Text>Assigned </Text>
-            <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+            <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
               to you on{" "}
               {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YY"
@@ -184,7 +184,7 @@ const TimeLine = ({ theOrder }) => {
               source={icons.smallCheckIcon}
             />
             <Text> Accepted on </Text>
-            <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+            <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
               {moment(theOrder?.orderStatus[0]?.dateAccepted).format(
                 "MMM Do, YYYY"
               )}{" "}
@@ -200,7 +200,7 @@ const TimeLine = ({ theOrder }) => {
               source={icons.smallCheckIcon}
             />
             <Text>Assigned </Text>
-            <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+            <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
               to you on{" "}
               {moment(theOrder?.orderStatus[0]?.dateAssigned).format(
                 "MMM Do, YYYY"

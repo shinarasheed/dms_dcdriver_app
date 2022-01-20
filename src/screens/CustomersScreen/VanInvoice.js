@@ -336,7 +336,7 @@ const GenerateInvoice = () => {
               />
 
               <Text> Completed </Text>
-              <Text style={{ fontSize: 14, textTransform: "lowercase" }}>
+              <Text style={{ fontSize: 14, textTransform: "capitalize" }}>
                 on{" "}
                 {moment(
                   new Date(new Date().getTime()).toISOString().split("T")[0]
