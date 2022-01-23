@@ -44,7 +44,7 @@ const DeliveryCard = ({ item, products }) => {
           style={{
             color: appTheme.COLORS.mainTextGray,
             fontSize: 14,
-            ...appTheme.FONTS.mainFontLight,
+            fontFamily: "Gilroy-Medium",
           }}
         >
           Order: {item?.orderId},
@@ -55,7 +55,7 @@ const DeliveryCard = ({ item, products }) => {
             fontSize: 14,
             marginRight: 5,
             marginLeft: 8,
-            ...appTheme.FONTS.mainFontLight,
+            fontFamily: "Gilroy-Medium",
           }}
         >
           {moment(item?.orderStatus[0]?.dateAssigned).format("MMM Do, YYYY")}
@@ -65,7 +65,7 @@ const DeliveryCard = ({ item, products }) => {
             textTransform: "lowercase",
             color: appTheme.COLORS.MainGray,
             fontSize: 14,
-            ...appTheme.FONTS.mainFontLight,
+            fontFamily: "Gilroy-Medium",
           }}
         >
           {item?.orderStatus[0]?.timeAssigned !== null &&
@@ -82,13 +82,14 @@ const DeliveryCard = ({ item, products }) => {
         <Text
           style={{
             fontSize: 16,
-            ...appTheme.FONTS.mainFontBold,
+            fontFamily: "Gilroy-Medium",
           }}
         >
           {item?.buyerDetails[0]?.buyerName}
         </Text>
         <Text
           style={{
+            fontFamily: "Gilroy-Medium",
             backgroundColor:
               item.status === "Assigned"
                 ? appTheme.COLORS.Grey
@@ -120,7 +121,7 @@ const DeliveryCard = ({ item, products }) => {
             color: appTheme.COLORS.MainOrange,
             fontSize: 14,
             marginRight: 10,
-            ...appTheme.FONTS.mainFontBold,
+            fontFamily: "Gilroy-Bold",
           }}
         >
           {item?.orderItems.length} {/* TODO: this might fail.please correct */}
@@ -129,9 +130,8 @@ const DeliveryCard = ({ item, products }) => {
         <Text
           style={{
             fontSize: 14,
-            fontWeight: "700",
-            ...appTheme.FONTS.mainFontBold,
             color: appTheme.COLORS.MainGray,
+            fontFamily: "Gilroy-Bold",
           }}
         >
           {"\u20A6"}

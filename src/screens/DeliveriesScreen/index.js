@@ -138,7 +138,12 @@ export default function DeliveriesScreen() {
               />
               <TextInput
                 placeholder="Search"
-                style={{ fontSize: 18, paddingLeft: 5, flex: 1 }}
+                style={{
+                  fontSize: 15,
+                  paddingLeft: 5,
+                  flex: 1,
+                  fontFamily: "Gilroy-Medium",
+                }}
                 value={searchValue}
                 onChangeText={(text) => handleChangeText(text)}
               />
