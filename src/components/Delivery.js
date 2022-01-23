@@ -17,17 +17,32 @@ const Delivery = ({ item }) => {
         navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, item)
       }
     >
-      <Text style={styles.customer}>
+      <Text
+        style={[
+          styles.customer,
+          {
+            fontFamily: "Gilroy-Medium",
+          },
+        ]}
+      >
         New Deliveries for {item?.buyerDetails[0]?.buyerName}
       </Text>
       <View style={styles.orderDateTimeContainer}>
-        <Text style={styles.orderDate}>
+        <Text
+          style={[
+            styles.orderDate,
+            {
+              fontFamily: "Gilroy-Medium",
+            },
+          ]}
+        >
           {moment(item?.orderStatus[0]?.dateAssigned).format("MMM Do, YYYY")}
         </Text>
         <Text
           style={{
             color: appTheme.COLORS.textGray,
             textTransform: "lowercase",
+            fontFamily: "Gilroy-Medium",
           }}
         >
           {item?.orderStatus[0]?.timeAssigned !== null &&

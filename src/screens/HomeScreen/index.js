@@ -122,9 +122,25 @@ const HomeScreen = () => {
               source={images.saleHistory1}
             >
               <View style={styles.totalSalesStats}>
-                <Text style={styles.statsText}>Total Sales</Text>
+                <Text
+                  style={[
+                    styles.statsText,
+                    {
+                      fontFamily: "Gilroy-Medium",
+                    },
+                  ]}
+                >
+                  Total Sales
+                </Text>
 
-                <Text style={styles.totalSalesAmount}>
+                <Text
+                  style={[
+                    styles.totalSalesAmount,
+                    {
+                      fontFamily: "Gilroy-Medium",
+                    },
+                  ]}
+                >
                   {"\u20A6"}
                   {stats?.totalSales ? stats.totalSales : 0}
                 </Text>
@@ -141,7 +157,14 @@ const HomeScreen = () => {
             >
               <View style={styles?.deliveriesStats}>
                 <View>
-                  <Text style={styles.statsText}>
+                  <Text
+                    style={[
+                      styles.statsText,
+                      {
+                        fontFamily: "Gilroy-Medium",
+                      },
+                    ]}
+                  >
                     {stats?.deliveryCounts}{" "}
                     {stats?.deliveryCounts > 1 ? "Deliveries" : "Delivery"}
                   </Text>
@@ -152,11 +175,25 @@ const HomeScreen = () => {
                   </Text>
                 </View>
                 <View>
-                  <Text style={styles.statsText}>
+                  <Text
+                    style={[
+                      styles.statsText,
+                      {
+                        fontFamily: "Gilroy-Medium",
+                      },
+                    ]}
+                  >
                     {stats?.visitCounts}{" "}
                     {stats?.visitCounts > 1 ? "Visits" : "Visit"}
                   </Text>
-                  <Text style={styles.totalVisitAmount}>
+                  <Text
+                    style={[
+                      styles.totalVisitAmount,
+                      {
+                        fontFamily: "Gilroy-Medium",
+                      },
+                    ]}
+                  >
                     {"\u20A6"}
                     {stats?.visits ? stats.visits : 0}
                   </Text>
@@ -179,9 +216,9 @@ const HomeScreen = () => {
                 <View style={{ marginBottom: 20 * appTheme.SIZES.scale }}>
                   <Text
                     style={{
-                      fontWeight: "700",
                       fontSize: 15 * appTheme.SIZES.scale,
                       color: appTheme.COLORS.mainTextGray,
+                      fontFamily: "Gilroy-Bold",
                     }}
                   >
                     New Deliveries
@@ -195,9 +232,9 @@ const HomeScreen = () => {
                 >
                   <Text
                     style={{
-                      fontWeight: "700",
                       fontSize: 14 * appTheme.SIZES.scale,
                       color: appTheme.COLORS.mainRed,
+                      fontFamily: "Gilroy-Bold",
                     }}
                   >
                     See More Deliveries

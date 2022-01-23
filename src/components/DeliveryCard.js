@@ -29,8 +29,8 @@ const DeliveryCard = ({ item, products }) => {
   return (
     <TouchableOpacity
       style={{
-        padding: 20,
-        paddingBottom: 10,
+        paddingVertical: 10,
+        paddingHorizontal: 20,
         backgroundColor: appTheme.COLORS.white,
         borderBottomColor: appTheme.COLORS.boxGray,
         borderBottomWidth: 1,

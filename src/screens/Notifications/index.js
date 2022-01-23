@@ -148,23 +148,26 @@
 //       </CustomVirtualizedView>
 
 import React from "react";
-import { StyleSheet, Text, View, Button } from "react-native";
+import { StyleSheet, Text, View, Button, Alert } from "react-native";
 import * as Print from "expo-print";
 import * as Sharing from "expo-sharing";
 import * as MediaLibrary from "expo-media-library";
 
 const index = () => {
-  const createAndSavePDF = async (html) => {
+  const createAndSavePDF = async () => {
+    const html = `<h1> Teste </h1>`;
+
     try {
       const { uri } = await Print.printToFileAsync({ html });
-      if (Platform.OS === "ios") {
-        await Sharing.shareAsync(uri);
-      } else {
-        const permission = await MediaLibrary.requestPermissionsAsync();
 
-        if (permission.granted) {
-          const result = await MediaLibrary.createAssetAsync(uri);
-          console.log(result);
+      const permission = await MediaLibrary.requestPermissionsAsync();
+      if (permission.granted) {
+        const asset = await MediaLibrary.createAssetAsync(uri);
+        console.log("asset ===", asset);
+        if (asset) {
+          Alert.alert("", `${"Document saved at " + asset.uri}`, [
+            { text: "OK" },
+          ]);
         }
       }
     } catch (error) {

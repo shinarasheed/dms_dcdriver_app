@@ -22,6 +22,7 @@ import PastDeliveryFlatList from "../../components/PastDeliveryFlatlist";
 import DeliveriesTab from "../../components/DeliveriesTab";
 import { Spinner } from "../../components/Spinner";
 import { fetchProducts } from "../../redux/actions/productActions";
+import { StatusBar } from "react-native";
 
 export default function DeliveriesScreen() {
   const categories = ["new deliveries", "past deliveries"];
@@ -92,7 +93,7 @@ export default function DeliveriesScreen() {
       <View
         style={{
           backgroundColor: appTheme.COLORS.white,
-          height: 40,
+          height: StatusBar.currentHeight * 2.5,
           paddingLeft: 20,
           flexDirection: "row",
           alignItems: "center",

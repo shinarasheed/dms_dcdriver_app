@@ -28,7 +28,6 @@ class Login extends React.PureComponent {
   onLogin = async () => {
     const { navigation } = this.props;
     this.props.register(navigation);
-    console.log("hello called");
   };
   onFail = (reason) => {
     console.log("failed");

@@ -21,9 +21,9 @@ function HomeTabs() {
           elevation: 1,
         },
         tabBarLabelStyle: {
-          fontSize: 16,
+          fontSize: 15,
           marginBottom: 10,
-          ...appTheme.FONTS.mainFontLight,
+          fontFamily: "Gilroy-Medium",
         },
         tabBarIconStyle: {
           marginBottom: 0,
