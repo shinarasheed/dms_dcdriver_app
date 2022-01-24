@@ -59,7 +59,7 @@ const CustomerCard = ({ order, allOrders }) => {
             style={{
               fontSize: 15,
               marginBottom: 5,
-              ...appTheme.FONTS.mainFontBold,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             {order?.buyerDetails[0]?.buyerName}

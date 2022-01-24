@@ -66,8 +66,7 @@ const AddCustomer = () => {
           <Text
             style={{
               fontSize: 17,
-              fontWeight: "700",
-              ...appTheme.FONTS.mainFontBold,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             One-Off Sale

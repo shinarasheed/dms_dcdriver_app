@@ -30,11 +30,11 @@ const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
           <Text
             style={{
               fontSize: 15,
-              ...appTheme.FONTS.mainFontBold,
               textTransform: "capitalize",
               marginBottom: 10,
               marginRight: 5,
               color: appTheme.COLORS.black,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             {brand}
@@ -42,10 +42,10 @@ const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
           <Text
             style={{
               fontSize: 15,
-              ...appTheme.FONTS.mainFontBold,
               textTransform: "capitalize",
               marginBottom: 10,
               color: appTheme.COLORS.black,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             {sku}
@@ -86,7 +86,12 @@ const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
                 marginRight: 10,
               }}
             >
-              <Text style={{ color: appTheme.COLORS.white }}>
+              <Text
+                style={{
+                  color: appTheme.COLORS.white,
+                  fontFamily: "Gilroy-Medium",
+                }}
+              >
                 {productType}
               </Text>
             </View>
@@ -100,7 +105,7 @@ const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
               <Text
                 style={{
                   fontSize: 15,
-
+                  fontFamily: "Gilroy-Medium",
                   color: appTheme.COLORS.MainGray,
                 }}
               >

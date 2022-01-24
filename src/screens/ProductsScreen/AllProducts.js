@@ -70,8 +70,7 @@ const index = () => {
         <Text
           style={{
             fontSize: 17,
-            fontWeight: "700",
-            ...appTheme.FONTS.mainFontBold,
+            fontFamily: "Gilroy-Medium",
           }}
         >
           All Products

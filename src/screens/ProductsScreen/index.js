@@ -89,6 +89,7 @@ const ProductsScreen = () => {
                   style={{
                     fontSize: 18,
                     color: appTheme.COLORS.MainGray,
+                    fontFamily: "Gilroy-Medium",
                   }}
                 >
                   All Products
@@ -119,7 +120,13 @@ const ProductsScreen = () => {
                   paddingBottom: 10,
                 }}
               >
-                <Text style={{ fontSize: 18, color: appTheme.COLORS.MainGray }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: appTheme.COLORS.MainGray,
+                    fontFamily: "Gilroy-Medium",
+                  }}
+                >
                   Full
                 </Text>
               </View>
@@ -148,7 +155,13 @@ const ProductsScreen = () => {
                   paddingBottom: 10,
                 }}
               >
-                <Text style={{ fontSize: 18, color: appTheme.COLORS.MainGray }}>
+                <Text
+                  style={{
+                    fontSize: 18,
+                    color: appTheme.COLORS.MainGray,
+                    fontFamily: "Gilroy-Medium",
+                  }}
+                >
                   Empties
                 </Text>
               </View>
@@ -204,6 +217,7 @@ const ProductsScreen = () => {
               fontSize: 17,
               marginLeft: 20,
               color: appTheme.COLORS.black,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             Return products to warehouse

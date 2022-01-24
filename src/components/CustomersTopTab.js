@@ -1,7 +1,7 @@
-import React from 'react';
-import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import React from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
-import appTheme from '../constants/theme';
+import appTheme from "../constants/theme";
 
 const CustomersTopTab = ({
   categories,
@@ -14,23 +14,25 @@ const CustomersTopTab = ({
         <TouchableOpacity
           key={index}
           activeOpacity={0.8}
-          onPress={() => setSelectedCategoryIndex(index)}>
+          onPress={() => setSelectedCategoryIndex(index)}
+        >
           <View>
             <Text
               style={{
-                ...styles.categoryListText,
+                fontFamily: "Gilroy-Medium",
                 color:
                   selectedCategoryIndex == index
                     ? appTheme.COLORS.black
                     : appTheme.COLORS.MainGray,
-              }}>
+              }}
+            >
               {item}
             </Text>
             {selectedCategoryIndex == index && (
               <View
                 style={{
                   height: 2,
-                  width: '100%',
+                  width: "100%",
                   backgroundColor: appTheme.COLORS.secondary,
                   marginTop: 5,
                 }}
@@ -47,12 +49,12 @@ export default CustomersTopTab;
 
 const styles = StyleSheet.create({
   categoryListContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 30,
   },
   categoryListText: {
     fontSize: 15,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });

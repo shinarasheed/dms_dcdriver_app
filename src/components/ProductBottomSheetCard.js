@@ -56,10 +56,10 @@ const ProductBottomSheetCard = ({
           <Text
             style={{
               fontSize: 15,
-              ...appTheme.FONTS.mainFontBold,
               textTransform: "capitalize",
               marginBottom: 10,
               color: appTheme.COLORS.black,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             {sku}
@@ -100,7 +100,12 @@ const ProductBottomSheetCard = ({
                 marginRight: 10,
               }}
             >
-              <Text style={{ color: appTheme.COLORS.white }}>
+              <Text
+                style={{
+                  color: appTheme.COLORS.white,
+                  fontFamily: "Gilroy-Medium",
+                }}
+              >
                 {productType}
               </Text>
             </View>
@@ -114,7 +119,7 @@ const ProductBottomSheetCard = ({
               <Text
                 style={{
                   fontSize: 15,
-
+                  fontFamily: "Gilroy-Medium",
                   color: appTheme.COLORS.MainGray,
                 }}
               >
@@ -180,8 +185,8 @@ const ProductBottomSheetCard = ({
           <Text
             style={{
               color: appTheme.COLORS.mainRed,
-              ...appTheme.FONTS.mainFontBold,
               fontSize: 16,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             {"\u20A6"}

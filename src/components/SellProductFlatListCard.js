@@ -46,11 +46,11 @@ const SellProductFlatListCard = ({
           <Text
             style={{
               fontSize: 15,
-              ...appTheme.FONTS.mainFontBold,
               textTransform: "capitalize",
               marginBottom: 10,
               marginRight: 5,
               color: appTheme.COLORS.black,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             {brand}
@@ -58,10 +58,10 @@ const SellProductFlatListCard = ({
           <Text
             style={{
               fontSize: 15,
-              ...appTheme.FONTS.mainFontBold,
               textTransform: "capitalize",
               marginBottom: 10,
               color: appTheme.COLORS.black,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             {sku}
@@ -102,7 +102,12 @@ const SellProductFlatListCard = ({
                 marginRight: 10,
               }}
             >
-              <Text style={{ color: appTheme.COLORS.white }}>
+              <Text
+                style={{
+                  color: appTheme.COLORS.white,
+                  fontFamily: "Gilroy-Medium",
+                }}
+              >
                 {productType}
               </Text>
             </View>
@@ -116,7 +121,7 @@ const SellProductFlatListCard = ({
               <Text
                 style={{
                   fontSize: 15,
-
+                  fontFamily: "Gilroy-Medium",
                   color: appTheme.COLORS.MainGray,
                 }}
               >
@@ -182,8 +187,8 @@ const SellProductFlatListCard = ({
           <Text
             style={{
               color: appTheme.COLORS.mainRed,
-              ...appTheme.FONTS.mainFontBold,
               fontSize: 16,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             {"\u20A6"}

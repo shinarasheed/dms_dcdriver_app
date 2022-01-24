@@ -32,10 +32,10 @@ const ProductCard = ({ item: { quantity, product } }) => {
             <Text
               style={{
                 fontSize: 18,
-                ...appTheme.FONTS.mainFontBold,
                 textTransform: "capitalize",
                 marginRight: 5,
                 color: appTheme.COLORS.black,
+                fontFamily: "Gilroy-Medium",
               }}
             >
               {product?.brand}
@@ -43,9 +43,9 @@ const ProductCard = ({ item: { quantity, product } }) => {
             <Text
               style={{
                 fontSize: 18,
-                ...appTheme.FONTS.mainFontBold,
                 textTransform: "capitalize",
                 color: appTheme.COLORS.black,
+                fontFamily: "Gilroy-Medium",
               }}
             >
               {product?.sku}
@@ -92,14 +92,19 @@ const ProductCard = ({ item: { quantity, product } }) => {
                 <Text
                   style={{
                     fontSize: 17,
-
+                    fontFamily: "Gilroy-Medium",
                     color: appTheme.COLORS.MainGray,
                   }}
                 >
                   Qty:
                 </Text>
                 <Text
-                  style={{ fontSize: 16, fontWeight: "600", marginLeft: 2 }}
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "600",
+                    marginLeft: 2,
+                    fontFamily: "Gilroy-Medium",
+                  }}
                 >
                   {quantity}
                 </Text>
@@ -113,12 +118,20 @@ const ProductCard = ({ item: { quantity, product } }) => {
                 alignItems: "center",
               }}
             >
-              <Text style={{ fontSize: 17, marginRight: 2 }}>Price:</Text>
+              <Text
+                style={{
+                  fontSize: 17,
+                  marginRight: 2,
+                  fontFamily: "Gilroy-Medium",
+                }}
+              >
+                Price:
+              </Text>
               <Text
                 style={{
                   fontSize: 15,
                   color: appTheme.COLORS.mainRed,
-                  ...appTheme.FONTS.mainFontBold,
+                  fontFamily: "Gilroy-Medium",
                 }}
               >
                 {"\u20A6"}

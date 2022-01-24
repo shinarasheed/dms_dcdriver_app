@@ -18,7 +18,7 @@ const CustomersTab = ({ categories, index, setIndex }) => {
           <View>
             <Text
               style={{
-                ...styles.categoryListText,
+                fontFamily: "Gilroy-Bold",
                 textTransform: "uppercase",
                 fontSize: 13,
                 color:
