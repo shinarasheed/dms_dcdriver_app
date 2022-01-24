@@ -10,6 +10,7 @@ import appTheme from "../constants/theme";
 import ProductBottomSheetOneOf from "./ProductBottomSheetOneOf";
 import { confirmVanSales } from "../redux/actions/vanActions";
 import { updateInventory } from "../redux/actions/vanActions";
+import { formatPrice } from "../utils/formatPrice";
 
 const SellProductFooterOneOf = ({
   getTotalPrice,
@@ -138,7 +139,9 @@ const SellProductFooterOneOf = ({
           marginTop: 10,
         }}
         title={` Confirm  ${
-          getProductPrice() === undefined ? "" : `\u20A6${getProductPrice()}`
+          getProductPrice() === undefined
+            ? ""
+            : `\u20A6${formatPrice(getProductPrice())}`
         }`}
       />
 

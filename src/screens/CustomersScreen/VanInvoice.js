@@ -21,6 +21,7 @@ import CallCustomer from "../../components/CallCustomer";
 
 import { createAndSavePDF } from "../../utils/helpers";
 import { simpleHtml } from "../../utils/html";
+import { formatPrice } from "../../utils/formatPrice";
 
 export const createPdf = (htmlFactory) => async () => {
   try {
@@ -150,14 +151,12 @@ const GenerateInvoice = () => {
 
       <CustomVirtualizedView>
         <View style={{ paddingLeft: 20, paddingBottom: 20 }}>
-          <View
-            style={{ flexDirection: "row", marginTop: 10, marginBottom: 10 }}
-          >
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
             <Text
               style={{
                 fontSize: 15,
                 marginRight: 5,
-                textTransform: "lowercase",
+                textTransform: "capitalize",
               }}
             >
               {order?.orderStatus[0]?.dateAssigned !== null &&
@@ -171,6 +170,13 @@ const GenerateInvoice = () => {
                 )}`}{" "}
               from
             </Text>
+          </View>
+
+          <View
+            style={{
+              marginBottom: 10,
+            }}
+          >
             <Text
               style={{
                 fontSize: 17,
@@ -297,7 +303,7 @@ const GenerateInvoice = () => {
                 }}
               >
                 {"\u20A6"}
-                {getTotalPrice()}
+                {formatPrice(getTotalPrice())}
               </Text>
             </View>
           )}

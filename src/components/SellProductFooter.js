@@ -11,6 +11,7 @@ import { updateInventory } from "../redux/actions/vanActions";
 import appTheme from "../constants/theme";
 import ProductBottomSheet from "./ProductBottomSheet";
 import Routes from "../navigation/Routes";
+import { formatPrice } from "../utils/formatPrice";
 
 const SellProductFooter = ({
   getTotalPrice,
@@ -142,7 +143,9 @@ const SellProductFooter = ({
           marginTop: 10,
         }}
         title={` Confirm  ${
-          getProductPrice() === undefined ? "" : `\u20A6${getProductPrice()}`
+          getProductPrice() === undefined
+            ? ""
+            : `\u20A6${formatPrice(getProductPrice())}`
         }`}
       />
 

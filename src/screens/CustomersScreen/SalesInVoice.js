@@ -21,6 +21,7 @@ import CallCustomer from "../../components/CallCustomer";
 
 import { createAndSavePDF } from "../../utils/helpers";
 import { simpleHtml } from "../../utils/html2";
+import { formatPrice } from "../../utils/formatPrice";
 
 export const createPdf = (htmlFactory) => async () => {
   try {
@@ -248,7 +249,7 @@ const GenerateInvoice = () => {
                 }}
               >
                 {"\u20A6"}
-                {getTotalPrice()}
+                {formatPrice(getTotalPrice())}
               </Text>
             </View>
           )}

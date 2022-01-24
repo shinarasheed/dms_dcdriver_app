@@ -9,6 +9,7 @@ import {
   decrementQuantity,
   deleteProduct,
 } from "../redux/actions/vanActions";
+import { formatPrice } from "../utils/formatPrice";
 
 const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
   const { brand, sku, imageUrl, price, quantity, productType, productId } =
@@ -175,7 +176,7 @@ const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
             }}
           >
             {"\u20A6"}
-            {quantity * price}
+            {formatPrice(quantity * price)}
           </Text>
         </View>
       </View>

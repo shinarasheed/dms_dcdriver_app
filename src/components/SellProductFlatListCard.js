@@ -17,6 +17,7 @@ import {
 
 import { icons } from "../constants";
 import appTheme from "../constants/theme";
+import { formatPrice } from "../utils/formatPrice";
 
 const SellProductFlatListCard = ({
   product: { productId, brand, price, productType, imageUrl, sku, quantity },
@@ -186,7 +187,7 @@ const SellProductFlatListCard = ({
             }}
           >
             {"\u20A6"}
-            {quantity * price}
+            {formatPrice(quantity * price)}
           </Text>
         </View>
       </View>

@@ -152,7 +152,12 @@ const GenerateInvoice = () => {
       </View>
 
       <CustomVirtualizedView>
-        <View style={{ paddingLeft: 20, paddingVertical: 20 }}>
+        <View
+          style={{
+            paddingLeft: 20,
+            paddingVertical: 20,
+          }}
+        >
           <View style={{ flexDirection: "row", marginBottom: 5 }}>
             <Text
               style={{

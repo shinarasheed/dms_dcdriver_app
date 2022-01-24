@@ -1,6 +1,7 @@
 import React from "react";
 import { Image, Text, View } from "react-native";
 import appTheme from "../constants/theme";
+import { formatPrice } from "../utils/formatPrice";
 
 const ProductCard = ({ item: { quantity, product } }) => {
   return (
@@ -121,7 +122,7 @@ const ProductCard = ({ item: { quantity, product } }) => {
                 }}
               >
                 {"\u20A6"}
-                {product?.price}
+                {formatPrice(product?.price)}
               </Text>
             </View>
           </View>
