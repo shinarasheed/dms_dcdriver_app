@@ -45,6 +45,8 @@ const GenerateInvoice = () => {
 
   const { productsToSell, order, empties } = route.params;
 
+  console.log(productsToSell);
+
   const getEmptiesPrice = () => {
     return empties * 1000;
   };
@@ -340,7 +342,7 @@ const GenerateInvoice = () => {
                 on{" "}
                 {moment(
                   new Date(new Date().getTime()).toISOString().split("T")[0]
-                ).format("MMM Do, YYYY")}
+                ).format("MMM Do, YYYY")}{" "}
                 at {new Date(new Date().getTime()).toLocaleTimeString()}
               </Text>
             </View>

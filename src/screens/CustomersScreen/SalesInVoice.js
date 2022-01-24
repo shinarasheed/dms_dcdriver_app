@@ -294,6 +294,7 @@ const GenerateInvoice = () => {
                 {moment(
                   new Date(new Date().getTime()).toISOString().split("T")[0]
                 ).format("MMM Do, YYYY")}
+                {"  "}
                 at {new Date(new Date().getTime()).toLocaleTimeString()}
               </Text>
             </View>

@@ -123,10 +123,10 @@ export const simpleHtml =
                  <td style="padding: 1rem 1rem">${item?.brand} ${item?.sku}</td>
                  <td style="padding: 1rem 1rem">${item?.quantity}</td>
                  <td style="padding: 1rem 1rem">\u20A6${formatPrice(
-                   item?.unitPrice
+                   item?.price
                  )}</td>
                  <td style="padding: 1rem 1rem">\u20A6${formatPrice(
-                   item?.unitPrice * item.quantity
+                   item?.price * item.quantity
                  )}</td>
                </tr>`
                  )}
