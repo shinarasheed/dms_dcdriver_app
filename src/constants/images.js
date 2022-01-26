@@ -7,7 +7,7 @@ const saleHistory1 = require("../../assets/images/newSalHistory1.png");
 const saleHistory3 = require("../../assets/images/newSaleHistory2.png");
 const deliveryStatus = require("../../assets/images/DeliveryStatus.png");
 const rejectDeliveryStatus = require("../../assets/images/RejectDeliveryStatus.png");
-const AbInBev = require("../../assets/images/logo.png");
+const AbInBev = require("../../assets/icons/logo.png");
 
 export default {
   sales_history_1,

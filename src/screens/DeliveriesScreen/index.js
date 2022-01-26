@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import {
-  SafeAreaView,
   StyleSheet,
   Pressable,
   Image,
@@ -14,7 +13,6 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import appTheme from "../../constants/theme";
-import CustomVirtualizedView from "../../components/VirtualizedList";
 import { icons } from "../../constants";
 import DeliveryFlatList from "../../components/DeliveryFlatList";
 import { fetchOrder } from "../../redux/actions/orderActions";
@@ -23,6 +21,7 @@ import DeliveriesTab from "../../components/DeliveriesTab";
 import { Spinner } from "../../components/Spinner";
 import { fetchProducts } from "../../redux/actions/productActions";
 import { StatusBar } from "react-native";
+import { ScrollView } from "react-native-virtualized-view";
 
 export default function DeliveriesScreen() {
   const categories = ["new deliveries", "past deliveries"];
@@ -84,7 +83,7 @@ export default function DeliveriesScreen() {
   };
 
   return (
-    <SafeAreaView
+    <ScrollView
       style={{
         backgroundColor: appTheme.COLORS.mainBackground,
         flex: 1,
@@ -117,43 +116,41 @@ export default function DeliveriesScreen() {
 
       {/* header */}
 
-      <Pressable onPress={() => Keyboard.dismiss()}>
-        <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
-          <DeliveriesTab
-            categories={categories}
-            index={index}
-            setIndex={setIndex}
-          />
+      <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
+        <DeliveriesTab
+          categories={categories}
+          index={index}
+          setIndex={setIndex}
+        />
 
-          <View
-            style={{
-              marginBottom: 20,
-            }}
-          >
-            <View style={styles.searchInputContainer}>
-              <Icon
-                name="search"
-                size={25}
-                style={{ color: appTheme.COLORS.MainGray }}
-              />
-              <TextInput
-                placeholder="Search"
-                style={{
-                  fontSize: 15,
-                  paddingLeft: 5,
-                  flex: 1,
-                  fontFamily: "Gilroy-Medium",
-                }}
-                value={searchValue}
-                onChangeText={(text) => handleChangeText(text)}
-              />
-            </View>
+        <View
+          style={{
+            marginBottom: 20,
+          }}
+        >
+          <View style={styles.searchInputContainer}>
+            <Icon
+              name="search"
+              size={25}
+              style={{ color: appTheme.COLORS.MainGray }}
+            />
+            <TextInput
+              placeholder="Search"
+              style={{
+                fontSize: 15,
+                paddingLeft: 5,
+                flex: 1,
+                fontFamily: "Gilroy-Medium",
+              }}
+              value={searchValue}
+              onChangeText={(text) => handleChangeText(text)}
+            />
           </View>
         </View>
+      </View>
 
-        {order?.length !== 0 ? <>{ShowDeliveries(index)}</> : <Spinner />}
-      </Pressable>
-    </SafeAreaView>
+      {order?.length !== 0 ? <>{ShowDeliveries(index)}</> : <Spinner />}
+    </ScrollView>
   );
 }
 

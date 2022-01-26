@@ -40,7 +40,7 @@ export const register = (navigation) => async (dispatch) => {
       const body = {
         token,
       };
-
+      // 08012345678
       //continue
       await axios.post(`http://20.87.33.26/register`, body, config);
       navigation.navigate(Routes.CONTINUE_SCREEN);

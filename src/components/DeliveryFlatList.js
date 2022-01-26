@@ -1,14 +1,20 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { FlatList } from "react-native";
 import DeliveryCard from "./DeliveryCard";
 
 const DeliveryFlatList = ({ list, products }) => {
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      {list?.map((item, index) => (
-        <DeliveryCard item={item} key={index} products={products} />
-      ))}
-    </ScrollView>
+    <>
+      <FlatList
+        style={{ marginBottom: 100 }}
+        data={list}
+        keyExtractor={(item, id) => id.toString()}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <DeliveryCard item={item} products={products} />
+        )}
+      />
+    </>
   );
 };
 

@@ -13,8 +13,7 @@ import { register } from "../../redux/actions/userActions";
 import { images } from "../../constants";
 import appTheme from "../../constants/theme";
 
-// import Loading from "../../components/Loading";
-
+import Loading from "../../components/Loading";
 class Login extends React.PureComponent {
   static navigationOptions = { header: null };
 
@@ -45,45 +44,7 @@ class Login extends React.PureComponent {
 
   render() {
     const { isLoading } = this.props.user;
-    if (isLoading)
-      return (
-        <View
-          style={{
-            flex: 1,
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
-          <View>
-            <Image
-              source={images.AbInBev}
-              style={{
-                width: 300,
-                resizeMode: "center",
-              }}
-            />
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 18,
-                marginBottom: 20,
-                color: appTheme.COLORS.textGray,
-              }}
-            >
-              Welcome to ABInBev Distribution Central
-            </Text>
-            <Text
-              style={{
-                textAlign: "center",
-                fontSize: 20,
-                color: appTheme.COLORS.mainRed,
-              }}
-            >
-              Please wait...
-            </Text>
-          </View>
-        </View>
-      );
+    if (isLoading) return <Loading />;
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
@@ -92,6 +53,10 @@ class Login extends React.PureComponent {
           redirectURI="https://devdms2.b2clogin.com/oauth2/nativeclient"
           tenant="devdms2"
           loginPolicy="B2C_1_dms_mobile_signup_signin"
+          // appId="ba87f4a6-b062-4aaa-b625-97ec904bb1e3"
+          // redirectURI="https://opeyemitech.b2clogin.com/oauth2/nativeclient"
+          // tenant="opeyemitech"
+          // loginPolicy="B2C_1_phoneNumberAuth"
           secureStore={SecureStore}
           renderLoading={this.spinner}
           onSuccess={this.onLogin}

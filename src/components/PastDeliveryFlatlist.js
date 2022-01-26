@@ -1,14 +1,19 @@
 import React from "react";
-import { ScrollView } from "react-native";
+import { FlatList } from "react-native";
+import { ScrollView } from "react-native-virtualized-view";
 import PastDeliveryCard from "./PastDeliveryCard";
 
 const PastDeliveryFlatList = ({ list, products }) => {
   return (
-    <ScrollView showsVerticalScrollIndicator={false}>
-      {list?.map((item, index) => (
-        <PastDeliveryCard item={item} key={index} products={products} />
-      ))}
-    </ScrollView>
+    <FlatList
+      style={{ marginBottom: 100 }}
+      data={list}
+      keyExtractor={(item, id) => id.toString()}
+      showsVerticalScrollIndicator={false}
+      renderItem={({ item }) => (
+        <PastDeliveryCard item={item} products={products} />
+      )}
+    />
   );
 };
 
