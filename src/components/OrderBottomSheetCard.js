@@ -58,11 +58,11 @@ const OrderBottomSheetCard = ({
           <Text
             style={{
               fontSize: 15,
-              ...appTheme.FONTS.mainFontBold,
               textTransform: "capitalize",
               marginBottom: 10,
               marginRight: 5,
               color: appTheme.COLORS.black,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             {brand}
@@ -70,10 +70,10 @@ const OrderBottomSheetCard = ({
           <Text
             style={{
               fontSize: 15,
-              ...appTheme.FONTS.mainFontBold,
               textTransform: "capitalize",
               marginBottom: 10,
               color: appTheme.COLORS.black,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             {sku}
@@ -129,6 +129,7 @@ const OrderBottomSheetCard = ({
                 style={{
                   fontSize: 15,
                   color: appTheme.COLORS.MainGray,
+                  fontFamily: "Gilroy-Medium",
                 }}
               >
                 {"\u20A6"}
@@ -166,9 +167,8 @@ const OrderBottomSheetCard = ({
                 marginRight: 5,
                 borderRadius: 5,
                 textAlign: "center",
-                fontWeight: "bold",
                 color: appTheme.COLORS.mainTextGray,
-                ...appTheme.FONTS.mainFontLight,
+                fontFamily: "Gilroy-Bold",
               }}
               value={value}
               onChangeText={(text) =>
@@ -191,8 +191,8 @@ const OrderBottomSheetCard = ({
           <Text
             style={{
               color: appTheme.COLORS.mainRed,
-              ...appTheme.FONTS.mainFontBold,
               fontSize: 16,
+              fontFamily: "Gilroy-Bold",
             }}
           >
             {"\u20A6"}

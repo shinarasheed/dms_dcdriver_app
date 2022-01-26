@@ -101,8 +101,8 @@ const ProductBottomSheetOneOf = ({
             <Text
               style={{
                 fontSize: 15,
-                fontWeight: "600",
                 color: appTheme.COLORS.MainGray,
+                fontFamily: "Gilroy-Medium",
               }}
             >
               Empties returning:
@@ -110,8 +110,8 @@ const ProductBottomSheetOneOf = ({
             <Text
               style={{
                 fontSize: 15,
-                fontWeight: "600",
                 color: appTheme.COLORS.black,
+                fontFamily: "Gilroy-Medium",
               }}
             >
               {" "}

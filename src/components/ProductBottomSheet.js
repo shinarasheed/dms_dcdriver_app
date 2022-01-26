@@ -92,9 +92,9 @@ const ProductBottomSheet = ({
         <Text
           style={{
             fontSize: 13,
-            fontWeight: "700",
             marginBottom: 10,
             color: appTheme.COLORS.black,
+            fontFamily: "Gilroy-Medium",
           }}
         >
           EMPTIES
@@ -106,6 +106,7 @@ const ProductBottomSheet = ({
                 fontSize: 15,
                 fontWeight: "600",
                 color: appTheme.COLORS.MainGray,
+                fontFamily: "Gilroy-Medium",
               }}
             >
               Empties returning:
@@ -113,8 +114,8 @@ const ProductBottomSheet = ({
             <Text
               style={{
                 fontSize: 15,
-                fontWeight: "600",
                 color: appTheme.COLORS.black,
+                fontFamily: "Gilroy-Medium",
               }}
             >
               {" "}

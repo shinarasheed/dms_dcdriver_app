@@ -123,11 +123,7 @@ export default function DeliveriesScreen() {
           setIndex={setIndex}
         />
 
-        <View
-          style={{
-            marginBottom: 20,
-          }}
-        >
+        <View>
           <View style={styles.searchInputContainer}>
             <Icon
               name="search"

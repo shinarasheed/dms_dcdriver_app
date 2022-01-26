@@ -165,7 +165,9 @@ const OrderBottomSheet = ({
             marginBottom: 20,
           }}
         >
-          <Text style={{ fontSize: 20 }}>Order Delivery</Text>
+          <Text style={{ fontSize: 20, fontFamily: "Gilroy-Medium" }}>
+            Order Delivery
+          </Text>
           <Pressable onPress={() => toggle()}>
             <Image source={icons.cancelIcon} />
           </Pressable>

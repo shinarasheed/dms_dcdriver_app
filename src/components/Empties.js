@@ -17,6 +17,7 @@ const Empties = ({ NumberOfFull, setEmpties, empties }) => {
           fontSize: 17,
           color: appTheme.COLORS.mainTextGray,
           marginBottom: 20,
+          fontFamily: "Gilroy-Medium",
         }}
       >
         Empties returned by customer
