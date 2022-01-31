@@ -40,9 +40,10 @@ export const register = (navigation) => async (dispatch) => {
       const body = {
         token,
       };
-      // 08012345678
+
       //continue
       await axios.post(`http://20.87.33.26/register`, body, config);
+
       navigation.navigate(Routes.CONTINUE_SCREEN);
 
       dispatch({
@@ -74,10 +75,14 @@ export const register = (navigation) => async (dispatch) => {
     dispatch({
       type: REGISTER_FAIL,
       payload:
-        error.response && error.response.data.error
-          ? error.response.data.error
-          : error.error,
+        error.response && error.response.data.msg
+          ? error.response.data.msg
+          : error.msg,
     });
+
+    await adService.logoutAsync();
+    await AsyncStorage.clear();
+    navigation.navigate(Routes.WELCOME_ERROR);
   }
 };
 
@@ -100,25 +105,41 @@ export const login = (navigation) => async (dispatch) => {
 
     const phoneNumber = decoded.extension_PhoneNumber;
 
-    const {
-      data: { data },
-    } = await axios.get(
-      `http://102.133.206.181/GetVehicle/GetByPhoneNumber/${phoneNumber}`
-    );
+    if (decoded.newUser) {
+      const body = {
+        token,
+      };
 
-    console.log(data, "+++++++++++++++++++++++");
+      //continue
+      await axios.post(`http://20.87.33.26/register`, body, config);
 
-    await AsyncStorage.setItem("driverDetails", JSON.stringify(data));
-    await AsyncStorage.setItem("token", token);
-    navigation.navigate(Routes.HOME_SCREEN);
+      navigation.navigate(Routes.CONTINUE_SCREEN);
 
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: {
-        user: data,
-        token: token,
-      },
-    });
+      dispatch({
+        type: REGISTER_SUCCESS,
+        payload: "user registered",
+      });
+    } else {
+      const {
+        data: { data },
+      } = await axios.get(
+        `http://102.133.206.181/GetVehicle/GetByPhoneNumber/${phoneNumber}`
+      );
+
+      console.log(data, "+++++++++++++++++++++++");
+
+      await AsyncStorage.setItem("driverDetails", JSON.stringify(data));
+      await AsyncStorage.setItem("token", token);
+      navigation.navigate(Routes.HOME_SCREEN);
+
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: {
+          user: data,
+          token: token,
+        },
+      });
+    }
   } catch (error) {
     dispatch({
       type: LOGIN_FAIL,
@@ -128,4 +149,7 @@ export const login = (navigation) => async (dispatch) => {
           : error.error,
     });
   }
+
+  await adService.logoutAsync();
+  await AsyncStorage.clear();
 };

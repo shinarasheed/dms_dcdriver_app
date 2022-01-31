@@ -2,18 +2,14 @@ import React from "react";
 import { connect } from "react-redux";
 import { LoginView } from "ad-b2c-react-native";
 import * as SecureStore from "expo-secure-store";
-import {
-  SafeAreaView,
-  ActivityIndicator,
-  Text,
-  View,
-  Image,
-} from "react-native";
+import { SafeAreaView, ActivityIndicator, Text, View } from "react-native";
 import { register } from "../../redux/actions/userActions";
 import { images } from "../../constants";
 import appTheme from "../../constants/theme";
 
 import Loading from "../../components/Loading";
+import Continue from "../Continue";
+import { WelcomeError } from "./WelcomeError";
 class Login extends React.PureComponent {
   static navigationOptions = { header: null };
 
@@ -43,20 +39,21 @@ class Login extends React.PureComponent {
   };
 
   render() {
-    const { isLoading } = this.props.user;
-    if (isLoading) return <Loading />;
+    const { isLoading, error } = this.props.user;
+
+    // if (error) return <WelcomeError />;
 
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <LoginView
-          appId="8c11baca-fdbc-4b7f-b2cf-3a177588f37c"
-          redirectURI="https://devdms2.b2clogin.com/oauth2/nativeclient"
-          tenant="devdms2"
-          loginPolicy="B2C_1_dms_mobile_signup_signin"
-          // appId="ba87f4a6-b062-4aaa-b625-97ec904bb1e3"
-          // redirectURI="https://opeyemitech.b2clogin.com/oauth2/nativeclient"
-          // tenant="opeyemitech"
-          // loginPolicy="B2C_1_phoneNumberAuth"
+          // appId="8c11baca-fdbc-4b7f-b2cf-3a177588f37c"
+          // redirectURI="https://devdms2.b2clogin.com/oauth2/nativeclient"
+          // tenant="devdms2"
+          // loginPolicy="B2C_1_dms_mobile_signup_signin"
+          appId="ba87f4a6-b062-4aaa-b625-97ec904bb1e3"
+          redirectURI="https://opeyemitech.b2clogin.com/oauth2/nativeclient"
+          tenant="opeyemitech"
+          loginPolicy="B2C_1_phoneNumberAuth"
           secureStore={SecureStore}
           renderLoading={this.spinner}
           onSuccess={this.onLogin}

@@ -18,6 +18,8 @@ const Routes = {
   LIQUIDEMPTYPRODUCTS_SCREEN: "LiquidEmptyProducts",
   LOGIN_SCREEN: "Login",
   CONTINUE_SCREEN: "Continue",
+  LOGIN_ERROR: "LoginError",
+  WELCOME_ERROR: "WelcomeError",
 };
 
 export default Routes;

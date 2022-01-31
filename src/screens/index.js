@@ -17,6 +17,8 @@ import VanInvoice from "./CustomersScreen/VanInvoice";
 import Logout from "./Logout";
 import Login from "./Login";
 import Continue from "./Continue";
+import WelcomeError from "./Welcome/WelcomeError";
+import LoginError from "./Welcome/LoginError";
 
 export {
   HomeScreen,
@@ -38,4 +40,6 @@ export {
   Logout,
   Login,
   Continue,
+  WelcomeError,
+  LoginError,
 };

@@ -15,6 +15,7 @@ const initialState = {
   isLoading: false,
   user: null,
   message: "",
+  error: null,
 };
 
 export default (state = initialState, action) => {
@@ -47,7 +48,6 @@ export default (state = initialState, action) => {
         isLoading: false,
         token: action.payload.token,
       };
-    case REGISTER_FAIL:
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:
     case AUTH_ERROR:
@@ -56,6 +56,16 @@ export default (state = initialState, action) => {
         user: null,
         isAuthenticated: false,
         isLoading: false,
+        error: action.payload,
+      };
+
+    case REGISTER_FAIL:
+      return {
+        ...state,
+        user: null,
+        isAuthenticated: false,
+        isLoading: false,
+        error: action.payload,
       };
     default:
       return state;
