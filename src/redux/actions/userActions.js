@@ -82,7 +82,7 @@ export const register = (navigation) => async (dispatch) => {
 
     await adService.logoutAsync();
     await AsyncStorage.clear();
-    navigation.navigate(Routes.WELCOME_ERROR);
+    navigation.navigate(Routes.LOGIN_ERROR);
   }
 };
 

@@ -19,8 +19,6 @@ export const WelcomeError = () => {
   const navigation = useNavigation();
 
   const clearTokens = async () => {
-    // await adService.logoutAsync();
-    // await AsyncStorage.clear();
     navigation.navigate(Routes.LOGIN_SCREEN);
     console.log("welcomeError");
   };

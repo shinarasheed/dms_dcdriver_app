@@ -41,6 +41,8 @@ const SellProductFooter = ({
     datePlaced: new Date(new Date().getTime()),
     shipToCode: order?.buyerCompanyId,
     billToCode: order?.buyerCompanyId,
+    vehicleId: driver?.vehicleId,
+    country: "NG",
     buyerDetails: {
       buyerName: order?.buyerDetails[0].buyerName,
       buyerPhoneNumber: order?.buyerDetails[0].buyerPhoneNumber,

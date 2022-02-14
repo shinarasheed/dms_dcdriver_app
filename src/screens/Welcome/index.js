@@ -46,14 +46,14 @@ class Login extends React.PureComponent {
     return (
       <SafeAreaView style={{ flex: 1 }}>
         <LoginView
-          // appId="8c11baca-fdbc-4b7f-b2cf-3a177588f37c"
-          // redirectURI="https://devdms2.b2clogin.com/oauth2/nativeclient"
-          // tenant="devdms2"
-          // loginPolicy="B2C_1_dms_mobile_signup_signin"
-          appId="ba87f4a6-b062-4aaa-b625-97ec904bb1e3"
-          redirectURI="https://opeyemitech.b2clogin.com/oauth2/nativeclient"
-          tenant="opeyemitech"
-          loginPolicy="B2C_1_phoneNumberAuth"
+          appId="8c11baca-fdbc-4b7f-b2cf-3a177588f37c"
+          redirectURI="https://devdms2.b2clogin.com/oauth2/nativeclient"
+          tenant="devdms2"
+          loginPolicy="B2C_1_dms_mobile_signup_signin"
+          // appId="ba87f4a6-b062-4aaa-b625-97ec904bb1e3"
+          // redirectURI="https://opeyemitech.b2clogin.com/oauth2/nativeclient"
+          // tenant="opeyemitech"
+          // loginPolicy="B2C_1_phoneNumberAuth"
           secureStore={SecureStore}
           renderLoading={this.spinner}
           onSuccess={this.onLogin}

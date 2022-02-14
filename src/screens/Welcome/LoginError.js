@@ -1,12 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import {
-  StyleSheet,
-  TouchableOpacity,
-  Text,
-  View,
-  SafeAreaView,
-} from "react-native";
+import { TouchableOpacity, Text, View, Alert } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import Routes from "../../navigation/Routes";
 
@@ -17,12 +11,26 @@ import appTheme from "../../constants/theme";
 
 export const LoginError = () => {
   const navigation = useNavigation();
+  const [refreshPage, setRefreshPage] = useState("");
 
   const clearTokens = async () => {
-    await adService.logoutAsync();
-    await AsyncStorage.clear();
+    // await adService.logoutAsync();
+    // await AsyncStorage.clear();
     navigation.navigate(Routes.WELCOME_SCREEN);
     console.log("loginError");
+    Alert.alert(
+      "End of News",
+      "You have read all latest news for today ",
+      [
+        {
+          text: "Refresh Page",
+          onPress: () => {
+            setRefreshPage("refresh");
+          },
+        },
+      ],
+      { cancelable: false }
+    );
   };
 
   return (
@@ -36,9 +44,11 @@ export const LoginError = () => {
       <Text
         style={{
           fontSize: 15,
+          fontFamily: "Gilroy-Medium",
+          textAlign: "center",
         }}
       >
-        Your Account already exist
+        Your Phone Number/Email already exist in the database
       </Text>
 
       <TouchableOpacity

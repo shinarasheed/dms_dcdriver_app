@@ -28,6 +28,7 @@ const ProductBottomSheet = ({
   getEmptiesPrice,
   getProductPrice,
 }) => {
+  console.log(productsToSell);
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View
@@ -68,7 +69,7 @@ const ProductBottomSheet = ({
       </View>
 
       <View>
-        {productsToSell.map((item, index) => {
+        {productsToSell?.map((item, index) => {
           return (
             <ProductBottomSheetCard
               key={index}

@@ -50,19 +50,19 @@ const SellProductFooter = ({
     price: prod.price * prod.quantity,
     quantity: parseInt(prod.quantity),
     productId: prod.productId,
-    SFlineID: "shopNow",
+    SFlineID: "Van-Sales",
   }));
 
   const payload = {
-    buyerCompanyId: SFID,
-    sellerCompanyId: Distributor_Code,
-    routeName: "shopNow",
-    referenceId: "shopNow",
-    emptiesReturned: 0,
-    costOfEmptiesReturned: 0,
+    buyerCompanyId: order?.buyerCompanyId,
+    sellerCompanyId: order?.sellerCompanyId,
+    routeName: "Van-Sales",
+    referenceId: "Van-Sales",
+    emptiesReturned: empties,
+    costOfEmptiesReturned: getEmptiesPrice(),
     datePlaced: new Date(new Date().getTime()),
-    shipToCode: SFID,
-    billToCode: SFID,
+    shipToCode: order?.buyerCompanyId,
+    billToCode: order?.buyerCompanyId,
     buyerDetails: {
       buyerName: order?.buyerDetails[0].buyerName,
       buyerPhoneNumber: order?.buyerDetails[0].buyerPhoneNumber,

@@ -20,6 +20,7 @@ const Routes = {
   CONTINUE_SCREEN: "Continue",
   LOGIN_ERROR: "LoginError",
   WELCOME_ERROR: "WelcomeError",
+  CLOSE_SCREEN: "Close",
 };
 
 export default Routes;
