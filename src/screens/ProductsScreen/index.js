@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
-  SafeAreaView,
   StyleSheet,
   Image,
   Text,
@@ -14,25 +13,42 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import EmptiesBottomSheet from "../../components/EmptieBottomSheet";
 
 import Header from "../../components/Header";
 import { icons } from "../../constants";
 import appTheme from "../../constants/theme";
 
 import ProductFlatList from "../../components/ProductFlatList";
-import CustomVirtualizedView from "../../components/VirtualizedList";
-import { fetchVanProducts } from "../../redux/actions/vanActions";
+import {
+  fetchVanProducts,
+  returnVanEmpties,
+} from "../../redux/actions/vanActions";
 import { returnProductsToWarehouse } from "../../redux/actions/vanActions";
 import Routes from "../../navigation/Routes";
 
+import { ScrollView } from "react-native-virtualized-view";
+
 const ProductsScreen = () => {
+  const [visible, setVisible] = useState(false);
+
   const navigation = useNavigation();
+
+  function toggle() {
+    setVisible(!visible);
+  }
 
   const dispatch = useDispatch();
 
   useFocusEffect(
     React.useCallback(() => {
       dispatch(fetchVanProducts());
+    }, [])
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(returnVanEmpties());
     }, [])
   );
 
@@ -45,15 +61,60 @@ const ProductsScreen = () => {
   };
 
   const Van = useSelector((state) => state.van);
-  const { inventory, loading, error: vanError, productsReturned } = Van;
+  const {
+    inventory,
+    vanEmpties,
+    loading,
+    error: vanError,
+    productsReturned,
+  } = Van;
 
   return (
-    <SafeAreaView
-      style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
-    >
+    <View style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}>
       <Header headerText="Products" />
 
-      <CustomVirtualizedView>
+      {inventory?.length === 0 && (
+        <TouchableOpacity
+          style={{
+            backgroundColor: appTheme.COLORS.infoYellow,
+            borderRadius: 10,
+            paddingVertical: 10,
+            paddingHorizontal: 10,
+            flexDirection: "row",
+            marginHorizontal: 10,
+            marginVertical: 20,
+            borderColor: appTheme.COLORS.mainYellow,
+            borderWidth: 1,
+          }}
+        >
+          <Image source={icons.InfoIcon} />
+
+          <View
+            style={{
+              marginLeft: 10,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 15,
+                fontFamily: "Gilroy-Light",
+              }}
+            >
+              You have not any products
+            </Text>
+            <Text
+              style={{
+                fontSize: 15,
+                fontFamily: "Gilroy-Light",
+              }}
+            >
+              in your device
+            </Text>
+          </View>
+        </TouchableOpacity>
+      )}
+
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View
           style={{
             backgroundColor: appTheme.COLORS.white,
@@ -133,11 +194,7 @@ const ProductsScreen = () => {
             </View>
           </Pressable>
 
-          <Pressable
-            onPress={() =>
-              navigation.navigate(Routes.LIQUIDEMPTYPRODUCTS_SCREEN)
-            }
-          >
+          <Pressable onPress={() => toggle()}>
             <View
               style={{
                 flexDirection: "row",
@@ -235,11 +292,11 @@ const ProductsScreen = () => {
             size="large"
           />
         )}
-      </CustomVirtualizedView>
-    </SafeAreaView>
+      </ScrollView>
+
+      <EmptiesBottomSheet toggle={toggle} visible={visible} />
+    </View>
   );
 };
 
 export default ProductsScreen;
-
-const styles = StyleSheet.create({});

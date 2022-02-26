@@ -270,7 +270,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingBottom: 15,
     paddingTop: 15,
-    marginTop: 30,
   },
 
   footerButtonText: {

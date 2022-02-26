@@ -15,6 +15,9 @@ import {
   RETURN_PRODUCTS_REQUEST,
   RETURN_PRODUCTS_SUCCESS,
   RETURN_PRODUCTS_FAIL,
+  RETURN_VAN_EMPTIES_REQUEST,
+  RETURN_VAN_EMPTIES_SUCCESS,
+  RETURN_VAN_EMPTIES_FAIL,
 } from "../constants/vanConstants";
 
 const initialState = {
@@ -26,6 +29,7 @@ const initialState = {
   refreshing: true,
   loading: false,
   productsReturned: false,
+  vanEmpties: null,
 };
 
 export const vanReducer = (state = initialState, action) => {
@@ -154,6 +158,26 @@ export const vanReducer = (state = initialState, action) => {
         newinventory: state.newinventory.filter(
           (item) => item.productId !== payload
         ),
+      };
+
+    case RETURN_VAN_EMPTIES_REQUEST:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case RETURN_VAN_EMPTIES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        vanEmpties: payload,
+      };
+
+    case RETURN_VAN_EMPTIES_FAIL:
+      return {
+        ...state,
+        loading: false,
+        error: payload,
       };
 
     default:

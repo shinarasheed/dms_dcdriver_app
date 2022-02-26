@@ -18,8 +18,12 @@ import {
   RETURN_PRODUCTS_REQUEST,
   RETURN_PRODUCTS_SUCCESS,
   RETURN_PRODUCTS_FAIL,
+  VAN_POST_EMPTIES,
+  RETURN_VAN_EMPTIES_REQUEST,
+  RETURN_VAN_EMPTIES_SUCCESS,
+  RETURN_VAN_EMPTIES_FAIL,
 } from "../constants/vanConstants";
-import { vanurl, orderUrl } from "../../utils/baseUrl";
+import { vehicleUrl, orderUrl, InventoryUrl } from "../../utils/baseUrl";
 
 export const fetchVanProducts = () => async (dispatch) => {
   const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
@@ -31,7 +35,7 @@ export const fetchVanProducts = () => async (dispatch) => {
 
     const {
       data: { data },
-    } = await axios.get(`${vanurl}/van/${driver?.vehicleId}`);
+    } = await axios.get(`${InventoryUrl}/${driver?.vehicleId}`);
 
     const productsWithQuantity = await data.filter(
       (product) => product.quantity > 0
@@ -74,7 +78,7 @@ export const updateInventory = (payload) => async (dispatch) => {
     };
 
     const { data } = await axios.put(
-      `${vanurl}/van/update-quantity`,
+      `${InventoryUrl}/update-quantity`,
       payload,
       config
     );
@@ -140,7 +144,7 @@ export const returnProductsToWarehouse = (payload) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      `${vanurl}/van/sales-return
+      `${InventoryUrl}/sales-return
       `,
       payload,
       config
@@ -191,3 +195,59 @@ export const incrementQuantityByTyping =
       },
     });
   };
+
+export const postVanEmpties = (payload) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const { data } = await axios.post(
+      `${InventoryUrl}/empties/take-in
+        `,
+      payload,
+      config
+    );
+
+    dispatch({
+      type: VAN_POST_EMPTIES,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const returnVanEmpties = () => async (dispatch) => {
+  const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
+
+  try {
+    dispatch({
+      type: RETURN_VAN_EMPTIES_REQUEST,
+    });
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const {
+      data: { data },
+    } = await axios.get(
+      `${InventoryUrl}/get-empties/${driver?.vehicleId}`,
+      config
+    );
+
+    dispatch({
+      type: RETURN_VAN_EMPTIES_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: RETURN_VAN_EMPTIES_FAIL,
+    });
+  }
+};

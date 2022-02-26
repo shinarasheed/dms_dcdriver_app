@@ -34,10 +34,7 @@ const OrderBottomSheetCard = ({
     productPrice,
   } = order;
 
-  const [value, setValue] = React.useState(quantity.toString());
-
   const incrementQuantityByTyping = (text, productId) => {
-    setValue(text);
     const myproduct = newOrders?.find((item) => item?.productId === productId);
     myproduct.quantity = text;
     setNewOrders([...newOrders]);
@@ -170,7 +167,7 @@ const OrderBottomSheetCard = ({
                 color: appTheme.COLORS.mainTextGray,
                 fontFamily: "Gilroy-Bold",
               }}
-              value={value}
+              value={String(quantity)}
               onChangeText={(text) =>
                 incrementQuantityByTyping(text, productId)
               }
@@ -196,7 +193,7 @@ const OrderBottomSheetCard = ({
             }}
           >
             {"\u20A6"}
-            {formatPrice(value * productPrice)}
+            {formatPrice(quantity * productPrice)}
           </Text>
         </View>
       </View>

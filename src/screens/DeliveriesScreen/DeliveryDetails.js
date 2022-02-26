@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { SafeAreaView, Text, View, Image, Pressable } from "react-native";
+import { Text, View, Image, Pressable, Platform } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
@@ -14,6 +14,7 @@ import { Spinner } from "../../components/Spinner";
 import OrderDetailsFooter from "../../components/OrderDetailsFooter";
 import OrderDetailsBody from "../../components/OrderDetailsBody";
 import OrderDetailsBottomSheet from "../../components/OrderDetailsBottomSheet";
+import RejectOrderSheet from "../../components/RejectOrderSheet";
 
 const DeliveryDetails = () => {
   const [loadingOrder, setLoadingOrder] = useState(false);
@@ -94,9 +95,7 @@ const DeliveryDetails = () => {
   }
 
   return (
-    <SafeAreaView
-      style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
-    >
+    <View style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}>
       {/* header */}
 
       <View
@@ -104,7 +103,7 @@ const DeliveryDetails = () => {
           backgroundColor: appTheme.COLORS.white,
           flexDirection: "row",
           alignItems: "center",
-          height: 50,
+          height: Platform.OS === "ios" ? 130 : 50,
           paddingLeft: 20,
         }}
       >
@@ -160,7 +159,13 @@ const DeliveryDetails = () => {
         setProductsVisible={setProductsVisible}
         updateOrderStatus={updateOrderStatus}
       />
-    </SafeAreaView>
+
+      <RejectOrderSheet
+        toggle={toggle}
+        visible={visible}
+        updateOrderStatus={updateOrderStatus}
+      />
+    </View>
   );
 };
 

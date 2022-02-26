@@ -37,6 +37,7 @@ export const COLORS = {
   lightGray4: "#F8F8F9",
   transparent: "transparent",
   darkgray: "#898C95",
+  infoYellow: "#FFF5D0",
 };
 
 export const SIZES = {
@@ -47,11 +48,11 @@ export const SIZES = {
 
 export const FONTS = {
   mainFontBold: {
-    fontFamily: "sans-serif",
+    // fontFamily: "sans-serif",
     fontWeight: "bold",
   },
   mainFontLight: {
-    fontFamily: "sans-serif",
+    // fontFamily: "sans-serif",
   },
 };
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Image } from "react-native";
+import { Image, Dimensions, Platform } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import appTheme from "../constants/theme";
 import { icons } from "../constants";
@@ -10,12 +10,16 @@ import { CustomersScreen, DeliveriesScreen, HomeScreen } from "../screens";
 import ProductStack from "../navigation/ProductStack";
 
 function HomeTabs() {
+  const { height, width } = Dimensions.get("window");
+
+  let scale = width / 375;
+  scale = scale.toFixed(2);
   return (
     <Tab.Navigator
       initialRouteName="Home"
       screenOptions={({ route }) => ({
         tabBarStyle: {
-          height: 70,
+          height: Platform.OS === "ios" ? 100 : 70,
           paddingTop: 10,
           borderWidth: 0,
           elevation: 1,

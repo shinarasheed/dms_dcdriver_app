@@ -24,6 +24,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Spinner } from "../../components/Spinner";
 import axios from "axios";
 import Routes from "../../navigation/Routes";
+import { formatPrice } from "../../utils/formatPrice";
+import { companyUrl } from "../../utils/baseUrl";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -47,22 +49,29 @@ const HomeScreen = () => {
     setVisible((visible) => !visible);
   }
 
-  const getDriverDetails = async () => {
-    const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
-    setTheDriver(driver);
-    const {
-      data: { result },
-    } = await axios.get(
-      `http://102.133.143.139/company/code/${driver.ownerCompanyId}`
-    );
-    setDistributor(result);
-    await AsyncStorage.setItem("Distributor", JSON.stringify(result));
-  };
-
   useEffect(() => {
+    let componentMounted = true;
+
     setTimeout(() => {
+      const getDriverDetails = async () => {
+        const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
+        setTheDriver(driver);
+        const {
+          data: { result },
+        } = await axios.get(`${companyUrl}/code/${driver.ownerCompanyId}`);
+
+        if (componentMounted) {
+          setDistributor(result);
+          await AsyncStorage.setItem("Distributor", JSON.stringify(result));
+        }
+      };
+
       getDriverDetails();
     }, 1000);
+
+    return () => {
+      componentMounted = false;
+    };
   }, []);
 
   useFocusEffect(
@@ -99,7 +108,13 @@ const HomeScreen = () => {
 
         <Pressable onPress={() => toggle()}>
           <View style={styles.settingsContainer}>
-            <Image source={icons.userAvaterIcon} />
+            <Image
+              style={{
+                width: 35,
+                height: 35,
+              }}
+              source={icons.userAvaterIcon}
+            />
             <Image source={icons.arrowDownIcon} />
           </View>
         </Pressable>
@@ -142,7 +157,7 @@ const HomeScreen = () => {
                   ]}
                 >
                   {"\u20A6"}
-                  {stats?.totalSales ? stats.totalSales : 0}
+                  {stats?.totalSales ? `${formatPrice(stats.totalSales)}` : 0}
                 </Text>
               </View>
             </ImageBackground>
@@ -171,7 +186,7 @@ const HomeScreen = () => {
 
                   <Text style={styles.deliveriesAmount}>
                     {"\u20A6"}
-                    {stats?.deliveries ? stats.deliveries : 0}
+                    {stats?.deliveries ? `${formatPrice(stats.deliveries)}` : 0}
                   </Text>
                 </View>
                 <View>
@@ -195,7 +210,7 @@ const HomeScreen = () => {
                     ]}
                   >
                     {"\u20A6"}
-                    {stats?.visits ? stats.visits : 0}
+                    {stats?.visits ? `${formatPrice(stats.visits)}` : 0}
                   </Text>
                 </View>
               </View>

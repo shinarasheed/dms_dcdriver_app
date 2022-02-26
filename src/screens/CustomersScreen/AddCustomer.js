@@ -69,7 +69,15 @@ const AddCustomer = () => {
               fontFamily: "Gilroy-Medium",
             }}
           >
-            One-Off Sale
+            One-of
+          </Text>
+          <Text
+            style={{
+              fontSize: 17,
+              fontFamily: "Gilroy-Medium",
+            }}
+          >
+            f sale
           </Text>
         </View>
 

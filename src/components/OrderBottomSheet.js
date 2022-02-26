@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
-  FlatList,
   StyleSheet,
   Image,
   Pressable,
   Text,
   View,
-  KeyboardAvoidingView,
-  SafeAreaView,
   ScrollView,
 } from "react-native";
 import icons from "../constants/icons";
@@ -16,12 +13,10 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import appTheme from "../constants/theme";
 import OrderBottomSheetCard from "./OrderBottomSheetCard";
-// import ProductFooter from './ProductFooter';
 import OrderFooter from "./OrderFooter";
 import { fetchProducts } from "../redux/actions/productActions";
 import { fetchVanProducts } from "../redux/actions/vanActions";
 import Empties from "./Empties";
-import CustomVirtualizedView from "./VirtualizedList";
 
 const OrderBottomSheet = ({
   item,
@@ -79,7 +74,7 @@ const OrderBottomSheet = ({
         (item) => parseInt(item.productId) === parseInt(theOrder?.productId)
       )[0];
 
-      newOrders.push({
+      newOrders.unshift({
         productId: theOrder?.productId,
         quantity: parseInt(theOrder?.quantity),
         brand: orderDetails?.brand,
@@ -107,7 +102,7 @@ const OrderBottomSheet = ({
 
   const incrementQuantity = (productId) => {
     let product = newOrders?.find(
-      (product) => product?.productId === productId
+      (product) => parseInt(product?.productId) === parseInt(productId)
     );
     product.quantity++;
     setNewOrders([...newOrders]);
@@ -148,7 +143,7 @@ const OrderBottomSheet = ({
   };
 
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View
         style={{
           paddingHorizontal: 20,

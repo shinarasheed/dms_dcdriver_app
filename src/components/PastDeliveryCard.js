@@ -5,6 +5,7 @@ import moment from "moment";
 
 import appTheme from "../constants/theme";
 import Routes from "../navigation/Routes";
+import { formatPrice } from "../utils/formatPrice";
 
 const PastDeliveryCard = ({ item, products }) => {
   const navigation = useNavigation();
@@ -145,8 +146,11 @@ const PastDeliveryCard = ({ item, products }) => {
                 color: appTheme.COLORS.mainTextGray,
               }}
             >
+              {/* {"\u20A6"}
+              {isNaN(getTotalPrice()) ? null : getTotalPrice()} */}
+
               {"\u20A6"}
-              {isNaN(getTotalPrice()) ? null : getTotalPrice()}
+              {formatPrice(item?.totalPrice)}
             </Text>
           </View>
         </View>

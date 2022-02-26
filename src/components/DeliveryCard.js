@@ -134,8 +134,11 @@ const DeliveryCard = ({ item, products }) => {
             fontFamily: "Gilroy-Bold",
           }}
         >
-          {"\u20A6"}
-          {isNaN(getTotalPrice()) ? null : formatPrice(getTotalPrice())}
+          {/* {isNaN(getTotalPrice())
+            ? null
+            : `\u20A6${formatPrice(getTotalPrice())}`} */}
+
+          {formatPrice(item?.totalPrice)}
         </Text>
       </View>
     </TouchableOpacity>

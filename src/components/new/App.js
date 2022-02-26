@@ -1,4 +1,4 @@
-import "react-native-gesture-handler";
+// import "react-native-gesture-handler";
 import React, { useEffect, useState } from "react";
 import { StatusBar } from "react-native";
 import { useSelector, useDispatch } from "react-redux";

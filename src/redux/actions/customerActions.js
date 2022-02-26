@@ -5,7 +5,7 @@ import {
   CREATE_ONE_OF_CUSTOMER_SUCCES,
   CREATE_ONE_OF_CUSTOMER_FAIL,
 } from "../constants/customerConstants";
-import { customerUrl, orderUrl } from "../../utils/baseUrl";
+import { customerUrl } from "../../utils/baseUrl";
 
 export const createCustomerOneOf =
   ({ phoneNumber, customerName }) =>

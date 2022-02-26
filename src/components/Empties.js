@@ -10,6 +10,7 @@ const Empties = ({ NumberOfFull, setEmpties, empties }) => {
     // myproduct.quantity = text;
     // setNewOrders([...newOrders]);
   };
+
   return (
     <View>
       <Text

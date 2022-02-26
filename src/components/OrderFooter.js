@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import appTheme from "../constants/theme";
 // import { confirmOrder } from "../redux/actions/orderActions";
-import { updateInventory } from "../redux/actions/vanActions";
+import { postVanEmpties, updateInventory } from "../redux/actions/vanActions";
 import { formatPrice } from "../utils/formatPrice";
 
 const OrderFooter = ({
@@ -44,6 +44,18 @@ const OrderFooter = ({
     return orderItems;
   };
 
+  const handleEmpties = () => {
+    if (empties > 0) {
+      const vanPayload = {
+        vanId: driver?.vehicleId,
+        quantityToReturn: empties,
+      };
+      dispatch(postVanEmpties(vanPayload));
+    } else {
+      return;
+    }
+  };
+
   return (
     <View style={styles.footerContainer}>
       <TouchableOpacity
@@ -61,6 +73,7 @@ const OrderFooter = ({
 
           updateOrderStatus("Completed");
           dispatch(updateInventory(payload2));
+          handleEmpties();
           navigator.navigate("GenerateInvoice", {
             productsToSell: newOrders,
             order,
@@ -86,7 +99,9 @@ const OrderFooter = ({
             fontWeight: "bold",
           }}
         >
-          {` Confirm \u20A6${formatPrice(totalPrice)}`}
+          {isNaN(totalPrice)
+            ? null
+            : ` Confirm \u20A6${formatPrice(totalPrice)}`}
         </Text>
       </TouchableOpacity>
     </View>

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 import { View, StyleSheet, Text, Image, Pressable } from "react-native";
 import { BottomSheet } from "react-native-btr";
 import { adService } from "ad-b2c-react-native";
@@ -7,7 +7,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { icons } from "../constants";
 import appTheme from "../constants/theme";
-import Routes from "../navigation/Routes";
+import { logOut } from "../redux/actions/userActions";
 
 export default function UserBottomSheet({
   toggle,
@@ -15,12 +15,12 @@ export default function UserBottomSheet({
   distributor,
   visible,
 }) {
-  const navigation = useNavigation();
+  const dispatch = useDispatch();
 
-  const clearTokens = async () => {
+  const handleLogOut = async () => {
     await adService.logoutAsync();
     await AsyncStorage.clear();
-    navigation.navigate(Routes.LOGOUT_SCREEN);
+    dispatch(logOut());
   };
 
   return (
@@ -100,7 +100,7 @@ export default function UserBottomSheet({
             }}
           >
             <Pressable
-              onPress={() => clearTokens()}
+              onPress={() => handleLogOut()}
               style={{
                 flexDirection: "row",
                 alignItems: "center",

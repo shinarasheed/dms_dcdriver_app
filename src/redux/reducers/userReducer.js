@@ -1,3 +1,93 @@
+// import {
+//   REGISTER_SUCCESS,
+//   REGISTER_REQUEST,
+//   REGISTER_FAIL,
+//   LOGIN_REQUEST,
+//   LOGIN_SUCCESS,
+//   LOGIN_FAIL,
+//   LOGOUT,
+//   RESTORE_TOKEN,
+// } from "../constants/userConstants";
+
+// const initialState = {
+//   token: null,
+//   isAuthenticated: false,
+//   isLoading: false,
+//   user: null,
+//   message: "",
+//   error: null,
+//   driverEmail: null,
+// };
+
+// export default (state = initialState, action) => {
+//   switch (action.type) {
+//     case LOGIN_REQUEST:
+//       return {
+//         ...state,
+//         isLoading: true,
+//       };
+
+//     case LOGIN_SUCCESS:
+//       return {
+//         ...state,
+//         isAuthenticated: true,
+//         isLoading: false,
+//         token: action.payload.token,
+//         user: action.payload.user,
+//       };
+
+//     case REGISTER_REQUEST:
+//       return {
+//         ...state,
+//         isLoading: true,
+//       };
+//     case REGISTER_SUCCESS:
+//       return {
+//         ...state,
+//         isAuthenticated: false,
+//         isLoading: false,
+//         // driverEmail: action.payload,
+//       };
+//     case LOGIN_FAIL:
+//       return {
+//         ...state,
+//         user: null,
+//         isAuthenticated: false,
+//         isLoading: false,
+//         error: action.payload,
+//       };
+
+//     case REGISTER_FAIL:
+//       return {
+//         ...state,
+//         user: null,
+//         isAuthenticated: false,
+//         isLoading: false,
+//         error: action.payload,
+//       };
+
+//     case RESTORE_TOKEN:
+//       return {
+//         ...state,
+//         isLoading: false,
+//         isAuthenticated: true,
+//         token: action.payload,
+//       };
+
+//     case LOGOUT:
+//       return {
+//         ...state,
+//         isLoading: false,
+//         isAuthenticated: false,
+//         token: null,
+//         user: null,
+//       };
+
+//     default:
+//       return state;
+//   }
+// };
+
 import {
   REGISTER_SUCCESS,
   REGISTER_REQUEST,
@@ -5,8 +95,8 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  LOGOUT_SUCCESS,
-  AUTH_ERROR,
+  LOGOUT,
+  RESTORE_TOKEN,
 } from "../constants/userConstants";
 
 const initialState = {
@@ -16,6 +106,8 @@ const initialState = {
   user: null,
   message: "",
   error: null,
+  // driverEmail: null,
+  phoneNumber: null,
 };
 
 export default (state = initialState, action) => {
@@ -29,10 +121,10 @@ export default (state = initialState, action) => {
     case LOGIN_SUCCESS:
       return {
         ...state,
-        ...action.payload,
         isAuthenticated: true,
         isLoading: false,
         token: action.payload.token,
+        user: action.payload.user,
       };
 
     case REGISTER_REQUEST:
@@ -43,14 +135,11 @@ export default (state = initialState, action) => {
     case REGISTER_SUCCESS:
       return {
         ...state,
-        message: action.payload,
         isAuthenticated: false,
         isLoading: false,
-        token: action.payload.token,
+        phoneNumber: action.payload,
       };
     case LOGIN_FAIL:
-    case LOGOUT_SUCCESS:
-    case AUTH_ERROR:
       return {
         ...state,
         user: null,
@@ -67,6 +156,24 @@ export default (state = initialState, action) => {
         isLoading: false,
         error: action.payload,
       };
+
+    case RESTORE_TOKEN:
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: true,
+        token: action.payload,
+      };
+
+    case LOGOUT:
+      return {
+        ...state,
+        isLoading: false,
+        isAuthenticated: false,
+        token: null,
+        user: null,
+      };
+
     default:
       return state;
   }

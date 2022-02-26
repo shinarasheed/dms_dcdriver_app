@@ -47,6 +47,7 @@ const Order = ({ order, getProductDetails }) => {
                   ...appTheme.FONTS.mainFontBold,
                   textTransform: "capitalize",
                   color: appTheme.COLORS.black,
+                  marginLeft: 4,
                 }}
               >
                 {/* {sku} */}
@@ -110,7 +111,7 @@ const Order = ({ order, getProductDetails }) => {
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  marginLeft: 80,
+                  marginLeft: 92,
                 }}
               >
                 <Text style={{ fontSize: 14, marginRight: 2 }}>Price:</Text>
@@ -124,11 +125,11 @@ const Order = ({ order, getProductDetails }) => {
                     }}
                   >
                     {"\u20A6"}
-                    {/* {order?.price} */}
-                    {formatPrice(
+                    {formatPrice(order?.price)}
+                    {/* {formatPrice(
                       getProductDetails(order?.productId)?.price *
                         order?.quantity
-                    )}
+                    )} */}
                   </Text>
                 )}
               </View>

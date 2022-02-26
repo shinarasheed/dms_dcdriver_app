@@ -172,7 +172,8 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
               }}
             >
               {"\u20A6"}
-              {isNaN(getTotalPrice()) ? null : formatPrice(getTotalPrice())}
+              {formatPrice(theOrder?.totalPrice)}
+              {/* {isNaN(getTotalPrice()) ? null : formatPrice(getTotalPrice())} */}
             </Text>
           </View>
         )}

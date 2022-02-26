@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, Pressable, Image, Text, View } from "react-native";
+import { Pressable, Image, Text, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import {
   useRoute,
@@ -74,7 +74,7 @@ const SellToCustomer = () => {
   );
 
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
         backgroundColor: appTheme.COLORS.mainBackground,
@@ -144,7 +144,7 @@ const SellToCustomer = () => {
         setEmpties={setEmpties}
         empties={empties}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -68,14 +68,18 @@ const Customer = () => {
   };
 
   return (
-    <SafeAreaView
+    <View
       style={{
         backgroundColor: appTheme.COLORS.mainBackground,
         flex: 1,
         justifyContent: "space-between",
       }}
     >
-      <View>
+      <View
+        style={{
+          flex: 1,
+        }}
+      >
         <View
           style={{
             backgroundColor: appTheme.COLORS.white,
@@ -111,23 +115,27 @@ const Customer = () => {
             <Text>
               Customer Code: {order !== undefined && order?.buyerCompanyId}
             </Text>
-            <View
+          </View>
+
+          <View
+            style={{
+              backgroundColor: appTheme.COLORS.mainGreen,
+              paddingHorizontal: 10,
+              paddingVertical: 3,
+              borderRadius: 20,
+              width: 100,
+              marginTop: 5,
+            }}
+          >
+            <Text
               style={{
-                backgroundColor: appTheme.COLORS.mainGreen,
-                paddingHorizontal: 10,
-                paddingVertical: 3,
-                borderRadius: 20,
+                color: appTheme.COLORS.white,
+                ...appTheme.FONTS.mainFontLight,
+                textAlign: "center",
               }}
             >
-              <Text
-                style={{
-                  color: appTheme.COLORS.white,
-                  ...appTheme.FONTS.mainFontLight,
-                }}
-              >
-                Confirmed
-              </Text>
-            </View>
+              Confirmed
+            </Text>
           </View>
 
           <View>
@@ -211,6 +219,7 @@ const Customer = () => {
         {/* here */}
 
         <FlatList
+          showsVerticalScrollIndicator={false}
           style={{
             backgroundColor: appTheme.COLORS.white,
           }}
@@ -263,7 +272,7 @@ const Customer = () => {
           title="Sell to Customer"
         />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -21,7 +21,7 @@ import { icons } from "../../constants";
 import { Spinner } from "../../components/Spinner";
 
 const index = () => {
-  const categories = ["full", "empties"];
+  const categories = ["full"];
   const [index, setIndex] = useState(0);
   const [searchValue, setSearchValue] = useState("");
   const [fullproducts, setfullProducts] = useState([]);
@@ -61,8 +61,8 @@ const index = () => {
       case 0:
         return <ProductFlastlist list={fullproducts} />;
 
-      case 1:
-        return <ProductFlastlist list={emptyproducts} />;
+      // case 1:
+      //   return <ProductFlastlist list={emptyproducts} />;
 
       default:
         return <ProductFlastlist list={fullproducts} />;

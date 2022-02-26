@@ -7,6 +7,7 @@ import {
   Text,
   SafeAreaView,
   TextInput,
+  TouchableOpacity,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -17,6 +18,7 @@ import appTheme from "../../constants/theme";
 import SearchBar from "../../components/SearchBar";
 import { icons } from "../../constants";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
+import { formatPrice } from "../../utils/formatPrice";
 // import filter from "lodash.filter";
 
 const index = () => {
@@ -26,7 +28,7 @@ const index = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const Van = useSelector((state) => state.van);
-  const { inventory, loading: vanLoading, error: vanError } = Van;
+  const { inventory, vanEmpties, loading: vanLoading, error: vanError } = Van;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -45,7 +47,7 @@ const index = () => {
   };
 
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
         backgroundColor: appTheme.COLORS.mainBackground,
@@ -82,7 +84,7 @@ const index = () => {
       <View
         style={{
           paddingHorizontal: 20,
-          marginBottom: 20,
+          marginVertical: 10,
         }}
       >
         <View style={styles.searchInputContainer}>
@@ -101,8 +103,87 @@ const index = () => {
         </View>
       </View>
 
+      <TouchableOpacity
+        style={{
+          backgroundColor: appTheme.COLORS.infoYellow,
+          borderRadius: 10,
+          paddingVertical: 10,
+          paddingHorizontal: 10,
+          flexDirection: "row",
+          marginHorizontal: 10,
+          borderColor: appTheme.COLORS.mainYellow,
+          borderWidth: 1,
+          marginTop: 10,
+          marginBottom: 20,
+        }}
+      >
+        <View
+          style={{
+            marginLeft: 10,
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 15,
+              fontFamily: "Gilroy-Bold",
+            }}
+          >
+            EMPTIES
+          </Text>
+
+          <View>
+            <Text
+              style={{
+                fontSize: 15,
+                fontFamily: "Gilroy-Light",
+              }}
+            >
+              Total Quantity
+            </Text>
+
+            <Text
+              style={{
+                fontSize: 15,
+                fontFamily: "Gilroy-Light",
+                color: appTheme.COLORS.black,
+              }}
+            >
+              {vanEmpties?.quantity}
+            </Text>
+          </View>
+
+          <View
+            style={{
+              flexDirection: "row",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 15,
+                fontFamily: "Gilroy-Light",
+                color: appTheme.COLORS.black,
+              }}
+            >
+              Price per Case
+            </Text>
+
+            <Text
+              style={{
+                fontSize: 15,
+                fontFamily: "Gilroy-Bold",
+                color: appTheme.COLORS.black,
+                marginLeft: 10,
+              }}
+            >
+              {"\u20A6"}
+              {formatPrice(1000)}
+            </Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+
       <ProductFlastlist list={vanProducts} />
-    </SafeAreaView>
+    </View>
   );
 };
 

@@ -7,6 +7,7 @@ import {
   Text,
   TextInput,
   Keyboard,
+  Platform,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -83,7 +84,7 @@ export default function DeliveriesScreen() {
   };
 
   return (
-    <ScrollView
+    <View
       style={{
         backgroundColor: appTheme.COLORS.mainBackground,
         flex: 1,
@@ -92,7 +93,7 @@ export default function DeliveriesScreen() {
       <View
         style={{
           backgroundColor: appTheme.COLORS.white,
-          height: StatusBar.currentHeight * 2.5,
+          height: Platform.OS === "ios" ? 130 : StatusBar.currentHeight * 2.5,
           paddingLeft: 20,
           flexDirection: "row",
           alignItems: "center",
@@ -145,8 +146,15 @@ export default function DeliveriesScreen() {
         </View>
       </View>
 
-      {order?.length !== 0 ? <>{ShowDeliveries(index)}</> : <Spinner />}
-    </ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{
+          flex: 1,
+        }}
+      >
+        {order?.length !== 0 ? <>{ShowDeliveries(index)}</> : <Spinner />}
+      </ScrollView>
+    </View>
   );
 }
 

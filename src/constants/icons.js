@@ -24,6 +24,7 @@ const checkIcon = require("../../assets/icons/Check.png");
 const smallCheckIcon = require("../../assets/icons/smallcheck.png");
 const rejectedIcon = require("../../assets/icons/Rejected.png");
 const loadVan = require("../../assets/icons/loadVan.png");
+const InfoIcon = require("../../assets/icons/InfoIcon.png");
 
 export default {
   home,
@@ -52,4 +53,5 @@ export default {
   smallCheckIcon,
   rejectedIcon,
   loadVan,
+  InfoIcon,
 };

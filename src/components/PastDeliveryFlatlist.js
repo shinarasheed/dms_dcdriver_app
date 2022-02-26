@@ -6,7 +6,6 @@ import PastDeliveryCard from "./PastDeliveryCard";
 const PastDeliveryFlatList = ({ list, products }) => {
   return (
     <FlatList
-      style={{ marginBottom: 100 }}
       data={list}
       keyExtractor={(item, id) => id.toString()}
       showsVerticalScrollIndicator={false}

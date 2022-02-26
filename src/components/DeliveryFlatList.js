@@ -6,7 +6,6 @@ const DeliveryFlatList = ({ list, products }) => {
   return (
     <>
       <FlatList
-        style={{ marginBottom: 100 }}
         data={list}
         keyExtractor={(item, id) => id.toString()}
         showsVerticalScrollIndicator={false}

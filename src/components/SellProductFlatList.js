@@ -7,6 +7,7 @@ const SellProductFlatList = ({ inventory, getQuantity, getQuantity2 }) => {
   return (
     <>
       <FlatList
+        showsVerticalScrollIndicator={false}
         data={inventory}
         keyExtractor={(item, id) => id.toString()}
         renderItem={({ item }) => (

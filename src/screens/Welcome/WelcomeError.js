@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
 import {
   StyleSheet,
   TouchableOpacity,
@@ -9,18 +10,20 @@ import {
 } from "react-native";
 import * as SecureStore from "expo-secure-store";
 import Routes from "../../navigation/Routes";
-
 import { adService } from "ad-b2c-react-native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import appTheme from "../../constants/theme";
+import { logOut } from "../../redux/actions/userActions";
 
 export const WelcomeError = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
 
   const clearTokens = async () => {
-    navigation.navigate(Routes.LOGIN_SCREEN);
-    console.log("welcomeError");
+    await adService.logoutAsync();
+    // await AsyncStorage.clear();
+    // navigation.navigate(Routes.CONTINUE_SCREEN);
   };
 
   return (
@@ -36,7 +39,7 @@ export const WelcomeError = () => {
           fontSize: 15,
         }}
       >
-        Your Account already exist
+        This Account already exist
       </Text>
 
       <TouchableOpacity
@@ -54,10 +57,10 @@ export const WelcomeError = () => {
         <Text
           style={{
             color: appTheme.COLORS.white,
-            fontSize: 20,
+            fontSize: 15,
           }}
         >
-          Continue Welcome
+          Signup with another Account
         </Text>
       </TouchableOpacity>
     </View>

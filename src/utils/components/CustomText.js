@@ -11,10 +11,10 @@ export default function CustomText({ style, bold = false, ...props }) {
 const styles = StyleSheet.create({
   text: {
     fontSize: 14,
-    fontFamily: "sans-serif",
+    // fontFamily: "sans-serif",
     color: appTheme.COLORS.black,
   },
   bold: {
-    fontFamily: "sans-serif",
+    // fontFamily: "sans-serif",
   },
 });

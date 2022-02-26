@@ -31,7 +31,7 @@ export const createHTML = ({
                     color: ${appTheme.COLORS.black};
                     min-height: 100%;
                     overflow-x: hidden;
-                    font-family: 'Red Hat Display', sans-serif;
+                    // font-family: 'Red Hat Display', sans-serif;
                 }
 
                 * {
