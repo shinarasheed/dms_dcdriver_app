@@ -138,6 +138,7 @@ const DeliveryCard = ({ item, products }) => {
             ? null
             : `\u20A6${formatPrice(getTotalPrice())}`} */}
 
+          {"\u20A6"}
           {formatPrice(item?.totalPrice)}
         </Text>
       </View>
