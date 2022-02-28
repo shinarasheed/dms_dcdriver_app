@@ -14,6 +14,7 @@ export default function UserBottomSheet({
   driver,
   distributor,
   visible,
+  user,
 }) {
   const dispatch = useDispatch();
 
@@ -56,7 +57,7 @@ export default function UserBottomSheet({
                   marginBottom: 8,
                 }}
               >
-                {driver?.name}
+                {user?.name}
               </Text>
               <Text
                 style={{
@@ -65,7 +66,7 @@ export default function UserBottomSheet({
                   marginBottom: 10,
                 }}
               >
-                {driver?.phoneNumber}
+                {user?.phoneNumber}
               </Text>
 
               <View>

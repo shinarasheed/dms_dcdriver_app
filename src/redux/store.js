@@ -1,5 +1,7 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
+import { persistStore, persistReducer } from "redux-persist";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import thunk from "redux-thunk";
 
@@ -15,6 +17,12 @@ import { productsReducer } from "./reducers/productReducer";
 import { customerOneOfReducer } from "./reducers/customerReducer";
 import userReducer from "./reducers/userReducer";
 
+const persistConfig = {
+  key: "root",
+  storage: AsyncStorage,
+  whitelist: ["user"],
+};
+
 const reducer = combineReducers({
   orders: ordersReducer,
   singleOrder: orderSingleReducer,
@@ -24,17 +32,17 @@ const reducer = combineReducers({
   products: productsReducer,
   customerOneOf: customerOneOfReducer,
   van: vanReducer,
-  user: userReducer,
+  user: persistReducer(persistConfig, userReducer),
 });
 
 const initialState = {};
 
 const middleware = [thunk];
 
-const store = createStore(
+export const store = createStore(
   reducer,
   initialState,
   composeWithDevTools(applyMiddleware(...middleware))
 );
 
-export default store;
+export const persistor = persistStore(store);

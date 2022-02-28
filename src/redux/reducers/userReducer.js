@@ -97,6 +97,9 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   RESTORE_TOKEN,
+  GET_DISTRIBUTOR_CUSTOMERS_REQUEST,
+  GET_DISTRIBUTOR_CUSTOMERS_SUCCESS,
+  GET_DISTRIBUTOR_CUSTOMERS_FAIL,
 } from "../constants/userConstants";
 
 const initialState = {
@@ -108,6 +111,10 @@ const initialState = {
   error: null,
   // driverEmail: null,
   phoneNumber: null,
+  customers: [],
+  bulkbreakers: [],
+  pocs: [],
+  new: [],
 };
 
 export default (state = initialState, action) => {
@@ -172,6 +179,30 @@ export default (state = initialState, action) => {
         isAuthenticated: false,
         token: null,
         user: null,
+      };
+
+    case GET_DISTRIBUTOR_CUSTOMERS_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+      };
+    case GET_DISTRIBUTOR_CUSTOMERS_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        customers: action.payload,
+        pocs: action.payload.filter(
+          (customer) => customer.CUST_Type.toLowerCase() === "poc"
+        ),
+        bulkbreakers: action.payload.filter(
+          (customer) => customer.CUST_Type.toLowerCase() === "bulkbreaker"
+        ),
+      };
+    case GET_DISTRIBUTOR_CUSTOMERS_FAIL:
+      return {
+        ...state,
+        isLoading: false,
+        customers: [],
       };
 
     default:

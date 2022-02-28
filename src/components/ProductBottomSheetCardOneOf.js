@@ -1,7 +1,7 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 import { StyleSheet, Image, Text, View, Pressable } from "react-native";
-
+import { useSelector } from "react-redux";
 import appTheme from "../constants/theme";
 import icons from "../constants/icons";
 import {
@@ -10,11 +10,18 @@ import {
   deleteProduct,
 } from "../redux/actions/vanActions";
 import { formatPrice } from "../utils/formatPrice";
+import CountryCurrency from "../components/user/CountryCurrency";
 
 const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
   const { brand, sku, imageUrl, price, quantity, productType, productId } =
     item;
   const dispatch = useDispatch();
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
 
   return (
     <View
@@ -102,6 +109,14 @@ const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
                 alignItems: "center",
               }}
             >
+              <CountryCurrency
+                country={country}
+                price={price}
+                color={appTheme.COLORS.MainGray}
+                fontSize={15}
+                fontFamily="Gilroy-Medium"
+              />
+
               <Text
                 style={{
                   fontSize: 15,
@@ -109,8 +124,7 @@ const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
                   color: appTheme.COLORS.MainGray,
                 }}
               >
-                {"\u20A6"}
-                {price}/case
+                /case
               </Text>
             </View>
           </View>
@@ -173,16 +187,13 @@ const ProductBottomSheetCard = ({ item, getQuantity, getQuantity2 }) => {
             </View>
           </View>
 
-          <Text
-            style={{
-              color: appTheme.COLORS.mainRed,
-              ...appTheme.FONTS.mainFontBold,
-              fontSize: 16,
-            }}
-          >
-            {"\u20A6"}
-            {formatPrice(quantity * price)}
-          </Text>
+          <CountryCurrency
+            country={country}
+            price={quantity * price}
+            color={appTheme.COLORS.mainRed}
+            fontSize={16}
+            fontFamily="Gilroy-Medium"
+          />
         </View>
       </View>
     </View>

@@ -17,6 +17,7 @@ import OrderFooter from "./OrderFooter";
 import { fetchProducts } from "../redux/actions/productActions";
 import { fetchVanProducts } from "../redux/actions/vanActions";
 import Empties from "./Empties";
+import CountryCurrency from "./user/CountryCurrency";
 
 const OrderBottomSheet = ({
   item,
@@ -32,6 +33,12 @@ const OrderBottomSheet = ({
 
   const Van = useSelector((state) => state.van);
   const { inventory, loading: vanLoading, error: vanError } = Van;
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
 
   const setTheDriver = async () => {
     const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
@@ -213,11 +220,22 @@ const OrderBottomSheet = ({
               fontSize: 14,
               fontWeight: "bold",
               color: appTheme.COLORS.black,
+              marginRight: 5,
             }}
           >
             EMPTIES
           </Text>
-          <Text> ({"\u20A6"}1000/Empty) </Text>
+
+          <CountryCurrency
+            country={country}
+            price="22000"
+            color={appTheme.COLORS.black}
+            fontSize={14}
+            fontWeight="bold"
+            fontFamily="Gilroy-Bold"
+          />
+
+          <Text>/empties</Text>
         </View>
         <View
           style={{

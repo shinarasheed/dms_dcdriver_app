@@ -20,6 +20,8 @@ import Continue from "./Continue";
 import { WelcomeError } from "./Welcome/WelcomeError";
 import { LoginError } from "./Welcome/LoginError";
 import Close from "./Logout/Close";
+import CustomerUganda from "../screens/CustomersScreen/CustomerUganda";
+import SellToCustomerUganda from "../screens/CustomersScreen/SellToCustomerUganda";
 
 export {
   HomeScreen,
@@ -44,4 +46,6 @@ export {
   WelcomeError,
   LoginError,
   Close,
+  CustomerUganda,
+  SellToCustomerUganda,
 };

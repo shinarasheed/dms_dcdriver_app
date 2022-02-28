@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   StyleSheet,
   Image,
@@ -17,6 +17,7 @@ import {
   deleteProduct,
   incrementQuantityByTyping,
 } from "../redux/actions/vanActions";
+import CountryCurrency from "../components/user/CountryCurrency";
 
 const ProductBottomSheetCard = ({
   item: { brand, sku, imageUrl, price, quantity, productType, productId },
@@ -24,6 +25,12 @@ const ProductBottomSheetCard = ({
   getQuantity2,
 }) => {
   const dispatch = useDispatch();
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
 
   const handleTextChange = (text, productId) => {
     getQuantity(productId, text) &&
@@ -116,6 +123,14 @@ const ProductBottomSheetCard = ({
                 alignItems: "center",
               }}
             >
+              <CountryCurrency
+                country={country}
+                price={price}
+                color={appTheme.COLORS.MainGray}
+                fontSize={15}
+                fontFamily="Gilroy-Medium"
+              />
+
               <Text
                 style={{
                   fontSize: 15,
@@ -123,8 +138,7 @@ const ProductBottomSheetCard = ({
                   color: appTheme.COLORS.MainGray,
                 }}
               >
-                {"\u20A6"}
-                {price}/case
+                /case
               </Text>
             </View>
           </View>
@@ -182,16 +196,13 @@ const ProductBottomSheetCard = ({
             </View>
           </View>
 
-          <Text
-            style={{
-              color: appTheme.COLORS.mainRed,
-              fontSize: 16,
-              fontFamily: "Gilroy-Medium",
-            }}
-          >
-            {"\u20A6"}
-            {quantity * price}
-          </Text>
+          <CountryCurrency
+            country={country}
+            price={quantity * price}
+            color={appTheme.COLORS.mainRed}
+            fontSize={15}
+            fontFamily="Gilroy-Medium"
+          />
         </View>
       </View>
     </View>

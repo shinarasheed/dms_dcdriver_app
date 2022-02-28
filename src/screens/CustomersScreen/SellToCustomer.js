@@ -19,7 +19,7 @@ const SellToCustomer = () => {
   const dispatch = useDispatch();
 
   const route = useRoute();
-  const order = route.params;
+  const { customer, order } = route.params;
 
   const Van = useSelector((state) => state.van);
   const { inventory, newinventory, loading: vanLoading, error: vanError } = Van;
@@ -97,12 +97,13 @@ const SellToCustomer = () => {
         <Text
           style={{
             fontSize: 17,
-            fontWeight: "700",
-            ...appTheme.FONTS.mainFontBold,
             textTransform: "capitalize",
+            fontFamily: "Gilroy-Medium",
           }}
         >
-          {`sell to ${order?.buyerDetails[0]?.buyerName}`}
+          {customer
+            ? `sell to ${customer.CUST_Name} `
+            : `sell to ${order?.buyerDetails[0]?.buyerName}`}
         </Text>
       </View>
 
@@ -138,6 +139,7 @@ const SellToCustomer = () => {
         getEmptiesPrice={getEmptiesPrice}
         productsToSell={productsToSell}
         order={order}
+        customer={customer}
         getQuantity={getQuantity}
         getQuantity2={getQuantity2}
         calNumberOfFull={calNumberOfFull}

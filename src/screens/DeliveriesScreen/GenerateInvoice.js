@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
+import { useSelector } from "react-redux";
 import {
   SafeAreaView,
   Text,
@@ -23,6 +24,7 @@ import { createAndSavePDF } from "../../utils/helpers";
 import { simpleHtml } from "../../utils/html";
 import Routes from "../../navigation/Routes";
 import { formatPrice } from "../../utils/formatPrice";
+import CountryCurrency from "../../components/user/CountryCurrency";
 
 export const createPdf = (htmlFactory) => async () => {
   try {
@@ -65,6 +67,12 @@ const GenerateInvoice = () => {
     setDistributor(distributor);
     setDriver(driver);
   };
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
 
   useEffect(() => {
     getDistibutor();
@@ -306,8 +314,15 @@ const GenerateInvoice = () => {
                   marginLeft: 65,
                 }}
               >
-                {"\u20A6"}
-                {formatPrice(totalPrice)}
+                <CountryCurrency
+                  country={country}
+                  price={totalPrice}
+                  color={appTheme.COLORS.black}
+                  fontSize={14}
+                  fontWeight="bold"
+                  fontFamily="Gilroy-Bold"
+                  marginLeft={65}
+                />
               </Text>
             </View>
           )}

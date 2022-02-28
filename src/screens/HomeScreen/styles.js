@@ -105,8 +105,6 @@ export default styles = StyleSheet.create({
     fontSize: 18,
   },
   totalSalesAmount: {
-    color: appTheme.COLORS.white,
-    ...appTheme.FONTS.mainFontBold,
     fontSize: 30,
   },
   deliveriesAmount: {

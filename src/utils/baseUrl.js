@@ -1,5 +1,3 @@
-// export const vehicleUrl ="https://dmsqa20.azure-api.net/vehicle"
-
 export const productUrl = "https://dmsqa20.azure-api.net/product/api/v1";
 export const orderUrl = "https://dmsqa20.azure-api.net/order";
 export const customerUrl = "https://dmsqa20.azure-api.net/customer";

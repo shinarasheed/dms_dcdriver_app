@@ -1,46 +1,45 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, Image, View, Pressable } from "react-native";
-import { useNavigation } from "@react-navigation//native";
-import { icons } from "../constants";
 import { BottomSheet } from "react-native-btr";
 import { Button } from "react-native-elements";
+import {
+  updateInventory,
+  confirmVanSales,
+} from "../../../redux/actions/vanActions";
 
-import appTheme from "../constants/theme";
-import ProductBottomSheetOneOf from "./ProductBottomSheetOneOf";
-import { confirmVanSales } from "../redux/actions/vanActions";
-import { updateInventory } from "../redux/actions/vanActions";
-import { formatPrice } from "../utils/formatPrice";
+import appTheme from "../../../constants/theme";
+import ProductBottomSheet from "./ProductBottomSheet";
+import Routes from "../../../navigation/Routes";
+import { formatPrice } from "../../../utils/formatPrice";
+import { icons } from "../../../constants";
 
-const SellProductFooterOneOf = ({
+const SellProductFooter = ({
   getTotalPrice,
   getProductPrice,
   productsToSell,
-  order,
+  customer,
   getQuantity,
   getQuantity2,
   calNumberOfFull,
   setEmpties,
-  customer,
   empties,
   getEmptiesPrice,
 }) => {
-  const navigator = useNavigation();
-
-  const userState = useSelector((state) => state.user);
-
-  const {
-    user: { country },
-  } = userState;
+  const navigation = useNavigation();
 
   const [visible, setVisible] = useState(false);
   const [salesCompleted, setSalesCompleted] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false);
 
-  const dispatch = useDispatch();
+  const userState = useSelector((state) => state.user);
 
-  const Van = useSelector((state) => state.van);
-  const { driver } = Van;
+  const { user } = userState;
+
+  const { country } = user;
+
+  const dispatch = useDispatch();
 
   function toggle() {
     setVisible((visible) => !visible);
@@ -54,22 +53,24 @@ const SellProductFooterOneOf = ({
     price: prod.price * prod.quantity,
     quantity: parseInt(prod.quantity),
     productId: prod.productId,
-    SFlineID: "One-Off",
+    SFlineID: "Van-Sales",
   }));
 
   const payload = {
-    sellerCompanyId: driver?.ownerCompanyId,
-    buyerCompanyId: "One-Off Customer",
-    routeName: "One-Off",
-    referenceId: "One-Off",
+    buyerCompanyId: customer?.SF_Code,
+    sellerCompanyId: customer?.DIST_Code,
+    routeName: "Van-Sales",
+    referenceId: "Van-Sales",
     emptiesReturned: empties,
     costOfEmptiesReturned: getEmptiesPrice(),
     datePlaced: new Date(new Date().getTime()),
-    vehicleId: driver?.vehicleId,
+    shipToCode: customer?.SF_Code,
+    billToCode: customer?.SF_Code,
     country: country,
     buyerDetails: {
       buyerName: customer?.CUST_Name,
       buyerPhoneNumber: customer?.phoneNumber,
+      buyerAddress: customer?.address,
     },
 
     orderItems: items,
@@ -81,13 +82,13 @@ const SellProductFooterOneOf = ({
   }));
 
   const payload2 = {
-    vehicleId: driver?.vehicleId,
+    vehicleId: user?.vehicleId,
     orderItems: items2,
   };
 
   return (
     <View style={styles.footerContainer}>
-      <Pressable onPress={toggle}>
+      <Pressable onPress={() => toggle()}>
         {productsToSell?.length > 0 && (
           <View
             style={{
@@ -135,8 +136,10 @@ const SellProductFooterOneOf = ({
         </View>
       </Pressable>
 
+      {/* \u20A6${formatPrice(getProductPrice())} */}
+
       <Button
-        onPress={() => toggleConfirm()}
+        onPress={toggleConfirm}
         disabled={productsToSell?.length === 0}
         buttonStyle={{
           backgroundColor: appTheme.COLORS.mainRed,
@@ -163,18 +166,18 @@ const SellProductFooterOneOf = ({
         onBackdropPress={toggle}
       >
         <View style={styles.bottomSheetCard}>
-          <ProductBottomSheetOneOf
+          <ProductBottomSheet
             getTotalPrice={getTotalPrice}
             toggle={toggle}
             productsToSell={productsToSell}
-            item={order}
+            customer={customer}
             getQuantity={getQuantity}
             getQuantity2={getQuantity2}
             calNumberOfFull={calNumberOfFull}
             setEmpties={setEmpties}
             empties={empties}
             getEmptiesPrice={getEmptiesPrice}
-            customer={customer}
+            getProductPrice={getProductPrice}
           />
         </View>
       </BottomSheet>
@@ -210,6 +213,9 @@ const SellProductFooterOneOf = ({
               </View>
 
               <Pressable
+                onPress={() => {
+                  setSalesCompleted(true);
+                }}
                 style={{
                   backgroundColor: appTheme.COLORS.mainRed,
                   width: 120,
@@ -219,16 +225,8 @@ const SellProductFooterOneOf = ({
                   ...appTheme.FONTS.mainFontBold,
                   borderRadius: 4,
                 }}
-                onPress={() => setSalesCompleted(true)}
               >
-                <Text
-                  style={{
-                    color: appTheme.COLORS.white,
-                    fontFamily: "Gilroy-Medium",
-                  }}
-                >
-                  Yes, sell
-                </Text>
+                <Text style={{ color: appTheme.COLORS.white }}>Yes, sell</Text>
               </Pressable>
             </View>
           )}
@@ -246,8 +244,8 @@ const SellProductFooterOneOf = ({
               <Text
                 style={{
                   fontSize: 17,
-                  marginTop: 20,
-                  marginBottom: 20,
+                  marginBottom: 10,
+                  marginTop: 10,
                   fontFamily: "Gilroy-Medium",
                 }}
               >
@@ -266,12 +264,13 @@ const SellProductFooterOneOf = ({
                 }}
                 onPress={() => {
                   dispatch(confirmVanSales(payload));
-                  navigator.navigate("SalesInvoice", {
-                    productsToSell,
-                    customer,
-                    empties,
-                  });
                   dispatch(updateInventory(payload2));
+                  navigation.navigate(Routes.VANINVOICE_SCREEN, {
+                    productsToSell,
+                    order,
+                    empties,
+                    // totalPrice,
+                  });
                 }}
               >
                 <Text
@@ -292,7 +291,7 @@ const SellProductFooterOneOf = ({
   );
 };
 
-export default SellProductFooterOneOf;
+export default SellProductFooter;
 
 const styles = StyleSheet.create({
   footerContainer: {
@@ -301,7 +300,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingBottom: 15,
     paddingTop: 15,
-    marginTop: 20,
   },
 
   footerButtonText: {

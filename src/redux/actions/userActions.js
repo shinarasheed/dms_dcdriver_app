@@ -184,8 +184,11 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   RESTORE_TOKEN,
+  GET_DISTRIBUTOR_CUSTOMERS_REQUEST,
+  GET_DISTRIBUTOR_CUSTOMERS_SUCCESS,
+  GET_DISTRIBUTOR_CUSTOMERS_FAIL,
 } from "../constants/userConstants";
-import { userUrl, vehicleUrl } from "../../utils/baseUrl";
+import { customerUrl, userUrl, vehicleUrl } from "../../utils/baseUrl";
 
 export const register = (navigation) => async (dispatch) => {
   try {
@@ -340,4 +343,33 @@ export const restoreToken = () => async (dispatch) => {
     type: RESTORE_TOKEN,
     payload: token,
   });
+};
+
+export const getDistributorCustomers = (code) => async (dispatch) => {
+  try {
+    dispatch({
+      type: GET_DISTRIBUTOR_CUSTOMERS_REQUEST,
+    });
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const {
+      data: { result },
+    } = await axios.get(`${customerUrl}/customer/distributor/${code}`, config);
+
+    dispatch({
+      type: GET_DISTRIBUTOR_CUSTOMERS_SUCCESS,
+      payload: result,
+    });
+  } catch (error) {
+    console.log(error);
+    dispatch({
+      type: GET_DISTRIBUTOR_CUSTOMERS_FAIL,
+      payload: "There was an error",
+    });
+  }
 };

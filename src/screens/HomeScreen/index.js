@@ -26,6 +26,8 @@ import axios from "axios";
 import Routes from "../../navigation/Routes";
 import { formatPrice } from "../../utils/formatPrice";
 import { companyUrl } from "../../utils/baseUrl";
+import CountryCurrency from "../../components/user/CountryCurrency";
+import { getDistributorCustomers } from "../../redux/actions/userActions";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -38,8 +40,13 @@ const HomeScreen = () => {
   const { stats } = orderStats;
   const { loading, order } = allOrders;
 
+  const userState = useSelector((state) => state.user);
+
+  const { user } = userState;
+
+  const { country, syspro_code } = user;
+
   const newOrders = order?.filter((item) => item.status === "Assigned");
-  // const splicedArray = newOrders.splice(0, 4);
 
   const dispatch = useDispatch();
 
@@ -52,27 +59,28 @@ const HomeScreen = () => {
   useEffect(() => {
     let componentMounted = true;
 
-    setTimeout(() => {
-      const getDriverDetails = async () => {
-        const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
-        setTheDriver(driver);
-        const {
-          data: { result },
-        } = await axios.get(`${companyUrl}/code/${driver.ownerCompanyId}`);
+    const getDriverDetails = async () => {
+      const {
+        data: { result },
+      } = await axios.get(`${companyUrl}/company/code/${user.ownerCompanyId}`);
 
-        if (componentMounted) {
-          setDistributor(result);
-          await AsyncStorage.setItem("Distributor", JSON.stringify(result));
-        }
-      };
+      if (componentMounted) {
+        setDistributor(result);
+      }
+    };
 
-      getDriverDetails();
-    }, 1000);
+    getDriverDetails();
 
     return () => {
       componentMounted = false;
     };
   }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(getDistributorCustomers(syspro_code));
+    }, [])
+  );
 
   useFocusEffect(
     React.useCallback(() => {
@@ -148,17 +156,16 @@ const HomeScreen = () => {
                   Total Sales
                 </Text>
 
-                <Text
-                  style={[
-                    styles.totalSalesAmount,
-                    {
-                      fontFamily: "Gilroy-Medium",
-                    },
-                  ]}
-                >
-                  {"\u20A6"}
-                  {stats?.totalSales ? `${formatPrice(stats.totalSales)}` : 0}
-                </Text>
+                <CountryCurrency
+                  country={country}
+                  price={
+                    stats?.totalSales ? `${formatPrice(stats.totalSales)}` : 0
+                  }
+                  color={appTheme.COLORS.white}
+                  fontSize={20}
+                  fontWeight="bold"
+                  fontFamily="Gilroy-Bold"
+                />
               </View>
             </ImageBackground>
 
@@ -184,10 +191,16 @@ const HomeScreen = () => {
                     {stats?.deliveryCounts > 1 ? "Deliveries" : "Delivery"}
                   </Text>
 
-                  <Text style={styles.deliveriesAmount}>
-                    {"\u20A6"}
-                    {stats?.deliveries ? `${formatPrice(stats.deliveries)}` : 0}
-                  </Text>
+                  <CountryCurrency
+                    country={country}
+                    price={
+                      stats?.deliveries ? `${formatPrice(stats.deliveries)}` : 0
+                    }
+                    color={appTheme.COLORS.white}
+                    fontSize={18}
+                    fontWeight="bold"
+                    fontFamily="Gilroy-Bold"
+                  />
                 </View>
                 <View>
                   <Text
@@ -201,17 +214,16 @@ const HomeScreen = () => {
                     {stats?.visitCounts}{" "}
                     {stats?.visitCounts > 1 ? "Visits" : "Visit"}
                   </Text>
-                  <Text
-                    style={[
-                      styles.totalVisitAmount,
-                      {
-                        fontFamily: "Gilroy-Medium",
-                      },
-                    ]}
-                  >
-                    {"\u20A6"}
-                    {stats?.visits ? `${formatPrice(stats.visits)}` : 0}
-                  </Text>
+
+                  <CountryCurrency
+                    country={country}
+                    price={stats?.visits ? `${formatPrice(stats.visits)}` : 0}
+                    color={appTheme.COLORS.white}
+                    bold
+                    fontSize={18}
+                    fontWeight="bold"
+                    fontFamily="Gilroy-Bold"
+                  />
                 </View>
               </View>
             </ImageBackground>
@@ -282,6 +294,7 @@ const HomeScreen = () => {
         driver={theDriver}
         toggle={toggle}
         visible={visible}
+        user={user}
       />
     </SafeAreaView>
   );

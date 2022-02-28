@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  FlatList,
   StyleSheet,
   Image,
   Pressable,
@@ -7,35 +8,35 @@ import {
   View,
   ScrollView,
 } from "react-native";
-import icons from "../constants/icons";
 import { useSelector } from "react-redux";
 
-import appTheme from "../constants/theme";
-import ProductBottomSheetCard from "./ProductBottomSheetCardOneOf";
-import ProductFooterOneOf from "./ProductFooterOneOf";
-import EmptiesCustomer from "./EmptiesCustomerOneOf";
+import appTheme from "../../../constants/theme";
+import ProductBottomSheetCard from "../../ProductBottomSheetCard";
+import ProductFooter from "./ProductFooter";
+import EmptiesCustomer from "../../EmptiesCustomer";
+import CountryCurrency from "../../../components/user/CountryCurrency";
+import { icons } from "../../../constants";
 
-const ProductBottomSheetOneOf = ({
+const ProductBottomSheet = ({
   productsToSell,
   getTotalPrice,
   toggle,
-  item,
+  customer,
   getQuantity,
   getQuantity2,
   calNumberOfFull,
   setEmpties,
-  customer,
-  getEmptiesPrice,
   empties,
+  getEmptiesPrice,
+  getProductPrice,
 }) => {
   const userState = useSelector((state) => state.user);
 
   const {
     user: { country },
   } = userState;
-
   return (
-    <ScrollView>
+    <ScrollView showsVerticalScrollIndicator={false}>
       <View
         style={{
           paddingHorizontal: 20,
@@ -49,10 +50,12 @@ const ProductBottomSheetOneOf = ({
           style={{
             justifyContent: "space-between",
             flexDirection: "row",
-            marginBottom: 20,
+            marginBottom: 15,
           }}
         >
-          <Text style={{ fontSize: 18 }}>Sell To {customer?.CUST_Name}</Text>
+          <Text style={{ fontSize: 18, fontFamily: "Gilroy-Medium" }}>
+            Sell To {customer?.CUST_Name}
+          </Text>
           <Pressable onPress={() => toggle()}>
             <Image source={icons.cancelIcon} />
           </Pressable>
@@ -96,9 +99,9 @@ const ProductBottomSheetOneOf = ({
         <Text
           style={{
             fontSize: 13,
-            fontWeight: "700",
             marginBottom: 10,
             color: appTheme.COLORS.black,
+            fontFamily: "Gilroy-Medium",
           }}
         >
           EMPTIES
@@ -108,6 +111,7 @@ const ProductBottomSheetOneOf = ({
             <Text
               style={{
                 fontSize: 15,
+                fontWeight: "600",
                 color: appTheme.COLORS.MainGray,
                 fontFamily: "Gilroy-Medium",
               }}
@@ -128,88 +132,20 @@ const ProductBottomSheetOneOf = ({
         </View>
       </View>
 
-      {/* <FlatList
-        data={productsToSell}
-        keyExtractor={(item, id) => id.toString()}
-        showsVerticalScrollIndicator={false}
-        renderItem={({ item }) => (
-          <ProductBottomSheetCard
-            productsToSell={productsToSell}
-            item={item}
-            getQuantity={getQuantity}
-            getQuantity2={getQuantity2}
-          />
-        )}
-        ItemSeparatorComponent={() => (
-          <View
-            style={{
-              height: 1,
-              width: "100%",
-              backgroundColor: appTheme.COLORS.Grey,
-            }}
-          ></View>
-        )}
-        ListFooterComponent={() => (
-          <View
-            style={{
-              borderTopWidth: 1,
-              borderTopColor: appTheme.COLORS.borderGRey,
-              paddingTop: 20,
-              paddingHorizontal: 20,
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 13,
-                fontWeight: "700",
-                marginBottom: 10,
-                color: appTheme.COLORS.black,
-              }}
-            >
-              EMPTIES
-            </Text>
-            <View
-              style={{ flexDirection: "row", justifyContent: "space-between" }}
-            >
-              <View style={{ flexDirection: "row" }}>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    fontWeight: "600",
-                    color: appTheme.COLORS.MainGray,
-                  }}
-                >
-                  Empties returning:
-                </Text>
-                <Text
-                  style={{
-                    fontSize: 15,
-                    fontWeight: "600",
-                    color: appTheme.COLORS.black,
-                  }}
-                >
-                  {empties}
-                </Text>
-              </View>
-            </View>
-          </View>
-        )}
-      /> */}
-
-      <ProductFooterOneOf
+      <ProductFooter
         getTotalPrice={getTotalPrice}
-        order={item}
-        productsToSell={productsToSell}
         customer={customer}
+        productsToSell={productsToSell}
         toggle={toggle}
         empties={empties}
         getEmptiesPrice={getEmptiesPrice}
+        getProductPrice={getProductPrice}
       />
     </ScrollView>
   );
 };
 
-export default ProductBottomSheetOneOf;
+export default ProductBottomSheet;
 
 const styles = StyleSheet.create({
   productIncreaseDecreaseContainer: {

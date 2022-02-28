@@ -31,12 +31,13 @@ const SellProductFooter = ({
   const [salesCompleted, setSalesCompleted] = useState(false);
   const [confirmVisible, setConfirmVisible] = useState(false);
 
-  // const totalPrice = getTotalPrice();
+  const userState = useSelector((state) => state.user);
+
+  const { user } = userState;
+
+  const { country } = user;
 
   const dispatch = useDispatch();
-
-  const Van = useSelector((state) => state.van);
-  const { driver } = Van;
 
   function toggle() {
     setVisible((visible) => !visible);
@@ -63,6 +64,7 @@ const SellProductFooter = ({
     datePlaced: new Date(new Date().getTime()),
     shipToCode: order?.buyerCompanyId,
     billToCode: order?.buyerCompanyId,
+    country: country,
     buyerDetails: {
       buyerName: order?.buyerDetails[0].buyerName,
       buyerPhoneNumber: order?.buyerDetails[0].buyerPhoneNumber,
@@ -78,7 +80,7 @@ const SellProductFooter = ({
   }));
 
   const payload2 = {
-    vehicleId: driver?.vehicleId,
+    vehicleId: user?.vehicleId,
     orderItems: items2,
   };
 
@@ -123,6 +125,7 @@ const SellProductFooter = ({
               marginRight: 10,
               marginLeft: 10,
               color: appTheme.COLORS.mainTextGray,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             View order summary
@@ -130,6 +133,8 @@ const SellProductFooter = ({
           <Image source={icons.arrowDownIcon} />
         </View>
       </Pressable>
+
+      {/* \u20A6${formatPrice(getProductPrice())} */}
 
       <Button
         onPress={toggleConfirm}
@@ -145,7 +150,11 @@ const SellProductFooter = ({
         title={` Confirm  ${
           getProductPrice() === undefined
             ? ""
-            : `\u20A6${formatPrice(getProductPrice())}`
+            : `${
+                country === "UG"
+                  ? `UGX${formatPrice(getProductPrice())}`
+                  : `{"\u20A6"}${formatPrice(getProductPrice())}`
+              }`
         }`}
       />
 
@@ -187,10 +196,16 @@ const SellProductFooter = ({
           {!salesCompleted && (
             <View style={{ alignItems: "center" }}>
               <View style={{ marginBottom: 20 }}>
-                <Text style={{ fontSize: 17 }}>
+                <Text style={{ fontSize: 17, fontFamily: "Gilroy-Medium" }}>
                   Are you sure you want to sell your
                 </Text>
-                <Text style={{ fontSize: 17, textAlign: "center" }}>
+                <Text
+                  style={{
+                    fontSize: 17,
+                    textAlign: "center",
+                    fontFamily: "Gilroy-Medium",
+                  }}
+                >
                   section(s)?
                 </Text>
               </View>
@@ -224,7 +239,14 @@ const SellProductFooter = ({
                 source={icons.checkIcon}
               />
 
-              <Text style={{ fontSize: 17, marginBottom: 10, marginTop: 10 }}>
+              <Text
+                style={{
+                  fontSize: 17,
+                  marginBottom: 10,
+                  marginTop: 10,
+                  fontFamily: "Gilroy-Medium",
+                }}
+              >
                 sales completed
               </Text>
 
@@ -249,7 +271,13 @@ const SellProductFooter = ({
                   });
                 }}
               >
-                <Text style={{ color: appTheme.COLORS.white, fontSize: 18 }}>
+                <Text
+                  style={{
+                    color: appTheme.COLORS.white,
+                    fontSize: 18,
+                    fontFamily: "Gilroy-Medium",
+                  }}
+                >
                   ok
                 </Text>
               </Pressable>

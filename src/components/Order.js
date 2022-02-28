@@ -1,9 +1,16 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Image, Text, View } from "react-native";
 import appTheme from "../constants/theme";
 import { formatPrice } from "../utils/formatPrice";
+import CountryCurrency from "./user/CountryCurrency";
 
 const Order = ({ order, getProductDetails }) => {
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
   return (
     <>
       {order !== undefined && (
@@ -117,20 +124,29 @@ const Order = ({ order, getProductDetails }) => {
                 <Text style={{ fontSize: 14, marginRight: 2 }}>Price:</Text>
 
                 {getProductDetails(order?.productId)?.price !== undefined && (
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: appTheme.COLORS.mainRed,
-                      ...appTheme.FONTS.mainFontBold,
-                    }}
-                  >
-                    {"\u20A6"}
-                    {formatPrice(order?.price)}
-                    {/* {formatPrice(
-                      getProductDetails(order?.productId)?.price *
-                        order?.quantity
-                    )} */}
-                  </Text>
+                  // <Text
+                  //   style={{
+                  //     fontSize: 14,
+                  //     color: appTheme.COLORS.mainRed,
+                  //     ...appTheme.FONTS.mainFontBold,
+                  //   }}
+                  // >
+                  //   {"\u20A6"}
+                  //   {formatPrice(order?.price)}
+                  //   {/* {formatPrice(
+                  //     getProductDetails(order?.productId)?.price *
+                  //       order?.quantity
+                  //   )} */}
+                  // </Text>
+                  <CountryCurrency
+                    country={country}
+                    price={order?.price}
+                    color={appTheme.COLORS.mainRed}
+                    bold
+                    fontSize={14}
+                    fontWeight="bold"
+                    fontFamily="Gilroy-Bold"
+                  />
                 )}
               </View>
             </View>

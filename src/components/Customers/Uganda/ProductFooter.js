@@ -3,32 +3,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import appTheme from "../constants/theme";
-import { confirmVanSales } from "../redux/actions/vanActions";
-import { updateInventory } from "../redux/actions/vanActions";
-import CountryCurrency from "./user/CountryCurrency";
+import {
+  confirmVanSales,
+  updateInventory,
+} from "../../../redux/actions/vanActions";
+import CountryCurrency from "../../user/CountryCurrency";
+import appTheme from "../../../constants/theme";
 
-const SellProductFooter = ({
+const ProductFooter = ({
   getTotalPrice,
   toggle,
-  order,
+  customer,
   productsToSell,
   empties,
   getEmptiesPrice,
-  getProductPrice,
 }) => {
   const navigator = useNavigation();
 
   const userState = useSelector((state) => state.user);
 
-  const {
-    user: { country },
-  } = userState;
+  const { user } = userState;
+
+  const { country } = user;
 
   const dispatch = useDispatch();
 
-  const Van = useSelector((state) => state.van);
-  const { driver } = Van;
+  function toggle() {
+    setVisible((visible) => !visible);
+  }
+
+  function toggleConfirm() {
+    setConfirmVisible((visible) => !visible);
+  }
 
   const items = productsToSell?.map((prod) => ({
     price: prod.price * prod.quantity,
@@ -38,21 +44,20 @@ const SellProductFooter = ({
   }));
 
   const payload = {
-    buyerCompanyId: order?.buyerCompanyId,
-    sellerCompanyId: order?.sellerCompanyId,
+    buyerCompanyId: customer?.SF_Code,
+    sellerCompanyId: customer?.DIST_Code,
     routeName: "Van-Sales",
     referenceId: "Van-Sales",
     emptiesReturned: empties,
     costOfEmptiesReturned: getEmptiesPrice(),
     datePlaced: new Date(new Date().getTime()),
-    shipToCode: order?.buyerCompanyId,
-    billToCode: order?.buyerCompanyId,
-    vehicleId: driver?.vehicleId,
+    shipToCode: customer?.SF_Code,
+    billToCode: customer?.SF_Code,
     country: country,
     buyerDetails: {
-      buyerName: order?.buyerDetails[0].buyerName,
-      buyerPhoneNumber: order?.buyerDetails[0].buyerPhoneNumber,
-      buyerAddress: order?.buyerDetails[0].buyerAddress,
+      buyerName: customer?.CUST_Name,
+      buyerPhoneNumber: customer?.phoneNumber,
+      buyerAddress: customer?.address,
     },
 
     orderItems: items,
@@ -64,7 +69,7 @@ const SellProductFooter = ({
   }));
 
   const payload2 = {
-    vehicleId: driver?.vehicleId,
+    vehicleId: user?.vehicleId,
     orderItems: items2,
   };
 
@@ -119,7 +124,7 @@ const SellProductFooter = ({
   );
 };
 
-export default SellProductFooter;
+export default ProductFooter;
 
 const styles = StyleSheet.create({
   footerContainer: {

@@ -21,6 +21,8 @@ const Routes = {
   LOGIN_ERROR: "LoginError",
   WELCOME_ERROR: "WelcomeError",
   CLOSE_SCREEN: "Close",
+  CUSTOMERS_SCREEN_UGANGA: "CustomerUganda",
+  SELLTO_CUSTOMER_SCREEN_UGANDA: "SellToCustomerUganda",
 };
 
 export default Routes;

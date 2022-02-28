@@ -1,11 +1,13 @@
 import React from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 import moment from "moment";
 
 import appTheme from "../constants/theme";
 import Routes from "../navigation/Routes";
 import { formatPrice } from "../utils/formatPrice";
+import CountryCurrency from "../components/user/CountryCurrency";
 
 const PastDeliveryCard = ({ item, products }) => {
   const navigation = useNavigation();
@@ -25,6 +27,12 @@ const PastDeliveryCard = ({ item, products }) => {
       0
     );
   };
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
 
   return (
     <>
@@ -138,20 +146,18 @@ const PastDeliveryCard = ({ item, products }) => {
               {item?.orderItems.length}{" "}
               {item?.orderItems.length === 1 ? "product" : "products"}
             </Text>
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: "700",
-                ...appTheme.FONTS.mainFontBold,
-                color: appTheme.COLORS.mainTextGray,
-              }}
-            >
-              {/* {"\u20A6"}
+
+            {/* {"\u20A6"}
               {isNaN(getTotalPrice()) ? null : getTotalPrice()} */}
 
-              {"\u20A6"}
-              {formatPrice(item?.totalPrice)}
-            </Text>
+            <CountryCurrency
+              country={country}
+              fontSize={14}
+              price={item?.totalPrice}
+              color={appTheme.COLORS.MainGray}
+              fontWeight="bold"
+              fontFamily="Gilroy-Bold"
+            />
           </View>
         </View>
       </TouchableOpacity>

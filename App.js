@@ -5,12 +5,13 @@ import { useSelector, useDispatch } from "react-redux";
 import { NavigationContainer, DefaultTheme } from "@react-navigation/native";
 import AppLoading from "expo-app-loading";
 import * as Font from "expo-font";
+import { PersistGate } from "redux-persist/integration/react";
 
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 
 import { restoreToken } from "./src/redux/actions/userActions";
-import store from "./src/redux/store";
+import { store, persistor } from "./src/redux/store";
 import MainStack from "./src/navigation/MainStack";
 import AuthNavigation from "./src/navigation/AuthNavigator";
 
@@ -49,10 +50,11 @@ const AppWrapper = () => {
   return (
     <>
       <StatusBar barStyle="dark-content" backgroundColor="white" />
-
       <SafeAreaProvider>
         <NavigationContainer theme={theme}>
-          {token ? <MainStack /> : <AuthNavigation />}
+          <PersistGate loading={null} persistor={persistor}>
+            {token ? <MainStack /> : <AuthNavigation />}
+          </PersistGate>
         </NavigationContainer>
       </SafeAreaProvider>
     </>

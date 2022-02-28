@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
@@ -7,6 +7,7 @@ import appTheme from "../constants/theme";
 // import { confirmOrder } from "../redux/actions/orderActions";
 import { postVanEmpties, updateInventory } from "../redux/actions/vanActions";
 import { formatPrice } from "../utils/formatPrice";
+import CountryCurrency from "./user/CountryCurrency";
 
 const OrderFooter = ({
   getTotalPrice,
@@ -56,6 +57,12 @@ const OrderFooter = ({
     }
   };
 
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
+
   return (
     <View style={styles.footerContainer}>
       <TouchableOpacity
@@ -90,19 +97,28 @@ const OrderFooter = ({
           marginTop: 10,
           alignItems: "center",
           justifyContent: "center",
+          flexDirection: "row",
         }}
       >
         <Text
           style={{
             color: appTheme.COLORS.white,
             fontSize: 16,
-            fontWeight: "bold",
+            fontFamily: "Gilroy-Bold",
           }}
         >
-          {isNaN(totalPrice)
-            ? null
-            : ` Confirm \u20A6${formatPrice(totalPrice)}`}
+          Confirm{" "}
         </Text>
+        {isNaN(totalPrice) ? null : (
+          <CountryCurrency
+            country={country}
+            price={totalPrice}
+            color={appTheme.COLORS.white}
+            fontSize={16}
+            fontWeight="bold"
+            fontFamily="Gilroy-Bold"
+          />
+        )}
       </TouchableOpacity>
     </View>
   );

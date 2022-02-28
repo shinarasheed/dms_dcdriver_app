@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import {
   StyleSheet,
   Image,
@@ -18,6 +18,7 @@ import {
 import { icons } from "../constants";
 import appTheme from "../constants/theme";
 import { formatPrice } from "../utils/formatPrice";
+import CountryCurrency from "../components/user/CountryCurrency";
 
 const SellProductFlatListCard = ({
   product: { productId, brand, price, productType, imageUrl, sku, quantity },
@@ -30,6 +31,12 @@ const SellProductFlatListCard = ({
     getQuantity(productId, text) &&
       dispatch(incrementQuantityByTyping(text, productId));
   };
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
 
   return (
     <View
@@ -118,15 +125,20 @@ const SellProductFlatListCard = ({
                 alignItems: "center",
               }}
             >
+              <CountryCurrency
+                country={country}
+                price={price}
+                color={appTheme.COLORS.MainGray}
+                fontSize={14}
+                fontFamily="Gilroy-Medium"
+              />
+
               <Text
                 style={{
-                  fontSize: 15,
-                  fontFamily: "Gilroy-Medium",
-                  color: appTheme.COLORS.MainGray,
+                  fontSize: 14,
                 }}
               >
-                {"\u20A6"}
-                {price}/case
+                /case
               </Text>
             </View>
           </View>
@@ -184,16 +196,13 @@ const SellProductFlatListCard = ({
             </View>
           </View>
 
-          <Text
-            style={{
-              color: appTheme.COLORS.mainRed,
-              fontSize: 16,
-              fontFamily: "Gilroy-Medium",
-            }}
-          >
-            {"\u20A6"}
-            {formatPrice(quantity * price)}
-          </Text>
+          <CountryCurrency
+            country={country}
+            price={quantity * price}
+            color={appTheme.COLORS.mainRed}
+            fontSize={16}
+            fontFamily="Gilroy-Medium"
+          />
         </View>
       </View>
     </View>

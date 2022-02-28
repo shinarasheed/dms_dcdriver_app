@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
+import { useSelector } from "react-redux";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
@@ -21,7 +22,7 @@ import CallCustomer from "../../components/CallCustomer";
 
 import { createAndSavePDF } from "../../utils/helpers";
 import { simpleHtml } from "../../utils/html2";
-import { formatPrice } from "../../utils/formatPrice";
+import CountryCurrency from "../../components/user/CountryCurrency";
 
 export const createPdf = (htmlFactory) => async () => {
   try {
@@ -117,6 +118,12 @@ const GenerateInvoice = () => {
       optimizeImageState,
     ]
   );
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
 
   return (
     <SafeAreaView
@@ -241,16 +248,15 @@ const GenerateInvoice = () => {
               }}
             >
               <Text style={{ fontSize: 17 }}>Total amount</Text>
-              <Text
-                style={{
-                  fontWeight: "bold",
-                  fontSize: 18,
-                  marginLeft: 65,
-                }}
-              >
-                {"\u20A6"}
-                {formatPrice(getTotalPrice())}
-              </Text>
+
+              <CountryCurrency
+                country={country}
+                price={getTotalPrice()}
+                color={appTheme.COLORS.black}
+                fontSize={16}
+                fontFamily="Gilroy-Bold"
+                marginLeft={66}
+              />
             </View>
           )}
         />

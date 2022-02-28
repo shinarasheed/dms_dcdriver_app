@@ -8,9 +8,12 @@ import {
   Pressable,
 } from "react-native";
 
+import { useSelector } from "react-redux";
+
 import appTheme from "../constants/theme";
 import icons from "../constants/icons";
 import { formatPrice } from "../utils/formatPrice";
+import CountryCurrency from "./user/CountryCurrency";
 
 const OrderBottomSheetCard = ({
   order,
@@ -39,6 +42,12 @@ const OrderBottomSheetCard = ({
     myproduct.quantity = text;
     setNewOrders([...newOrders]);
   };
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
 
   return (
     <View
@@ -122,15 +131,21 @@ const OrderBottomSheetCard = ({
                 alignItems: "center",
               }}
             >
+              <CountryCurrency
+                country={country}
+                price={productPrice}
+                color={appTheme.COLORS.MainGray}
+                fontSize={15}
+                fontWeight="400"
+                fontFamily="Gilroy-Medium"
+              />
+
               <Text
                 style={{
                   fontSize: 15,
-                  color: appTheme.COLORS.MainGray,
-                  fontFamily: "Gilroy-Medium",
                 }}
               >
-                {"\u20A6"}
-                {productPrice}/case
+                /case
               </Text>
             </View>
           </View>
@@ -185,16 +200,14 @@ const OrderBottomSheetCard = ({
             </View>
           </View>
 
-          <Text
-            style={{
-              color: appTheme.COLORS.mainRed,
-              fontSize: 16,
-              fontFamily: "Gilroy-Bold",
-            }}
-          >
-            {"\u20A6"}
-            {formatPrice(quantity * productPrice)}
-          </Text>
+          <CountryCurrency
+            country={country}
+            price={quantity * productPrice}
+            color={appTheme.COLORS.mainRed}
+            fontSize={15}
+            fontWeight="400"
+            fontFamily="Gilroy-Bold"
+          />
         </View>
       </View>
     </View>

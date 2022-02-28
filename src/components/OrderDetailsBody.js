@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Text, View, FlatList, Image } from "react-native";
 import moment from "moment";
 
@@ -8,9 +9,14 @@ import appTheme from "../constants/theme";
 import { icons } from "../constants";
 import CallCustomer from "./CallCustomer";
 import Order from "./Order";
-import { formatPrice } from "../utils/formatPrice";
+import CountryCurrency from "./user/CountryCurrency";
 
 const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
   return (
     <CustomVirtualizedView>
       <View style={{ paddingLeft: 20, paddingBottom: 20 }}>
@@ -164,17 +170,18 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
           >
             <Text style={{ fontSize: 15 }}>Total amount</Text>
 
-            <Text
-              style={{
-                fontWeight: "bold",
-                fontSize: 14,
-                marginLeft: 100,
-              }}
-            >
-              {"\u20A6"}
-              {formatPrice(theOrder?.totalPrice)}
-              {/* {isNaN(getTotalPrice()) ? null : formatPrice(getTotalPrice())} */}
-            </Text>
+            <CountryCurrency
+              country={country}
+              price={theOrder?.totalPrice}
+              color={appTheme.COLORS.black}
+              bold
+              fontSize={14}
+              fontWeight="bold"
+              fontFamily="Gilroy-Bold"
+              marginLeft={100}
+            />
+
+            {/* {isNaN(getTotalPrice()) ? null : formatPrice(getTotalPrice())} */}
           </View>
         )}
       />

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { View, Text, TouchableOpacity } from "react-native";
 import moment from "moment";
 import { useNavigation } from "@react-navigation/native";
@@ -6,9 +7,16 @@ import { useNavigation } from "@react-navigation/native";
 import appTheme from "../constants/theme";
 import Routes from "../navigation/Routes";
 import { formatPrice } from "../utils/formatPrice";
+import CountryCurrency from "./user/CountryCurrency";
 
 const DeliveryCard = ({ item, products }) => {
   const navigation = useNavigation();
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
 
   const getProductDetails = (productId) => {
     const x = products?.filter(
@@ -127,20 +135,22 @@ const DeliveryCard = ({ item, products }) => {
           {item?.orderItems.length} {/* TODO: this might fail.please correct */}
           {item?.orderItems.length === 1 ? "product" : "products"}
         </Text>
-        <Text
-          style={{
-            fontSize: 14,
-            color: appTheme.COLORS.MainGray,
-            fontFamily: "Gilroy-Bold",
-          }}
-        >
-          {/* {isNaN(getTotalPrice())
+
+        {/* {isNaN(getTotalPrice())
             ? null
             : `\u20A6${formatPrice(getTotalPrice())}`} */}
 
-          {"\u20A6"}
-          {formatPrice(item?.totalPrice)}
-        </Text>
+        {/* {"\u20A6"}
+          {formatPrice(item?.totalPrice)} */}
+
+        <CountryCurrency
+          country={country}
+          fontSize={14}
+          price={item?.totalPrice}
+          color={appTheme.COLORS.MainGray}
+          fontWeight="bold"
+          fontFamily="Gilroy-Bold"
+        />
       </View>
     </TouchableOpacity>
   );

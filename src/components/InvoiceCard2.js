@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Image, Text, View } from "react-native";
 import appTheme from "../constants/theme";
 import { formatPrice } from "../utils/formatPrice";
@@ -6,6 +7,12 @@ import { formatPrice } from "../utils/formatPrice";
 const InvoiceCard = ({ product }) => {
   const { imageUrl, brand, sku, productType, quantity, productPrice, price } =
     product;
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
   return (
     <>
       <View
@@ -113,17 +120,16 @@ const InvoiceCard = ({ product }) => {
               >
                 Price:
               </Text>
-              <Text
-                style={{
-                  fontSize: 14,
-                  color: appTheme.COLORS.mainRed,
-                  ...appTheme.FONTS.mainFontBold,
-                }}
-              >
-                {"\u20A6"}
-                {/* {quantity * price} */}
-                {formatPrice(quantity * productPrice)}
-              </Text>
+
+              <CountryCurrency
+                country={country}
+                price={quantity * productPrice}
+                color={appTheme.COLORS.mainRed}
+                fontSize={14}
+                fontWeight="bold"
+                fontFamily="Gilroy-Bold"
+                marginLeft={65}
+              />
             </View>
           </View>
         </View>

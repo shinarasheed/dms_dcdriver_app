@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { SafeAreaView, Pressable, Image, Text, View } from "react-native";
+import { Pressable, Image, Text, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import {
   useRoute,
@@ -9,7 +9,7 @@ import {
 
 import appTheme from "../../constants/theme";
 import SellProductFlatList from "../../components/SellProductFlatList";
-import SellProductFooterOneOf from "../../components/SellProductFooterOneOf";
+import SellProductFooter from "../../components/Customers/Uganda/SellProductFooter";
 import { icons } from "../../constants";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
 import { Spinner } from "../../components/Spinner";
@@ -19,14 +19,10 @@ const SellToCustomer = () => {
   const dispatch = useDispatch();
 
   const route = useRoute();
-  const order = route.params;
+  const { customer } = route.params;
 
   const Van = useSelector((state) => state.van);
   const { inventory, newinventory, loading: vanLoading, error: vanError } = Van;
-
-  const theCustomer = useSelector((state) => state.customerOneOf);
-
-  const { customer } = theCustomer;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -37,7 +33,7 @@ const SellToCustomer = () => {
   const getQuantity = (productId, quantity) => {
     return (
       quantity <=
-      inventory?.find((product) => product?.product?.productId === productId)
+      inventory.find((product) => product?.product?.productId === productId)
         ?.quantity
     );
   };
@@ -45,7 +41,7 @@ const SellToCustomer = () => {
   const getQuantity2 = (productId, quantity) => {
     return (
       quantity <
-      inventory?.find((product) => product?.product?.productId === productId)
+      inventory.find((product) => product?.product?.productId === productId)
         ?.quantity
     );
   };
@@ -58,7 +54,7 @@ const SellToCustomer = () => {
 
   const getTotalPrice = () => {
     return newinventory?.reduce(
-      (accumulator, item) => accumulator + item.price * item.quantity,
+      (accumulator, item) => accumulator + item?.price * item?.quantity,
       0
     );
   };
@@ -74,16 +70,17 @@ const SellToCustomer = () => {
   };
 
   const productsToSell = newinventory?.filter(
-    (product) => product.quantity > 0
+    (product) => product?.quantity > 0
   );
 
   return (
-    <SafeAreaView
+    <View
       style={{
         flex: 1,
         backgroundColor: appTheme.COLORS.mainBackground,
       }}
     >
+      {/* header */}
       <View
         style={{
           backgroundColor: appTheme.COLORS.white,
@@ -91,7 +88,6 @@ const SellToCustomer = () => {
           paddingLeft: 20,
           flexDirection: "row",
           alignItems: "center",
-          paddingBottom: 5,
         }}
       >
         <Pressable onPress={() => navigator.goBack()}>
@@ -105,11 +101,11 @@ const SellToCustomer = () => {
             fontFamily: "Gilroy-Medium",
           }}
         >
-          {customer?.CUST_Name !== undefined
-            ? `sell to ${customer?.CUST_Name}`
-            : null}
+          sell to {customer.CUST_Name}
         </Text>
       </View>
+
+      {/* header */}
 
       <View
         style={{
@@ -119,9 +115,9 @@ const SellToCustomer = () => {
         {!vanLoading ? (
           <SellProductFlatList
             inventory={newinventory}
-            loading={vanLoading}
             getQuantity={getQuantity}
             getQuantity2={getQuantity2}
+            loading={vanLoading}
           />
         ) : (
           <Spinner
@@ -134,22 +130,20 @@ const SellToCustomer = () => {
         )}
       </View>
 
-      {/* 
       {/* Footer */}
-      <SellProductFooterOneOf
+      <SellProductFooter
         getTotalPrice={getTotal}
         getProductPrice={getTotalPrice}
         getEmptiesPrice={getEmptiesPrice}
         productsToSell={productsToSell}
-        order={order}
+        customer={customer}
         getQuantity={getQuantity}
         getQuantity2={getQuantity2}
         calNumberOfFull={calNumberOfFull}
         setEmpties={setEmpties}
         empties={empties}
-        customer={customer}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

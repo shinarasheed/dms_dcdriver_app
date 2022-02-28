@@ -1,9 +1,17 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { Image, Text, View } from "react-native";
 import appTheme from "../constants/theme";
 import { formatPrice } from "../utils/formatPrice";
+import CountryCurrency from "./user/CountryCurrency";
 
 const ProductCard = ({ item: { quantity, product } }) => {
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
+
   return (
     <>
       <View
@@ -127,16 +135,12 @@ const ProductCard = ({ item: { quantity, product } }) => {
               >
                 Price:
               </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  color: appTheme.COLORS.mainRed,
-                  fontFamily: "Gilroy-Medium",
-                }}
-              >
-                {"\u20A6"}
-                {formatPrice(product?.price)}
-              </Text>
+
+              <CountryCurrency
+                country={country}
+                price={product?.price}
+                color={appTheme.COLORS.mainRed}
+              />
             </View>
           </View>
         </View>

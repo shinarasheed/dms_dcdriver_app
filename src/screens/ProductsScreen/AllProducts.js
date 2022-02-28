@@ -19,6 +19,7 @@ import SearchBar from "../../components/SearchBar";
 import { icons } from "../../constants";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
 import { formatPrice } from "../../utils/formatPrice";
+import CountryCurrency from "../../components/user/CountryCurrency";
 // import filter from "lodash.filter";
 
 const index = () => {
@@ -29,6 +30,12 @@ const index = () => {
 
   const Van = useSelector((state) => state.van);
   const { inventory, vanEmpties, loading: vanLoading, error: vanError } = Van;
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -175,8 +182,11 @@ const index = () => {
                 marginLeft: 10,
               }}
             >
-              {"\u20A6"}
-              {formatPrice(1000)}
+              <CountryCurrency
+                country={country}
+                price="22000"
+                color={appTheme.COLORS.black}
+              />
             </Text>
           </View>
         </View>

@@ -9,11 +9,13 @@ import {
   ScrollView,
 } from "react-native";
 import icons from "../constants/icons";
+import { useSelector } from "react-redux";
 
 import appTheme from "../constants/theme";
 import ProductBottomSheetCard from "./ProductBottomSheetCard";
 import ProductFooter from "./ProductFooter";
 import EmptiesCustomer from "./EmptiesCustomer";
+import CountryCurrency from "./user/CountryCurrency";
 
 const ProductBottomSheet = ({
   productsToSell,
@@ -28,7 +30,11 @@ const ProductBottomSheet = ({
   getEmptiesPrice,
   getProductPrice,
 }) => {
-  console.log(productsToSell);
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View
@@ -47,7 +53,7 @@ const ProductBottomSheet = ({
             marginBottom: 15,
           }}
         >
-          <Text style={{ fontSize: 18 }}>
+          <Text style={{ fontSize: 18, fontFamily: "Gilroy-Medium" }}>
             Sell To {item?.buyerDetails[0]?.buyerName}
           </Text>
           <Pressable onPress={() => toggle()}>

@@ -23,8 +23,6 @@ const AuthNavigation = () => {
       <Stack.Screen name="Welcome" component={Welcome} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Continue" component={Continue} />
-      <Stack.Screen name="WelcomeError" component={WelcomeError} />
-      <Stack.Screen name="LoginError" component={LoginError} />
     </Stack.Navigator>
   );
 };

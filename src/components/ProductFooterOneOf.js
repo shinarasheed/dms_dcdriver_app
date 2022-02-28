@@ -6,7 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 import appTheme from "../constants/theme";
 import { confirmVanSales } from "../redux/actions/vanActions";
 import { updateInventory } from "../redux/actions/vanActions";
-import { formatPrice } from "../utils/formatPrice";
+import CountryCurrency from "./user/CountryCurrency";
 
 const SellProductFooterOneOf = ({
   getTotalPrice,
@@ -17,6 +17,12 @@ const SellProductFooterOneOf = ({
   getEmptiesPrice,
 }) => {
   const navigator = useNavigation();
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
 
   const dispatch = useDispatch();
   const Van = useSelector((state) => state.van);
@@ -38,6 +44,7 @@ const SellProductFooterOneOf = ({
     costOfEmptiesReturned: getEmptiesPrice(),
     datePlaced: new Date(new Date().getTime()),
     vehicleId: driver?.vehicleId,
+    country: country,
     buyerDetails: {
       buyerName: customer?.CUST_Name,
       buyerPhoneNumber: customer?.phoneNumber,
@@ -79,17 +86,28 @@ const SellProductFooterOneOf = ({
             marginTop: 10,
             alignItems: "center",
             justifyContent: "center",
+            flexDirection: "row",
           }}
         >
           <Text
             style={{
               color: appTheme.COLORS.white,
               fontSize: 16,
-              fontWeight: "bold",
+              fontFamily: "Gilroy-Medium",
             }}
           >
-            {`Confirm \u20A6${formatPrice(getTotalPrice())}`}
+            Confirm{" "}
           </Text>
+          {isNaN(getTotalPrice()) ? null : (
+            <CountryCurrency
+              country={country}
+              price={getTotalPrice()}
+              color={appTheme.COLORS.white}
+              fontSize={16}
+              fontWeight="bold"
+              fontFamily="Gilroy-Bold"
+            />
+          )}
         </TouchableOpacity>
       )}
     </View>

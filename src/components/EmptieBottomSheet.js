@@ -1,11 +1,17 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { View, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { BottomSheet } from "react-native-btr";
 
 import appTheme from "../constants/theme";
-import { formatPrice } from "../utils/formatPrice";
+import CountryCurrency from "./user/CountryCurrency";
 
 export default function EmptiesBottomSheet({ toggle, visible }) {
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
   return (
     <View style={styles.container}>
       <BottomSheet
@@ -64,8 +70,11 @@ export default function EmptiesBottomSheet({ toggle, visible }) {
                     marginLeft: 10,
                   }}
                 >
-                  {"\u20A6"}
-                  {formatPrice(1000)}
+                  <CountryCurrency
+                    country={country}
+                    price="22000"
+                    color={appTheme.COLORS.black}
+                  />
                 </Text>
               </View>
             </View>
