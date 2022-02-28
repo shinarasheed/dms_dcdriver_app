@@ -265,11 +265,10 @@ const SellProductFooter = ({
                 onPress={() => {
                   dispatch(confirmVanSales(payload));
                   dispatch(updateInventory(payload2));
-                  navigation.navigate(Routes.VANINVOICE_SCREEN, {
+                  navigation.navigate(Routes.GENERATE_INVOICE_SCREEN_UGANGA, {
                     productsToSell,
-                    order,
+                    customer,
                     empties,
-                    // totalPrice,
                   });
                 }}
               >

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Text, Image, View, Pressable, ActivityIndicator } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { Text, Image, View, Pressable } from "react-native";
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 import Header from "../../../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -15,7 +15,6 @@ import Bulkbreakers from "../../../components/Customers/Uganda/Bulkbreakers";
 import Pocs from "../../../components/Customers/Uganda/Pocs";
 
 import CustomersTab from "../../../components/Customers/Uganda/CustomersTab";
-import { getDistributorCustomers } from "../../../redux/actions/userActions";
 
 const Uganda = () => {
   const categories = ["all", "bulkbreakers", "pocs", "new"];
@@ -26,8 +25,6 @@ const Uganda = () => {
   const [newCusomers, setNewCustomers] = useState([]);
 
   const navigation = useNavigation();
-
-  const dispatch = useDispatch();
 
   useEffect(() => {
     setAllCustomers(customers);

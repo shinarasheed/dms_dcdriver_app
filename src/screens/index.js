@@ -22,6 +22,7 @@ import { LoginError } from "./Welcome/LoginError";
 import Close from "./Logout/Close";
 import CustomerUganda from "../screens/CustomersScreen/CustomerUganda";
 import SellToCustomerUganda from "../screens/CustomersScreen/SellToCustomerUganda";
+import InvoiceUganda from "../screens/CustomersScreen/InvoiceUganda";
 
 export {
   HomeScreen,
@@ -48,4 +49,5 @@ export {
   Close,
   CustomerUganda,
   SellToCustomerUganda,
+  InvoiceUganda,
 };

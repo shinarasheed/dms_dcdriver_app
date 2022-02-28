@@ -23,6 +23,7 @@ const Routes = {
   CLOSE_SCREEN: "Close",
   CUSTOMERS_SCREEN_UGANGA: "CustomerUganda",
   SELLTO_CUSTOMER_SCREEN_UGANDA: "SellToCustomerUganda",
+  GENERATE_INVOICE_SCREEN_UGANGA: "InvoiceUganda",
 };
 
 export default Routes;
