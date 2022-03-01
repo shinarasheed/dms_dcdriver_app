@@ -21,7 +21,16 @@ import { formatPrice } from "../utils/formatPrice";
 import CountryCurrency from "../components/user/CountryCurrency";
 
 const SellProductFlatListCard = ({
-  product: { productId, brand, price, productType, imageUrl, sku, quantity },
+  product: {
+    productId,
+    brand,
+    price,
+    productType,
+    imageUrl,
+    sku,
+    quantity,
+    initialQuantity,
+  },
   getQuantity,
   getQuantity2,
 }) => {
@@ -142,6 +151,17 @@ const SellProductFlatListCard = ({
               </Text>
             </View>
           </View>
+        </View>
+
+        <View>
+          <Text
+            style={{
+              fontFamily: "Gilroy-Medium",
+            }}
+          >
+            {initialQuantity}{" "}
+            {initialQuantity > 1 ? `quantities left` : `quantity left`}
+          </Text>
         </View>
 
         <View

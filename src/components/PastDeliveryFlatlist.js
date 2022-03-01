@@ -1,18 +1,41 @@
 import React from "react";
-import { FlatList } from "react-native";
-import { ScrollView } from "react-native-virtualized-view";
+import { FlatList, View, Text } from "react-native";
 import PastDeliveryCard from "./PastDeliveryCard";
 
+import appTheme from "../constants/theme";
 const PastDeliveryFlatList = ({ list, products }) => {
   return (
-    <FlatList
-      data={list}
-      keyExtractor={(item, id) => id.toString()}
-      showsVerticalScrollIndicator={false}
-      renderItem={({ item }) => (
-        <PastDeliveryCard item={item} products={products} />
+    <>
+      {list?.length !== 0 ? (
+        <FlatList
+          data={list}
+          keyExtractor={(item, id) => id.toString()}
+          showsVerticalScrollIndicator={false}
+          renderItem={({ item }) => (
+            <PastDeliveryCard item={item} products={products} />
+          )}
+        />
+      ) : (
+        <View
+          style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <Text
+            style={{
+              fontSize: 18,
+              color: appTheme.COLORS.mainRed,
+              textAlign: "center",
+              fontFamily: "Gilroy-Medium",
+            }}
+          >
+            No Deliveries
+          </Text>
+        </View>
       )}
-    />
+    </>
   );
 };
 

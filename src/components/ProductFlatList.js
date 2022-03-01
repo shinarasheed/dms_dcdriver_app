@@ -28,10 +28,10 @@ const ProductFlatList = ({ list }) => {
         >
           <Text
             style={{
-              fontSize: 15,
+              fontSize: 16,
               paddingLeft: 15,
-              fontWeight: "bold",
               color: appTheme.COLORS.MainGray,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             Recent replenishment
@@ -50,7 +50,8 @@ const ProductFlatList = ({ list }) => {
           <Text
             style={{
               textAlign: "center",
-              fontSize: 15,
+              fontSize: 16,
+              fontFamily: "Gilroy-Medium",
             }}
           >
             No recent replenishment

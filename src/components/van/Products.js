@@ -1,7 +1,6 @@
 import React from "react";
-import { FlatList, Image, Text, View } from "react-native";
+import { FlatList, Text, View } from "react-native";
 
-import { icons } from "../../constants";
 import appTheme from "../../constants/theme";
 import ProductCard from "../ProductCard";
 

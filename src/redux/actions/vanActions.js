@@ -44,6 +44,7 @@ export const fetchVanProducts = () => async (dispatch) => {
     const newInventory = productsWithQuantity?.map((item) => ({
       ...item.product,
       quantity: 0,
+      initialQuantity: item?.quantity,
     }));
 
     dispatch({

@@ -57,29 +57,30 @@ export default function DeliveriesScreen() {
     setPastDeliveries(pastDeliveries);
   }, [order]);
 
-  const handleChangeText = (text) => {
-    setSearchValue(text);
-    const deliveries = newDeliveries?.filter((item) => {
-      return item?.buyerDetails[0]?.buyerName
-        .toLowerCase()
-        .includes(text.toLowerCase());
-    });
+  const deliveries = newDeliveries?.filter((item) => {
+    return item?.buyerDetails[0]?.buyerName
+      .toLowerCase()
+      .includes(searchValue.toLowerCase());
+  });
 
-    setTheNewDeliveries(deliveries);
-  };
+  const pastdeliveries = thePastDeliveries?.filter((item) => {
+    return item?.buyerDetails[0]?.buyerName
+      .toLowerCase()
+      .includes(searchValue.toLowerCase());
+  });
 
   const ShowDeliveries = (index) => {
     switch (index) {
       case 0:
-        return <DeliveryFlatList list={theNewDelivery} products={products} />;
+        return <DeliveryFlatList list={deliveries} products={products} />;
 
       case 1:
         return (
-          <PastDeliveryFlatList list={thePastDeliveries} products={products} />
+          <PastDeliveryFlatList list={pastdeliveries} products={products} />
         );
 
       default:
-        return <DeliveryFlatList list={theNewDelivery} products={products} />;
+        return <DeliveryFlatList list={deliveries} products={products} />;
     }
   };
 
@@ -136,8 +137,7 @@ export default function DeliveriesScreen() {
             flex: 1,
             fontFamily: "Gilroy-Medium",
           }}
-          value={searchValue}
-          onChangeText={(text) => handleChangeText(text)}
+          onChangeText={(text) => setSearchValue(text)}
         />
       </View>
 
@@ -147,7 +147,13 @@ export default function DeliveriesScreen() {
           flex: 1,
         }}
       >
-        {order?.length !== 0 ? <>{ShowDeliveries(index)}</> : <Spinner />}
+        <View
+          style={{
+            flex: 1,
+          }}
+        >
+          {order?.length !== 0 ? <>{ShowDeliveries(index)}</> : <Spinner />}
+        </View>
       </ScrollView>
     </View>
   );
