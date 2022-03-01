@@ -11,7 +11,11 @@ const Order = ({ order, getProductDetails }) => {
     user: { country },
   } = userState;
 
-  console.log(getProductDetails(order?.productId)?.imageUrl);
+  // console.log(getProductDetails(order?.productId)?.imageUrl);
+
+  console.log(getProductDetails(order?.productId)?.productType);
+
+  console.log(order);
   return (
     <>
       {order !== undefined && (

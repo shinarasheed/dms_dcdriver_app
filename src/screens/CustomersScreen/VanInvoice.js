@@ -48,8 +48,6 @@ const GenerateInvoice = () => {
 
   const { productsToSell, order, empties } = route.params;
 
-  console.log(productsToSell);
-
   const getEmptiesPrice = () => {
     return empties * 1000;
   };

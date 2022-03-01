@@ -70,13 +70,6 @@ const DeliveryDetails = () => {
     return x;
   };
 
-  // const getTotalPrice = () => {
-  //   return theOrder?.orderItems.reduce(
-  //     (accumulator, order) => accumulator + parseFloat(order?.price),
-  //     0
-  //   );
-  // };
-
   const getTotalPrice = () => {
     return theOrder?.orderItems.reduce(
       (accumulator, order) =>

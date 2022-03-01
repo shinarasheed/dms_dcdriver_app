@@ -70,6 +70,7 @@ const SellProductFooterOneOf = ({
     buyerDetails: {
       buyerName: customer?.CUST_Name,
       buyerPhoneNumber: customer?.phoneNumber,
+      buyerAddress: country,
     },
 
     orderItems: items,
