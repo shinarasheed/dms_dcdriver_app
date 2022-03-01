@@ -15,8 +15,12 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import ProductFlastlist from "../../components/ProductFlatList";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
-import { fetchVanProducts } from "../../redux/actions/vanActions";
+import {
+  fetchVanProducts,
+  returnVanEmpties,
+} from "../../redux/actions/vanActions";
 import CountryCurrency from "../../components/user/CountryCurrency";
+import Products from "../../components/van/Products";
 
 const index = () => {
   const dispatch = useDispatch();
@@ -25,13 +29,19 @@ const index = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const Van = useSelector((state) => state.van);
-  const { inventory, loading: vanLoading, error: vanError } = Van;
+  const { inventory, driverEmpties, loading } = Van;
 
   const userState = useSelector((state) => state.user);
 
   const {
-    user: { country },
+    user: { country, vehicleId },
   } = userState;
+
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(returnVanEmpties(vehicleId));
+    }, [loading])
+  );
 
   useFocusEffect(
     React.useCallback(() => {
@@ -128,30 +138,40 @@ const index = () => {
             EMPTIES
           </Text>
 
-          <View>
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginTop: 10,
+            }}
+          >
             <Text
               style={{
                 fontSize: 15,
                 fontFamily: "Gilroy-Light",
               }}
             >
-              Total Quantity
+              Total Quantity:
             </Text>
 
             <Text
               style={{
                 fontSize: 15,
-                fontFamily: "Gilroy-Light",
+                fontFamily: "Gilroy-Medium",
                 color: appTheme.COLORS.black,
+                fontSize: 15,
+                marginLeft: 10,
               }}
             >
-              {/* {vanEmpties?.quantity} */}
+              {driverEmpties?.quantity}
             </Text>
           </View>
 
           <View
             style={{
               flexDirection: "row",
+              alignItems: "center",
+              marginTop: 5,
             }}
           >
             <Text
@@ -176,13 +196,14 @@ const index = () => {
                 country={country}
                 price="22000"
                 color={appTheme.COLORS.black}
+                fontSize={15}
               />
             </Text>
           </View>
         </View>
       </TouchableOpacity>
 
-      <ProductFlastlist list={vanProducts} />
+      <Products list={vanProducts} />
     </View>
   );
 };

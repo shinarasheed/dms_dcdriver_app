@@ -222,15 +222,8 @@ export const postVanEmpties = (payload) => async (dispatch) => {
   }
 };
 
-export const returnVanEmpties = () => async (dispatch, getState) => {
-  const {
-    user: { vehicleId },
-  } = getState().user;
-
+export const returnVanEmpties = (vehicleId) => async (dispatch) => {
   try {
-    dispatch({
-      type: RETURN_VAN_EMPTIES_REQUEST,
-    });
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -241,16 +234,13 @@ export const returnVanEmpties = () => async (dispatch, getState) => {
       data: { data },
     } = await axios.get(`${InventoryUrl}/get-empties/${vehicleId}`, config);
 
-    console.log(data);
-
     dispatch({
       type: RETURN_VAN_EMPTIES_SUCCESS,
-      payload: data,
+      payload: {
+        empties: data,
+      },
     });
   } catch (error) {
     console.log(error);
-    dispatch({
-      type: RETURN_VAN_EMPTIES_FAIL,
-    });
   }
 };

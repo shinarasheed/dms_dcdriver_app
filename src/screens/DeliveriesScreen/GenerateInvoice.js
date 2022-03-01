@@ -23,7 +23,6 @@ import CallCustomer from "../../components/CallCustomer";
 import { createAndSavePDF } from "../../utils/helpers";
 import { simpleHtml } from "../../utils/html";
 import Routes from "../../navigation/Routes";
-import { formatPrice } from "../../utils/formatPrice";
 import CountryCurrency from "../../components/user/CountryCurrency";
 
 export const createPdf = (htmlFactory) => async () => {
@@ -62,17 +61,15 @@ const GenerateInvoice = () => {
   };
 
   const getDistibutor = async () => {
-    const distributor = JSON.parse(await AsyncStorage.getItem("Distributor"));
-    const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
+    const distributor = JSON.parse(await AsyncStorage.getItem("distributor"));
     setDistributor(distributor);
-    setDriver(driver);
   };
 
   const userState = useSelector((state) => state.user);
 
-  const {
-    user: { country },
-  } = userState;
+  const { user } = userState;
+
+  const { country } = user;
 
   useEffect(() => {
     getDistibutor();
@@ -110,7 +107,7 @@ const GenerateInvoice = () => {
             pageMarginState[0],
             productsToSell,
             order,
-            driver,
+            user,
             distributor,
             getTotalPrice,
             getEmptiesPrice
@@ -321,7 +318,6 @@ const GenerateInvoice = () => {
                   fontSize={14}
                   fontWeight="bold"
                   fontFamily="Gilroy-Bold"
-                  marginLeft={65}
                 />
               </Text>
             </View>

@@ -1,7 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Text, Image, View, Pressable } from "react-native";
+import {
+  Text,
+  Image,
+  View,
+  Pressable,
+  StyleSheet,
+  TextInput,
+} from "react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 import Header from "../../../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -23,6 +31,7 @@ const Uganda = () => {
   const [thePocs, setThePocs] = useState([]);
   const [allCustomers, setAllCustomers] = useState([]);
   const [newCusomers, setNewCustomers] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const navigation = useNavigation();
 
@@ -37,22 +46,38 @@ const Uganda = () => {
 
   const { customers, user, bulkbreakers, pocs } = userState;
 
+  const filteredAllCustomers = allCustomers?.filter((customer) =>
+    customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+  );
+
+  const filteredBulkbreakers = bulkbreakers?.filter((customer) =>
+    customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+  );
+
+  const filteredPocs = pocs?.filter((customer) =>
+    customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+  );
+
+  const filteredNewCustomers = pocs?.filter((customer) =>
+    customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+  );
+
   const ShowCustomers = (index) => {
     switch (index) {
       case 0:
-        return <AllCustomers customers={allCustomers} />;
+        return <AllCustomers customers={filteredAllCustomers} />;
 
       case 1:
-        return <Bulkbreakers customers={theBulkBreakers} />;
+        return <Bulkbreakers customers={filteredBulkbreakers} />;
 
       case 2:
-        return <Pocs customers={thePocs} />;
+        return <Pocs customers={filteredPocs} />;
 
       case 3:
-        return <Newcustomers customers={newCusomers} />;
+        return <Newcustomers customers={filteredNewCustomers} />;
 
       default:
-        return <AllCustomers customers={customers} />;
+        return <AllCustomers customers={filteredAllCustomers} />;
     }
   };
   return (
@@ -60,7 +85,8 @@ const Uganda = () => {
       style={{ flex: 1, backgroundColor: appTheme.COLORS.mainBackground }}
     >
       <Header headerText="Customers" />
-      <CustomVirtualizedView>
+
+      <View>
         <View style={{ paddingHorizontal: 20 }}>
           <CustomersTab
             categories={categories}
@@ -68,8 +94,27 @@ const Uganda = () => {
             setIndex={setIndex}
           />
         </View>
+
+        <View style={styles.searchInputContainer}>
+          <Icon
+            name="search"
+            size={20}
+            style={{ color: appTheme.COLORS.mainYellow }}
+          />
+
+          <TextInput
+            placeholder="Search"
+            style={{
+              fontSize: 15,
+              paddingLeft: 5,
+              flex: 1,
+              fontFamily: "Gilroy-Medium",
+            }}
+            onChangeText={(textValue) => setSearchTerm(textValue)}
+          />
+        </View>
         {ShowCustomers(index)}
-      </CustomVirtualizedView>
+      </View>
 
       <Pressable
         style={{
@@ -98,3 +143,17 @@ const Uganda = () => {
 };
 
 export default Uganda;
+
+const styles = StyleSheet.create({
+  searchInputContainer: {
+    height: 50,
+    backgroundColor: appTheme.COLORS.white,
+    marginTop: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: "#9799A0",
+    borderWidth: 0,
+    paddingHorizontal: 10,
+    elevation: 20,
+  },
+});

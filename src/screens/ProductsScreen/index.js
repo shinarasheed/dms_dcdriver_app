@@ -34,6 +34,13 @@ const ProductsScreen = () => {
 
   const navigation = useNavigation();
 
+  const Van = useSelector((state) => state.van);
+  const { inventory, driverEmpties, loading, productsReturned } = Van;
+
+  const userState = useSelector((state) => state.user);
+
+  const { user } = userState;
+
   function toggle() {
     setVisible(!visible);
   }
@@ -46,9 +53,11 @@ const ProductsScreen = () => {
     }, [])
   );
 
-  useEffect(() => {
-    dispatch(returnVanEmpties());
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(returnVanEmpties(user?.vehicleId));
+    }, [loading])
+  );
 
   const showToastWithGravity = () => {
     ToastAndroid.showWithGravity(
@@ -57,12 +66,6 @@ const ProductsScreen = () => {
       ToastAndroid.CENTER
     );
   };
-
-  const Van = useSelector((state) => state.van);
-  const { inventory, loading, error: vanError, productsReturned } = Van;
-  const userState = useSelector((state) => state.user);
-
-  const { user } = userState;
 
   return (
     <View style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}>
@@ -225,15 +228,12 @@ const ProductsScreen = () => {
 
         <TouchableOpacity
           onPress={async () => {
-            const driver = JSON.parse(
-              await AsyncStorage.getItem("driverDetails")
-            );
             const payload = {
-              companyCode: user?.syspro_code,
+              companyCode: user?.ownerCompanyId,
               vehicleId: user?.vehicleId,
               stocks: inventory.map((item) => ({
-                productId: item?.product?.productId,
-                quantity: item?.quantity,
+                productId: parseInt(item?.product?.productId),
+                quantity: parseInt(item?.quantity),
               })),
             };
 
@@ -289,7 +289,11 @@ const ProductsScreen = () => {
         )}
       </ScrollView>
 
-      <EmptiesBottomSheet toggle={toggle} visible={visible} />
+      <EmptiesBottomSheet
+        toggle={toggle}
+        visible={visible}
+        driverEmpties={driverEmpties}
+      />
     </View>
   );
 };

@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Text, Image, View, Pressable, ActivityIndicator } from "react-native";
+import {
+  Text,
+  Image,
+  View,
+  Pressable,
+  ActivityIndicator,
+  StyleSheet,
+} from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
@@ -8,6 +15,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import appTheme from "../../../constants/theme";
 import CustomVirtualizedView from "../../../components/VirtualizedList";
 import { fetchOrder } from "../../../redux/actions/orderActions";
+import Icon from "react-native-vector-icons/MaterialIcons";
 import { icons } from "../../../constants";
 
 import AllCustomers from "../../../components/Customers/AllCustomers";
@@ -75,7 +83,26 @@ const Uganda = () => {
             index={index}
             setIndex={setIndex}
           />
-          {/* <SearchInput /> */}
+        </View>
+
+        <View style={styles.searchInputContainer}>
+          <Icon
+            name="search"
+            size={20}
+            style={{ color: appTheme.COLORS.mainYellow }}
+          />
+
+          <TextInput
+            placeholder="Search"
+            style={{
+              fontSize: 15,
+              paddingLeft: 5,
+              flex: 1,
+              fontFamily: "Gilroy-Medium",
+            }}
+            value={searchValue}
+            onChangeText={(text) => handleChangeText(text)}
+          />
         </View>
 
         {!loading ? (
@@ -123,3 +150,18 @@ const Uganda = () => {
 };
 
 export default Uganda;
+
+const styles = StyleSheet.create({
+  searchInputContainer: {
+    height: 50,
+    backgroundColor: appTheme.COLORS.white,
+    marginTop: 15,
+    flexDirection: "row",
+    alignItems: "center",
+    borderColor: "#9799A0",
+    borderWidth: 0,
+    paddingHorizontal: 10,
+    marginBottom: 20,
+    elevation: 20,
+  },
+});

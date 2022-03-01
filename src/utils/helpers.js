@@ -1,11 +1,11 @@
-import { Platform } from "react-native";
+import { Platform, Alert } from "react-native";
 import * as Print from "expo-print";
 import * as MediaLibrary from "expo-media-library";
 import { Asset } from "expo-asset";
 import * as ImageManipulator from "expo-image-manipulator";
-import * as Sharing from "expo-sharing";
 import * as ImagePicker from "expo-image-picker";
 import appTheme from "../constants/theme";
+import { shareAsync } from "expo-sharing";
 
 export const createHTML = ({
   content = "",
@@ -61,28 +61,40 @@ export const createHTML = ({
     `;
 };
 
+// export const createAndSavePDF = async (html) => {
+//   try {
+//     let isShared = false;
+//     const { uri } = await Print.printToFileAsync({ html });
+//     if (Platform.OS === "ios") {
+//       isShared = await shareAsync(uri, {
+//         UTI: ".pdf",
+//         mimeType: "application/pdf",
+//       });
+//     } else {
+//       const permission = await MediaLibrary.requestPermissionsAsync();
+
+//       if (permission.granted) {
+//         await MediaLibrary.createAssetAsync(uri);
+//         isShared = true;
+//       }
+//     }
+
+//     if (!isShared) {
+//       throw new Error("Something went wrong...");
+//     }
+//   } catch (error) {
+//     console.log(error);
+//     throw error;
+//   }
+// };
+
 export const createAndSavePDF = async (html) => {
-  try {
-    let isShared = false;
-    const { uri } = await Print.printToFileAsync({ html });
-    if (Platform.OS === "ios") {
-      isShared = await Sharing.shareAsync(uri);
-    } else {
-      const permission = await MediaLibrary.requestPermissionsAsync();
-
-      if (permission.granted) {
-        await MediaLibrary.createAssetAsync(uri);
-        isShared = true;
-      }
-    }
-
-    if (!isShared) {
-      throw new Error("Something went wrong...");
-    }
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+  // On iOS/android prints the given html. On web prints the HTML from the current page.
+  const { uri } = await Print.printToFileAsync({
+    html,
+  });
+  // Alert.alert("File has been saved to:");
+  await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
 };
 
 export const copyFromAssets = async (asset) => {

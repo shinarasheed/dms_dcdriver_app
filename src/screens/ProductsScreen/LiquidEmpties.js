@@ -12,13 +12,11 @@ import { useFocusEffect } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
-import DeliveriesTab from "../../components/DeliveriesTab";
 
-import ProductFlastlist from "../../components/ProductFlatList";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
-import { Spinner } from "../../components/Spinner";
+import Products from "../../components/van/Products";
 
 const index = () => {
   const categories = ["full"];
@@ -59,10 +57,10 @@ const index = () => {
   const ShowProducts = (index) => {
     switch (index) {
       case 0:
-        return <ProductFlastlist list={fullproducts} />;
+        return <Products list={fullproducts} />;
 
       default:
-        return <ProductFlastlist list={fullproducts} />;
+        return <Products list={fullproducts} />;
     }
   };
 

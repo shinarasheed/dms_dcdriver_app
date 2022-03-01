@@ -86,12 +86,12 @@ const OrderBottomSheetCard = ({
           </Text>
         </View>
 
-        <Pressable
+        {/* <Pressable
           style={{ position: "absolute", right: 10 }}
           onPress={() => deleteProduct(productId)}
         >
           <Image source={icons.deleteIcon} />
-        </Pressable>
+        </Pressable> */}
 
         <View
           style={{

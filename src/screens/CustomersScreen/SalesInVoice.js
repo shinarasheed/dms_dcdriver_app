@@ -41,7 +41,6 @@ export const createPdf = (htmlFactory) => async () => {
 
 const GenerateInvoice = () => {
   const [distributor, setDistributor] = useState(null);
-  const [driver, setDriver] = useState(null);
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -50,13 +49,16 @@ const GenerateInvoice = () => {
   const getEmptiesPrice = () => {
     return empties * 1000;
   };
-
   const getDistibutor = async () => {
-    const distributor = JSON.parse(await AsyncStorage.getItem("Distributor"));
-    const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
+    const distributor = JSON.parse(await AsyncStorage.getItem("distributor"));
     setDistributor(distributor);
-    setDriver(driver);
   };
+
+  const userState = useSelector((state) => state.user);
+
+  const { user } = userState;
+
+  const { country } = user;
 
   useEffect(() => {
     getDistibutor();
@@ -102,7 +104,7 @@ const GenerateInvoice = () => {
             productsToSell,
             customer,
             distributor,
-            driver,
+            user,
             getTotalPrice,
             getEmptiesPrice
           )
@@ -118,12 +120,6 @@ const GenerateInvoice = () => {
       optimizeImageState,
     ]
   );
-
-  const userState = useSelector((state) => state.user);
-
-  const {
-    user: { country },
-  } = userState;
 
   return (
     <SafeAreaView

@@ -19,7 +19,7 @@ export const simpleHtml =
     sholudRemovePageMargin = false,
     productsToSell,
     order,
-    driver,
+    user,
     distributor,
     getTotalPrice,
     getEmptiesPrice
@@ -70,7 +70,7 @@ export const simpleHtml =
           </div>
           <div style="display: flex" >
               <p style="margin-bottom: 5px">Salesman:</p>&nbsp;
-              <p style="margin-bottom: 5px">${driver?.name}</p>
+              <p style="margin-bottom: 5px">${user?.name}</p>
           </div>
         </article>
   
@@ -128,10 +128,8 @@ export const simpleHtml =
                  <td style="padding: 1rem 1rem">${index + 1}</td>
                  <td style="padding: 1rem 1rem">${item?.brand} ${item?.sku}</td>
                  <td style="padding: 1rem 1rem">${item?.quantity}</td>
-                 <td style="padding: 1rem 1rem">\u20A6${formatPrice(
-                   item?.price
-                 )}</td>
-                 <td style="padding: 1rem 1rem">\u20A6${formatPrice(
+                 <td style="padding: 1rem 1rem">${formatPrice(item?.price)}</td>
+                 <td style="padding: 1rem 1rem">${formatPrice(
                    item?.price * item.quantity
                  )}</td>
                </tr>`
@@ -161,18 +159,18 @@ export const simpleHtml =
               border-bottom: 2px solid black;"> 
                   <div>
                       <div style="margin-bottom: 5px">
-                          <span style="font-size: 18px">Subtotal:</span><span> \u20A6${formatPrice(
+                          <span style="font-size: 18px">Subtotal:</span><span>${formatPrice(
                             getTotalPrice()
                           )}</span>
                       </div>
                       <div style="margin-bottom: 5px">
-                          <span  style="font-size: 18px">Empties:</span><span> \u20A6${formatPrice(
+                          <span  style="font-size: 18px">Empties:</span><span>${formatPrice(
                             getEmptiesPrice()
                           )}</span>
                       </div>
                   </div>
                   <div>
-                      <h5 style=" font-size: 30px">\u20A6${formatPrice(
+                      <h5 style=" font-size: 30px">${formatPrice(
                         getTotalPrice()
                       )}</h5>
                   </div>

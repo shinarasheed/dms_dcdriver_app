@@ -52,11 +52,15 @@ const GenerateInvoice = () => {
   };
 
   const getDistibutor = async () => {
-    const distributor = JSON.parse(await AsyncStorage.getItem("Distributor"));
-    const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
+    const distributor = JSON.parse(await AsyncStorage.getItem("distributor"));
     setDistributor(distributor);
-    setDriver(driver);
   };
+
+  const userState = useSelector((state) => state.user);
+
+  const { user } = userState;
+
+  const { country } = user;
 
   useEffect(() => {
     getDistibutor();
@@ -102,7 +106,7 @@ const GenerateInvoice = () => {
             productsToSell,
             customer,
             distributor,
-            driver,
+            user,
             getTotalPrice,
             getEmptiesPrice
           )
@@ -118,12 +122,6 @@ const GenerateInvoice = () => {
       optimizeImageState,
     ]
   );
-
-  const userState = useSelector((state) => state.user);
-
-  const {
-    user: { country },
-  } = userState;
 
   return (
     <SafeAreaView

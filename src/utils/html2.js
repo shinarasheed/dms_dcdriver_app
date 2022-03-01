@@ -20,7 +20,7 @@ export const simpleHtml =
     productsToSell,
     customer,
     distributor,
-    driver,
+    user,
     getTotalPrice,
     getEmptiesPrice
   ) =>
@@ -70,7 +70,7 @@ export const simpleHtml =
           </div>
           <div style="display: flex" >
               <p style="margin-bottom: 5px">Salesman:</p>&nbsp;
-              <p style="margin-bottom: 5px">${driver?.name}</p>
+              <p style="margin-bottom: 5px">${user?.name}</p>
           </div>
         </article>
   

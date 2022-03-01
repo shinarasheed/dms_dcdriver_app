@@ -1,19 +1,17 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { Image, Text, View } from "react-native";
-import appTheme from "../constants/theme";
-import { formatPrice } from "../utils/formatPrice";
-import CountryCurrency from "../components/user/CountryCurrency";
 
-const InvoiceCard = ({ product }) => {
-  const { imageUrl, brand, sku, productType, quantity, productPrice, price } =
-    product;
+import appTheme from "../../constants/theme";
+import CountryCurrency from "../user/CountryCurrency";
 
+const ProductCard = ({ item: { quantity, product } }) => {
   const userState = useSelector((state) => state.user);
 
   const {
     user: { country },
   } = userState;
+
   return (
     <>
       <View
@@ -22,9 +20,15 @@ const InvoiceCard = ({ product }) => {
           paddingVertical: 15,
           paddingHorizontal: 20,
           backgroundColor: appTheme.COLORS.white,
+          borderBottomWidth: 1,
+          borderBottomColor: appTheme.COLORS.borderGRey,
         }}
       >
-        <Image style={{ width: 30, height: 60 }} source={{ uri: imageUrl }} />
+        <Image
+          style={{ width: 30, height: 80 }}
+          source={{ uri: product?.imageUrl }}
+        />
+
         <View style={{ marginLeft: 20 }}>
           <View
             style={{
@@ -35,24 +39,24 @@ const InvoiceCard = ({ product }) => {
           >
             <Text
               style={{
-                fontSize: 16,
-                ...appTheme.FONTS.mainFontBold,
+                fontSize: 18,
                 textTransform: "capitalize",
                 marginRight: 5,
                 color: appTheme.COLORS.black,
+                fontFamily: "Gilroy-Medium",
               }}
             >
-              {brand}
+              {product?.brand}
             </Text>
             <Text
               style={{
-                fontSize: 16,
-                ...appTheme.FONTS.mainFontBold,
+                fontSize: 18,
                 textTransform: "capitalize",
                 color: appTheme.COLORS.black,
+                fontFamily: "Gilroy-Medium",
               }}
             >
-              {sku}
+              {product?.sku}
             </Text>
           </View>
           <View
@@ -71,9 +75,9 @@ const InvoiceCard = ({ product }) => {
               <View
                 style={{
                   backgroundColor:
-                    product.productType === "liquid"
+                    product?.productType === "full"
                       ? appTheme.COLORS.mainYellow
-                      : product.productType === "pet"
+                      : product?.productType === "pet"
                       ? appTheme.COLORS.mainRed2
                       : appTheme.COLORS.mainRed3,
                   paddingVertical: 5,
@@ -83,7 +87,7 @@ const InvoiceCard = ({ product }) => {
                 }}
               >
                 <Text style={{ color: appTheme.COLORS.white }}>
-                  {productType}
+                  {product?.productType}
                 </Text>
               </View>
 
@@ -96,11 +100,21 @@ const InvoiceCard = ({ product }) => {
                 <Text
                   style={{
                     fontSize: 17,
-
+                    fontFamily: "Gilroy-Medium",
                     color: appTheme.COLORS.MainGray,
                   }}
                 >
-                  Qty: {quantity}
+                  Qty:
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "600",
+                    marginLeft: 2,
+                    fontFamily: "Gilroy-Medium",
+                  }}
+                >
+                  {quantity}
                 </Text>
               </View>
             </View>
@@ -114,9 +128,9 @@ const InvoiceCard = ({ product }) => {
             >
               <Text
                 style={{
-                  fontSize: 14,
-                  color: appTheme.COLORS.black,
+                  fontSize: 17,
                   marginRight: 2,
+                  fontFamily: "Gilroy-Medium",
                 }}
               >
                 Price:
@@ -124,11 +138,8 @@ const InvoiceCard = ({ product }) => {
 
               <CountryCurrency
                 country={country}
-                price={quantity * productPrice}
+                price={product?.price}
                 color={appTheme.COLORS.mainRed}
-                fontSize={14}
-                fontWeight="bold"
-                fontFamily="Gilroy-Bold"
               />
             </View>
           </View>
@@ -138,4 +149,4 @@ const InvoiceCard = ({ product }) => {
   );
 };
 
-export default InvoiceCard;
+export default ProductCard;

@@ -9,6 +9,7 @@ import {
 } from "../../../redux/actions/vanActions";
 import CountryCurrency from "../../user/CountryCurrency";
 import appTheme from "../../../constants/theme";
+import Routes from "../../../navigation/Routes";
 
 const ProductFooter = ({
   getTotalPrice,
@@ -18,7 +19,7 @@ const ProductFooter = ({
   empties,
   getEmptiesPrice,
 }) => {
-  const navigator = useNavigation();
+  const navigation = useNavigation();
 
   const userState = useSelector((state) => state.user);
 
@@ -27,14 +28,6 @@ const ProductFooter = ({
   const { country } = user;
 
   const dispatch = useDispatch();
-
-  function toggle() {
-    setVisible((visible) => !visible);
-  }
-
-  function toggleConfirm() {
-    setConfirmVisible((visible) => !visible);
-  }
 
   const items = productsToSell?.map((prod) => ({
     price: prod.price * prod.quantity,
@@ -80,9 +73,9 @@ const ProductFooter = ({
         <TouchableOpacity
           onPress={() => {
             dispatch(confirmVanSales(payload));
-            navigator.navigate("VanInvoice", {
+            navigation.navigate(Routes.GENERATE_INVOICE_SCREEN_UGANGA, {
               productsToSell,
-              order,
+              customer,
               empties,
             });
             dispatch(updateInventory(payload2));

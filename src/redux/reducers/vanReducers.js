@@ -29,7 +29,7 @@ const initialState = {
   refreshing: true,
   loading: false,
   productsReturned: false,
-  vanEmpties: null,
+  driverEmpties: null,
 };
 
 export const vanReducer = (state = initialState, action) => {
@@ -61,6 +61,13 @@ export const vanReducer = (state = initialState, action) => {
         loading: false,
         error: payload,
         refreshing: false,
+      };
+
+    case RETURN_VAN_EMPTIES_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        driverEmpties: action.payload.empties,
       };
 
     case RETURN_PRODUCTS_REQUEST:
@@ -158,26 +165,6 @@ export const vanReducer = (state = initialState, action) => {
         newinventory: state.newinventory.filter(
           (item) => item.productId !== payload
         ),
-      };
-
-    case RETURN_VAN_EMPTIES_REQUEST:
-      return {
-        ...state,
-        loading: true,
-      };
-
-    case RETURN_VAN_EMPTIES_SUCCESS:
-      return {
-        ...state,
-        loading: false,
-        vanEmpties: payload,
-      };
-
-    case RETURN_VAN_EMPTIES_FAIL:
-      return {
-        ...state,
-        loading: false,
-        error: payload,
       };
 
     default:

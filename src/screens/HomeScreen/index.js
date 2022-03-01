@@ -28,6 +28,7 @@ import { formatPrice } from "../../utils/formatPrice";
 import { companyUrl } from "../../utils/baseUrl";
 import CountryCurrency from "../../components/user/CountryCurrency";
 import { getDistributorCustomers } from "../../redux/actions/userActions";
+import { returnVanEmpties } from "../../redux/actions/vanActions";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -67,6 +68,10 @@ const HomeScreen = () => {
 
       if (componentMounted) {
         setDistributor(result);
+
+        // console.log(result);
+
+        await AsyncStorage.setItem("distributor", JSON.stringify(result));
       }
     };
 

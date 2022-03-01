@@ -12,6 +12,10 @@ export default function EmptiesBottomSheet({ toggle, visible }) {
   const {
     user: { country },
   } = userState;
+
+  const Van = useSelector((state) => state.van);
+  const { driverEmpties } = Van;
+
   return (
     <View style={styles.container}>
       <BottomSheet
@@ -36,14 +40,29 @@ export default function EmptiesBottomSheet({ toggle, visible }) {
                 EMPTIES
               </Text>
 
-              <View>
+              <View
+                style={{
+                  flexDirection: "row",
+                  marginBottom: 5,
+                }}
+              >
                 <Text
                   style={{
                     fontSize: 15,
                     fontFamily: "Gilroy-Light",
                   }}
                 >
-                  Total Quantity
+                  Total Quantity:
+                </Text>
+
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontFamily: "Gilroy-Bold",
+                    marginLeft: 5,
+                  }}
+                >
+                  {driverEmpties?.quantity}
                 </Text>
               </View>
 
@@ -74,6 +93,7 @@ export default function EmptiesBottomSheet({ toggle, visible }) {
                     country={country}
                     price="22000"
                     color={appTheme.COLORS.black}
+                    fontWeight="bold"
                   />
                 </Text>
               </View>

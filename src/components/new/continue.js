@@ -32,7 +32,7 @@ const Continue = () => {
             config
           );
 
-          console.log(data, "======");
+          // console.log(data, "======");
           if (componentMounted) {
             setDriver(data);
           }
