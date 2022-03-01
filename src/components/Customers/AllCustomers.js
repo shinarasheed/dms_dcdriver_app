@@ -6,7 +6,7 @@ import CustomerCard from "../CustomerCard";
 const AllCustomers = ({ allOrders, products }) => {
   return (
     <FlatList
-      style={{ marginTop: 20, marginBottom: 100 }}
+      style={{ marginBottom: 100 }}
       data={allOrders}
       renderItem={({ item }) => (
         <CustomerCard order={item} allOrders={allOrders} products={products} />

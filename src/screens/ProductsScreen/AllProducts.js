@@ -160,7 +160,7 @@ const index = () => {
                 fontFamily: "Gilroy-Medium",
                 color: appTheme.COLORS.black,
                 fontSize: 15,
-                marginLeft: 10,
+                marginLeft: 5,
               }}
             >
               {driverEmpties?.quantity}

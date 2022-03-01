@@ -6,6 +6,7 @@ import {
   Pressable,
   ActivityIndicator,
   StyleSheet,
+  TextInput,
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
@@ -27,6 +28,7 @@ import { fetchProducts } from "../../../redux/actions/productActions";
 const Uganda = () => {
   const categories = ["all", "registered", "one-off"];
   const [index, setIndex] = useState(0);
+  const [searchTerm, setSearchTerm] = useState("");
 
   const navigation = useNavigation();
 
@@ -76,7 +78,7 @@ const Uganda = () => {
       style={{ flex: 1, backgroundColor: appTheme.COLORS.mainBackground }}
     >
       <Header headerText="Customers" />
-      <CustomVirtualizedView>
+      <View>
         <View style={{ paddingHorizontal: 20 }}>
           <CustomersTab
             categories={categories}
@@ -100,8 +102,7 @@ const Uganda = () => {
               flex: 1,
               fontFamily: "Gilroy-Medium",
             }}
-            value={searchValue}
-            onChangeText={(text) => handleChangeText(text)}
+            onChangeText={(textValue) => setSearchTerm(textValue)}
           />
         </View>
 
@@ -121,7 +122,7 @@ const Uganda = () => {
             size="large"
           />
         )}
-      </CustomVirtualizedView>
+      </View>
 
       <Pressable
         style={{
@@ -161,7 +162,6 @@ const styles = StyleSheet.create({
     borderColor: "#9799A0",
     borderWidth: 0,
     paddingHorizontal: 10,
-    marginBottom: 20,
     elevation: 20,
   },
 });

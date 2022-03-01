@@ -22,7 +22,7 @@ const SellToCustomer = () => {
   const order = route.params;
 
   const Van = useSelector((state) => state.van);
-  const { inventory, newinventory, loading: vanLoading, error: vanError } = Van;
+  const { inventory, newinventory, loading: vanLoading, error } = Van;
 
   useFocusEffect(
     React.useCallback(() => {
