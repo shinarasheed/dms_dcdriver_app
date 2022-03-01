@@ -3,7 +3,7 @@
     "name": "DcDrivers",
     "owner": "rasheedshina",
     "slug": "Dc-Drivers",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -14,9 +14,7 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "app.dcdriver.App"
@@ -27,10 +25,8 @@
         "backgroundColor": "#45130F"
       },
       "package": "app.dcdriver.App",
-      "versionCode": 2,
-      "permissions": [
-        "WRITE_EXTERNAL_STORAGE"
-      ]
+      "versionCode": 3,
+      "permissions": ["WRITE_EXTERNAL_STORAGE"]
     },
     "web": {
       "favicon": "./assets/icon.png"

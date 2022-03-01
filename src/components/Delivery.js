@@ -14,7 +14,7 @@ const Delivery = ({ item }) => {
     <TouchableOpacity
       style={{ marginBottom: 20 }}
       onPress={() =>
-        navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, item)
+        navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, { item })
       }
     >
       <Text

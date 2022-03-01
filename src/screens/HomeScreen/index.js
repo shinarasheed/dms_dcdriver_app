@@ -44,7 +44,7 @@ const HomeScreen = () => {
 
   const { user } = userState;
 
-  const { country, syspro_code } = user;
+  // const { country, syspro_code } = user;
 
   const newOrders = order?.filter((item) => item.status === "Assigned");
 
@@ -79,7 +79,7 @@ const HomeScreen = () => {
 
   useFocusEffect(
     React.useCallback(() => {
-      dispatch(getDistributorCustomers(syspro_code));
+      dispatch(getDistributorCustomers(user?.syspro_code));
     }, [])
   );
 
@@ -158,7 +158,7 @@ const HomeScreen = () => {
                 </Text>
 
                 <CountryCurrency
-                  country={country}
+                  country={user?.country}
                   price={
                     stats?.totalSales ? `${formatPrice(stats.totalSales)}` : 0
                   }
@@ -193,7 +193,7 @@ const HomeScreen = () => {
                   </Text>
 
                   <CountryCurrency
-                    country={country}
+                    country={user?.country}
                     price={
                       stats?.deliveries ? `${formatPrice(stats.deliveries)}` : 0
                     }
@@ -217,7 +217,7 @@ const HomeScreen = () => {
                   </Text>
 
                   <CountryCurrency
-                    country={country}
+                    country={user?.country}
                     price={stats?.visits ? `${formatPrice(stats.visits)}` : 0}
                     color={appTheme.COLORS.white}
                     bold

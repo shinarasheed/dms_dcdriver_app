@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Image, Text, View } from "react-native";
 import appTheme from "../constants/theme";
-import CountryCurrency from "./user/CountryCurrency";
+import CountryCurrency from "../components/user/CountryCurrency";
 
 const InvoiceCard = ({ product }) => {
   const { imageUrl, brand, sku, productType, quantity, price } = product;
