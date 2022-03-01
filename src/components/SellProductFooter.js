@@ -65,10 +65,11 @@ const SellProductFooter = ({
     shipToCode: order?.buyerCompanyId,
     billToCode: order?.buyerCompanyId,
     country: country,
+    vehicleId: user?.vehicleId,
     buyerDetails: {
       buyerName: order?.buyerDetails[0].buyerName,
       buyerPhoneNumber: order?.buyerDetails[0].buyerPhoneNumber,
-      buyerAddress: order?.buyerDetails[0].buyerAddress,
+      buyerAddress: order?.buyerDetails[0]?.buyerAddress,
     },
 
     orderItems: items,

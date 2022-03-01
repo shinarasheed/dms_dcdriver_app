@@ -2,6 +2,7 @@ import { View, FlatList } from "react-native";
 import React from "react";
 
 import CustomerCard from "./CustomerCard";
+import appTheme from "../../../constants/theme";
 
 const Pocs = ({ customers }) => {
   return (

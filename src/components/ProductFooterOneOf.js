@@ -20,9 +20,9 @@ const SellProductFooterOneOf = ({
 
   const userState = useSelector((state) => state.user);
 
-  const {
-    user: { country },
-  } = userState;
+  const { user } = userState;
+
+  const { country } = user;
 
   const dispatch = useDispatch();
   const Van = useSelector((state) => state.van);
@@ -36,7 +36,7 @@ const SellProductFooterOneOf = ({
   }));
 
   const payload = {
-    sellerCompanyId: driver?.ownerCompanyId,
+    sellerCompanyId: user?.syspro_code,
     buyerCompanyId: "One-Off Customer",
     routeName: "One-Off",
     referenceId: "One-Off",

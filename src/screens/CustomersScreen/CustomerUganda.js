@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Text, View, Image, FlatList, Pressable } from "react-native";
 import { Button } from "react-native-elements";
+import { useDispatch, useSelector } from "react-redux";
 
 import { useRoute, useNavigation } from "@react-navigation/native";
 import appTheme from "../../constants/theme";
@@ -9,19 +10,30 @@ import { icons } from "../../constants";
 import CallCustomer from "../../components/CallCustomer";
 import Routes from "../../navigation/Routes";
 import SingleCustomer from "../../components/SingleCustomer";
+import { getCustomerOrders } from "../../redux/actions/customerActions";
 
 const CustomerUganda = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
+  const dispatch = useDispatch();
+
+  const customerOrdersState = useSelector((state) => state.customerOrders);
+
   const { customer } = route.params;
+
+  const { customerOrders } = customerOrdersState;
+
+  useEffect(() => {
+    dispatch(getCustomerOrders(customer?.SF_Code));
+  }, []);
 
   return (
     <View
       style={{
         backgroundColor: appTheme.COLORS.mainBackground,
         flex: 1,
-        justifyContent: "space-between",
+        // justifyContent: "space-between",
       }}
     >
       <View
@@ -67,21 +79,21 @@ const CustomerUganda = () => {
           <View
             style={{
               backgroundColor: appTheme.COLORS.mainGreen,
-              paddingHorizontal: 10,
-              paddingVertical: 3,
               borderRadius: 20,
               width: 100,
               marginTop: 5,
+              height: 25,
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Text
               style={{
                 color: appTheme.COLORS.white,
-                ...appTheme.FONTS.mainFontLight,
                 textAlign: "center",
               }}
             >
-              Confirmed
+              {customer?.status}
             </Text>
           </View>
 
@@ -159,36 +171,51 @@ const CustomerUganda = () => {
           </View>
         </View>
 
-        {/* here */}
-
-        {/* <FlatList
-          showsVerticalScrollIndicator={false}
-          style={{
-            backgroundColor: appTheme.COLORS.white,
-          }}
-          data={customerOrders}
-          keyExtractor={(item, id) => id.toString()}
-          renderItem={({ item }) => (
-            <SingleCustomer item={item} getTotalPrice={getTotalPrice} />
-          )}
-          ListHeaderComponent={() => (
-            <View
-              style={{
-                paddingVertical: 10,
-              }}
-            >
-              <Text
+        {customerOrders?.length > 0 ? (
+          <FlatList
+            showsVerticalScrollIndicator={false}
+            style={{
+              backgroundColor: appTheme.COLORS.white,
+            }}
+            data={customerOrders}
+            keyExtractor={(item, id) => id.toString()}
+            renderItem={({ item }) => <SingleCustomer item={item} />}
+            ListHeaderComponent={() => (
+              <View
                 style={{
-                  fontSize: 18,
-                  ...appTheme.FONTS.mainFontBold,
-                  marginLeft: 20,
+                  paddingVertical: 10,
                 }}
               >
-                Order History
-              </Text>
-            </View>
-          )}
-        /> */}
+                <Text
+                  style={{
+                    fontSize: 18,
+                    ...appTheme.FONTS.mainFontBold,
+                    marginLeft: 20,
+                  }}
+                >
+                  Order History
+                </Text>
+              </View>
+            )}
+          />
+        ) : (
+          <View
+            style={{
+              flex: 1,
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 20,
+                fontFamily: "Gilroy-Medium",
+              }}
+            >
+              This customer has no orders yet
+            </Text>
+          </View>
+        )}
       </View>
 
       <View

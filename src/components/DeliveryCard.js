@@ -6,7 +6,6 @@ import { useNavigation } from "@react-navigation/native";
 
 import appTheme from "../constants/theme";
 import Routes from "../navigation/Routes";
-import { formatPrice } from "../utils/formatPrice";
 import CountryCurrency from "./user/CountryCurrency";
 
 const DeliveryCard = ({ item, products }) => {
@@ -44,7 +43,7 @@ const DeliveryCard = ({ item, products }) => {
         borderBottomWidth: 1,
       }}
       onPress={() =>
-        navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, item)
+        navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, { item })
       }
     >
       <View style={{ flexDirection: "row", marginBottom: 7 }}>
@@ -85,6 +84,7 @@ const DeliveryCard = ({ item, products }) => {
         style={{
           flexDirection: "row",
           justifyContent: "space-between",
+          flex: 1,
         }}
       >
         <Text
@@ -95,9 +95,9 @@ const DeliveryCard = ({ item, products }) => {
         >
           {item?.buyerDetails[0]?.buyerName}
         </Text>
-        <Text
+
+        <View
           style={{
-            fontFamily: "Gilroy-Medium",
             backgroundColor:
               item.status === "Assigned"
                 ? appTheme.COLORS.Grey
@@ -106,22 +106,29 @@ const DeliveryCard = ({ item, products }) => {
                 : item.status === "Completed"
                 ? appTheme.COLORS.mainGreen
                 : appTheme.COLORS.mainRed,
-            paddingHorizontal: 10,
-            paddingVertical: 7,
-            fontWeight: "600",
             borderRadius: 20,
-            color:
-              item.status === "Assigned"
-                ? appTheme.COLORS.black
-                : item.status === "Accepted"
-                ? appTheme.COLORS.white
-                : item.status === "Completed"
-                ? appTheme.COLORS.white
-                : appTheme.COLORS.white,
+            width: 100,
+            height: 30,
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
-          {item?.status}
-        </Text>
+          <Text
+            style={{
+              fontFamily: "Gilroy-Medium",
+              color:
+                item.status === "Assigned"
+                  ? appTheme.COLORS.black
+                  : item.status === "Accepted"
+                  ? appTheme.COLORS.white
+                  : item.status === "Completed"
+                  ? appTheme.COLORS.white
+                  : appTheme.COLORS.white,
+            }}
+          >
+            {item?.status}
+          </Text>
+        </View>
       </View>
       <View style={{ flexDirection: "row", alignItems: "center" }}>
         <Text

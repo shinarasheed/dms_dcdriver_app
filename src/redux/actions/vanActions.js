@@ -220,8 +220,10 @@ export const postVanEmpties = (payload) => async (dispatch) => {
   }
 };
 
-export const returnVanEmpties = () => async (dispatch) => {
-  const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
+export const returnVanEmpties = () => async (dispatch, getState) => {
+  const {
+    user: { vehicleId },
+  } = getState().user;
 
   try {
     dispatch({
@@ -235,10 +237,9 @@ export const returnVanEmpties = () => async (dispatch) => {
 
     const {
       data: { data },
-    } = await axios.get(
-      `${InventoryUrl}/get-empties/${driver?.vehicleId}`,
-      config
-    );
+    } = await axios.get(`${InventoryUrl}/get-empties/${vehicleId}`, config);
+
+    console.log(data);
 
     dispatch({
       type: RETURN_VAN_EMPTIES_SUCCESS,

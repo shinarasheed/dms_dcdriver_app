@@ -114,7 +114,7 @@ const initialState = {
   customers: [],
   bulkbreakers: [],
   pocs: [],
-  new: [],
+  newcustomers: [],
 };
 
 export default (state = initialState, action) => {
@@ -197,7 +197,11 @@ export default (state = initialState, action) => {
         bulkbreakers: action.payload.filter(
           (customer) => customer.CUST_Type.toLowerCase() === "bulkbreaker"
         ),
+        // newcustomers: action.payload.filter(
+        //   (customer) => customer.CUST_Type.toLowerCase() === "one-off"
+        // ),
       };
+
     case GET_DISTRIBUTOR_CUSTOMERS_FAIL:
       return {
         ...state,

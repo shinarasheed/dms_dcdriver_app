@@ -46,11 +46,9 @@ const ProductsScreen = () => {
     }, [])
   );
 
-  useFocusEffect(
-    React.useCallback(() => {
-      dispatch(returnVanEmpties());
-    }, [])
-  );
+  useEffect(() => {
+    dispatch(returnVanEmpties());
+  }, []);
 
   const showToastWithGravity = () => {
     ToastAndroid.showWithGravity(
@@ -61,13 +59,10 @@ const ProductsScreen = () => {
   };
 
   const Van = useSelector((state) => state.van);
-  const {
-    inventory,
-    vanEmpties,
-    loading,
-    error: vanError,
-    productsReturned,
-  } = Van;
+  const { inventory, loading, error: vanError, productsReturned } = Van;
+  const userState = useSelector((state) => state.user);
+
+  const { user } = userState;
 
   return (
     <View style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}>
@@ -100,7 +95,7 @@ const ProductsScreen = () => {
                 fontFamily: "Gilroy-Light",
               }}
             >
-              You have not any products
+              You do not have any products
             </Text>
             <Text
               style={{
@@ -234,8 +229,8 @@ const ProductsScreen = () => {
               await AsyncStorage.getItem("driverDetails")
             );
             const payload = {
-              companyCode: driver.ownerCompanyId,
-              vehicleId: driver.vehicleId,
+              companyCode: user?.syspro_code,
+              vehicleId: user?.vehicleId,
               stocks: inventory.map((item) => ({
                 productId: item?.product?.productId,
                 quantity: item?.quantity,

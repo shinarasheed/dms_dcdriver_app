@@ -1,18 +1,26 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { Text, TouchableOpacity, View } from "react-native";
 import moment from "moment";
 
 import appTheme from "../constants/theme";
 import Routes from "../navigation/Routes";
+import CountryCurrency from "./user/CountryCurrency";
 
-const SingleCustomer = ({ item, getTotalPrice }) => {
+const SingleCustomer = ({ item }) => {
   const navigation = useNavigation();
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
   return (
     <TouchableOpacity
-      onPress={() =>
-        navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, item)
-      }
+      // onPress={() =>
+      //   navigation.navigate(Routes.DELIVERIES_DETAILS_SCREEN, item)
+      // }
       style={{
         borderTopWidth: 1,
         borderTopColor: appTheme.COLORS.Grey,
@@ -43,7 +51,7 @@ const SingleCustomer = ({ item, getTotalPrice }) => {
           {item?.orderStatus[0]?.dateAssigned !== null &&
             moment(item?.orderStatus[0]?.dateAssigned).format("MMM Do, YYYY")}
         </Text>
-        <Text
+        {/* <Text
           style={{
             textTransform: "lowercase",
             color: appTheme.COLORS.MainGray,
@@ -53,7 +61,7 @@ const SingleCustomer = ({ item, getTotalPrice }) => {
         >
           {item?.orderStatus[0]?.timeAssigned !== null &&
             `at ${item?.orderStatus[0]?.timeAssigned.replace(/\s/g, "")}`}
-        </Text>
+        </Text> */}
       </View>
 
       <View
@@ -77,7 +85,7 @@ const SingleCustomer = ({ item, getTotalPrice }) => {
               fontSize: 14,
             }}
           >
-            {`${item.orderItems.length} ${
+            {`${item?.noOfProduct} ${
               item.orderItems.length !== 1 ? "products" : "product "
             }`}
           </Text>
@@ -123,10 +131,9 @@ const SingleCustomer = ({ item, getTotalPrice }) => {
             ...appTheme.FONTS.mainFontLight,
             color: appTheme.COLORS.MainGray,
           }}
-        >
-          {/* {"\u20A6"}
-          {isNaN(getTotalPrice()) ? null : getTotalPrice()} */}
-        </Text>
+        ></Text>
+
+        <CountryCurrency country={country} price={item?.totalPrice} />
       </View>
     </TouchableOpacity>
   );

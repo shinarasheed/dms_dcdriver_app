@@ -53,6 +53,7 @@ const ProductFooter = ({
     datePlaced: new Date(new Date().getTime()),
     shipToCode: customer?.SF_Code,
     billToCode: customer?.SF_Code,
+    vehicleId: user?.vehicleId,
     country: country,
     buyerDetails: {
       buyerName: customer?.CUST_Name,

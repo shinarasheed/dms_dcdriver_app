@@ -2,7 +2,6 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { Image, Text, View } from "react-native";
 import appTheme from "../constants/theme";
-import { formatPrice } from "../utils/formatPrice";
 import CountryCurrency from "./user/CountryCurrency";
 
 const Order = ({ order, getProductDetails }) => {
@@ -11,6 +10,8 @@ const Order = ({ order, getProductDetails }) => {
   const {
     user: { country },
   } = userState;
+
+  console.log(getProductDetails(order?.productId)?.imageUrl);
   return (
     <>
       {order !== undefined && (

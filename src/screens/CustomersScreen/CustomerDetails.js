@@ -120,21 +120,21 @@ const Customer = () => {
           <View
             style={{
               backgroundColor: appTheme.COLORS.mainGreen,
-              paddingHorizontal: 10,
-              paddingVertical: 3,
               borderRadius: 20,
               width: 100,
               marginTop: 5,
+              height: 25,
+              justifyContent: "center",
+              alignItems: "center",
             }}
           >
             <Text
               style={{
                 color: appTheme.COLORS.white,
-                ...appTheme.FONTS.mainFontLight,
                 textAlign: "center",
               }}
             >
-              Confirmed
+              Registered
             </Text>
           </View>
 

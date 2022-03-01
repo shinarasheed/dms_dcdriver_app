@@ -21,9 +21,9 @@ const SellProductFooter = ({
 
   const userState = useSelector((state) => state.user);
 
-  const {
-    user: { country },
-  } = userState;
+  const { user } = userState;
+
+  const { country } = user;
 
   const dispatch = useDispatch();
 
@@ -47,12 +47,12 @@ const SellProductFooter = ({
     datePlaced: new Date(new Date().getTime()),
     shipToCode: order?.buyerCompanyId,
     billToCode: order?.buyerCompanyId,
-    vehicleId: driver?.vehicleId,
+    vehicleId: user?.vehicleId,
     country: country,
     buyerDetails: {
       buyerName: order?.buyerDetails[0].buyerName,
       buyerPhoneNumber: order?.buyerDetails[0].buyerPhoneNumber,
-      buyerAddress: order?.buyerDetails[0].buyerAddress,
+      buyerAddress: order?.buyerDetails[0]?.buyerAddress,
     },
 
     orderItems: items,

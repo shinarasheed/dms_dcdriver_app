@@ -14,7 +14,10 @@ import {
 } from "./reducers/orderReducer";
 import { vanReducer } from "./reducers/vanReducers";
 import { productsReducer } from "./reducers/productReducer";
-import { customerOneOfReducer } from "./reducers/customerReducer";
+import {
+  customerOneOfReducer,
+  customerOrdersReducers,
+} from "./reducers/customerReducer";
 import userReducer from "./reducers/userReducer";
 
 const persistConfig = {
@@ -33,6 +36,7 @@ const reducer = combineReducers({
   customerOneOf: customerOneOfReducer,
   van: vanReducer,
   user: persistReducer(persistConfig, userReducer),
+  customerOrders: customerOrdersReducers,
 });
 
 const initialState = {};

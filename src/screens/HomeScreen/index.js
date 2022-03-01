@@ -62,7 +62,8 @@ const HomeScreen = () => {
     const getDriverDetails = async () => {
       const {
         data: { result },
-      } = await axios.get(`${companyUrl}/company/code/${user.ownerCompanyId}`);
+        //use syspro_code instead of ownerCompanyId
+      } = await axios.get(`${companyUrl}/company/code/${user?.ownerCompanyId}`);
 
       if (componentMounted) {
         setDistributor(result);
@@ -106,7 +107,7 @@ const HomeScreen = () => {
       <View style={styles.header}>
         <Text style={styles.headerHome}>Home</Text>
         <Pressable
-          onPress={() => navigation.navigate(Routes.NOTIFICATIONS_SCREEN)}
+        // onPress={() => navigation.navigate(Routes.NOTIFICATIONS_SCREEN)}
         >
           <View style={styles.headerNotification}>
             <Image source={icons.notificationIcon} />

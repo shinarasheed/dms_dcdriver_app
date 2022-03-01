@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   StyleSheet,
   Pressable,
   Image,
   View,
   Text,
-  SafeAreaView,
   TextInput,
   TouchableOpacity,
 } from "react-native";
@@ -15,12 +14,9 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 
 import ProductFlastlist from "../../components/ProductFlatList";
 import appTheme from "../../constants/theme";
-import SearchBar from "../../components/SearchBar";
 import { icons } from "../../constants";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
-import { formatPrice } from "../../utils/formatPrice";
 import CountryCurrency from "../../components/user/CountryCurrency";
-// import filter from "lodash.filter";
 
 const index = () => {
   const dispatch = useDispatch();
@@ -29,7 +25,7 @@ const index = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const Van = useSelector((state) => state.van);
-  const { inventory, vanEmpties, loading: vanLoading, error: vanError } = Van;
+  const { inventory, loading: vanLoading, error: vanError } = Van;
 
   const userState = useSelector((state) => state.user);
 
@@ -88,26 +84,20 @@ const index = () => {
 
       {/* header  */}
 
-      <View
-        style={{
-          paddingHorizontal: 20,
-          marginVertical: 10,
-        }}
-      >
-        <View style={styles.searchInputContainer}>
-          <Icon
-            name="search"
-            size={25}
-            style={{ color: appTheme.COLORS.MainGray }}
-          />
-          <TextInput
-            placeholder="Search"
-            style={{ fontSize: 18, paddingLeft: 5, flex: 1 }}
-            value={searchValue}
-            onChangeText={(text) => searchFunction(text)}
-            autoCorrect={false}
-          />
-        </View>
+      <View style={styles.searchInputContainer}>
+        <Icon
+          name="search"
+          size={20}
+          style={{ color: appTheme.COLORS.mainYellow }}
+        />
+
+        <TextInput
+          placeholder="Search"
+          style={{ fontSize: 18, paddingLeft: 5, flex: 1 }}
+          value={searchValue}
+          onChangeText={(text) => searchFunction(text)}
+          autoCorrect={false}
+        />
       </View>
 
       <TouchableOpacity
@@ -155,7 +145,7 @@ const index = () => {
                 color: appTheme.COLORS.black,
               }}
             >
-              {vanEmpties?.quantity}
+              {/* {vanEmpties?.quantity} */}
             </Text>
           </View>
 
@@ -207,8 +197,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderColor: "#9799A0",
-    borderWidth: 1,
-    borderRadius: 5,
+    borderWidth: 0,
     paddingHorizontal: 10,
+    marginBottom: 20,
+    elevation: 20,
   },
 });

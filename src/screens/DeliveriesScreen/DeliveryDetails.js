@@ -19,7 +19,7 @@ import RejectOrderSheet from "../../components/RejectOrderSheet";
 const DeliveryDetails = () => {
   const [loadingOrder, setLoadingOrder] = useState(false);
   const route = useRoute();
-  const item = route.params;
+  const { item } = route.params;
 
   const [theOrder, settheOrder] = useState(item);
 

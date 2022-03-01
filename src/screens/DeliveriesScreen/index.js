@@ -107,43 +107,38 @@ export default function DeliveriesScreen() {
         <Text
           style={{
             fontSize: 17,
-            fontWeight: "700",
-            ...appTheme.FONTS.mainFontBold,
+            fontFamily: "Gilroy-Medium",
           }}
         >
           Deliveries
         </Text>
       </View>
-
-      {/* header */}
-
-      <View style={{ paddingHorizontal: 20, marginBottom: 20 }}>
+      <View style={{ paddingHorizontal: 20 }}>
         <DeliveriesTab
           categories={categories}
           index={index}
           setIndex={setIndex}
         />
+      </View>
 
-        <View>
-          <View style={styles.searchInputContainer}>
-            <Icon
-              name="search"
-              size={25}
-              style={{ color: appTheme.COLORS.MainGray }}
-            />
-            <TextInput
-              placeholder="Search"
-              style={{
-                fontSize: 15,
-                paddingLeft: 5,
-                flex: 1,
-                fontFamily: "Gilroy-Medium",
-              }}
-              value={searchValue}
-              onChangeText={(text) => handleChangeText(text)}
-            />
-          </View>
-        </View>
+      <View style={styles.searchInputContainer}>
+        <Icon
+          name="search"
+          size={20}
+          style={{ color: appTheme.COLORS.mainYellow }}
+        />
+
+        <TextInput
+          placeholder="Search"
+          style={{
+            fontSize: 15,
+            paddingLeft: 5,
+            flex: 1,
+            fontFamily: "Gilroy-Medium",
+          }}
+          value={searchValue}
+          onChangeText={(text) => handleChangeText(text)}
+        />
       </View>
 
       <ScrollView
@@ -166,8 +161,9 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     borderColor: "#9799A0",
-    borderWidth: 1,
-    borderRadius: 5,
+    borderWidth: 0,
     paddingHorizontal: 10,
+    marginBottom: 20,
+    elevation: 20,
   },
 });

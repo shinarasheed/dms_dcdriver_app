@@ -11,7 +11,7 @@ import CallCustomer from "./CallCustomer";
 import Order from "./Order";
 import CountryCurrency from "./user/CountryCurrency";
 
-const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
+const OrderDetailsBody = ({ theOrder, getProductDetails }) => {
   const userState = useSelector((state) => state.user);
 
   const {
@@ -51,10 +51,11 @@ const OrderDetailsBody = ({ theOrder, getTotalPrice, getProductDetails }) => {
                 : theOrder?.status === "Completed"
                 ? appTheme.COLORS.mainGreen
                 : appTheme.COLORS.mainRed,
-            paddingHorizontal: 10,
-            paddingVertical: 7,
-            fontWeight: "600",
             borderRadius: 20,
+            width: 100,
+            height: 30,
+            justifyContent: "center",
+            alignItems: "center",
           }}
         >
           <Text
