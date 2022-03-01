@@ -70,11 +70,11 @@ const SellProductFooterOneOf = ({
         <TouchableOpacity
           onPress={() => {
             dispatch(confirmVanSales(payload));
-            // navigator.navigate("SalesInvoice", {
-            //   productsToSell,
-            //   customer,
-            //   empties,
-            // });
+            navigator.navigate("SalesInvoice", {
+              productsToSell,
+              customer,
+              empties,
+            });
             dispatch(updateInventory(payload2));
             toggle();
           }}

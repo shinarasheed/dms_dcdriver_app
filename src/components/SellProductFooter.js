@@ -154,7 +154,7 @@ const SellProductFooter = ({
             : `${
                 country === "UG"
                   ? `UGX${formatPrice(getProductPrice())}`
-                  : `{"\u20A6"}${formatPrice(getProductPrice())}`
+                  : `\u20A6${formatPrice(getProductPrice())}`
               }`
         }`}
       />
