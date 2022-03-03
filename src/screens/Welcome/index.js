@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
@@ -12,7 +12,7 @@ import {
 import { LoginView } from "ad-b2c-react-native";
 import * as SecureStore from "expo-secure-store";
 import appTheme from "../../constants/theme";
-import { register } from "../../redux/actions/userActions";
+import { register, clearErrors } from "../../redux/actions/userActions";
 
 import Loading from "../../components/Loading";
 
@@ -21,6 +21,7 @@ const Register = () => {
   const dispatch = useDispatch();
 
   const userState = useSelector((state) => state.user);
+  const { isLoading, error } = userState;
 
   const onLogin = () => {
     dispatch(register(navigation));
@@ -40,17 +41,27 @@ const Register = () => {
     );
   };
 
-  const { isLoading, error } = userState;
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        dispatch(clearErrors());
+      }, 10000);
+    }
+  }, [error]);
 
   if (isLoading) return <Loading />;
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <View style={{ flex: 1 }}>
       {error && (
         <View
           style={{
             alignItems: "center",
             backgroundColor: appTheme.COLORS.white,
+            height: 100,
+            justifyContent: "center",
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
           <Text
@@ -75,7 +86,7 @@ const Register = () => {
         onSuccess={onLogin}
         onFail={onFail}
       />
-    </SafeAreaView>
+    </View>
   );
 };
 

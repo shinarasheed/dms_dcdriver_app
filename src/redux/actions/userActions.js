@@ -16,6 +16,7 @@ import {
   GET_DISTRIBUTOR_CUSTOMERS_REQUEST,
   GET_DISTRIBUTOR_CUSTOMERS_SUCCESS,
   GET_DISTRIBUTOR_CUSTOMERS_FAIL,
+  CLEAR_ERRORS,
 } from "../constants/userConstants";
 import { customerUrl, userUrl, vehicleUrl } from "../../utils/baseUrl";
 
@@ -205,4 +206,10 @@ export const getDistributorCustomers = (code) => async (dispatch) => {
       payload: "There was an error",
     });
   }
+};
+
+export const clearErrors = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_ERRORS,
+  });
 };

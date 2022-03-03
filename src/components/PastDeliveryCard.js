@@ -19,15 +19,6 @@ const PastDeliveryCard = ({ item, products }) => {
     return x;
   };
 
-  const getTotalPrice = () => {
-    return item?.orderItems?.reduce(
-      (accumulator, order) =>
-        accumulator +
-        getProductDetails(order?.productId)?.price * order?.quantity,
-      0
-    );
-  };
-
   const userState = useSelector((state) => state.user);
 
   const {

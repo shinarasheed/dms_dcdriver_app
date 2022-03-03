@@ -39,7 +39,7 @@ const ProductCard = ({ item: { quantity, product } }) => {
           >
             <Text
               style={{
-                fontSize: 18,
+                fontSize: 15,
                 textTransform: "capitalize",
                 marginRight: 5,
                 color: appTheme.COLORS.black,
@@ -122,7 +122,7 @@ const ProductCard = ({ item: { quantity, product } }) => {
             <View
               style={{
                 flexDirection: "row",
-                marginLeft: 80,
+                marginLeft: 55,
                 alignItems: "center",
               }}
             >

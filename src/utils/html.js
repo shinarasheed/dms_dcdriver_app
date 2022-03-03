@@ -7,6 +7,7 @@ import {
 } from "./helpers";
 import appTheme from "../constants/theme";
 import { formatPrice } from "./formatPrice";
+import { icons, images } from "../constants";
 
 function getRandomIntBetween(min, max) {
   min = Math.ceil(min);
@@ -34,6 +35,7 @@ export const simpleHtml =
       align-items: center;
       padding-top: 40px;
       margin-bottom: 50px">
+      <img class="img-fluid" src="https://res.cloudinary.com/shinatech/image/upload/v1646204290/LogoBig_zxn6t9.png" alt="Logo" />
         <h5 style="
             font-size: 20px;
               font-weight: 'bold';
@@ -128,10 +130,12 @@ export const simpleHtml =
                  <td style="padding: 1rem 1rem">${index + 1}</td>
                  <td style="padding: 1rem 1rem">${item?.brand} ${item?.sku}</td>
                  <td style="padding: 1rem 1rem">${item?.quantity}</td>
-                 <td style="padding: 1rem 1rem">${formatPrice(item?.price)}</td>
-                 <td style="padding: 1rem 1rem">${formatPrice(
-                   item?.price * item.quantity
-                 )}</td>
+                 <td style="padding: 1rem 1rem">${
+                   user?.country === "UG" ? "UGX" : `\u20A6`
+                 }${formatPrice(item?.price)}</td>
+                 <td style="padding: 1rem 1rem">${
+                   user?.country === "UG" ? "UGX" : `\u20A6`
+                 }${formatPrice(item?.price * item.quantity)}</td>
                </tr>`
                  )}
 
@@ -159,20 +163,20 @@ export const simpleHtml =
               border-bottom: 2px solid black;"> 
                   <div>
                       <div style="margin-bottom: 5px">
-                          <span style="font-size: 18px">Subtotal:</span><span>${formatPrice(
-                            getTotalPrice()
-                          )}</span>
+                          <span style="font-size: 18px">Subtotal:</span><span>${
+                            user?.country === "UG" ? "UGX" : `\u20A6`
+                          }${formatPrice(getTotalPrice())}</span>
                       </div>
                       <div style="margin-bottom: 5px">
-                          <span  style="font-size: 18px">Empties:</span><span>${formatPrice(
-                            getEmptiesPrice()
-                          )}</span>
+                          <span  style="font-size: 18px">Empties:</span><span>${
+                            user?.country === "UG" ? "UGX" : `\u20A6`
+                          }${formatPrice(getEmptiesPrice())}</span>
                       </div>
                   </div>
                   <div>
-                      <h5 style=" font-size: 30px">${formatPrice(
-                        getTotalPrice()
-                      )}</h5>
+                      <h5 style=" font-size: 30px">${
+                        user?.country === "UG" ? "UGX" : `\u20A6`
+                      }${formatPrice(getTotalPrice())}</h5>
                   </div>
               </div>
             </article>

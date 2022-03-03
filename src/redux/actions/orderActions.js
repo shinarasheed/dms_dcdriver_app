@@ -34,9 +34,13 @@ export const fetchOrder = () => async (dispatch) => {
       `${orderUrl}/GetOrder/GetOrderByVehicleId/${driver?.vehicleId}`
     );
 
+    let result = order.sort(
+      (orderA, orderB) => orderB.orderId - orderA.orderId
+    );
+
     dispatch({
       type: FETCH_ORDER_SUCCESS,
-      payload: order,
+      payload: result,
     });
   } catch (error) {
     console.log(error);

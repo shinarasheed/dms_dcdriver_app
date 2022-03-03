@@ -10,6 +10,7 @@ import {
   GET_DISTRIBUTOR_CUSTOMERS_REQUEST,
   GET_DISTRIBUTOR_CUSTOMERS_SUCCESS,
   GET_DISTRIBUTOR_CUSTOMERS_FAIL,
+  CLEAR_ERRORS,
 } from "../constants/userConstants";
 
 const initialState = {
@@ -19,7 +20,6 @@ const initialState = {
   user: null,
   message: "",
   error: null,
-  // driverEmail: null,
   phoneNumber: null,
   customers: [],
   bulkbreakers: [],
@@ -72,6 +72,12 @@ export default (state = initialState, action) => {
         isAuthenticated: false,
         isLoading: false,
         error: action.payload,
+      };
+
+    case CLEAR_ERRORS:
+      return {
+        ...state,
+        error: null,
       };
 
     case RESTORE_TOKEN:

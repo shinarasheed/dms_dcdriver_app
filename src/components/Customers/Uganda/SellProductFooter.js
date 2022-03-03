@@ -71,7 +71,7 @@ const SellProductFooter = ({
     buyerDetails: {
       buyerName: customer?.CUST_Name,
       buyerPhoneNumber: customer?.phoneNumber,
-      buyerAddress: customer?.address,
+      buyerAddress: "UG",
     },
 
     orderItems: items,
