@@ -232,7 +232,7 @@ const ProductsScreen = () => {
               companyCode: user?.ownerCompanyId,
               vehicleId: user?.vehicleId,
               stocks: inventory.map((item) => ({
-                productId: parseInt(item?.product?.productId),
+                productId: parseInt(item?.product?.id),
                 quantity: parseInt(item?.quantity),
               })),
             };

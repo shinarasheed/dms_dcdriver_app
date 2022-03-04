@@ -31,7 +31,7 @@ const AddCustomer = () => {
 
   const handleRegister = () => {
     try {
-      dispatch(createCustomerOneOf({ phoneNumber, customerName }));
+      dispatch(createCustomerOneOf(phoneNumber, customerName));
       navigator.navigate(Routes.ONEOF_SALE_SCREEN);
       setPhoneNumber("");
       setCustomerName("");

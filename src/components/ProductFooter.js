@@ -30,10 +30,12 @@ const SellProductFooter = ({
   const Van = useSelector((state) => state.van);
   const { driver } = Van;
 
+  console.log(productsToSell, "to sell");
+
   const items = productsToSell?.map((prod) => ({
     price: prod.price * prod.quantity,
     quantity: parseInt(prod.quantity),
-    productId: prod.productId,
+    productId: prod.id.toString(),
     SFlineID: "Van-Sales",
   }));
 
@@ -60,7 +62,7 @@ const SellProductFooter = ({
 
   const items2 = productsToSell?.map((prod) => ({
     quantity: parseInt(prod.quantity),
-    productId: parseInt(prod.productId),
+    productId: parseInt(prod.id),
   }));
 
   const payload2 = {

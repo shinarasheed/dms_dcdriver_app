@@ -31,7 +31,7 @@ const SellProductFooterOneOf = ({
   const items = productsToSell?.map((prod) => ({
     price: prod.price * prod.quantity,
     quantity: parseInt(prod.quantity),
-    productId: prod.productId,
+    productId: prod.id.toString(),
     SFlineID: "One-Off",
   }));
 
@@ -56,7 +56,7 @@ const SellProductFooterOneOf = ({
 
   const items2 = productsToSell?.map((prod) => ({
     quantity: parseInt(prod.quantity),
-    productId: parseInt(prod.productId),
+    productId: parseInt(prod.id),
   }));
 
   const payload2 = {

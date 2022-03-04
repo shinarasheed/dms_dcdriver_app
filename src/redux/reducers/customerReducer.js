@@ -5,15 +5,15 @@ import {
   GET_CUSTOMER_ORDERS_SUCCESS,
   GET_CUSTOMER_ORDERS_REQUEST,
   GET_CUSTOMER_ORDERS_FAIL,
+  CLEAR_CUSTOMER_ERROR,
 } from "../constants/customerConstants";
 
-export const customerOneOfReducer = (state = { customer: {} }, action) => {
+export const customerOneOfReducer = (state = {}, action) => {
   const { type, payload } = action;
   switch (type) {
     case CREATE_ONE_OF_CUSTOMER_REQUEST:
       return {
         loading: true,
-        customer: {},
       };
 
     case CREATE_ONE_OF_CUSTOMER_SUCCES:
@@ -26,6 +26,12 @@ export const customerOneOfReducer = (state = { customer: {} }, action) => {
       return {
         loading: false,
         error: payload,
+      };
+
+    case CLEAR_CUSTOMER_ERROR:
+      return {
+        loading: false,
+        error: null,
       };
 
     default:

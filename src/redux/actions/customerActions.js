@@ -11,8 +11,12 @@ import {
 import { customerUrl, orderUrl } from "../../utils/baseUrl";
 
 export const createCustomerOneOf =
-  ({ phoneNumber, customerName }) =>
-  async (dispatch) => {
+  (phoneNumber, customerName) => async (dispatch, getState) => {
+    const {
+      user: { country },
+    } = getState().user;
+
+    const customerCountry = country === "UG" ? "Uganda" : "NIgeria";
     try {
       dispatch({
         type: CREATE_ONE_OF_CUSTOMER_REQUEST,
@@ -27,7 +31,7 @@ export const createCustomerOneOf =
       const body = {
         phoneNumber,
         customerName,
-        country: "Nigeria",
+        country: customerCountry,
       };
 
       const {

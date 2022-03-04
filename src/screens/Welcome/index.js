@@ -2,13 +2,7 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
-import {
-  ActivityIndicator,
-  SafeAreaView,
-  Platform,
-  View,
-  Text,
-} from "react-native";
+import { ActivityIndicator, Platform, View, Text } from "react-native";
 import { LoginView } from "ad-b2c-react-native";
 import * as SecureStore from "expo-secure-store";
 import appTheme from "../../constants/theme";

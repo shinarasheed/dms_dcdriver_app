@@ -1,7 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Text, View, Image, Pressable, Platform } from "react-native";
-import { useRoute, useNavigation } from "@react-navigation/native";
+import {
+  useRoute,
+  useNavigation,
+  useFocusEffect,
+} from "@react-navigation/native";
 import axios from "axios";
 
 import appTheme from "../../constants/theme";
@@ -20,6 +24,14 @@ const DeliveryDetails = () => {
   const [loadingOrder, setLoadingOrder] = useState(false);
   const route = useRoute();
   const { item } = route.params;
+
+  const userState = useSelector((state) => state.user);
+
+  const { user } = userState;
+
+  const { country } = user;
+
+  const driverCountry = country === "UG" ? "Uganda" : "Nigeria";
 
   const [theOrder, settheOrder] = useState(item);
 
@@ -60,13 +72,13 @@ const DeliveryDetails = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchProducts());
+    dispatch(fetchProducts(driverCountry));
   }, []);
 
   const getProductDetails = (productId) => {
-    const x = products?.filter(
-      (product) => product?.productId === productId.toString()
-    )[0];
+    const x = products?.filter((product) => {
+      return product?.id === +productId;
+    })[0];
     return x;
   };
 

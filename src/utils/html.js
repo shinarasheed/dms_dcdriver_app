@@ -17,7 +17,7 @@ function getRandomIntBetween(min, max) {
 
 export const simpleHtml =
   (
-    sholudRemovePageMargin = false,
+    shouldRemovePageMargin = false,
     productsToSell,
     order,
     user,
@@ -28,161 +28,244 @@ export const simpleHtml =
   () =>
     createHTML({
       content: `
-      <section 
-      style="display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding-top: 40px;
-      margin-bottom: 50px">
-      <img class="img-fluid" src="https://res.cloudinary.com/shinatech/image/upload/v1646204290/LogoBig_zxn6t9.png" alt="Logo" />
-        <h5 style="
-            font-size: 20px;
-              font-weight: 'bold';
-              margin-bottom:1px">${distributor?.company_name}
-             </h5>
-        <p style="color: grey;
-        margin-bottom: 1px">${distributor?.address}</p>
-        <p style="   color: grey;
-        margin-bottom: 5px">
+      <section
+      style="
+        display: flex;
+        flex-direction: column;
+        /* justify-content: center;
+        align-items: center; */
+        padding-top: 40px;
+        margin-bottom: 50px;
+      "
+    >
+      <div>
+        <div style="text-align: left">
+          <img
+            style="width: 20%"
+            src="https://res.cloudinary.com/shinatech/image/upload/v1646297557/Header_Logo_-_Coloured_bv8zkj.svg"
+            alt="Logo"
+          />
+        </div>
+       
+      </div>
+     <div style="
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     padding-top: 40px;
+     margin-bottom: 10px;
+     
+   "  >
+
+<h5 style="font-size: 20px; font-weight: 'bold'; margin-bottom: 1px">
+    ${distributor?.company_name}
+  </h5>
+        <p style="color: grey; margin-bottom: 1px">${distributor?.address}</p>
+        <p style="color: grey; margin-bottom: 5px">
           <span>Tel:</span>
           <span>${distributor?.Owner_Phone}</span>
         </p>
       </section>
-      <section style=" display: flex; justify-content: space-between;
-      padding-right: 40px;
-      padding-left: 40px">
-     
+      <section
+        style="
+          display: flex;
+          justify-content: space-between;
+          padding-right: 40px;
+          padding-left: 40px;
+        "
+      >
         <article>
-          <h1 style=" margin-bottom: 5px">Invoice</h1>
-          <div style="display: flex" >
-              <p style="margin-bottom: 5px">Date:</p>&nbsp;
-              <p style="margin-bottom: 5px">${new Date().toLocaleDateString()}</p>      
+          <h1 style="margin-bottom: 5px; font-weight: bold; font-size: 20px; color: #828297;">Invoice</h1>
+          <div style="display: flex">
+            <p style="margin-bottom: 5px">Date:</p>
+            &nbsp;
+            <p style="margin-bottom: 5px">${new Date().toLocaleDateString()}</p>
           </div>
-          <div style="display: flex" >
-              <p style="margin-bottom: 5px">Invoive:</p>&nbsp;
-              <p style="margin-bottom: 5px">#${getRandomIntBetween(
-                100,
-                1000
-              )}</p>
+          <div style="display: flex">
+            <p style="margin-bottom: 5px">Invoive:</p>
+            &nbsp;
+            <p style="margin-bottom: 5px">#${getRandomIntBetween(100, 1000)}</p>
           </div>
-          <div style="display: flex" >
-              <p style="margin-bottom: 5px">Order no:</p>&nbsp;
-              <p style="margin-bottom: 5px">${order?.orderId || order?.id}</p>
+          <div style="display: flex">
+            <p style="margin-bottom: 5px">Order no:</p>
+            &nbsp;
+            <p style="margin-bottom: 5px">${order?.orderId || order?.id}</p>
           </div>
-          <div style="display: flex" >
-              <p style="margin-bottom: 5px">Salesman:</p>&nbsp;
-              <p style="margin-bottom: 5px">${user?.name}</p>
+          <div style="display: flex">
+            <p style="margin-bottom: 5px">Salesman:</p>
+            &nbsp;
+            <p style="margin-bottom: 5px">${user?.name}</p>
           </div>
         </article>
   
-      <div>
+        <div>
           <h3>SOLD TO</h3>
           <div>
-              <p style="font-weight: bold">${
-                order?.buyerDetails[0]?.buyerName || order?.CUST_Name
-              }</p>
-              <p>${
-                order?.buyerDetails[0]?.buyerAddress || order?.country
-              }</p>     
-              <p>Lagos</p> 
-              <p><span>Tel:</span>&nbsp;<span>${
-                order?.buyerDetails[0]?.buyerPhoneNumber || order?.phoneNumber
-              }
-              </span> </p>
+            <p style="font-weight: bold">
+              ${order?.buyerDetails[0]?.buyerName || order?.CUST_Name}
+            </p>
+            <p>${order?.buyerDetails[0]?.buyerAddress || order?.country}</p>
+            <p>
+              <span>Tel:</span>&nbsp;<span
+                >${
+                  order?.buyerDetails[0]?.buyerPhoneNumber || order?.phoneNumber
+                }
+              </span>
+            </p>
           </div>
-         
-      </div>
+        </div>
       </section>
       <section>
-          <table style="width: 100%;
-          margin-top: 50px;
-          margin-left: 20px">
-              <thead>
-                <tr>
-                  <th style="text-align: left;
+        <table style="width: 100%; margin-top: 50px; margin-left: 20px">
+          <thead>
+            <tr>
+              <th
+                style="
+                  text-align: left;
                   padding: 1rem 1rem;
                   color: #000;
-                  font-size: 18px" >No</th>
-                  <th style="text-align: left;
+                  font-size: 18px;
+                  border-bottom: 1px solid black;
+                "
+              >
+                No
+              </th>
+              <th
+                style="
+                  text-align: left;
                   padding: 1rem 1rem;
                   color: #000;
-                  font-size: 18px">Product Description</th>
-                  <th style="text-align: left;
-                  padding: 1rem 1rem;
-                  color: #000;
-                  font-size: 18px">Quantity</th>
-                  <th style="text-align: left;
-                  padding: 1rem 1rem;
-                  color: #000;
-                  font-size: 18px">Unit Price</th>
-                  <th style="text-align: left;
-                  padding: 1rem 1rem;
-                  color: #000;
-                  font-size: 18px">Amount</th>
-                </tr>
-               </thead>
-               <tbody>
+                  font-size: 18px;
+                  border-bottom: 1px solid black;
 
-                 ${productsToSell.map(
-                   (item, index) =>
-                     `<tr>
-                 <td style="padding: 1rem 1rem">${index + 1}</td>
-                 <td style="padding: 1rem 1rem">${item?.brand} ${item?.sku}</td>
-                 <td style="padding: 1rem 1rem">${item?.quantity}</td>
-                 <td style="padding: 1rem 1rem">${
-                   user?.country === "UG" ? "UGX" : `\u20A6`
-                 }${formatPrice(item?.price)}</td>
-                 <td style="padding: 1rem 1rem">${
-                   user?.country === "UG" ? "UGX" : `\u20A6`
-                 }${formatPrice(item?.price * item.quantity)}</td>
-               </tr>`
-                 )}
+                "
+              >
+                Product Description
+              </th>
+              <th
+                style="
+                  text-align: left;
+                  padding: 1rem 1rem;
+                  color: #000;
+                  font-size: 18px;
+                  border-bottom: 1px solid black;
 
+                "
+              >
+                Quantity
+              </th>
+              <th
+                style="
+                  text-align: left;
+                  padding: 1rem 1rem;
+                  color: #000;
+                  font-size: 18px;
+                  border-bottom: 1px solid black;
 
-              </tbody>
-            </table>
+                "
+              >
+                Unit Price
+              </th>
+              <th
+                style="
+                  text-align: left;
+                  padding: 1rem 1rem;
+                  color: #000;
+                  font-size: 18px;
+                  border-bottom: 1px solid black;
+
+                "
+              >
+                Amount
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            ${productsToSell.map(
+              (item, index) => `
+            <tr>
+              <td style="padding: 1rem 1rem">${index + 1}</td>
+              <td style="padding: 1rem 1rem">${item?.brand} ${item?.sku}</td>
+              <td style="padding: 1rem 1rem">${item?.quantity}</td>
+              <td style="padding: 1rem 1rem">
+                ${user?.country === "UG" ? "UGX" : `\u20A6`}${formatPrice(
+                item?.price
+              )}
+              </td>
+              <td style="padding: 1rem 1rem">
+                ${user?.country === "UG" ? "UGX" : `\u20A6`}${formatPrice(
+                item?.price * item.quantity
+              )}
+              </td>
+            </tr>
+            `
+            )}
+          </tbody>
+        </table>
+        
   
-            <article style="background-color:#dadee3;
+        <article
+          style="
+            background-color: #dadee3;
             padding-top: 0px;
             padding-left: 40px;
             padding-right: 40px;
-            padding-bottom: 20px">
-                <div style="display: flex;
-                justify-content: space-between;
-                margin-bottom: 10px;
-                font-size: 20px;
-                border-bottom: 2px solid black"><p>Additional Information</p>
-                  <p>Grand Total:</p>
-              </div>
+            padding-bottom: 20px;
+          "
+        >
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              margin-bottom: 10px;
+              font-size: 20px;
+              border-bottom: 2px solid black;
+            "
+          >
+            <p>Additional Information</p>
+            <p>Grand Total:</p>
+          </div>
   
-             
-              <div style="display: flex;
+          <div
+            style="
+              display: flex;
               justify-content: space-between;
               align-items: center;
-              border-bottom: 2px solid black;"> 
-                  <div>
-                      <div style="margin-bottom: 5px">
-                          <span style="font-size: 18px">Subtotal:</span><span>${
-                            user?.country === "UG" ? "UGX" : `\u20A6`
-                          }${formatPrice(getTotalPrice())}</span>
-                      </div>
-                      <div style="margin-bottom: 5px">
-                          <span  style="font-size: 18px">Empties:</span><span>${
-                            user?.country === "UG" ? "UGX" : `\u20A6`
-                          }${formatPrice(getEmptiesPrice())}</span>
-                      </div>
-                  </div>
-                  <div>
-                      <h5 style=" font-size: 30px">${
-                        user?.country === "UG" ? "UGX" : `\u20A6`
-                      }${formatPrice(getTotalPrice())}</h5>
-                  </div>
+              border-bottom: 2px solid black;
+            "
+          >
+            <div>
+              <div style="margin-bottom: 5px">
+                <span style="font-size: 18px">Subtotal:</span
+                ><span
+                  >${user?.country === "UG" ? "UGX" : `\u20A6`}${formatPrice(
+        getTotalPrice()
+      )}</span
+                >
               </div>
-            </article>
-      </section>
+              <div style="margin-bottom: 5px">
+                <span style="font-size: 18px">Empties:</span
+                ><span
+                  >${user?.country === "UG" ? "UGX" : `\u20A6`}${formatPrice(
+        getEmptiesPrice()
+      )}</span
+                >
+              </div>
+            </div>
+            <div>
+              <h5 style="font-size: 30px">
+                ${user?.country === "UG" ? "UGX" : `\u20A6`}${formatPrice(
+        getTotalPrice()
+      )}
+              </h5>
+            </div>
+          </div>
+        </article>
+     </div>
+    </section>
     `,
-      sholudRemovePageMargin,
+      shouldRemovePageMargin,
       styles: `
     *{
         margin: 0;

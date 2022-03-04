@@ -28,19 +28,38 @@ export const simpleHtml =
     createHTML({
       content: `
       <section 
-      style="display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      padding-top: 40px;
-      margin-bottom: 10px">
-      <img class="img-fluid" src="https://res.cloudinary.com/shinatech/image/upload/v1646204290/LogoBig_zxn6t9.png" alt="Logo" />
-        <h5 style="
-            font-size: 20px;
-              font-weight: 'bold';
-              margin-bottom:1px">${distributor?.company_name}
-             </h5>
-        <p style="color: grey;
+    style="
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center;
+    align-items: center; */
+    padding-top: 40px;
+    margin-bottom: 50px;
+  " >
+     <div>
+        <div style="text-align: left">
+          <img
+            style="width: 20%"
+            src="https://res.cloudinary.com/shinatech/image/upload/v1646297557/Header_Logo_-_Coloured_bv8zkj.svg"
+            alt="Logo"
+          />
+        </div>
+       
+      </div>
+        
+      <div style="
+     display: flex;
+     flex-direction: column;
+     justify-content: center;
+     align-items: center;
+     padding-top: 40px;
+     margin-bottom: 10px;
+     
+   "  >
+  <h5 style="font-size: 20px; font-weight: 'bold'; margin-bottom: 1px">
+  ${distributor?.company_name}
+</h5>
+    <p style="color: grey;
         margin-bottom: 1px">${distributor?.address}</p>
         <p style="   color: grey;
         margin-bottom: 5px">
@@ -53,7 +72,7 @@ export const simpleHtml =
       padding-left: 40px">
      
         <article>
-          <h1 style=" margin-bottom: 5px">Invoice</h1>
+          <h1 style="margin-bottom: 5px; font-weight: bold; font-size: 20px; color: #828297;">Invoice</h1>
           <div style="display: flex" >
               <p style="margin-bottom: 5px">Date:</p>&nbsp;
               <p style="margin-bottom: 5px">${new Date().toLocaleDateString()}</p>    
@@ -80,7 +99,6 @@ export const simpleHtml =
           <div>
               <p>${customer?.CUST_Name}</p>
               <p>${customer?.country}</p>     
-              <p>Lagos</p> 
               <p><span>Tel:</span>&nbsp;<span>${customer?.phoneNumber}
               </span> </p>
           </div>
@@ -173,6 +191,7 @@ export const simpleHtml =
                   </div>
               </div>
             </article>
+    </div>
       </section>
     `,
       sholudRemovePageMargin,

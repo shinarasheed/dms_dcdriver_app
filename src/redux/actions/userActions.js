@@ -64,6 +64,8 @@ export const register = (navigation) => async (dispatch) => {
         `${vehicleUrl}/GetVehicle/GetByPhoneNumber/${phoneNumber}`
       );
 
+      console.log(data, "++++++++++++++");
+
       if (!data.ownerCompanyId) {
         dispatch({
           type: LOGIN_FAIL,
@@ -90,74 +92,6 @@ export const register = (navigation) => async (dispatch) => {
     dispatch({
       type: REGISTER_FAIL,
       payload: "Signup Error. This account already exist in our system",
-    });
-
-    await adService.logoutAsync();
-    await AsyncStorage.clear();
-  }
-};
-
-export const login = (navigation) => async (dispatch) => {
-  try {
-    dispatch({
-      type: LOGIN_REQUEST,
-    });
-
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-    const token = await adService.getIdToken();
-    const decoded = await jwt_decode(token);
-
-    console.log(decoded, "decoded from login screen");
-
-    const phoneNumber = decoded.extension_PhoneNumber;
-
-    if (decoded.newUser) {
-      const body = {
-        token,
-      };
-
-      //continue
-      await axios.post(`${userUrl}/register`, body, config);
-
-      navigation.navigate(Routes.CONTINUE_SCREEN);
-
-      dispatch({
-        type: REGISTER_SUCCESS,
-        payload: phoneNumber,
-      });
-    } else {
-      const {
-        data: { data },
-      } = await axios.get(
-        `${vehicleUrl}/GetVehicle/GetByPhoneNumber/${phoneNumber}`
-      );
-
-      await AsyncStorage.setItem("driverDetails", JSON.stringify(data));
-      await AsyncStorage.setItem("token", token);
-      // navigation.navigate(Routes.HOME_SCREEN);
-
-      const user = data;
-
-      dispatch({
-        type: LOGIN_SUCCESS,
-        payload: {
-          user,
-          token,
-        },
-      });
-    }
-  } catch (error) {
-    dispatch({
-      type: LOGIN_FAIL,
-      payload:
-        error.response && error.response.data.error
-          ? error.response.data.error
-          : error.error,
     });
 
     await adService.logoutAsync();
