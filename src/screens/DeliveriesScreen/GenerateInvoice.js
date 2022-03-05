@@ -126,9 +126,7 @@ const GenerateInvoice = () => {
   );
 
   return (
-    <SafeAreaView
-      style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
-    >
+    <View style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}>
       {/* header */}
       <View
         style={{
@@ -221,7 +219,11 @@ const GenerateInvoice = () => {
             paddingVertical: 20,
           }}
         >
-          <View>
+          <View
+            style={{
+              elevation: 10,
+            }}
+          >
             <Text
               style={{
                 fontWeight: "bold",
@@ -459,7 +461,7 @@ const GenerateInvoice = () => {
           })}
         </View>
       </CustomVirtualizedView>
-    </SafeAreaView>
+    </View>
   );
 };
 

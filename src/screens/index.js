@@ -14,15 +14,13 @@ import GenerateInvoice from "./DeliveriesScreen/GenerateInvoice";
 import Welcome from "./Welcome";
 import SalesInvoice from "./CustomersScreen/SalesInVoice";
 import VanInvoice from "./CustomersScreen/VanInvoice";
-import Logout from "./Logout";
-import Login from "./Login";
 import Continue from "./Continue";
 import { WelcomeError } from "./Welcome/WelcomeError";
 import { LoginError } from "./Welcome/LoginError";
-import Close from "./Logout/Close";
 import CustomerUganda from "../screens/CustomersScreen/CustomerUganda";
 import SellToCustomerUganda from "../screens/CustomersScreen/SellToCustomerUganda";
 import InvoiceUganda from "../screens/CustomersScreen/InvoiceUganda";
+import InvoiceScreen from "./InvoiceScreen";
 
 export {
   HomeScreen,
@@ -41,13 +39,11 @@ export {
   Welcome,
   SalesInvoice,
   VanInvoice,
-  Logout,
-  Login,
   Continue,
   WelcomeError,
   LoginError,
-  Close,
   CustomerUganda,
   SellToCustomerUganda,
   InvoiceUganda,
+  InvoiceScreen,
 };

@@ -66,7 +66,7 @@ export const register = (navigation) => async (dispatch) => {
 
       console.log(data, "++++++++++++++");
 
-      if (!data.ownerCompanyId) {
+      if (!data.ownerCompanyId || data.ownerCompanyId === "") {
         dispatch({
           type: LOGIN_FAIL,
           payload:

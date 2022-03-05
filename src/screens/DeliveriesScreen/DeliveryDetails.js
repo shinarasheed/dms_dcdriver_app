@@ -1,12 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Text, View, Image, Pressable, Platform } from "react-native";
 import {
-  useRoute,
-  useNavigation,
-  useFocusEffect,
-} from "@react-navigation/native";
+  Text,
+  View,
+  Image,
+  Pressable,
+  Platform,
+  TouchableOpacity,
+} from "react-native";
+import { useRoute, useNavigation } from "@react-navigation/native";
 import axios from "axios";
+import * as ScreenCapture from "expo-screen-capture";
+import * as MediaLibrary from "expo-media-library";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
+import Routes from "../../navigation/Routes";
 
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
@@ -19,11 +27,16 @@ import OrderDetailsFooter from "../../components/OrderDetailsFooter";
 import OrderDetailsBody from "../../components/OrderDetailsBody";
 import OrderDetailsBottomSheet from "../../components/OrderDetailsBottomSheet";
 import RejectOrderSheet from "../../components/RejectOrderSheet";
+import ViewShot from "react-native-view-shot";
+import * as Sharing from "expo-sharing";
 
 const DeliveryDetails = () => {
+  const [distributor, setDistributor] = useState(null);
   const [loadingOrder, setLoadingOrder] = useState(false);
   const route = useRoute();
   const { item } = route.params;
+
+  const viewShot = useRef();
 
   const userState = useSelector((state) => state.user);
 
@@ -37,6 +50,15 @@ const DeliveryDetails = () => {
 
   const [visible, setVisible] = useState(false);
   const [productsVisibile, setProductsVisible] = useState(false);
+
+  const getDistibutor = async () => {
+    const distributor = JSON.parse(await AsyncStorage.getItem("distributor"));
+    setDistributor(distributor);
+  };
+
+  useEffect(() => {
+    getDistibutor();
+  }, []);
 
   const navigation = useNavigation();
 
@@ -76,9 +98,9 @@ const DeliveryDetails = () => {
   }, []);
 
   const getProductDetails = (productId) => {
-    const x = products?.filter((product) => {
-      return product?.id === +productId;
-    })[0];
+    const x = products?.filter(
+      (product) => product?.productId === productId.toString()
+    )[0];
     return x;
   };
 
@@ -99,8 +121,20 @@ const DeliveryDetails = () => {
     setProductsVisible(!productsVisibile);
   }
 
+  const captureAndShareScreenshot = () => {
+    viewShot.current.capture().then((uri) => {
+      console.log("do something with ", uri);
+      Sharing.shareAsync("file://" + uri);
+    }),
+      (error) => console.error("Oops, snapshot failed", error);
+  };
+
   return (
-    <View style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}>
+    <ViewShot
+      options={{ format: "jpg", quality: 0.9 }}
+      ref={viewShot}
+      style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
+    >
       {/* header */}
 
       <View
@@ -170,7 +204,43 @@ const DeliveryDetails = () => {
         visible={visible}
         updateOrderStatus={updateOrderStatus}
       />
-    </View>
+
+      {theOrder?.status === "Completed" && (
+        <View
+          style={{
+            paddingHorizontal: 10,
+            paddingVertical: 15,
+            justifyContent: "center",
+          }}
+        >
+          <TouchableOpacity
+            onPress={() =>
+              navigation.navigate(Routes.INVOICE_SCREEN, {
+                theOrder,
+                products,
+              })
+            }
+            style={{
+              backgroundColor: appTheme.COLORS.mainRed,
+              borderRadius: 4,
+              width: "100%",
+              height: 45,
+              justifyContent: "center",
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 17,
+                color: appTheme.COLORS.white,
+                textAlign: "center",
+              }}
+            >
+              Generate Invoice
+            </Text>
+          </TouchableOpacity>
+        </View>
+      )}
+    </ViewShot>
   );
 };
 

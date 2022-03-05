@@ -12,7 +12,8 @@ const TimeLine = ({ theOrder }) => {
         backgroundColor: appTheme.COLORS.white,
         paddingLeft: 20,
         paddingVertical: 10,
-        marginBottom: 20,
+        elevation: 10,
+        marginBottom: 15,
       }}
     >
       <Text

@@ -45,8 +45,6 @@ const HomeScreen = () => {
 
   const { user } = userState;
 
-  // const { country, syspro_code } = user;
-
   const newOrders = order?.filter((item) => item.status === "Assigned");
 
   const dispatch = useDispatch();
@@ -63,13 +61,10 @@ const HomeScreen = () => {
     const getDriverDetails = async () => {
       const {
         data: { result },
-        //use syspro_code instead of ownerCompanyId
-      } = await axios.get(`${companyUrl}/company/code/${user?.ownerCompanyId}`);
+      } = await axios.get(`${companyUrl}/company/syspro/${user?.syspro_code}`);
 
       if (componentMounted) {
         setDistributor(result);
-
-        // console.log(result);
 
         await AsyncStorage.setItem("distributor", JSON.stringify(result));
       }
@@ -82,11 +77,9 @@ const HomeScreen = () => {
     };
   }, []);
 
-  useFocusEffect(
-    React.useCallback(() => {
-      dispatch(getDistributorCustomers(user?.syspro_code));
-    }, [])
-  );
+  useEffect(() => {
+    dispatch(getDistributorCustomers(user?.ownerCompanyId));
+  }, []);
 
   useFocusEffect(
     React.useCallback(() => {

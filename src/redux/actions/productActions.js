@@ -9,7 +9,6 @@ import {
 import { productUrl } from "../../utils/baseUrl";
 
 export const fetchProducts = (country) => async (dispatch) => {
-  console.log(country);
   try {
     dispatch({
       type: FETCH_PRODUCTS_REQUEST,

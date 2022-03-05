@@ -32,7 +32,7 @@ const ProductFooter = ({
   const items = productsToSell?.map((prod) => ({
     price: prod.price * prod.quantity,
     quantity: parseInt(prod.quantity),
-    productId: prod.id.toString(),
+    productId: prod.productId,
     SFlineID: "Van-Sales",
   }));
 

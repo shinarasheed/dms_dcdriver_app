@@ -77,8 +77,9 @@ const OrderBottomSheet = ({
 
   const createNewProducts = () => {
     item?.orderItems?.map((theOrder, index) => {
+      console.log(theOrder);
       const orderDetails = products?.filter(
-        (item) => parseInt(item.productId) === parseInt(theOrder?.productId)
+        (item) => item.productId === theOrder?.productId
       )[0];
 
       newOrders.unshift({

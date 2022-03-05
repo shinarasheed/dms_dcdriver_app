@@ -80,6 +80,7 @@ const OrderDetailsBody = ({ theOrder, getProductDetails }) => {
           backgroundColor: appTheme.COLORS.white,
           paddingLeft: 20,
           paddingVertical: 10,
+          elevation: 10,
         }}
       >
         <View>
@@ -136,8 +137,9 @@ const OrderDetailsBody = ({ theOrder, getProductDetails }) => {
       <FlatList
         style={{
           backgroundColor: appTheme.COLORS.white,
-          marginTop: 25,
-          marginBottom: 20,
+          marginTop: 15,
+          marginBottom: 15,
+          elevation: 10,
         }}
         data={theOrder?.orderItems}
         keyExtractor={(item, id) => id.toString()}

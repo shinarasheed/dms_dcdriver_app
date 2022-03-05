@@ -4,7 +4,6 @@ const Routes = {
   CUSTOMERS_SCREEN: "Customers",
   HOME_SCREEN: "HomeScreen",
   WELCOME_SCREEN: "Welcome",
-  LOGOUT_SCREEN: "Logout",
   NOTIFICATIONS_SCREEN: "Notifications",
   DELIVERIES_DETAILS_SCREEN: "DeliveryDetails",
   GENERATE_INVOICE_SCREEN: "GenerateInvoice",
@@ -16,14 +15,11 @@ const Routes = {
   ONEOF_SALEINVOINCE_SCREEN: "SalesInvoice",
   ALLPRODUCTS_SCREEN: "AllProducts",
   LIQUIDEMPTYPRODUCTS_SCREEN: "LiquidEmptyProducts",
-  LOGIN_SCREEN: "Login",
   CONTINUE_SCREEN: "Continue",
-  LOGIN_ERROR: "LoginError",
-  WELCOME_ERROR: "WelcomeError",
-  CLOSE_SCREEN: "Close",
   CUSTOMERS_SCREEN_UGANGA: "CustomerUganda",
   SELLTO_CUSTOMER_SCREEN_UGANDA: "SellToCustomerUganda",
   GENERATE_INVOICE_SCREEN_UGANGA: "InvoiceUganda",
+  INVOICE_SCREEN: "InvoiceScreen",
 };
 
 export default Routes;
