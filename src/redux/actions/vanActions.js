@@ -98,7 +98,6 @@ export const updateInventory = (payload) => async (dispatch) => {
 };
 
 export const confirmVanSales = (payload) => async (dispatch) => {
-  console.log(payload);
   try {
     dispatch({
       type: CONFIRM_VAN_SALES_REQUEST,

@@ -77,7 +77,6 @@ const OrderBottomSheet = ({
 
   const createNewProducts = () => {
     item?.orderItems?.map((theOrder, index) => {
-      console.log(theOrder);
       const orderDetails = products?.filter(
         (item) => item.productId === theOrder?.productId
       )[0];

@@ -130,7 +130,7 @@ const SellProductFooterOneOf = ({
               fontFamily: "Gilroy-Medium",
             }}
           >
-            View order summary
+            Add Emtpties
           </Text>
           <Image source={icons.arrowDownIcon} />
         </View>

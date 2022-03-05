@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useCallback, useMemo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Text,
@@ -10,11 +10,8 @@ import {
 } from "react-native";
 import { useRoute, useNavigation } from "@react-navigation/native";
 import axios from "axios";
-import * as ScreenCapture from "expo-screen-capture";
-import * as MediaLibrary from "expo-media-library";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import Routes from "../../navigation/Routes";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
@@ -23,21 +20,35 @@ import { fetchProducts } from "../../redux/actions/productActions";
 import { orderUrl } from "../../utils/baseUrl";
 import { Spinner } from "../../components/Spinner";
 
+import { createAndSavePDF } from "../../utils/helpers";
+import { simpleHtml } from "../../utils/html3";
+
 import OrderDetailsFooter from "../../components/OrderDetailsFooter";
 import OrderDetailsBody from "../../components/OrderDetailsBody";
 import OrderDetailsBottomSheet from "../../components/OrderDetailsBottomSheet";
 import RejectOrderSheet from "../../components/RejectOrderSheet";
-import ViewShot from "react-native-view-shot";
-import * as Sharing from "expo-sharing";
+
+export const createPdf = (htmlFactory) => async () => {
+  try {
+    const html = await htmlFactory();
+    if (html) {
+      await createAndSavePDF(html);
+      Alert.alert(
+        "Success!",
+        "Invoice has been successfully generated and saved!"
+      );
+    }
+  } catch (error) {
+    Alert.alert("Error", error.message || "Something went wrong...");
+  }
+};
 
 const DeliveryDetails = () => {
   const [distributor, setDistributor] = useState(null);
   const [loadingOrder, setLoadingOrder] = useState(false);
   const route = useRoute();
   const { item } = route.params;
-
-  const viewShot = useRef();
-
+  // const { productsToSell, totalPrice, empties, order } = route.params;
   const userState = useSelector((state) => state.user);
 
   const { user } = userState;
@@ -121,20 +132,59 @@ const DeliveryDetails = () => {
     setProductsVisible(!productsVisibile);
   }
 
-  const captureAndShareScreenshot = () => {
-    viewShot.current.capture().then((uri) => {
-      console.log("do something with ", uri);
-      Sharing.shareAsync("file://" + uri);
-    }),
-      (error) => console.error("Oops, snapshot failed", error);
-  };
+  // const captureAndShareScreenshot = () => {
+  //   viewShot.current.capture().then((uri) => {
+  //     console.log("do something with ", uri);
+  //     Sharing.shareAsync("file://" + uri);
+  //   }),
+  //     (error) => console.error("Oops, snapshot failed", error);
+  // };
+  // invoice things
+  // invoice things
+
+  const [loadingKey, setLoadingKey] = useState(null);
+  const pageMarginState = useState(false);
+  const avoidSectionBreakingState = useState(false);
+  const useImageFromAssetsState = useState(false);
+  const useCameraState = useState(false);
+  const optimizeImageState = useState(false);
+
+  const onButtonPress = useCallback(
+    (key, action) => async () => {
+      try {
+        if (action) {
+          setLoadingKey(key);
+          await action();
+          setLoadingKey(null);
+        }
+      } catch (error) {
+        setLoadingKey(null);
+      }
+    },
+    []
+  );
+
+  const allButtons = useMemo(
+    () => [
+      {
+        title: "Simple PDF",
+        action: createPdf(
+          simpleHtml(pageMarginState[0], theOrder, user, distributor)
+        ),
+        switches: [{ label: "Remove page margin", state: pageMarginState }],
+      },
+    ],
+    [
+      pageMarginState,
+      avoidSectionBreakingState,
+      useImageFromAssetsState,
+      useCameraState,
+      optimizeImageState,
+    ]
+  );
 
   return (
-    <ViewShot
-      options={{ format: "jpg", quality: 0.9 }}
-      ref={viewShot}
-      style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
-    >
+    <View style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}>
       {/* header */}
 
       <View
@@ -208,39 +258,45 @@ const DeliveryDetails = () => {
       {theOrder?.status === "Completed" && (
         <View
           style={{
-            paddingHorizontal: 10,
-            paddingVertical: 15,
-            justifyContent: "center",
+            backgroundColor: appTheme.COLORS.white,
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            paddingHorizontal: 20,
+            paddingVertical: 20,
           }}
         >
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate(Routes.INVOICE_SCREEN, {
-                theOrder,
-                products,
-              })
-            }
-            style={{
-              backgroundColor: appTheme.COLORS.mainRed,
-              borderRadius: 4,
-              width: "100%",
-              height: 45,
-              justifyContent: "center",
-            }}
-          >
-            <Text
-              style={{
-                fontSize: 17,
-                color: appTheme.COLORS.white,
-                textAlign: "center",
-              }}
-            >
-              Generate Invoice
-            </Text>
-          </TouchableOpacity>
+          {allButtons.map(({ title, action }, index) => {
+            const key = String(index);
+            return (
+              <TouchableOpacity
+                key={key}
+                disabled={!!loadingKey}
+                isLoading={loadingKey === key}
+                onPress={onButtonPress(key, action)}
+                style={{
+                  backgroundColor: appTheme.COLORS.mainRed,
+                  borderRadius: 4,
+                  width: "100%",
+                  height: 45,
+                  justifyContent: "center",
+                }}
+              >
+                <Text
+                  style={{
+                    fontSize: 17,
+                    color: appTheme.COLORS.white,
+                    textAlign: "center",
+                  }}
+                >
+                  Generate Invoice
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
         </View>
       )}
-    </ViewShot>
+    </View>
   );
 };
 

@@ -6,7 +6,6 @@ import * as ImageManipulator from "expo-image-manipulator";
 import * as ImagePicker from "expo-image-picker";
 import appTheme from "../constants/theme";
 import { shareAsync } from "expo-sharing";
-import { downloadAsync, DownloadResumable } from "expo-file-system";
 
 export const createHTML = ({
   content = "",
@@ -91,14 +90,13 @@ export const createHTML = ({
 
 export const createAndSavePDF = async (html) => {
   // On iOS/android prints the given html. On web prints the HTML from the current page.
-  const { uri } = await Print.printAsync({
+  const { uri } = await Print.printToFileAsync({
     html,
   });
 
   console.log(uri);
   // Alert.alert("File has been saved to:");
-  // await shareAsync(uri, { UTI: ".png", mimeType: "image/png" });
-  await downloadAsync({ uri });
+  await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
 };
 
 export const copyFromAssets = async (asset) => {

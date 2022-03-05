@@ -1,7 +1,6 @@
 import React, { useState, useCallback, useMemo, useEffect } from "react";
 import { useSelector } from "react-redux";
 import {
-  SafeAreaView,
   Text,
   View,
   Image,

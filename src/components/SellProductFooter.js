@@ -129,7 +129,7 @@ const SellProductFooter = ({
               fontFamily: "Gilroy-Medium",
             }}
           >
-            View order summary
+            Add Empties
           </Text>
           <Image source={icons.arrowDownIcon} />
         </View>

@@ -20,9 +20,7 @@ export const simpleHtml =
     productsToSell,
     customer,
     distributor,
-    user,
-    getTotalPrice,
-    getEmptiesPrice
+    user
   ) =>
   () =>
     createHTML({
