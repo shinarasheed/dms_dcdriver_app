@@ -4,7 +4,7 @@ import { StyleSheet, View, Text, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import appTheme from "../constants/theme";
-import { confirmVanSales } from "../redux/actions/vanActions";
+import { confirmVanSales, postVanEmpties } from "../redux/actions/vanActions";
 import { updateInventory } from "../redux/actions/vanActions";
 import CountryCurrency from "./user/CountryCurrency";
 
@@ -26,7 +26,6 @@ const SellProductFooterOneOf = ({
 
   const dispatch = useDispatch();
   const Van = useSelector((state) => state.van);
-  const { driver } = Van;
 
   const items = productsToSell?.map((prod) => ({
     price: prod.price * prod.quantity,
@@ -43,7 +42,7 @@ const SellProductFooterOneOf = ({
     emptiesReturned: empties,
     costOfEmptiesReturned: getEmptiesPrice(),
     datePlaced: new Date(new Date().getTime()),
-    vehicleId: driver?.vehicleId,
+    vehicleId: user?.vehicleId,
     country: country,
     buyerDetails: {
       buyerName: customer?.CUST_Name,
@@ -60,8 +59,20 @@ const SellProductFooterOneOf = ({
   }));
 
   const payload2 = {
-    vehicleId: driver?.vehicleId,
+    vehicleId: user?.vehicleId,
     orderItems: items2,
+  };
+
+  const handleEmpties = () => {
+    if (empties > 0) {
+      const vanPayload = {
+        vanId: user?.vehicleId,
+        quantityToReturn: empties,
+      };
+      dispatch(postVanEmpties(vanPayload));
+    } else {
+      return;
+    }
   };
 
   return (
@@ -76,6 +87,7 @@ const SellProductFooterOneOf = ({
               empties,
             });
             dispatch(updateInventory(payload2));
+            handleEmpties();
             toggle();
           }}
           style={{
@@ -123,6 +135,6 @@ const styles = StyleSheet.create({
     height: 100,
     paddingHorizontal: 20,
     justifyContent: "center",
-    elevation: 1,
+    elevation: 5,
   },
 });

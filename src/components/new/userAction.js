@@ -25,7 +25,7 @@ export const register = (navigation) => async (dispatch) => {
     const token = await adService.getIdToken();
     const decoded = await jwt_decode(token);
 
-    console.log(decoded, "decoded from welcome screen");
+    // console.log(decoded, "decoded from welcome screen");
 
     const phoneNumber = decoded.extension_PhoneNumber;
     const driverEmail = decoded.emails[0];
@@ -61,7 +61,7 @@ export const register = (navigation) => async (dispatch) => {
         `${vehicleUrl}/GetVehicle/GetByPhoneNumber/${phoneNumber}`
       );
 
-      console.log(data, "+++++++++++++++++++++++");
+      // console.log(data, "+++++++++++++++++++++++");
 
       await AsyncStorage.setItem("driverDetails", JSON.stringify(data));
       await AsyncStorage.setItem("token", token);
@@ -104,7 +104,7 @@ export const login = (navigation) => async (dispatch) => {
     const token = await adService.getIdToken();
     const decoded = await jwt_decode(token);
 
-    console.log(decoded, "decoded from login screen");
+    // console.log(decoded, "decoded from login screen");
 
     const phoneNumber = decoded.extension_PhoneNumber;
 

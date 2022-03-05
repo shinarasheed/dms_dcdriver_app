@@ -78,7 +78,7 @@ const HomeScreen = () => {
   }, []);
 
   useEffect(() => {
-    dispatch(getDistributorCustomers(user?.ownerCompanyId));
+    dispatch(getDistributorCustomers(user?.syspro_code));
   }, []);
 
   useFocusEffect(

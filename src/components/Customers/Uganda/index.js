@@ -154,6 +154,6 @@ const styles = StyleSheet.create({
     borderColor: "#9799A0",
     borderWidth: 0,
     paddingHorizontal: 10,
-    elevation: 20,
+    elevation: 10,
   },
 });

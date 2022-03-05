@@ -16,6 +16,7 @@ const OrderFooter = ({
   empties,
   driver,
   updateOrderStatus,
+  toggle,
 }) => {
   const navigator = useNavigation();
 
@@ -81,6 +82,7 @@ const OrderFooter = ({
           updateOrderStatus("Completed");
           dispatch(updateInventory(payload2));
           handleEmpties();
+          toggle();
           navigator.navigate("GenerateInvoice", {
             productsToSell: newOrders,
             order,
@@ -132,6 +134,6 @@ const styles = StyleSheet.create({
     height: 100,
     paddingHorizontal: 20,
     justifyContent: "center",
-    elevation: 1,
+    elevation: 5,
   },
 });

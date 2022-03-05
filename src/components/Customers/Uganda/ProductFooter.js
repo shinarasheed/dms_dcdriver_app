@@ -5,6 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import {
   confirmVanSales,
+  postVanEmpties,
   updateInventory,
 } from "../../../redux/actions/vanActions";
 import CountryCurrency from "../../user/CountryCurrency";
@@ -67,12 +68,25 @@ const ProductFooter = ({
     orderItems: items2,
   };
 
+  const handleEmpties = () => {
+    if (empties > 0) {
+      const vanPayload = {
+        vanId: user?.vehicleId,
+        quantityToReturn: empties,
+      };
+      dispatch(postVanEmpties(vanPayload));
+    } else {
+      return;
+    }
+  };
+
   return (
     <View style={styles.footerContainer}>
       {getTotalPrice() !== "undefined" && (
         <TouchableOpacity
           onPress={() => {
             dispatch(confirmVanSales(payload));
+            handleEmpties();
             navigation.navigate(Routes.GENERATE_INVOICE_SCREEN_UGANGA, {
               productsToSell,
               customer,
@@ -126,6 +140,6 @@ const styles = StyleSheet.create({
     height: 100,
     paddingHorizontal: 20,
     justifyContent: "center",
-    elevation: 1,
+    elevation: 5,
   },
 });

@@ -132,16 +132,7 @@ const DeliveryDetails = () => {
     setProductsVisible(!productsVisibile);
   }
 
-  // const captureAndShareScreenshot = () => {
-  //   viewShot.current.capture().then((uri) => {
-  //     console.log("do something with ", uri);
-  //     Sharing.shareAsync("file://" + uri);
-  //   }),
-  //     (error) => console.error("Oops, snapshot failed", error);
-  // };
-  // invoice things
-  // invoice things
-
+  //Invoice Things
   const [loadingKey, setLoadingKey] = useState(null);
   const pageMarginState = useState(false);
   const avoidSectionBreakingState = useState(false);
@@ -169,7 +160,14 @@ const DeliveryDetails = () => {
       {
         title: "Simple PDF",
         action: createPdf(
-          simpleHtml(pageMarginState[0], theOrder, user, distributor)
+          simpleHtml(
+            pageMarginState[0],
+            theOrder,
+            user,
+            distributor,
+            getTotalPrice,
+            getProductDetails
+          )
         ),
         switches: [{ label: "Remove page margin", state: pageMarginState }],
       },

@@ -35,32 +35,25 @@ export const simpleHtml =
         /* justify-content: center;
         align-items: center; */
         padding-top: 40px;
-        margin-bottom: 50px;
       "
     >
-      <div>
-        <div style="text-align: left">
-          <img
-            style="width: 20%"
-            src="https://res.cloudinary.com/shinatech/image/upload/v1646297557/Header_Logo_-_Coloured_bv8zkj.svg"
-            alt="Logo"
-          />
-        </div>
-       
-      </div>
+    <div style="display: flex; flex-direction: row; width: 100%; margin-left:30px">
+      <img
+        style="width: 20%"
+        src="https://res.cloudinary.com/shinatech/image/upload/v1646297557/Header_Logo_-_Coloured_bv8zkj.svg"
+        alt="Logo"
+      />
+    <h5 style="font-size: 20px; font-weight: 'bold'; text-align: center; margin-left: 120px;">
+      ${distributor?.company_name}
+    </h5>
+   
+  </div>
      <div style="
      display: flex;
      flex-direction: column;
      justify-content: center;
      align-items: center;
-     padding-top: 40px;
-     margin-bottom: 10px;
-     
    "  >
-
-<h5 style="font-size: 20px; font-weight: 'bold'; margin-bottom: 1px">
-    ${distributor?.company_name}
-  </h5>
         <p style="color: grey; margin-bottom: 1px">${distributor?.address}</p>
         <p style="color: grey; margin-bottom: 5px">
           <span>Tel:</span>
@@ -138,7 +131,7 @@ export const simpleHtml =
                   color: #000;
                   font-size: 18px;
                   border-bottom: 1px solid black;
-
+  
                 "
               >
                 Product Description
@@ -150,7 +143,7 @@ export const simpleHtml =
                   color: #000;
                   font-size: 18px;
                   border-bottom: 1px solid black;
-
+  
                 "
               >
                 Quantity
@@ -162,7 +155,7 @@ export const simpleHtml =
                   color: #000;
                   font-size: 18px;
                   border-bottom: 1px solid black;
-
+  
                 "
               >
                 Unit Price
@@ -174,7 +167,7 @@ export const simpleHtml =
                   color: #000;
                   font-size: 18px;
                   border-bottom: 1px solid black;
-
+  
                 "
               >
                 Amount

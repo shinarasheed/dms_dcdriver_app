@@ -5,7 +5,7 @@ import { StyleSheet, Text, Image, View, Pressable } from "react-native";
 import { icons } from "../constants";
 import { BottomSheet } from "react-native-btr";
 import { Button } from "react-native-elements";
-import { confirmVanSales } from "../redux/actions/vanActions";
+import { confirmVanSales, postVanEmpties } from "../redux/actions/vanActions";
 import { updateInventory } from "../redux/actions/vanActions";
 
 import appTheme from "../constants/theme";
@@ -83,6 +83,18 @@ const SellProductFooter = ({
   const payload2 = {
     vehicleId: user?.vehicleId,
     orderItems: items2,
+  };
+
+  const handleEmpties = () => {
+    if (empties > 0) {
+      const vanPayload = {
+        vanId: user?.vehicleId,
+        quantityToReturn: empties,
+      };
+      dispatch(postVanEmpties(vanPayload));
+    } else {
+      return;
+    }
   };
 
   return (
@@ -264,12 +276,16 @@ const SellProductFooter = ({
                 onPress={() => {
                   dispatch(confirmVanSales(payload));
                   dispatch(updateInventory(payload2));
+                  handleEmpties();
                   navigation.navigate(Routes.VANINVOICE_SCREEN, {
                     productsToSell,
                     order,
                     empties,
                     // totalPrice,
                   });
+
+                  toggleConfirm();
+                  setSalesCompleted(false);
                 }}
               >
                 <Text

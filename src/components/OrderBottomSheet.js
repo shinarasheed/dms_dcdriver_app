@@ -273,6 +273,7 @@ const OrderBottomSheet = ({
         empties={empties}
         driver={driver}
         updateOrderStatus={updateOrderStatus}
+        toggle={toggle}
       />
     </ScrollView>
   );

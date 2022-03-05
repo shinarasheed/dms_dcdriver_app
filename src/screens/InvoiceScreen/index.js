@@ -94,12 +94,12 @@ const InvoiceScreen = ({ theOrder, products }) => {
         padding-left: 40px;
       "
     >
-    <article>
+    <article style="background: yellow">
     <h1 style="margin-bottom: 5px; font-weight: bold; font-size: 20px; color: #828297;">Invoice</h1>
-    <div style="display: flex">
-      <p style="margin-bottom: 5px">Date:</p>
+    <div style="display: flex; width:100%">
+      <div style="margin-bottom: 5px">Date:</div>
       &nbsp;
-      <p style="margin-bottom: 5px">${new Date().toLocaleDateString()}</p>
+      <div style="margin-bottom: 5px">${new Date().toLocaleDateString()}</div>
     </div>
     <div style="display: flex;">
       <div style="margin-bottom: 5px">Invoice:</div>

@@ -15,8 +15,6 @@ import Welcome from "./Welcome";
 import SalesInvoice from "./CustomersScreen/SalesInVoice";
 import VanInvoice from "./CustomersScreen/VanInvoice";
 import Continue from "./Continue";
-import { WelcomeError } from "./Welcome/WelcomeError";
-import { LoginError } from "./Welcome/LoginError";
 import CustomerUganda from "../screens/CustomersScreen/CustomerUganda";
 import SellToCustomerUganda from "../screens/CustomersScreen/SellToCustomerUganda";
 import InvoiceUganda from "../screens/CustomersScreen/InvoiceUganda";
@@ -40,8 +38,6 @@ export {
   SalesInvoice,
   VanInvoice,
   Continue,
-  WelcomeError,
-  LoginError,
   CustomerUganda,
   SellToCustomerUganda,
   InvoiceUganda,

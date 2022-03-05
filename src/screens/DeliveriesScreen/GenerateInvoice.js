@@ -216,13 +216,10 @@ const GenerateInvoice = () => {
             backgroundColor: appTheme.COLORS.white,
             paddingLeft: 20,
             paddingVertical: 20,
+            elevation: 5,
           }}
         >
-          <View
-            style={{
-              elevation: 10,
-            }}
-          >
+          <View>
             <Text
               style={{
                 fontWeight: "bold",
@@ -273,8 +270,9 @@ const GenerateInvoice = () => {
         <FlatList
           style={{
             backgroundColor: appTheme.COLORS.white,
-            marginTop: 25,
-            marginBottom: 25,
+            marginTop: 10,
+            marginBottom: 15,
+            elevation: 5,
           }}
           data={productsToSell}
           keyExtractor={(item, id) => id.toString()}
@@ -330,9 +328,10 @@ const GenerateInvoice = () => {
         <View
           style={{
             backgroundColor: appTheme.COLORS.white,
-            marginBottom: 20,
+            marginBottom: 10,
             paddingLeft: 20,
             paddingVertical: 10,
+            elevation: 5,
           }}
         >
           <Text

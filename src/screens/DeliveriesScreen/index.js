@@ -170,6 +170,6 @@ const styles = StyleSheet.create({
     borderWidth: 0,
     paddingHorizontal: 10,
     marginBottom: 20,
-    elevation: 20,
+    elevation: 5,
   },
 });

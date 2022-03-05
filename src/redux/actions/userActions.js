@@ -29,11 +29,11 @@ export const register = (navigation) => async (dispatch) => {
     const token = await adService.getIdToken();
     const decoded = await jwt_decode(token);
 
-    console.log(decoded, "decoded from welcome screen");
+    // console.log(decoded, "decoded from welcome screen");
 
     const phoneNumber = decoded.extension_PhoneNumber;
 
-    console.log("welcome");
+    // console.log("welcome");
 
     // if the user is new
     if (decoded.newUser) {

@@ -8,7 +8,7 @@ import { Button } from "react-native-elements";
 
 import appTheme from "../constants/theme";
 import ProductBottomSheetOneOf from "./ProductBottomSheetOneOf";
-import { confirmVanSales } from "../redux/actions/vanActions";
+import { confirmVanSales, postVanEmpties } from "../redux/actions/vanActions";
 import { updateInventory } from "../redux/actions/vanActions";
 import { formatPrice } from "../utils/formatPrice";
 
@@ -40,7 +40,6 @@ const SellProductFooterOneOf = ({
   const dispatch = useDispatch();
 
   const Van = useSelector((state) => state.van);
-  const { driver } = Van;
 
   function toggle() {
     setVisible((visible) => !visible);
@@ -65,7 +64,7 @@ const SellProductFooterOneOf = ({
     emptiesReturned: empties,
     costOfEmptiesReturned: getEmptiesPrice(),
     datePlaced: new Date(new Date().getTime()),
-    vehicleId: driver?.vehicleId,
+    vehicleId: user?.vehicleId,
     country: country,
     buyerDetails: {
       buyerName: customer?.CUST_Name,
@@ -82,8 +81,20 @@ const SellProductFooterOneOf = ({
   }));
 
   const payload2 = {
-    vehicleId: driver?.vehicleId,
+    vehicleId: user?.vehicleId,
     orderItems: items2,
+  };
+
+  const handleEmpties = () => {
+    if (empties > 0) {
+      const vanPayload = {
+        vanId: user?.vehicleId,
+        quantityToReturn: empties,
+      };
+      dispatch(postVanEmpties(vanPayload));
+    } else {
+      return;
+    }
   };
 
   return (
@@ -267,12 +278,15 @@ const SellProductFooterOneOf = ({
                 }}
                 onPress={() => {
                   dispatch(confirmVanSales(payload));
+                  handleEmpties();
                   navigator.navigate("SalesInvoice", {
                     productsToSell,
                     customer,
                     empties,
                   });
                   dispatch(updateInventory(payload2));
+                  toggleConfirm();
+                  setSalesCompleted(false);
                 }}
               >
                 <Text

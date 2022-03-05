@@ -80,7 +80,7 @@ const OrderDetailsBody = ({ theOrder, getProductDetails }) => {
           backgroundColor: appTheme.COLORS.white,
           paddingLeft: 20,
           paddingVertical: 10,
-          elevation: 10,
+          elevation: 5,
         }}
       >
         <View>
@@ -139,7 +139,7 @@ const OrderDetailsBody = ({ theOrder, getProductDetails }) => {
           backgroundColor: appTheme.COLORS.white,
           marginTop: 15,
           marginBottom: 15,
-          elevation: 10,
+          elevation: 5,
         }}
         data={theOrder?.orderItems}
         keyExtractor={(item, id) => id.toString()}

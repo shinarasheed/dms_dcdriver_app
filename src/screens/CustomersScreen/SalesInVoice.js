@@ -23,6 +23,7 @@ import CallCustomer from "../../components/CallCustomer";
 import { createAndSavePDF } from "../../utils/helpers";
 import { simpleHtml } from "../../utils/html2";
 import CountryCurrency from "../../components/user/CountryCurrency";
+import { divide } from "react-native-reanimated";
 
 export const createPdf = (htmlFactory) => async () => {
   try {

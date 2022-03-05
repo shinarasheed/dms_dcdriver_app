@@ -22,7 +22,7 @@ function HomeTabs() {
           height: Platform.OS === "ios" ? 100 : 70,
           paddingTop: 10,
           borderWidth: 0,
-          elevation: 1,
+          elevation: 5,
         },
         tabBarLabelStyle: {
           fontSize: 15,

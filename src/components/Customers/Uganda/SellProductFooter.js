@@ -7,6 +7,7 @@ import { Button } from "react-native-elements";
 import {
   updateInventory,
   confirmVanSales,
+  postVanEmpties,
 } from "../../../redux/actions/vanActions";
 
 import appTheme from "../../../constants/theme";
@@ -85,6 +86,18 @@ const SellProductFooter = ({
   const payload2 = {
     vehicleId: user?.vehicleId,
     orderItems: items2,
+  };
+
+  const handleEmpties = () => {
+    if (empties > 0) {
+      const vanPayload = {
+        vanId: user?.vehicleId,
+        quantityToReturn: empties,
+      };
+      dispatch(postVanEmpties(vanPayload));
+    } else {
+      return;
+    }
   };
 
   return (
@@ -265,12 +278,15 @@ const SellProductFooter = ({
                 }}
                 onPress={() => {
                   dispatch(confirmVanSales(payload));
+                  handleEmpties();
                   dispatch(updateInventory(payload2));
                   navigation.navigate(Routes.GENERATE_INVOICE_SCREEN_UGANGA, {
                     productsToSell,
                     customer,
                     empties,
                   });
+                  toggleConfirm();
+                  setSalesCompleted(false);
                 }}
               >
                 <Text

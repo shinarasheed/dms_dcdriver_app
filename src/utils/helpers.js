@@ -94,7 +94,6 @@ export const createAndSavePDF = async (html) => {
     html,
   });
 
-  console.log(uri);
   // Alert.alert("File has been saved to:");
   await shareAsync(uri, { UTI: ".pdf", mimeType: "application/pdf" });
 };
