@@ -53,8 +53,6 @@ const InvoiceScreen = ({ theOrder, products }) => {
     style="
       display: flex;
       flex-direction: column;
-      /* justify-content: center;
-      align-items: center; */
       padding-top: 40px;
       margin-bottom: 50px;
     "
@@ -103,10 +101,10 @@ const InvoiceScreen = ({ theOrder, products }) => {
       &nbsp;
       <p style="margin-bottom: 5px">${new Date().toLocaleDateString()}</p>
     </div>
-    <div style="display: flex">
-      <p style="margin-bottom: 5px">Invoive:</p>
+    <div style="display: flex;">
+      <div style="margin-bottom: 5px">Invoice:</div>
       &nbsp;
-      <p style="margin-bottom: 5px">#${getRandomIntBetween(100, 1000)}</p>
+      <div style="margin-bottom: 5px">#${getRandomIntBetween(100, 1000)}</div>
     </div>
     <div style="display: flex">
       <p style="margin-bottom: 5px">Order no:</p>
