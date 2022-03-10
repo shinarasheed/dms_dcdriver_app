@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   TextInput,
@@ -14,7 +14,10 @@ import { Button } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
 import { useForm, Controller } from "react-hook-form";
 
-import { createCustomerOneOf } from "../../redux/actions/customerActions";
+import {
+  clearCustomerError,
+  createCustomerOneOf,
+} from "../../redux/actions/customerActions";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
 import Routes from "../../navigation/Routes";
@@ -44,6 +47,14 @@ const AddCustomer = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        dispatch(clearCustomerError());
+      }, 5000);
+    }
+  }, [error]);
 
   return (
     <SafeAreaView

@@ -7,6 +7,7 @@ import {
   GET_CUSTOMER_ORDERS_REQUEST,
   GET_CUSTOMER_ORDERS_SUCCESS,
   GET_CUSTOMER_ORDERS_FAIL,
+  CLEAR_CUSTOMER_ERROR,
 } from "../constants/customerConstants";
 import { customerUrl, orderUrl } from "../../utils/baseUrl";
 import Routes from "../../navigation/Routes";
@@ -88,4 +89,10 @@ export const getCustomerOrders = (code) => async (dispatch) => {
       payload: error.response.data.msg,
     });
   }
+};
+
+export const clearCustomerError = () => async (dispatch) => {
+  dispatch({
+    type: CLEAR_CUSTOMER_ERROR,
+  });
 };
