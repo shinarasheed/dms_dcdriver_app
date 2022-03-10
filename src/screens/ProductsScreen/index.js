@@ -117,9 +117,10 @@ const ProductsScreen = () => {
           style={{
             backgroundColor: appTheme.COLORS.white,
             marginTop: 20,
-            marginBottom: 20,
+            marginBottom: 15,
             paddingVertical: 30,
             paddingLeft: 20,
+            elevation: 5,
           }}
         >
           <Pressable
@@ -259,7 +260,8 @@ const ProductsScreen = () => {
             alignItems: "center",
             paddingVertical: 30,
             paddingLeft: 15,
-            marginBottom: 20,
+            marginBottom: 15,
+            elevation: 5,
           }}
         >
           <Image source={icons.salesReturn} />

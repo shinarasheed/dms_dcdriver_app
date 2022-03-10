@@ -23,6 +23,7 @@ import CallCustomer from "../../components/CallCustomer";
 import { createAndSavePDF } from "../../utils/helpers";
 import { simpleHtml } from "../../utils/html2";
 import CountryCurrency from "../../components/user/CountryCurrency";
+import { ScrollView } from "react-native-virtualized-view";
 
 export const createPdf = (htmlFactory) => async () => {
   try {
@@ -124,9 +125,7 @@ const GenerateInvoice = () => {
   );
 
   return (
-    <SafeAreaView
-      style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
-    >
+    <View style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}>
       {/* header */}
       <View
         style={{
@@ -153,7 +152,7 @@ const GenerateInvoice = () => {
         </Text>
       </View>
 
-      <CustomVirtualizedView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={{ paddingLeft: 20, paddingVertical: 20 }}>
           <View
             style={{
@@ -175,6 +174,7 @@ const GenerateInvoice = () => {
             backgroundColor: appTheme.COLORS.white,
             paddingLeft: 20,
             paddingVertical: 20,
+            elevation: 10,
           }}
         >
           <View>
@@ -214,8 +214,9 @@ const GenerateInvoice = () => {
         <FlatList
           style={{
             backgroundColor: appTheme.COLORS.white,
-            marginTop: 25,
-            marginBottom: 25,
+            marginTop: 15,
+            marginBottom: 15,
+            elevation: 10,
           }}
           data={productsToSell}
           keyExtractor={(item, id) => id.toString()}
@@ -264,9 +265,10 @@ const GenerateInvoice = () => {
         <View
           style={{
             backgroundColor: appTheme.COLORS.white,
-            marginBottom: 20,
+            marginBottom: 15,
             paddingLeft: 20,
             paddingVertical: 10,
+            elevation: 10,
           }}
         >
           <Text
@@ -346,8 +348,8 @@ const GenerateInvoice = () => {
             );
           })}
         </View>
-      </CustomVirtualizedView>
-    </SafeAreaView>
+      </ScrollView>
+    </View>
   );
 };
 

@@ -10,7 +10,6 @@ const ProductFlatList = ({ list }) => {
     <>
       {list?.length !== 0 ? (
         <FlatList
-          style={{ marginBottom: 20 }}
           data={list}
           keyExtractor={(item, id) => id.toString()}
           listKey={(item, id) => id.toString()}
