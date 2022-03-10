@@ -92,7 +92,7 @@ const SellProductFooter = ({
     if (empties > 0) {
       const vanPayload = {
         vanId: user?.vehicleId,
-        quantityToReturn: empties,
+        quantityToReturn: parseInt(empties),
       };
       dispatch(postVanEmpties(vanPayload));
     } else {

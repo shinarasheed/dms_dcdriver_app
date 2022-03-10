@@ -190,7 +190,7 @@ const DeliveryDetails = () => {
           backgroundColor: appTheme.COLORS.white,
           flexDirection: "row",
           alignItems: "center",
-          height: Platform.OS === "ios" ? 130 : 50,
+          height: Platform.OS === "ios" ? 150 : 50,
           paddingLeft: 20,
         }}
       >

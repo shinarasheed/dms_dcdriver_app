@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   StyleSheet,
   TextInput,
@@ -7,12 +7,12 @@ import {
   View,
   Pressable,
   Keyboard,
-  Alert,
   Image,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { Button } from "react-native-elements";
 import { useDispatch, useSelector } from "react-redux";
+import { useForm, Controller } from "react-hook-form";
 
 import { createCustomerOneOf } from "../../redux/actions/customerActions";
 import appTheme from "../../constants/theme";
@@ -20,21 +20,26 @@ import { icons } from "../../constants";
 import Routes from "../../navigation/Routes";
 
 const AddCustomer = () => {
-  const navigator = useNavigation();
+  const navigation = useNavigation();
   const dispatch = useDispatch();
-  const [phoneNumber, setPhoneNumber] = useState("");
-  const [customerName, setCustomerName] = useState("");
+  const {
+    control,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      phoneNumber: "",
+      customerName: "",
+    },
+  });
 
-  const theCustomer = useSelector((state) => state.customerOneOf);
+  const customerState = useSelector((state) => state.customerOneOf);
 
-  const { error } = theCustomer;
+  const { error } = customerState;
 
-  const handleRegister = () => {
+  const handleRegister = (data) => {
     try {
-      dispatch(createCustomerOneOf(phoneNumber, customerName));
-      navigator.navigate(Routes.ONEOF_SALE_SCREEN);
-      setPhoneNumber("");
-      setCustomerName("");
+      dispatch(createCustomerOneOf(data, navigation));
     } catch (error) {
       console.log(error);
     }
@@ -59,7 +64,9 @@ const AddCustomer = () => {
             paddingBottom: 5,
           }}
         >
-          <Pressable onPress={() => navigator.goBack()}>
+          <Pressable
+            onPress={() => navigation.navigate(Routes.CUSTOMERS_SCREEN)}
+          >
             <Image source={icons.backButton} style={{ marginRight: 18 }} />
           </Pressable>
 
@@ -92,18 +99,74 @@ const AddCustomer = () => {
         >
           <Text style={{ fontSize: 20, marginBottom: 20 }}>Customer</Text>
 
-          <TextInput
-            style={[styles.textInput, { marginBottom: 10 }]}
-            placeholder="Phone number"
-            onChangeText={(text) => setPhoneNumber(text)}
-            value={phoneNumber}
-          />
-          <TextInput
-            style={styles.textInput}
-            placeholder="Name"
-            onChangeText={(text) => setCustomerName(text)}
-            value={customerName}
-          />
+          <View
+            style={{
+              marginBottom: 30,
+            }}
+          >
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onBlur={onBlur}
+                  style={styles.textInput}
+                  placeholder="Phone number"
+                  onChangeText={onChange}
+                  value={value}
+                />
+              )}
+              name="phoneNumber"
+            />
+            {errors.phoneNumber && (
+              <Text
+                style={{
+                  color: appTheme.COLORS.mainRed,
+                }}
+              >
+                Phone Number is required.
+              </Text>
+            )}
+          </View>
+
+          <View>
+            <Controller
+              control={control}
+              rules={{
+                required: true,
+              }}
+              render={({ field: { onChange, onBlur, value } }) => (
+                <TextInput
+                  onBlur={onBlur}
+                  style={styles.textInput}
+                  placeholder="Customer Name"
+                  onChangeText={onChange}
+                  value={value}
+                />
+              )}
+              name="customerName"
+            />
+            {errors.customerName && (
+              <Text
+                style={{
+                  color: appTheme.COLORS.mainRed,
+                }}
+              >
+                Customer Name is required.
+              </Text>
+            )}
+            {error && (
+              <Text
+                style={{
+                  color: appTheme.COLORS.mainRed,
+                }}
+              >
+                {error.msg}
+              </Text>
+            )}
+          </View>
         </View>
       </Pressable>
 
@@ -118,7 +181,7 @@ const AddCustomer = () => {
             borderRadius: 5,
           }}
           title="Continue"
-          onPress={handleRegister}
+          onPress={handleSubmit(handleRegister)}
         />
       </View>
     </SafeAreaView>

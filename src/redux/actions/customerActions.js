@@ -9,9 +9,10 @@ import {
   GET_CUSTOMER_ORDERS_FAIL,
 } from "../constants/customerConstants";
 import { customerUrl, orderUrl } from "../../utils/baseUrl";
+import Routes from "../../navigation/Routes";
 
 export const createCustomerOneOf =
-  (phoneNumber, customerName) => async (dispatch, getState) => {
+  (data, navigation) => async (dispatch, getState) => {
     const {
       user: { country },
     } = getState().user;
@@ -27,6 +28,8 @@ export const createCustomerOneOf =
           "Content-Type": "application/json",
         },
       };
+
+      const { customerName, phoneNumber } = data;
 
       const body = {
         phoneNumber,
@@ -46,10 +49,12 @@ export const createCustomerOneOf =
         type: CREATE_ONE_OF_CUSTOMER_SUCCES,
         payload: result,
       });
+
+      navigation.navigate(Routes.ONEOF_SALE_SCREEN);
     } catch (error) {
       dispatch({
         type: CREATE_ONE_OF_CUSTOMER_FAIL,
-        payload: error.response.data.msg,
+        payload: error.response.data,
       });
     }
   };

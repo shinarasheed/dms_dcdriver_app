@@ -50,7 +50,7 @@ const OrderFooter = ({
     if (empties > 0) {
       const vanPayload = {
         vanId: driver?.vehicleId,
-        quantityToReturn: empties,
+        quantityToReturn: parseInt(empties),
       };
       dispatch(postVanEmpties(vanPayload));
     } else {

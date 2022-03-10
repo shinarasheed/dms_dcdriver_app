@@ -11,7 +11,6 @@ import { logOut } from "../redux/actions/userActions";
 
 export default function UserBottomSheet({
   toggle,
-  driver,
   distributor,
   visible,
   user,

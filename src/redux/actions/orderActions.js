@@ -150,6 +150,7 @@ export const fetchOrderStats =
 export const confirmOrder =
   ({ payload, orderId }) =>
   async (dispatch) => {
+    console.log(payload);
     try {
       dispatch({
         type: CONFIRM_ORDER_REQUEST,

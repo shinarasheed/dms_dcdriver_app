@@ -65,8 +65,6 @@ export const fetchVanProducts = () => async (dispatch) => {
 };
 
 export const updateInventory = (payload) => async (dispatch) => {
-  const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
-
   try {
     dispatch({
       type: UPDATE_INVENTORY_REQUEST,
@@ -98,6 +96,7 @@ export const updateInventory = (payload) => async (dispatch) => {
 };
 
 export const confirmVanSales = (payload) => async (dispatch) => {
+  // console.log(payload);
   try {
     dispatch({
       type: CONFIRM_VAN_SALES_REQUEST,
