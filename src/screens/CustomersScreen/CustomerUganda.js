@@ -31,9 +31,7 @@ const CustomerUganda = () => {
   return (
     <View
       style={{
-        backgroundColor: appTheme.COLORS.mainBackground,
         flex: 1,
-        // justifyContent: "space-between",
       }}
     >
       <View
@@ -66,7 +64,7 @@ const CustomerUganda = () => {
           </Text>
         </View>
 
-        <View style={{ paddingHorizontal: 20, paddingVertical: 20 }}>
+        <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
           <View
             style={{
               flexDirection: "row",
@@ -96,135 +94,123 @@ const CustomerUganda = () => {
               {customer?.status}
             </Text>
           </View>
-
-          <View>
-            {/* <Text style={{ fontSize: 15, marginBottom: 5 }}>
-              Total Amount Spent
-            </Text> */}
-            <Text
-              style={{
-                fontSize: 16,
-                // marginBottom: 5,
-                ...appTheme.FONTS.mainFontBold,
-              }}
-            >
-              {/* {"\u20A6"}
-              {getTotal()} */}
-            </Text>
-            {/* <Text style={{ fontSize: 15, ...appTheme.FONTS.mainFontLight }}>
-              {numberOfOrders.length}{" "}
-              {`${numberOfOrders.length > 1 ? "Orders" : "Order"}`}
-            </Text> */}
-          </View>
         </View>
 
         <View
           style={{
-            backgroundColor: appTheme.COLORS.white,
-            paddingLeft: 20,
-            paddingVertical: 20,
-            marginBottom: 30,
+            backgroundColor: appTheme.COLORS.mainBackground,
           }}
         >
-          <View>
-            <Text
-              style={{
-                color: appTheme.COLORS.MainGray,
-                fontSize: 18,
-                marginBottom: 5,
-              }}
-            >
-              Contact Details
-            </Text>
-            <Text
-              style={{
-                fontSize: 16,
-                ...appTheme.FONTS.mainFontBold,
-                color: appTheme.COLORS.black,
-              }}
-            >
-              {customer?.CUST_Name}
-            </Text>
-          </View>
-
-          <View style={{ marginTop: 10, flexDirection: "row" }}>
-            <Image source={icons.addressIcon} />
-            <View style={{ marginLeft: 10, paddingRight: 50 }}>
+          <View
+            style={{
+              backgroundColor: appTheme.COLORS.white,
+              paddingLeft: 20,
+              paddingVertical: 20,
+              elevation: 10,
+              marginBottom: 10,
+            }}
+          >
+            <View>
               <Text
                 style={{
-                  fontSize: 15,
-                  lineHeight: 25,
                   color: appTheme.COLORS.MainGray,
+                  fontSize: 18,
+                  marginBottom: 5,
                 }}
               >
-                {customer?.address}
+                Contact Details
               </Text>
+              <Text
+                style={{
+                  fontSize: 16,
+                  ...appTheme.FONTS.mainFontBold,
+                  color: appTheme.COLORS.black,
+                }}
+              >
+                {customer?.CUST_Name}
+              </Text>
+            </View>
 
-              <View style={{ marginTop: 10, flexDirection: "row" }}>
-                <Text style={{ fontSize: 15, color: appTheme.COLORS.black }}>
-                  {customer?.phoneNumber}
+            <View style={{ marginTop: 10, flexDirection: "row" }}>
+              <Image source={icons.addressIcon} />
+              <View style={{ marginLeft: 10, paddingRight: 50 }}>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    lineHeight: 25,
+                    color: appTheme.COLORS.MainGray,
+                  }}
+                >
+                  {customer?.address}
                 </Text>
 
-                <CallCustomer phoneNumber={customer?.phoneNumber} />
+                <View style={{ marginTop: 10, flexDirection: "row" }}>
+                  <Text style={{ fontSize: 15, color: appTheme.COLORS.black }}>
+                    {customer?.phoneNumber}
+                  </Text>
+
+                  <CallCustomer phoneNumber={customer?.phoneNumber} />
+                </View>
               </View>
             </View>
           </View>
-        </View>
 
-        {customerOrders?.length > 0 ? (
-          <FlatList
-            showsVerticalScrollIndicator={false}
-            style={{
-              backgroundColor: appTheme.COLORS.white,
-            }}
-            data={customerOrders}
-            keyExtractor={(item, id) => id.toString()}
-            renderItem={({ item }) => <SingleCustomer item={item} />}
-            ListHeaderComponent={() => (
-              <View
-                style={{
-                  paddingVertical: 10,
-                }}
-              >
-                <Text
+          {customerOrders?.length > 0 ? (
+            <FlatList
+              showsVerticalScrollIndicator={false}
+              style={{
+                backgroundColor: appTheme.COLORS.white,
+                elevation: 5,
+              }}
+              data={customerOrders}
+              keyExtractor={(item, id) => id.toString()}
+              renderItem={({ item }) => <SingleCustomer item={item} />}
+              ListHeaderComponent={() => (
+                <View
                   style={{
-                    fontSize: 18,
-                    ...appTheme.FONTS.mainFontBold,
-                    marginLeft: 20,
+                    paddingVertical: 10,
                   }}
                 >
-                  Order History
-                </Text>
-              </View>
-            )}
-          />
-        ) : (
-          <View
-            style={{
-              flex: 1,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text
+                  <Text
+                    style={{
+                      fontSize: 18,
+                      ...appTheme.FONTS.mainFontBold,
+                      marginLeft: 20,
+                    }}
+                  >
+                    Order History
+                  </Text>
+                </View>
+              )}
+            />
+          ) : (
+            <View
               style={{
-                fontSize: 20,
-                fontFamily: "Gilroy-Medium",
+                flex: 1,
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-              This customer has no orders yet
-            </Text>
-          </View>
-        )}
+              <Text
+                style={{
+                  fontSize: 20,
+                  fontFamily: "Gilroy-Medium",
+                }}
+              >
+                This customer has no orders yet
+              </Text>
+            </View>
+          )}
+        </View>
       </View>
 
       <View
         style={{
-          borderTopWidth: 1,
-          borderTopColor: appTheme.COLORS.borderGRey,
+          borderTopWidth: 0,
           paddingVertical: 20,
           paddingHorizontal: 20,
           backgroundColor: appTheme.COLORS.white,
+          elevation: 50,
         }}
       >
         <Button
