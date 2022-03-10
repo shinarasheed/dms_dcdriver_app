@@ -17,7 +17,7 @@ import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
 import {
   fetchVanProducts,
-  returnVanEmpties,
+  getVanEmpties,
 } from "../../redux/actions/vanActions";
 import CountryCurrency from "../../components/user/CountryCurrency";
 import Products from "../../components/van/Products";
@@ -39,7 +39,7 @@ const index = () => {
 
   useFocusEffect(
     React.useCallback(() => {
-      dispatch(returnVanEmpties(vehicleId));
+      dispatch(getVanEmpties(vehicleId));
     }, [loading])
   );
 

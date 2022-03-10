@@ -15,6 +15,7 @@ import {
   RETURN_PRODUCTS_REQUEST,
   RETURN_PRODUCTS_SUCCESS,
   RETURN_PRODUCTS_FAIL,
+  GET_VAN_EMPTIES_SUCCESS,
   RETURN_VAN_EMPTIES_REQUEST,
   RETURN_VAN_EMPTIES_SUCCESS,
   RETURN_VAN_EMPTIES_FAIL,
@@ -63,7 +64,7 @@ export const vanReducer = (state = initialState, action) => {
         refreshing: false,
       };
 
-    case RETURN_VAN_EMPTIES_SUCCESS:
+    case GET_VAN_EMPTIES_SUCCESS:
       return {
         ...state,
         loading: false,

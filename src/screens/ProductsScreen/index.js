@@ -12,7 +12,6 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import EmptiesBottomSheet from "../../components/EmptieBottomSheet";
 
 import Header from "../../components/Header";
@@ -22,6 +21,7 @@ import appTheme from "../../constants/theme";
 import ProductFlatList from "../../components/ProductFlatList";
 import {
   fetchVanProducts,
+  getVanEmpties,
   returnVanEmpties,
 } from "../../redux/actions/vanActions";
 import { returnProductsToWarehouse } from "../../redux/actions/vanActions";
@@ -55,7 +55,7 @@ const ProductsScreen = () => {
 
   useFocusEffect(
     React.useCallback(() => {
-      dispatch(returnVanEmpties(user?.vehicleId));
+      dispatch(getVanEmpties(user?.vehicleId));
     }, [loading])
   );
 
@@ -65,6 +65,21 @@ const ProductsScreen = () => {
       ToastAndroid.SHORT,
       ToastAndroid.CENTER
     );
+  };
+
+  const emptiesPayload = {
+    companyCode: user?.ownerCompanyId,
+    vanId: user?.vehicleId,
+    quantity: driverEmpties?.quantity,
+  };
+
+  const handleReturnProducts = (payload) => {
+    dispatch(returnProductsToWarehouse(payload));
+    if (driverEmpties.quantity > 0) {
+      dispatch(returnVanEmpties(emptiesPayload));
+    } else {
+      return;
+    }
   };
 
   return (
@@ -244,7 +259,7 @@ const ProductsScreen = () => {
               [
                 {
                   text: "Ok",
-                  onPress: () => dispatch(returnProductsToWarehouse(payload)),
+                  onPress: () => handleReturnProducts(payload),
                 },
                 {
                   text: "Cancel",

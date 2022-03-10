@@ -19,11 +19,12 @@ import {
   RETURN_PRODUCTS_SUCCESS,
   RETURN_PRODUCTS_FAIL,
   VAN_POST_EMPTIES,
+  GET_VAN_EMPTIES_SUCCESS,
   RETURN_VAN_EMPTIES_REQUEST,
   RETURN_VAN_EMPTIES_SUCCESS,
   RETURN_VAN_EMPTIES_FAIL,
 } from "../constants/vanConstants";
-import { vehicleUrl, orderUrl, InventoryUrl } from "../../utils/baseUrl";
+import { orderUrl, InventoryUrl } from "../../utils/baseUrl";
 
 export const fetchVanProducts = () => async (dispatch) => {
   const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
@@ -220,7 +221,7 @@ export const postVanEmpties = (payload) => async (dispatch) => {
   }
 };
 
-export const returnVanEmpties = (vehicleId) => async (dispatch) => {
+export const getVanEmpties = (vehicleId) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -231,6 +232,27 @@ export const returnVanEmpties = (vehicleId) => async (dispatch) => {
     const {
       data: { data },
     } = await axios.get(`${InventoryUrl}/get-empties/${vehicleId}`, config);
+
+    dispatch({
+      type: GET_VAN_EMPTIES_SUCCESS,
+      payload: {
+        empties: data,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const returnVanEmpties = (payload) => async (dispatch) => {
+  try {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    await axios.post(`${InventoryUrl}/empties-return`, payload, config);
 
     dispatch({
       type: RETURN_VAN_EMPTIES_SUCCESS,
