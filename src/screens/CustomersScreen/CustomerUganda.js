@@ -64,7 +64,7 @@ const CustomerUganda = () => {
           </Text>
         </View>
 
-        <View style={{ paddingHorizontal: 20, paddingVertical: 10 }}>
+        <View style={{ paddingHorizontal: 20, paddingVertical: 20 }}>
           <View
             style={{
               flexDirection: "row",

@@ -125,7 +125,7 @@ const InvoiceCard = ({ product }) => {
                 country={country}
                 price={quantity * price}
                 color={appTheme.COLORS.mainRed}
-                fontSize={14}
+                fontSize={13}
                 fontFamily="Gilroy-Bold"
               />
             </View>

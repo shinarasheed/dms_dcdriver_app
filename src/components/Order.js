@@ -18,7 +18,7 @@ const Order = ({ order, getProductDetails }) => {
           style={{
             flexDirection: "row",
             paddingVertical: 15,
-            paddingHorizontal: 18,
+            paddingHorizontal: 30,
             backgroundColor: appTheme.COLORS.white,
           }}
         >
@@ -61,17 +61,18 @@ const Order = ({ order, getProductDetails }) => {
                 {getProductDetails(order?.productId)?.sku}
               </Text>
             </View>
+
             <View
               style={{
                 flexDirection: "row",
                 alignItems: "center",
                 justifyContent: "space-between",
-                marginBottom: 10,
               }}
             >
               <View
                 style={{
                   flexDirection: "row",
+                  alignItems: "center",
                 }}
               >
                 <View
@@ -91,59 +92,36 @@ const Order = ({ order, getProductDetails }) => {
                   }}
                 >
                   <Text style={{ color: appTheme.COLORS.white }}>
-                    {/* {productType} */}
                     {getProductDetails(order?.productId)?.productType}
                   </Text>
                 </View>
 
-                <View
+                <Text
                   style={{
-                    flexDirection: "row",
-                    alignItems: "center",
+                    fontSize: 17,
+
+                    color: appTheme.COLORS.MainGray,
                   }}
                 >
-                  <Text
-                    style={{
-                      fontSize: 17,
-
-                      color: appTheme.COLORS.MainGray,
-                    }}
-                  >
-                    Qty: {order?.quantity}
-                  </Text>
-                </View>
+                  Qty: {order?.quantity}
+                </Text>
               </View>
 
               <View
                 style={{
                   flexDirection: "row",
                   alignItems: "center",
-                  marginLeft: 92,
+                  marginLeft: 68,
                 }}
               >
                 <Text style={{ fontSize: 14, marginRight: 2 }}>Price:</Text>
 
                 {getProductDetails(order?.productId)?.price !== undefined && (
-                  // <Text
-                  //   style={{
-                  //     fontSize: 14,
-                  //     color: appTheme.COLORS.mainRed,
-                  //     ...appTheme.FONTS.mainFontBold,
-                  //   }}
-                  // >
-                  //   {"\u20A6"}
-                  //   {formatPrice(order?.price)}
-                  //   {/* {formatPrice(
-                  //     getProductDetails(order?.productId)?.price *
-                  //       order?.quantity
-                  //   )} */}
-                  // </Text>
                   <CountryCurrency
                     country={country}
                     price={order?.price}
                     color={appTheme.COLORS.mainRed}
-                    bold
-                    fontSize={14}
+                    fontSize={13}
                     fontWeight="bold"
                     fontFamily="Gilroy-Bold"
                   />

@@ -123,9 +123,7 @@ const GenerateInvoice = () => {
   );
 
   return (
-    <SafeAreaView
-      style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
-    >
+    <View style={{ backgroundColor: appTheme.COLORS.mainBackground }}>
       {/* header */}
       <View
         style={{
@@ -152,7 +150,7 @@ const GenerateInvoice = () => {
         </Text>
       </View>
 
-      <CustomVirtualizedView>
+      <View>
         <View style={{ paddingLeft: 20, paddingVertical: 20 }}>
           <View
             style={{
@@ -174,6 +172,7 @@ const GenerateInvoice = () => {
             backgroundColor: appTheme.COLORS.white,
             paddingLeft: 20,
             paddingVertical: 20,
+            elevation: 10,
           }}
         >
           <View>
@@ -181,7 +180,7 @@ const GenerateInvoice = () => {
               style={{
                 color: appTheme.COLORS.MainGray,
                 fontSize: 18,
-                marginBottom: 15,
+                marginBottom: 10,
               }}
             >
               New Customer
@@ -213,8 +212,8 @@ const GenerateInvoice = () => {
         <FlatList
           style={{
             backgroundColor: appTheme.COLORS.white,
-            marginTop: 25,
-            marginBottom: 25,
+            marginVertical: 10,
+            elevation: 10,
           }}
           data={productsToSell}
           keyExtractor={(item, id) => id.toString()}
@@ -263,9 +262,10 @@ const GenerateInvoice = () => {
         <View
           style={{
             backgroundColor: appTheme.COLORS.white,
-            marginBottom: 20,
+            marginBottom: 10,
             paddingLeft: 20,
             paddingVertical: 10,
+            elevation: 10,
           }}
         >
           <Text
@@ -345,8 +345,8 @@ const GenerateInvoice = () => {
             );
           })}
         </View>
-      </CustomVirtualizedView>
-    </SafeAreaView>
+      </View>
+    </View>
   );
 };
 
