@@ -24,15 +24,22 @@ import { createAndSavePDF } from "../../utils/helpers";
 import { simpleHtml } from "../../utils/html2";
 import CountryCurrency from "../../components/user/CountryCurrency";
 import { ScrollView } from "react-native-virtualized-view";
+import Routes from "../../navigation/Routes";
 
-export const createPdf = (htmlFactory) => async () => {
+export const createPdf = (navigation, htmlFactory) => async () => {
   try {
     const html = await htmlFactory();
     if (html) {
       await createAndSavePDF(html);
       Alert.alert(
         "Success!",
-        "Invoice has been successfully generated and saved!"
+        "Invoice has been successfully generated and saved!",
+        [
+          {
+            text: "OK",
+            onPress: () => navigation.navigate(Routes.DELIVERIES_SCREEN),
+          },
+        ]
       );
     }
   } catch (error) {
@@ -102,6 +109,7 @@ const GenerateInvoice = () => {
       {
         title: "Simple PDF",
         action: createPdf(
+          navigation,
           simpleHtml(
             pageMarginState[0],
             productsToSell,

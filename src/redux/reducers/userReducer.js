@@ -25,6 +25,10 @@ const initialState = {
   bulkbreakers: [],
   pocs: [],
   newcustomers: [],
+  mainstream: [],
+  lowEnd: [],
+  highEnd: [],
+  reseller: [],
 };
 
 export default (state = initialState, action) => {
@@ -107,15 +111,21 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         customers: action.payload,
-        pocs: action.payload.filter(
-          (customer) => customer.CUST_Type.toLowerCase() === "poc"
+        mainstream: action.payload.filter(
+          (customer) => customer.CUST_Type === "Mainstream"
         ),
-        bulkbreakers: action.payload.filter(
-          (customer) => customer.CUST_Type.toLowerCase() === "bulkbreaker"
+
+        highEnd: action.payload.filter(
+          (customer) => customer.CUST_Type === "High End"
         ),
-        // newcustomers: action.payload.filter(
-        //   (customer) => customer.CUST_Type.toLowerCase() === "one-off"
-        // ),
+
+        lowEnd: action.payload.filter(
+          (customer) => customer.CUST_Type === "Low End"
+        ),
+
+        reseller: action.payload.filter(
+          (customer) => customer.CUST_Type === "Reseller"
+        ),
       };
 
     case GET_DISTRIBUTOR_CUSTOMERS_FAIL:

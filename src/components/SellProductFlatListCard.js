@@ -21,6 +21,7 @@ import { formatPrice } from "../utils/formatPrice";
 import CountryCurrency from "../components/user/CountryCurrency";
 
 const SellProductFlatListCard = ({
+  customerType,
   product: {
     productId,
     brand,
@@ -30,6 +31,12 @@ const SellProductFlatListCard = ({
     sku,
     quantity,
     initialQuantity,
+    high_end_price,
+    high_end_price_ohc,
+    low_end_price,
+    main_stream_price,
+    main_stream_ooh_price,
+    reseller_price,
   },
   getQuantity,
   getQuantity2,
@@ -46,6 +53,25 @@ const SellProductFlatListCard = ({
   const {
     user: { country },
   } = userState;
+
+  const thePrice = (type) => {
+    switch (type) {
+      case "Mainstream":
+        return main_stream_price;
+
+      case "Low End":
+        return low_end_price;
+
+      case "High End":
+        return high_end_price;
+
+      case "Reseller":
+        return reseller_price;
+
+      default:
+        return main_stream_price;
+    }
+  };
 
   return (
     <View
@@ -136,7 +162,7 @@ const SellProductFlatListCard = ({
             >
               <CountryCurrency
                 country={country}
-                price={price}
+                price={thePrice(customerType)}
                 color={appTheme.COLORS.MainGray}
                 fontSize={14}
                 fontFamily="Gilroy-Medium"
@@ -218,7 +244,7 @@ const SellProductFlatListCard = ({
 
           <CountryCurrency
             country={country}
-            price={quantity * price}
+            price={quantity * thePrice(customerType)}
             color={appTheme.COLORS.mainRed}
             fontSize={16}
             fontFamily="Gilroy-Medium"

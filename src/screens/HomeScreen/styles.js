@@ -87,6 +87,8 @@ export default styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     alignItems: "center",
+    flexDirection: "row",
+    justifyContent: "space-around",
   },
   deliveriesStats: {
     position: "absolute",

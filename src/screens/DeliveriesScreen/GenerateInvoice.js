@@ -24,14 +24,20 @@ import { simpleHtml } from "../../utils/html";
 import Routes from "../../navigation/Routes";
 import CountryCurrency from "../../components/user/CountryCurrency";
 
-export const createPdf = (htmlFactory) => async () => {
+export const createPdf = (navigation, htmlFactory) => async () => {
   try {
     const html = await htmlFactory();
     if (html) {
       await createAndSavePDF(html);
       Alert.alert(
         "Success!",
-        "Invoice has been successfully generated and saved!"
+        "Invoice has been successfully generated and saved!",
+        [
+          {
+            text: "OK",
+            onPress: () => navigation.navigate(Routes.DELIVERIES_SCREEN),
+          },
+        ]
       );
     }
   } catch (error) {
@@ -102,6 +108,7 @@ const GenerateInvoice = () => {
       {
         title: "Simple PDF",
         action: createPdf(
+          navigation,
           simpleHtml(
             pageMarginState[0],
             productsToSell,

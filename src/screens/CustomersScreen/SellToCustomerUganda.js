@@ -21,6 +21,10 @@ const SellToCustomer = () => {
   const route = useRoute();
   const { customer } = route.params;
 
+  const { CUST_Type } = customer;
+
+  console.log(CUST_Type);
+
   const Van = useSelector((state) => state.van);
   const { inventory, newinventory, loading: vanLoading, error: vanError } = Van;
 
@@ -49,12 +53,23 @@ const SellToCustomer = () => {
   const [empties, setEmpties] = useState(0);
 
   const getEmptiesPrice = () => {
-    return empties * 1000;
+    return empties * 22000;
   };
 
   const getTotalPrice = () => {
     return newinventory?.reduce(
-      (accumulator, item) => accumulator + item?.price * item?.quantity,
+      (accumulator, item) =>
+        accumulator +
+        (CUST_Type === "Reseller"
+          ? item?.reseller_price
+          : CUST_Type === "Mainstream"
+          ? item?.main_stream_price
+          : CUST_Type === "Low End"
+          ? item?.low_end_price
+          : CUST_Type === "High End"
+          ? item?.high_end_price
+          : item?.price) *
+          item?.quantity,
       0
     );
   };
@@ -66,7 +81,7 @@ const SellToCustomer = () => {
   };
 
   const getTotal = () => {
-    return getTotalPrice() + (calNumberOfFull() - empties) * 1000;
+    return getTotalPrice() + (calNumberOfFull() - empties) * 22000;
   };
 
   const productsToSell = newinventory?.filter(
@@ -118,6 +133,7 @@ const SellToCustomer = () => {
             getQuantity={getQuantity}
             getQuantity2={getQuantity2}
             loading={vanLoading}
+            customerType={CUST_Type}
           />
         ) : (
           <Spinner

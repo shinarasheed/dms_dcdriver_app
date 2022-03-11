@@ -31,17 +31,25 @@ import { getDistributorCustomers } from "../../redux/actions/userActions";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-
-  const allOrders = useSelector((state) => state.orders);
   const [newOrder, setNewOrder] = useState([]);
   const [theDriver, setTheDriver] = useState(null);
   const [distributor, setDistributor] = useState(null);
-  const orderStats = useSelector((state) => state.orderStats);
-  const { stats } = orderStats;
+
+  const allOrders = useSelector((state) => state.orders);
   const { loading, order } = allOrders;
 
-  const userState = useSelector((state) => state.user);
+  const orderItemsArray = order?.map((item) => item.orderItems);
 
+  const flattenArray = orderItemsArray?.flat();
+
+  const quantitiesArray = flattenArray?.map((item) => item.quantity);
+
+  const totalCases = quantitiesArray?.reduce((a, b) => a + b, 0);
+
+  const orderStats = useSelector((state) => state.orderStats);
+  const { stats } = orderStats;
+
+  const userState = useSelector((state) => state.user);
   const { user } = userState;
 
   const newOrders = order?.filter((item) => item.status === "Assigned");
@@ -143,27 +151,56 @@ const HomeScreen = () => {
               source={images.saleHistory1}
             >
               <View style={styles.totalSalesStats}>
-                <Text
-                  style={[
-                    styles.statsText,
-                    {
-                      fontFamily: "Gilroy-Medium",
-                    },
-                  ]}
-                >
-                  Total Sales
-                </Text>
+                <View>
+                  <Text
+                    style={[
+                      styles.statsText,
+                      {
+                        fontFamily: "Gilroy-Medium",
+                      },
+                    ]}
+                  >
+                    Total Sales
+                  </Text>
 
-                <CountryCurrency
-                  country={user?.country}
-                  price={
-                    stats?.totalSales ? `${formatPrice(stats.totalSales)}` : 0
-                  }
-                  color={appTheme.COLORS.white}
-                  fontSize={20}
-                  fontWeight="bold"
-                  fontFamily="Gilroy-Bold"
-                />
+                  <CountryCurrency
+                    country={user?.country}
+                    price={
+                      stats?.totalSales ? `${formatPrice(stats.totalSales)}` : 0
+                    }
+                    color={appTheme.COLORS.white}
+                    fontSize={20}
+                    fontWeight="bold"
+                    fontFamily="Gilroy-Bold"
+                  />
+                </View>
+
+                <View>
+                  <Text
+                    style={[
+                      styles.statsText,
+                      {
+                        fontFamily: "Gilroy-Medium",
+                        fontSize: 14,
+                      },
+                    ]}
+                  >
+                    Total Cases
+                  </Text>
+
+                  <Text
+                    style={[
+                      styles.statsText,
+                      {
+                        fontFamily: "Gilroy-Bold",
+                        textAlign: "center",
+                        fontSize: 15,
+                      },
+                    ]}
+                  >
+                    {totalCases}
+                  </Text>
+                </View>
               </View>
             </ImageBackground>
 

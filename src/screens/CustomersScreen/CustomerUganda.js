@@ -91,7 +91,7 @@ const CustomerUganda = () => {
                 textAlign: "center",
               }}
             >
-              {customer?.status}
+              Active
             </Text>
           </View>
         </View>

@@ -25,59 +25,58 @@ import Pocs from "../../../components/Customers/Uganda/Pocs";
 import CustomersTab from "../../../components/Customers/Uganda/CustomersTab";
 
 const Uganda = () => {
-  const categories = ["all", "bulkbreakers", "pocs", "new"];
+  const categories = ["all", "mainstream", "high-end", "low-end", "reseller"];
   const [index, setIndex] = useState(0);
-  const [theBulkBreakers, setTheBulkbreakers] = useState([]);
+  const [theMainStream, setTheMainStream] = useState([]);
   const [thePocs, setThePocs] = useState([]);
   const [allCustomers, setAllCustomers] = useState([]);
   const [newCusomers, setNewCustomers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   const navigation = useNavigation();
-
-  useEffect(() => {
-    setAllCustomers(customers);
-    setTheBulkbreakers(bulkbreakers);
-    setThePocs(pocs);
-    setNewCustomers(customers);
-  }, [customers]);
-
   const userState = useSelector((state) => state.user);
 
-  const { customers, user, bulkbreakers, pocs } = userState;
+  const { customers, mainstream, highEnd, lowEnd, reseller } = userState;
 
-  const filteredAllCustomers = allCustomers?.filter((customer) =>
+  const allTheCustomers = customers?.filter((customer) =>
     customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
   );
 
-  const filteredBulkbreakers = bulkbreakers?.filter((customer) =>
+  const mainStreamCustomers = theMainStream?.filter((customer) =>
     customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
   );
 
-  const filteredPocs = pocs?.filter((customer) =>
+  const highEndCustomers = highEnd?.filter((customer) =>
     customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
   );
 
-  const filteredNewCustomers = pocs?.filter((customer) =>
+  const lowEndCustomers = lowEnd?.filter((customer) =>
+    customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+  );
+
+  const resellerCustomers = reseller?.filter((customer) =>
     customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
   );
 
   const ShowCustomers = (index) => {
     switch (index) {
       case 0:
-        return <AllCustomers customers={filteredAllCustomers} />;
+        return <AllCustomers customers={allTheCustomers} />;
 
       case 1:
-        return <Bulkbreakers customers={filteredBulkbreakers} />;
+        return <Bulkbreakers customers={mainstream} />;
 
       case 2:
-        return <Pocs customers={filteredPocs} />;
+        return <Pocs customers={highEndCustomers} />;
 
       case 3:
-        return <Newcustomers customers={filteredNewCustomers} />;
+        return <Newcustomers customers={lowEndCustomers} />;
+
+      case 4:
+        return <Newcustomers customers={resellerCustomers} />;
 
       default:
-        return <AllCustomers customers={filteredAllCustomers} />;
+        return <AllCustomers customers={allTheCustomers} />;
     }
   };
   return (
