@@ -8,7 +8,7 @@ import {
 } from "@react-navigation/native";
 
 import appTheme from "../../constants/theme";
-import SellProductFlatList from "../../components/SellProductFlatList";
+import SellProductFlatListOneOff from "../../components/SellProdudtFlatListOneOff";
 import SellProductFooterOneOf from "../../components/SellProductFooterOneOf";
 import { icons } from "../../constants";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
@@ -22,11 +22,17 @@ const SellToCustomer = () => {
   const order = route.params;
 
   const Van = useSelector((state) => state.van);
-  const { inventory, newinventory, loading: vanLoading, error: vanError } = Van;
+  const { inventory, newinventory, loading: vanLoading } = Van;
 
   const theCustomer = useSelector((state) => state.customerOneOf);
 
   const { customer } = theCustomer;
+
+  const userState = useSelector((state) => state.user);
+
+  const {
+    user: { country },
+  } = userState;
 
   useFocusEffect(
     React.useCallback(() => {
@@ -53,7 +59,11 @@ const SellToCustomer = () => {
   const [empties, setEmpties] = useState(0);
 
   const getEmptiesPrice = () => {
-    return empties * 1000;
+    if (country === "UG") {
+      return empties * 22000;
+    } else {
+      return empties * 1000;
+    }
   };
 
   const getTotalPrice = () => {
@@ -70,7 +80,11 @@ const SellToCustomer = () => {
   };
 
   const getTotal = () => {
-    return getTotalPrice() + (calNumberOfFull() - empties) * 1000;
+    if (country === "UG") {
+      return getTotalPrice() + (calNumberOfFull() - empties) * 22000;
+    } else {
+      return getTotalPrice() + (calNumberOfFull() - empties) * 1000;
+    }
   };
 
   const productsToSell = newinventory?.filter(
@@ -117,7 +131,7 @@ const SellToCustomer = () => {
         }}
       >
         {!vanLoading ? (
-          <SellProductFlatList
+          <SellProductFlatListOneOff
             inventory={newinventory}
             loading={vanLoading}
             getQuantity={getQuantity}

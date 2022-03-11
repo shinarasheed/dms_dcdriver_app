@@ -23,8 +23,6 @@ const SellToCustomer = () => {
 
   const { CUST_Type } = customer;
 
-  console.log(CUST_Type);
-
   const Van = useSelector((state) => state.van);
   const { inventory, newinventory, loading: vanLoading, error: vanError } = Van;
 

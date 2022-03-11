@@ -66,7 +66,11 @@ const OrderBottomSheet = ({
   const [empties, setEmpties] = useState(0);
 
   const getEmptiesPrice = () => {
-    return empties * 1000;
+    if (country === "UG") {
+      return empties * 22000;
+    } else {
+      return empties * 1000;
+    }
   };
 
   useEffect(() => {
@@ -146,7 +150,11 @@ const OrderBottomSheet = ({
   };
 
   const getTotal = () => {
-    return getTotalPrice() + (calNumberOfFull() - empties) * 1000;
+    if (country === "UG") {
+      return getTotalPrice() + (calNumberOfFull() - empties) * 22000;
+    } else {
+      return getTotalPrice() + (calNumberOfFull() - empties) * 1000;
+    }
   };
 
   return (

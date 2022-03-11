@@ -38,14 +38,6 @@ const HomeScreen = () => {
   const allOrders = useSelector((state) => state.orders);
   const { loading, order } = allOrders;
 
-  const orderItemsArray = order?.map((item) => item.orderItems);
-
-  const flattenArray = orderItemsArray?.flat();
-
-  const quantitiesArray = flattenArray?.map((item) => item.quantity);
-
-  const totalCases = quantitiesArray?.reduce((a, b) => a + b, 0);
-
   const orderStats = useSelector((state) => state.orderStats);
   const { stats } = orderStats;
 
@@ -198,7 +190,7 @@ const HomeScreen = () => {
                       },
                     ]}
                   >
-                    {totalCases}
+                    {stats?.casesSold}
                   </Text>
                 </View>
               </View>
