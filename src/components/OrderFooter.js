@@ -85,8 +85,6 @@ const OrderFooter = ({
         orderItems: await arrayToSubmit2(),
       };
 
-      console.log(payload);
-
       const { data } = await axios.patch(
         `${orderUrl}/UpdateOrder/UpdateOrderDetails/${order?.orderId}`,
         payload,
@@ -94,8 +92,6 @@ const OrderFooter = ({
       );
 
       const { isSuccess } = data;
-
-      console.log(isSuccess);
 
       if (isSuccess) {
         updateOrderStatus("Completed");
