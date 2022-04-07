@@ -29,11 +29,11 @@ export const register = (navigation) => async (dispatch) => {
     const token = await adService.getIdToken();
     const decoded = await jwt_decode(token);
 
-    // console.log(decoded, "decoded from welcome screen");
+    console.log(decoded);
 
     const phoneNumber = decoded.extension_PhoneNumber;
 
-    // console.log("welcome");
+    console.log(phoneNumber);
 
     // if the user is new
     if (decoded.newUser) {
@@ -51,7 +51,7 @@ export const register = (navigation) => async (dispatch) => {
       //continue
       await axios.post(`${userUrl}/register`, body, config);
 
-      navigation.navigate(Routes.CONTINUE_SCREEN);
+      await navigation.navigate(Routes.CONTINUE_SCREEN);
 
       dispatch({
         type: REGISTER_SUCCESS,

@@ -1,11 +1,53 @@
-import React from "react";
-import { Text, View, Image, Pressable } from "react-native";
+import React, { useState } from "react";
+import {
+  Text,
+  View,
+  Image,
+  Pressable,
+  TextInput,
+  ActivityIndicator,
+} from "react-native";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
 import { BottomSheet } from "react-native-btr";
 import { icons } from "../constants";
 import appTheme from "../constants/theme";
+import { fetchOrder } from "../redux/actions/orderActions";
+import { orderUrl } from "../utils/baseUrl";
 
-const RejectOrderSheet = ({ toggle, visible, updateOrderStatus }) => {
+const RejectOrderSheet = ({ toggle, visible, theOrder, settheOrder, item }) => {
+  const [rejectReason, setRejectReason] = useState("");
+  const [loading, setLoading] = useState(false);
+  const dispatch = useDispatch();
+
+  const updateOrderStatus = async (status, reasonForRejection) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+
+      const body = {
+        status,
+        reasonForRejection,
+      };
+      setLoading(true);
+
+      const { data: order } = await axios.patch(
+        `${orderUrl}/UpdateOrder/UpdateStatus/${item.orderId}`,
+        body,
+        config
+      );
+      settheOrder(order?.order[0]);
+      setLoading(false);
+      setRejectReason("");
+      dispatch(fetchOrder());
+    } catch (error) {
+      console.log(error);
+    }
+  };
   return (
     <BottomSheet
       visible={visible}
@@ -38,6 +80,27 @@ const RejectOrderSheet = ({ toggle, visible, updateOrderStatus }) => {
         >
           Are you sure you want to reject this order?
         </Text>
+
+        <View
+          style={{
+            marginTop: 20,
+          }}
+        >
+          <TextInput
+            style={{
+              borderWidth: 0,
+              borderBottomWidth: 1,
+              width: "100%",
+              borderColor: appTheme.COLORS.borderGRey,
+              textAlign: "left",
+              color: appTheme.COLORS.mainTextGray,
+              fontFamily: "Gilroy-Medium",
+            }}
+            value={rejectReason}
+            onChangeText={(text) => setRejectReason(text)}
+            placeholder="Why do you want to reject this order?"
+          />
+        </View>
         <View
           style={{
             flexDirection: "row",
@@ -56,7 +119,10 @@ const RejectOrderSheet = ({ toggle, visible, updateOrderStatus }) => {
               borderWidth: 1,
               borderColor: appTheme.COLORS.borderGRey1,
             }}
-            onPress={() => toggle()}
+            onPress={() => {
+              toggle();
+              setRejectReason("");
+            }}
           >
             <Text>No</Text>
           </Pressable>
@@ -72,19 +138,29 @@ const RejectOrderSheet = ({ toggle, visible, updateOrderStatus }) => {
               marginLeft: 20,
             }}
             onPress={() => {
-              updateOrderStatus("Rejected");
+              updateOrderStatus("Rejected", rejectReason);
               toggle();
             }}
           >
-            <Text
-              style={{
-                color: appTheme.COLORS.white,
-                ...appTheme.FONTS.mainFontBold,
-                fontSize: 16,
-              }}
-            >
-              Yes, reject
-            </Text>
+            {loading ? (
+              <ActivityIndicator
+                color={
+                  Platform.OS === "android" ? appTheme.COLORS.white : undefined
+                }
+                animating={loading}
+                size="large"
+              />
+            ) : (
+              <Text
+                style={{
+                  color: appTheme.COLORS.white,
+                  ...appTheme.FONTS.mainFontBold,
+                  fontSize: 16,
+                }}
+              >
+                Yes, reject
+              </Text>
+            )}
           </Pressable>
         </View>
       </View>

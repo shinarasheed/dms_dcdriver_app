@@ -18,8 +18,8 @@ export default function UserBottomSheet({
   const dispatch = useDispatch();
 
   const handleLogOut = async () => {
-    await adService.logoutAsync();
     await AsyncStorage.clear();
+    await adService.logoutAsync();
     dispatch(logOut());
   };
 

@@ -5,7 +5,6 @@
 // export const userUrl = "https://dmsprd20.azure-api.net/user";
 // export const InventoryUrl =
 //   "https://dmsprd20.azure-api.net/inventory/api/v1/van";
-
 // export const companyUrl = "https://dmsprd20.azure-api.net/company";
 
 export const productUrl = "https://dmsqa20.azure-api.net/product/api/v1";

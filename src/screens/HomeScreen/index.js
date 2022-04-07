@@ -21,7 +21,6 @@ import CustomVirtualizedView from "../../components/VirtualizedList";
 import UserBottomSheet from "../../components/UserBottomSheet";
 import { fetchOrder, fetchOrderStats } from "../../redux/actions/orderActions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Spinner } from "../../components/Spinner";
 import axios from "axios";
 import Routes from "../../navigation/Routes";
 import { formatPrice } from "../../utils/formatPrice";
@@ -31,12 +30,10 @@ import { getDistributorCustomers } from "../../redux/actions/userActions";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
-  const [newOrder, setNewOrder] = useState([]);
-  const [theDriver, setTheDriver] = useState(null);
   const [distributor, setDistributor] = useState(null);
 
   const allOrders = useSelector((state) => state.orders);
-  const { loading, order } = allOrders;
+  const { order } = allOrders;
 
   const orderStats = useSelector((state) => state.orderStats);
   const { stats } = orderStats;
@@ -89,7 +86,6 @@ const HomeScreen = () => {
   useFocusEffect(
     React.useCallback(() => {
       dispatch(fetchOrder());
-      setNewOrder(order?.filter((item) => item.status === "Assigned"));
     }, [])
   );
 
@@ -190,7 +186,7 @@ const HomeScreen = () => {
                       },
                     ]}
                   >
-                    {stats?.casesSold}
+                    {stats?.casesSold ? stats?.casesSold : 0}
                   </Text>
                 </View>
               </View>
@@ -318,7 +314,6 @@ const HomeScreen = () => {
       </CustomVirtualizedView>
       <UserBottomSheet
         distributor={distributor}
-        driver={theDriver}
         toggle={toggle}
         visible={visible}
         user={user}

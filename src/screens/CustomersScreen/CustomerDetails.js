@@ -31,6 +31,8 @@ const Customer = () => {
       order?.buyerDetails[0]?.buyerPhoneNumber
   );
 
+  // console.log(customerOrders);
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);

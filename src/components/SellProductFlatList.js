@@ -9,21 +9,29 @@ const SellProductFlatList = ({
   getQuantity2,
   customerType,
 }) => {
+  const renderItem = ({ item }) => {
+    return (
+      <SellProductFlatListCard
+        product={item}
+        getQuantity={getQuantity}
+        getQuantity2={getQuantity2}
+        customerType={customerType}
+      />
+    );
+  };
+
   return (
-    <>
+    <View
+      style={{
+        flex: 1,
+      }}
+    >
       {inventory?.length > 0 ? (
         <FlatList
           showsVerticalScrollIndicator={false}
           data={inventory}
-          keyExtractor={(item, id) => id.toString()}
-          renderItem={({ item }) => (
-            <SellProductFlatListCard
-              product={item}
-              getQuantity={getQuantity}
-              getQuantity2={getQuantity2}
-              customerType={customerType}
-            />
-          )}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderItem}
           ItemSeparatorComponent={() => (
             <View
               style={{
@@ -33,6 +41,7 @@ const SellProductFlatList = ({
               }}
             ></View>
           )}
+          // maxToRenderPerBatch={5}
         />
       ) : (
         <View
@@ -55,7 +64,7 @@ const SellProductFlatList = ({
           </Text>
         </View>
       )}
-    </>
+    </View>
   );
 };
 

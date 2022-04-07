@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import appTheme from "../constants/theme";
-import Routes from "../navigation/Routes";
+import appTheme from "../../../constants/theme";
+import Routes from "../../../navigation/Routes";
 
 const CustomerCard = ({ order, allOrders }) => {
   const navigation = useNavigation();

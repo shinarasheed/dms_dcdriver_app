@@ -71,14 +71,10 @@ const Register = () => {
         </View>
       )}
       <LoginView
-        // appId="8c11baca-fdbc-4b7f-b2cf-3a177588f37c"
-        // redirectURI="https://devdms2.b2clogin.com/oauth2/nativeclient"
-        // tenant="devdms2"
-        // loginPolicy="B2C_1_dms_mobile_signup_signin"
-        appId="3eef02d6-eac1-4803-8cf8-3af748c9be16"
-        redirectURI="https://dms20prod.b2clogin.com/oauth2/nativeclient"
-        tenant="dms20prod"
-        loginPolicy="B2C_1_dms_phone_signup_signin"
+        appId="8c11baca-fdbc-4b7f-b2cf-3a177588f37c"
+        redirectURI="https://devdms2.b2clogin.com/oauth2/nativeclient"
+        tenant="devdms2"
+        loginPolicy="B2C_1_dms_mobile_signup_signin"
         secureStore={SecureStore}
         renderLoading={spinner}
         onSuccess={onLogin}

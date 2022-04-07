@@ -28,6 +28,8 @@ const OrderBottomSheet = ({
 }) => {
   const [driver, setDriver] = useState(null);
 
+  // console.log(item, "item");
+
   const allProducts = useSelector((state) => state.products);
   const [newOrders, setNewOrders] = useState([]);
 
@@ -90,6 +92,7 @@ const OrderBottomSheet = ({
         quantity: parseInt(theOrder?.quantity),
         brand: orderDetails?.brand,
         price: parseInt(theOrder?.price),
+        SFlineID: theOrder?.SFlineID,
         productType: orderDetails?.productType,
         unitPrice: parseInt(theOrder?.price / theOrder?.quantity),
         orderId: theOrder?.orderId,
@@ -99,6 +102,8 @@ const OrderBottomSheet = ({
       });
     });
   };
+
+  // console.log(newOrders, "orders");
 
   useEffect(() => {
     createNewProducts();
@@ -113,7 +118,7 @@ const OrderBottomSheet = ({
 
   const incrementQuantity = (productId) => {
     let product = newOrders?.find(
-      (product) => parseInt(product?.productId) === parseInt(productId)
+      (product) => product?.productId === productId
     );
     product.quantity++;
     setNewOrders([...newOrders]);
@@ -236,7 +241,7 @@ const OrderBottomSheet = ({
 
           <CountryCurrency
             country={country}
-            price="22000"
+            price={country === "NG" ? "1000" : "22000"}
             color={appTheme.COLORS.black}
             fontSize={14}
             fontWeight="bold"

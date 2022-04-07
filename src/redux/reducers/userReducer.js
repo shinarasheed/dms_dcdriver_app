@@ -25,10 +25,8 @@ const initialState = {
   bulkbreakers: [],
   pocs: [],
   newcustomers: [],
-  mainstream: [],
-  lowEnd: [],
-  highEnd: [],
-  reseller: [],
+  stockist: [],
+  outlet: [],
 };
 
 export default (state = initialState, action) => {
@@ -111,20 +109,12 @@ export default (state = initialState, action) => {
         ...state,
         isLoading: false,
         customers: action.payload,
-        mainstream: action.payload.filter(
-          (customer) => customer.CUST_Type === "Mainstream"
-        ),
-
-        highEnd: action.payload.filter(
-          (customer) => customer.CUST_Type === "High End"
-        ),
-
-        lowEnd: action.payload.filter(
-          (customer) => customer.CUST_Type === "Low End"
-        ),
-
-        reseller: action.payload.filter(
+        stockist: action.payload.filter(
           (customer) => customer.CUST_Type === "Reseller"
+        ),
+
+        outlet: action.payload.filter(
+          (customer) => customer.CUST_Type !== "Reseller"
         ),
       };
 

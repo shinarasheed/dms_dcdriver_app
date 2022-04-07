@@ -250,7 +250,9 @@ const DeliveryDetails = () => {
       <RejectOrderSheet
         toggle={toggle}
         visible={visible}
-        updateOrderStatus={updateOrderStatus}
+        theOrder={theOrder}
+        settheOrder={settheOrder}
+        item={item}
       />
 
       {theOrder?.status === "Completed" && (

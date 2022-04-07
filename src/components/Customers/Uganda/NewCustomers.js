@@ -1,29 +1,28 @@
-import { StyleSheet, Text, View, FlatList } from "react-native";
 import React from "react";
-
-import CustomerCard from "./CustomerCard";
+import { FlatList, View } from "react-native";
 import appTheme from "../../../constants/theme";
+import CustomerCard from "./NewCustomerCard";
 
-const NewCustomers = ({ customers }) => {
+const NewCustomers = ({ allOrders, products }) => {
   return (
-    <View>
-      <FlatList
-        style={{ marginTop: 20, marginBottom: 100 }}
-        data={customers}
-        renderItem={({ item }) => <CustomerCard customer={item} />}
-        keyExtractor={(item, id) => id.toString()}
-        showsVerticalScrollIndicator={false}
-        ItemSeparatorComponent={() => (
-          <View
-            style={{
-              height: 1,
-              width: "100%",
-              backgroundColor: appTheme.COLORS.borderGRey,
-            }}
-          ></View>
-        )}
-      />
-    </View>
+    <FlatList
+      style={{ marginTop: 20, marginBottom: 120 }}
+      data={allOrders}
+      renderItem={({ item }) => (
+        <CustomerCard order={item} allOrders={allOrders} products={products} />
+      )}
+      keyExtractor={(item, id) => id.toString()}
+      showsVerticalScrollIndicator={false}
+      ItemSeparatorComponent={() => (
+        <View
+          style={{
+            height: 1,
+            width: "100%",
+            backgroundColor: appTheme.COLORS.borderGRey,
+          }}
+        ></View>
+      )}
+    />
   );
 };
 

@@ -86,6 +86,22 @@ const OrderBottomSheetCard = ({
           </Text>
         </View>
 
+        <View
+          style={{
+            width: "50%",
+          }}
+        >
+          <Text
+            style={{
+              textAlign: "center",
+              fontSize: 15,
+              fontFamily: "Gilroy-Medium",
+            }}
+          >
+            {quantity} {quantity === 1 ? "case" : "cases"}
+          </Text>
+        </View>
+
         {/* <Pressable
           style={{ position: "absolute", right: 10 }}
           onPress={() => deleteProduct(productId)}
@@ -104,6 +120,7 @@ const OrderBottomSheetCard = ({
           <View
             style={{
               flexDirection: "row",
+              alignItems: "center",
             }}
           >
             <View
@@ -135,7 +152,7 @@ const OrderBottomSheetCard = ({
                 country={country}
                 price={productPrice}
                 color={appTheme.COLORS.MainGray}
-                fontSize={15}
+                fontSize={12}
                 fontWeight="400"
                 fontFamily="Gilroy-Medium"
               />
@@ -147,6 +164,21 @@ const OrderBottomSheetCard = ({
               >
                 /case
               </Text>
+            </View>
+
+            <View
+              style={{
+                marginLeft: 50,
+              }}
+            >
+              <CountryCurrency
+                country={country}
+                price={quantity * productPrice}
+                color={appTheme.COLORS.mainRed}
+                fontSize={13}
+                fontWeight="400"
+                fontFamily="Gilroy-Bold"
+              />
             </View>
           </View>
         </View>
@@ -199,15 +231,6 @@ const OrderBottomSheetCard = ({
               </Pressable>
             </View>
           </View>
-
-          <CountryCurrency
-            country={country}
-            price={quantity * productPrice}
-            color={appTheme.COLORS.mainRed}
-            fontSize={15}
-            fontWeight="400"
-            fontFamily="Gilroy-Bold"
-          />
         </View>
       </View>
     </View>

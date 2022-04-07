@@ -13,17 +13,33 @@ const CustomersTab = ({ categories, index, setIndex }) => {
           onPress={() => setIndex(i)}
         >
           <View>
-            <Text
+            <View
               style={{
-                fontFamily: "Gilroy-Bold",
-                textTransform: "uppercase",
-                fontSize: 13,
-                color:
-                  index == i ? appTheme.COLORS.black : appTheme.COLORS.MainGray,
+                flexDirection: "row",
+                alignItems: "center",
               }}
             >
-              {item}
-            </Text>
+              <Text
+                style={{
+                  fontFamily: "Gilroy-Bold",
+                  textTransform: "uppercase",
+                  fontSize: 13,
+                  color:
+                    index == i
+                      ? appTheme.COLORS.black
+                      : appTheme.COLORS.MainGray,
+                }}
+              >
+                {item.name}
+              </Text>
+              <Text
+                style={{
+                  marginLeft: 5,
+                }}
+              >
+                ({item.length})
+              </Text>
+            </View>
             {index == i && (
               <View
                 style={{

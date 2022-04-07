@@ -7,8 +7,8 @@ import {
   StyleSheet,
   TextInput,
 } from "react-native";
-import { useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Icon from "react-native-vector-icons/MaterialIcons";
 
 import Header from "../../../components/Header";
@@ -23,9 +23,10 @@ import Bulkbreakers from "../../../components/Customers/Uganda/Bulkbreakers";
 import Pocs from "../../../components/Customers/Uganda/Pocs";
 
 import CustomersTab from "../../../components/Customers/Uganda/CustomersTab";
+import { fetchOrder } from "../../../redux/actions/orderActions";
+import { fetchProducts } from "../../../redux/actions/productActions";
 
 const Uganda = () => {
-  const categories = ["all", "mainstream", "high-end", "low-end", "reseller"];
   const [index, setIndex] = useState(0);
   const [theMainStream, setTheMainStream] = useState([]);
   const [thePocs, setThePocs] = useState([]);
@@ -36,27 +37,52 @@ const Uganda = () => {
   const navigation = useNavigation();
   const userState = useSelector((state) => state.user);
 
-  const { customers, mainstream, highEnd, lowEnd, reseller } = userState;
+  const { customers, stockist, outlet } = userState;
 
   const allTheCustomers = customers?.filter((customer) =>
     customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
   );
 
-  const mainStreamCustomers = theMainStream?.filter((customer) =>
+  const theStockist = stockist?.filter((customer) =>
     customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
   );
 
-  const highEndCustomers = highEnd?.filter((customer) =>
+  const theOutlets = outlet?.filter((customer) =>
     customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
   );
 
-  const lowEndCustomers = lowEnd?.filter((customer) =>
-    customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
+  const orders = useSelector((state) => state.orders);
+  const { order: allOrders } = orders;
+
+  const oneOff = allOrders?.filter((order) => order.routeName === "One-Off");
+
+  const allCustomersLength = allTheCustomers.length;
+  const stockistLength = theStockist.length;
+  const outletLength = theOutlets.length;
+  const oneOffLength = oneOff?.length;
+
+  const categories = [
+    { name: "all", length: allCustomersLength },
+    { name: "stockist", length: stockistLength },
+    { name: "outlet", length: outletLength },
+    { name: "new", length: oneOffLength },
+  ];
+
+  const dispatch = useDispatch();
+
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(fetchOrder());
+    }, [])
   );
 
-  const resellerCustomers = reseller?.filter((customer) =>
-    customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())
-  );
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, []);
+
+  const allProducts = useSelector((state) => state.products);
+
+  const { products } = allProducts;
 
   const ShowCustomers = (index) => {
     switch (index) {
@@ -64,16 +90,13 @@ const Uganda = () => {
         return <AllCustomers customers={allTheCustomers} />;
 
       case 1:
-        return <Bulkbreakers customers={mainstream} />;
+        return <Bulkbreakers customers={theStockist} />;
 
       case 2:
-        return <Pocs customers={highEndCustomers} />;
+        return <Pocs customers={theOutlets} />;
 
       case 3:
-        return <Newcustomers customers={lowEndCustomers} />;
-
-      case 4:
-        return <Newcustomers customers={resellerCustomers} />;
+        return <Newcustomers allOrders={oneOff} products={products} />;
 
       default:
         return <AllCustomers customers={allTheCustomers} />;

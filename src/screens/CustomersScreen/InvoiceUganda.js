@@ -37,7 +37,7 @@ export const createPdf = (navigation, htmlFactory) => async () => {
         [
           {
             text: "OK",
-            onPress: () => navigation.navigate(Routes.DELIVERIES_SCREEN),
+            onPress: () => navigation.navigate(Routes.CUSTOMERS_SCREEN),
           },
         ]
       );
