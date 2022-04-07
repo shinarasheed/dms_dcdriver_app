@@ -108,7 +108,7 @@ const InvoiceCard = ({ product }) => {
             <View
               style={{
                 flexDirection: "row",
-                marginLeft: 80,
+                marginLeft: 65,
                 alignItems: "center",
               }}
             >
@@ -126,7 +126,7 @@ const InvoiceCard = ({ product }) => {
                 country={country}
                 price={quantity * productPrice}
                 color={appTheme.COLORS.mainRed}
-                fontSize={14}
+                fontSize={13}
                 fontWeight="bold"
                 fontFamily="Gilroy-Bold"
               />

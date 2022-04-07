@@ -25,15 +25,18 @@ const OrderFooter = ({
   const totalPrice = getTotalPrice();
 
   const dispatch = useDispatch();
-  let orderItems = [];
-  newOrders.map((newOrder) => {
-    orderItems.push({
-      quantity: newOrder?.quantity,
-      productId: newOrder?.productId,
-      price: newOrder?.price,
-      SFlineID: newOrder?.SFlineID,
+  const arrayToSubmit = async () => {
+    let orderItems = [];
+    newOrders.map((newOrder) => {
+      orderItems.push({
+        quantity: newOrder?.quantity,
+        productId: newOrder?.productId,
+        price: newOrder?.quantity * newOrder?.productPrice,
+        SFlineID: newOrder?.SFlineID,
+      });
     });
-  });
+    return orderItems;
+  };
 
   const arrayToSubmit2 = async () => {
     let orderItems = [];
@@ -68,11 +71,18 @@ const OrderFooter = ({
         },
       };
 
+      //for order
       const payload = {
         emptiesReturned: empties,
         costOfEmptiesReturned: empties * 22000,
         sellerCompanyId: order?.sellerCompanyId,
-        orderItems,
+        orderItems: await arrayToSubmit(),
+      };
+
+      //for inventory
+      const payload2 = {
+        vehicleId: driver?.vehicleId,
+        orderItems: await arrayToSubmit2(),
       };
 
       console.log(payload);
@@ -82,7 +92,25 @@ const OrderFooter = ({
         payload,
         config
       );
-      // console.log(data);
+
+      const { isSuccess } = data;
+
+      console.log(isSuccess);
+
+      if (isSuccess) {
+        updateOrderStatus("Completed");
+        dispatch(updateInventory(payload2));
+        handleEmpties();
+        toggle();
+        navigator.navigate("GenerateInvoice", {
+          productsToSell: newOrders,
+          order,
+          empties,
+          totalPrice,
+        });
+      } else {
+        return;
+      }
     } catch (error) {
       console.log(error);
     }
@@ -95,31 +123,7 @@ const OrderFooter = ({
   return (
     <View style={styles.footerContainer}>
       <TouchableOpacity
-        onPress={async () => {
-          // const payload = {
-          //   emptiesReturned: empties,
-          //   sellerCompanyId: order?.sellerCompanyId,
-          //   orderItems: await arrayToSubmit(),
-          // };
-
-          // const payload2 = {
-          //   vehicleId: driver?.vehicleId,
-          //   orderItems: await arrayToSubmit2(),
-          // };
-          updateOrderItem();
-          // updateOrderStatus("Completed");
-          // dispatch(updateInventory(payload2));
-          // handleEmpties();
-          // toggle();
-          // navigator.navigate("GenerateInvoice", {
-          //   productsToSell: newOrders,
-          //   order,
-          //   empties,
-          //   totalPrice,
-          // });
-
-          // console.log(payload);
-        }}
+        onPress={async () => updateOrderItem()}
         style={{
           backgroundColor: appTheme.COLORS.mainRed,
           width: "100%",
