@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import {
+  StyleSheet,
+  View,
+  TouchableOpacity,
+  Text,
+  ActivityIndicator,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
@@ -19,6 +25,7 @@ const OrderFooter = ({
   toggle,
 }) => {
   const navigator = useNavigation();
+  const [loading, setLoading] = useState(false);
 
   const totalPrice = getTotalPrice();
 
@@ -69,6 +76,8 @@ const OrderFooter = ({
         },
       };
 
+      setLoading(true);
+
       //for order
       const payload = {
         emptiesReturned: empties,
@@ -92,6 +101,7 @@ const OrderFooter = ({
       const { isSuccess } = data;
 
       if (isSuccess) {
+        setLoading(false);
         updateOrderStatus("Completed");
         dispatch(updateInventory(payload2));
         handleEmpties();
@@ -130,24 +140,36 @@ const OrderFooter = ({
           flexDirection: "row",
         }}
       >
-        <Text
-          style={{
-            color: appTheme.COLORS.white,
-            fontSize: 16,
-            fontFamily: "Gilroy-Bold",
-          }}
-        >
-          Confirm{" "}
-        </Text>
-        {isNaN(totalPrice) ? null : (
-          <CountryCurrency
-            country={country}
-            price={totalPrice}
-            color={appTheme.COLORS.white}
-            fontSize={16}
-            fontWeight="bold"
-            fontFamily="Gilroy-Bold"
+        {loading ? (
+          <ActivityIndicator
+            color={
+              Platform.OS === "android" ? appTheme.COLORS.white : undefined
+            }
+            animating={loading}
+            size="large"
           />
+        ) : (
+          <>
+            <Text
+              style={{
+                color: appTheme.COLORS.white,
+                fontSize: 16,
+                fontFamily: "Gilroy-Bold",
+              }}
+            >
+              Confirm
+            </Text>
+            {isNaN(totalPrice) ? null : (
+              <CountryCurrency
+                country={country}
+                price={totalPrice}
+                color={appTheme.COLORS.white}
+                fontSize={16}
+                fontWeight="bold"
+                fontFamily="Gilroy-Bold"
+              />
+            )}
+          </>
         )}
       </TouchableOpacity>
     </View>
