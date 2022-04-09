@@ -55,6 +55,14 @@ const OrderBottomSheet = ({
     dispatch(fetchVanProducts());
   }, []);
 
+  // const getQuantity = (productId) => {
+  //   const itemQuantity = inventory.find(
+  //     (product) => product?.product?.productId === productId
+  //   )?.quantity;
+
+  //   return itemQuantity;
+  // };
+
   const getQuantity = (productId, quantity) => {
     return (
       quantity <
@@ -99,6 +107,7 @@ const OrderBottomSheet = ({
         imageUrl: orderDetails?.imageUrl,
         sku: orderDetails?.sku,
         productPrice: orderDetails?.price,
+        id: orderDetails?.id,
       });
     });
   };
@@ -217,6 +226,7 @@ const OrderBottomSheet = ({
               newOrders={newOrders}
               setNewOrders={setNewOrders}
               getTotalPrice={getTotal}
+              originalQuantity={item?.quantity}
             />
           );
         })}

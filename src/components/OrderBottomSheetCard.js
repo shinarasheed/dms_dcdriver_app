@@ -23,6 +23,7 @@ const OrderBottomSheetCard = ({
   getQuantity,
   newOrders,
   setNewOrders,
+  originalQuantity,
 }) => {
   const {
     orderId,
@@ -48,6 +49,15 @@ const OrderBottomSheetCard = ({
   const {
     user: { country },
   } = userState;
+
+  // const incrementProductQuantity = (quantity) => {
+  //   console.log(originalQuantity);
+  //   if (quantity - originalQuantity === getQuantity(productId)) {
+  //     return;
+  //   } else {
+  //     incrementQuantity(productId);
+  //   }
+  // };
 
   return (
     <View
@@ -216,6 +226,7 @@ const OrderBottomSheetCard = ({
               }}
               value={String(quantity)}
               onChangeText={(text) =>
+                getQuantity(productId, quantity) &&
                 incrementQuantityByTyping(text, productId)
               }
             />
@@ -223,7 +234,7 @@ const OrderBottomSheetCard = ({
             <View style={styles.container}>
               <Pressable
                 onPress={() =>
-                  // getQuantity(productId, quantity) &&
+                  getQuantity(productId, quantity) &&
                   incrementQuantity(productId)
                 }
               >

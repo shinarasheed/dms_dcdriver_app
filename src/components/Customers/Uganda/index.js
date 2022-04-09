@@ -28,10 +28,6 @@ import { fetchProducts } from "../../../redux/actions/productActions";
 
 const Uganda = () => {
   const [index, setIndex] = useState(0);
-  const [theMainStream, setTheMainStream] = useState([]);
-  const [thePocs, setThePocs] = useState([]);
-  const [allCustomers, setAllCustomers] = useState([]);
-  const [newCusomers, setNewCustomers] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   const navigation = useNavigation();
@@ -54,7 +50,9 @@ const Uganda = () => {
   const orders = useSelector((state) => state.orders);
   const { order: allOrders } = orders;
 
-  const oneOff = allOrders?.filter((order) => order.routeName === "One-Off");
+  const oneOff = allOrders?.filter(
+    (order) => order?.buyerCompanyId === "One-Off Customer"
+  );
 
   const allCustomersLength = allTheCustomers.length;
   const stockistLength = theStockist.length;
@@ -96,7 +94,7 @@ const Uganda = () => {
         return <Pocs customers={theOutlets} />;
 
       case 3:
-        return <Newcustomers allOrders={oneOff} products={products} />;
+        return <Newcustomers oneOff={oneOff} products={products} />;
 
       default:
         return <AllCustomers customers={allTheCustomers} />;

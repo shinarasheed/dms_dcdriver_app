@@ -1,28 +1,17 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import appTheme from "../../../constants/theme";
 import Routes from "../../../navigation/Routes";
 
-const CustomerCard = ({ order, allOrders }) => {
+const CustomerCard = ({ order, oneOff }) => {
   const navigation = useNavigation();
 
-  const numberOfOrders = allOrders.filter(
+  const customerOrders = oneOff.filter(
     (od) =>
       od.buyerDetails[0]?.buyerPhoneNumber ===
       order?.buyerDetails[0]?.buyerPhoneNumber
-  );
-
-  const customerOrders = allOrders.filter(
-    (od) => od.buyerCompanyId === order?.buyerCompanyId
-  );
-
-  const items = customerOrders.map((item) => item.orderItems[0]);
-
-  const totalAmount = items.reduce(
-    (accumulator, order) => accumulator + parseInt(order?.price),
-    0
   );
 
   return (
@@ -30,8 +19,8 @@ const CustomerCard = ({ order, allOrders }) => {
       onPress={() =>
         navigation.navigate(Routes.CUSTOMER_DETAILS_SCREEN, {
           order,
-          numberOfOrders,
-          allOrders,
+          customerOrders,
+          oneOff,
         })
       }
     >
@@ -63,7 +52,7 @@ const CustomerCard = ({ order, allOrders }) => {
               fontFamily: "Gilroy-Medium",
             }}
           >
-            {order?.buyerDetails[0]?.buyerName}
+            {customerOrders[0]?.buyerDetails[0]?.buyerName}
           </Text>
           <View style={{ flexDirection: "row" }}>
             {/* <Text

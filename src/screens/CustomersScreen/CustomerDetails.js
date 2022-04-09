@@ -23,15 +23,17 @@ const Customer = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const { order, numberOfOrders, allOrders } = route.params;
+  const { order, customerOrders, oneOff } = route.params;
 
-  const customerOrders = allOrders.filter(
-    (od) =>
-      od.buyerDetails[0]?.buyerPhoneNumber ===
-      order?.buyerDetails[0]?.buyerPhoneNumber
-  );
+  // const oneOffOrders = oneOff?.filter(
+  //   (order) => order?.buyerCompanyId === "One-Off Customer"
+  // );
 
-  // console.log(customerOrders);
+  // const customerOrders = oneOffOrders.filter(
+  //   (od) =>
+  //     od.buyerDetails[0]?.buyerPhoneNumber ==
+  //     order?.buyerDetails[0]?.buyerPhoneNumber
+  // );
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -155,8 +157,8 @@ const Customer = () => {
               {getTotal()} */}
             </Text>
             <Text style={{ fontSize: 15, ...appTheme.FONTS.mainFontLight }}>
-              {numberOfOrders.length}{" "}
-              {`${numberOfOrders.length > 1 ? "Orders" : "Order"}`}
+              {customerOrders.length}{" "}
+              {`${customerOrders.length > 1 ? "Orders" : "Order"}`}
             </Text>
           </View>
         </View>

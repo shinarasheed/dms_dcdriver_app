@@ -5,9 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
 import appTheme from "../constants/theme";
-// import { confirmOrder } from "../redux/actions/orderActions";
 import { postVanEmpties, updateInventory } from "../redux/actions/vanActions";
-import { formatPrice } from "../utils/formatPrice";
 import CountryCurrency from "./user/CountryCurrency";
 import { orderUrl } from "../utils/baseUrl";
 
@@ -42,8 +40,8 @@ const OrderFooter = ({
     let orderItems = [];
     newOrders.map((newOrder) => {
       orderItems.push({
-        quantity: parseInt(newOrder?.quantity),
-        productId: parseInt(newOrder?.quantity),
+        quantity: parseInt(newOrder.quantity),
+        productId: parseInt(newOrder.id),
       });
     });
     return orderItems;

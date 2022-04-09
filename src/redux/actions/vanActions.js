@@ -252,13 +252,17 @@ export const returnVanEmpties = (payload) => async (dispatch) => {
       },
     };
 
-    await axios.post(`${InventoryUrl}/empties-return`, payload, config);
+    const { data } = await axios.post(
+      `${InventoryUrl}/empties-return`,
+      payload,
+      config
+    );
+
+    const { message } = data;
 
     dispatch({
       type: RETURN_VAN_EMPTIES_SUCCESS,
-      payload: {
-        empties: data,
-      },
+      payload: message,
     });
   } catch (error) {
     console.log(error);
