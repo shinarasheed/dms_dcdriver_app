@@ -9,12 +9,12 @@ import {
 
 import appTheme from "../../constants/theme";
 import SellProductFlatList from "../../components/SellProductFlatList";
-import SellProductFooter from "../../components/SellProductFooter";
+import SellProductFooterOneOffUganda from "../../components/SellProductFooterOneOffUganda";
 import { icons } from "../../constants";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
 import { Spinner } from "../../components/Spinner";
 
-const SellToCustomer = () => {
+const SellToOneCustomerUganda = () => {
   const navigator = useNavigation();
   const dispatch = useDispatch();
 
@@ -67,7 +67,7 @@ const SellToCustomer = () => {
   };
 
   const getTotal = () => {
-    return getTotalPrice() + (calNumberOfFull() - empties) * 1000;
+    return getTotalPrice() + (calNumberOfFull() - empties) * 22000;
   };
 
   const productsToSell = newinventory?.filter(
@@ -132,7 +132,7 @@ const SellToCustomer = () => {
       </View>
 
       {/* Footer */}
-      <SellProductFooter
+      <SellProductFooterOneOffUganda
         getTotalPrice={getTotal}
         getProductPrice={getTotalPrice}
         getEmptiesPrice={getEmptiesPrice}
@@ -148,4 +148,4 @@ const SellToCustomer = () => {
   );
 };
 
-export default SellToCustomer;
+export default SellToOneCustomerUganda;

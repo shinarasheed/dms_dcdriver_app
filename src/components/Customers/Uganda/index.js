@@ -54,6 +54,12 @@ const Uganda = () => {
     (order) => order?.buyerCompanyId === "One-Off Customer"
   );
 
+  const oneOffCustomersName = oneOff.map(
+    (order) => order.buyerDetails[0].buyerName
+  );
+
+  const uniqueOneOffsCustomersNames = [...new Set(oneOffCustomersName)];
+
   const allCustomersLength = allTheCustomers.length;
   const stockistLength = theStockist.length;
   const outletLength = theOutlets.length;
@@ -94,7 +100,13 @@ const Uganda = () => {
         return <Pocs customers={theOutlets} />;
 
       case 3:
-        return <Newcustomers oneOff={oneOff} products={products} />;
+        return (
+          <Newcustomers
+            uniqueOneOffsCustomersNames={uniqueOneOffsCustomersNames}
+            oneOff={oneOff}
+            products={products}
+          />
+        );
 
       default:
         return <AllCustomers customers={allTheCustomers} />;

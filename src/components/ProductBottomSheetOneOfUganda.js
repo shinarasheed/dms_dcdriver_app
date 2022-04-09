@@ -8,20 +8,20 @@ import {
   View,
   ScrollView,
 } from "react-native";
+import icons from "../constants/icons";
 import { useSelector } from "react-redux";
 
-import appTheme from "../../../constants/theme";
-import ProductBottomSheetCard from "../../ProductBottomSheetCard";
-import ProductFooter from "./ProductFooter";
-import EmptiesCustomer from "../../EmptiesCustomer";
-import CountryCurrency from "../../../components/user/CountryCurrency";
-import { icons } from "../../../constants";
+import appTheme from "../constants/theme";
+import ProductBottomSheetCard from "./ProductBottomSheetCard";
+import ProductFooterOneOffUganda from "./ProductFooterOneOffUganda";
+import EmptiesCustomer from "./EmptiesCustomer";
+import CountryCurrency from "./user/CountryCurrency";
 
 const ProductBottomSheet = ({
   productsToSell,
   getTotalPrice,
   toggle,
-  customer,
+  item,
   getQuantity,
   getQuantity2,
   calNumberOfFull,
@@ -29,7 +29,6 @@ const ProductBottomSheet = ({
   empties,
   getEmptiesPrice,
   getProductPrice,
-  customerType,
 }) => {
   const userState = useSelector((state) => state.user);
 
@@ -55,7 +54,7 @@ const ProductBottomSheet = ({
           }}
         >
           <Text style={{ fontSize: 18, fontFamily: "Gilroy-Medium" }}>
-            Sell To {customer?.CUST_Name}
+            Sell To {item?.buyerDetails[0]?.buyerName}
           </Text>
           <Pressable onPress={() => toggle()}>
             <Image source={icons.cancelIcon} />
@@ -84,7 +83,6 @@ const ProductBottomSheet = ({
               item={item}
               getQuantity={getQuantity}
               getQuantity2={getQuantity2}
-              customerType={customerType}
             />
           );
         })}
@@ -134,15 +132,83 @@ const ProductBottomSheet = ({
         </View>
       </View>
 
-      <ProductFooter
+      {/* <FlatList
+        data={productsToSell}
+        keyExtractor={(item, id) => id.toString()}
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item }) => (
+          <ProductBottomSheetCard
+          productsToSell={productsToSell}
+          item={item}
+          getQuantity={getQuantity}
+          getQuantity2={getQuantity2}
+        />
+        )}
+        ItemSeparatorComponent={() => (
+          <View
+            style={{
+              height: 1,
+              width: "100%",
+              backgroundColor: appTheme.COLORS.Grey,
+            }}
+          ></View>
+        )}
+        ListFooterComponent={() => (
+          <View
+            style={{
+              borderTopWidth: 1,
+              borderTopColor: appTheme.COLORS.borderGRey,
+              paddingTop: 20,
+              paddingHorizontal: 20,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 13,
+                fontWeight: "700",
+                marginBottom: 10,
+                color: appTheme.COLORS.black,
+              }}
+            >
+              EMPTIES
+            </Text>
+            <View
+              style={{ flexDirection: "row", justifyContent: "space-between" }}
+            >
+              <View style={{ flexDirection: "row" }}>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontWeight: "600",
+                    color: appTheme.COLORS.MainGray,
+                  }}
+                >
+                  Empties returning:
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontWeight: "600",
+                    color: appTheme.COLORS.black,
+                  }}
+                >
+                  {" "}
+                  {empties}
+                </Text>
+              </View>
+            </View>
+          </View>
+        )}
+      /> */}
+
+      <ProductFooterOneOffUganda
         getTotalPrice={getTotalPrice}
-        customer={customer}
+        order={item}
         productsToSell={productsToSell}
         toggle={toggle}
         empties={empties}
         getEmptiesPrice={getEmptiesPrice}
         getProductPrice={getProductPrice}
-        customerType={customerType}
       />
     </ScrollView>
   );

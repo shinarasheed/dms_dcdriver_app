@@ -5,21 +5,18 @@ import { useNavigation } from "@react-navigation/native";
 import appTheme from "../../../constants/theme";
 import Routes from "../../../navigation/Routes";
 
-const CustomerCard = ({ order, oneOff }) => {
+const UgandaNewCustomerCard = ({ customer, oneOff }) => {
   const navigation = useNavigation();
 
-  const customerOrders = oneOff.filter(
-    (od) =>
-      od.buyerDetails[0]?.buyerPhoneNumber ===
-      order?.buyerDetails[0]?.buyerPhoneNumber
+  const thisCustomer = oneOff.filter(
+    (order) => order.buyerDetails[0].buyerName === customer
   );
 
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate(Routes.CUSTOMER_DETAILS_SCREEN, {
-          order,
-          customerOrders,
+        navigation.navigate(Routes.CUSTOMER_DETAILS_SCREEN_UGANDA, {
+          thisCustomer,
           oneOff,
         })
       }
@@ -28,10 +25,9 @@ const CustomerCard = ({ order, oneOff }) => {
         style={{
           backgroundColor: appTheme.COLORS.white,
           paddingLeft: 20,
-          paddingTop: 20,
-          paddingBottom: 15,
           flexDirection: "row",
           alignItems: "flex-start",
+          paddingVertical: 25,
         }}
       >
         <View
@@ -44,44 +40,18 @@ const CustomerCard = ({ order, oneOff }) => {
             top: 7,
           }}
         ></View>
-        <View>
-          <Text
-            style={{
-              fontSize: 15,
-              marginBottom: 5,
-              fontFamily: "Gilroy-Medium",
-            }}
-          >
-            {customerOrders[0]?.buyerDetails[0]?.buyerName}
-          </Text>
-          <View style={{ flexDirection: "row" }}>
-            {/* <Text
-              style={{
-                fontSize: 15,
-                marginRight: 10,
-                color: appTheme.COLORS.mainTextGray,
-                ...appTheme.FONTS.mainFontLight,
-              }}
-            >
-              {`${numberOfOrders.length} ${
-                numberOfOrders.length !== 1 ? "Orders" : "Order"
-              }`}
-            </Text> */}
-            <Text
-              style={{
-                fontSize: 15,
-                color: appTheme.COLORS.mainTextGray,
-                ...appTheme.FONTS.mainFontLight,
-              }}
-            >
-              {/* {"\u20A6"}
-              {totalAmount} */}
-            </Text>
-          </View>
-        </View>
+
+        <Text
+          style={{
+            fontSize: 15,
+            fontFamily: "Gilroy-Medium",
+          }}
+        >
+          {customer}
+        </Text>
       </View>
     </TouchableOpacity>
   );
 };
 
-export default CustomerCard;
+export default UgandaNewCustomerCard;

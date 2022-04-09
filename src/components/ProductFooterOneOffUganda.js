@@ -3,25 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { StyleSheet, TouchableOpacity, Text, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
-import {
-  confirmVanSales,
-  postVanEmpties,
-  updateInventory,
-} from "../../../redux/actions/vanActions";
-import CountryCurrency from "../../user/CountryCurrency";
-import appTheme from "../../../constants/theme";
-import Routes from "../../../navigation/Routes";
+import appTheme from "../constants/theme";
+import { confirmVanSales, postVanEmpties } from "../redux/actions/vanActions";
+import { updateInventory } from "../redux/actions/vanActions";
+import CountryCurrency from "./user/CountryCurrency";
+import Routes from "../navigation/Routes";
 
-const ProductFooter = ({
+const ProductFooterOneOffUganda = ({
   getTotalPrice,
   toggle,
-  customer,
+  order,
   productsToSell,
   empties,
   getEmptiesPrice,
-  customerType,
+  getProductPrice,
 }) => {
-  const navigation = useNavigation();
+  const navigator = useNavigation();
 
   const userState = useSelector((state) => state.user);
 
@@ -31,48 +28,31 @@ const ProductFooter = ({
 
   const dispatch = useDispatch();
 
-  const thePrice = (type, prod) => {
-    switch (type) {
-      case "Mainstream":
-        return prod.main_stream_price;
-
-      case "Low End":
-        return prod.low_end_price;
-
-      case "High End":
-        return prod.high_end_price;
-
-      case "Reseller":
-        return prod.reseller_price;
-
-      default:
-        return prod.main_stream_price;
-    }
-  };
+  const Van = useSelector((state) => state.van);
 
   const items = productsToSell?.map((prod) => ({
-    price: thePrice(customerType, prod) * prod.quantity,
+    price: prod.high_end_price * prod.quantity,
     quantity: parseInt(prod.quantity),
     productId: prod.productId,
-    SFlineID: "Van-Sales",
+    SFlineID: "One-Off",
   }));
 
   const payload = {
-    buyerCompanyId: customer?.SF_Code,
-    sellerCompanyId: customer?.DIST_Code,
-    routeName: "Van-Sales",
-    referenceId: "Van-Sales",
+    buyerCompanyId: order?.buyerCompanyId,
+    sellerCompanyId: order?.sellerCompanyId,
+    routeName: "One-Off",
+    referenceId: "One-Off",
     emptiesReturned: empties,
     costOfEmptiesReturned: getEmptiesPrice(),
     datePlaced: new Date(new Date().getTime()),
-    shipToCode: customer?.SF_Code,
-    billToCode: customer?.SF_Code,
+    shipToCode: order?.buyerCompanyId,
+    billToCode: order?.buyerCompanyId,
     vehicleId: user?.vehicleId,
     country: country,
     buyerDetails: {
-      buyerName: customer?.CUST_Name,
-      buyerPhoneNumber: customer?.phoneNumber,
-      buyerAddress: customer?.address,
+      buyerName: order?.buyerDetails[0].buyerName,
+      buyerPhoneNumber: order?.buyerDetails[0].buyerPhoneNumber,
+      buyerAddress: order?.buyerDetails[0]?.buyerAddress,
     },
 
     orderItems: items,
@@ -106,14 +86,13 @@ const ProductFooter = ({
         <TouchableOpacity
           onPress={() => {
             dispatch(confirmVanSales(payload));
-            handleEmpties();
-            navigation.navigate(Routes.GENERATE_INVOICE_SCREEN_UGANGA, {
+            navigator.navigate(Routes.ONEOF_INVOICE_UGANDA, {
               productsToSell,
-              customer,
+              order,
               empties,
-              customerType,
             });
             dispatch(updateInventory(payload2));
+            handleEmpties();
             toggle();
           }}
           style={{
@@ -153,7 +132,7 @@ const ProductFooter = ({
   );
 };
 
-export default ProductFooter;
+export default ProductFooterOneOffUganda;
 
 const styles = StyleSheet.create({
   footerContainer: {

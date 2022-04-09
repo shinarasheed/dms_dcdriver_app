@@ -30,7 +30,7 @@ const SellProductFooter = ({
   const Van = useSelector((state) => state.van);
 
   const items = productsToSell?.map((prod) => ({
-    price: prod.price * prod.quantity,
+    price: prod.high_end_price * prod.quantity,
     quantity: parseInt(prod.quantity),
     productId: prod.productId,
     SFlineID: "Van-Sales",

@@ -4,8 +4,38 @@ import { Image, Text, View } from "react-native";
 import appTheme from "../constants/theme";
 import CountryCurrency from "../components/user/CountryCurrency";
 
-const InvoiceCard = ({ product }) => {
-  const { imageUrl, brand, sku, productType, quantity, price } = product;
+const InvoiceCard = ({ product, customerType }) => {
+  const {
+    imageUrl,
+    brand,
+    sku,
+    productType,
+    quantity,
+    price,
+    high_end_price,
+    low_end_price,
+    main_stream_price,
+    reseller_price,
+  } = product;
+
+  const thePrice = (type) => {
+    switch (type) {
+      case "Mainstream":
+        return main_stream_price;
+
+      case "Low End":
+        return low_end_price;
+
+      case "High End":
+        return high_end_price;
+
+      case "Reseller":
+        return reseller_price;
+
+      default:
+        return main_stream_price;
+    }
+  };
 
   const userState = useSelector((state) => state.user);
 
@@ -123,7 +153,7 @@ const InvoiceCard = ({ product }) => {
 
               <CountryCurrency
                 country={country}
-                price={quantity * price}
+                price={quantity * thePrice(customerType)}
                 color={appTheme.COLORS.mainRed}
                 fontSize={13}
                 fontFamily="Gilroy-Bold"

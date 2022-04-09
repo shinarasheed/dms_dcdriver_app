@@ -20,6 +20,9 @@ const Routes = {
   SELLTO_CUSTOMER_SCREEN_UGANDA: "SellToCustomerUganda",
   GENERATE_INVOICE_SCREEN_UGANGA: "InvoiceUganda",
   INVOICE_SCREEN: "InvoiceScreen",
+  CUSTOMER_DETAILS_SCREEN_UGANDA: "CustomerDetailsUganda",
+  SELLTO_ONEOF_CUSTOMER_UGANDA: "SellToOneCustomerUganda",
+  ONEOF_INVOICE_UGANDA: "OneOfInvoiceUganda",
 };
 
 export default Routes;

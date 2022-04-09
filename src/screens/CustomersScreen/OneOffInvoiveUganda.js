@@ -9,10 +9,10 @@ import {
   TouchableOpacity,
   Alert,
 } from "react-native";
-import { useSelector } from "react-redux";
 import { useRoute, useNavigation } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useSelector } from "react-redux";
 import moment from "moment";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import InvoiceCard from "../../components/InvoiceCard";
 import CustomVirtualizedView from "../../components/VirtualizedList";
@@ -21,9 +21,9 @@ import { icons } from "../../constants";
 import CallCustomer from "../../components/CallCustomer";
 
 import { createAndSavePDF } from "../../utils/helpers";
-import { simpleHtml } from "../../utils/html2";
+import { simpleHtml } from "../../utils/html";
+import { formatPrice } from "../../utils/formatPrice";
 import CountryCurrency from "../../components/user/CountryCurrency";
-import { ScrollView } from "react-native-virtualized-view";
 import Routes from "../../navigation/Routes";
 
 export const createPdf = (navigation, htmlFactory) => async () => {
@@ -47,13 +47,13 @@ export const createPdf = (navigation, htmlFactory) => async () => {
   }
 };
 
-const GenerateInvoice = () => {
+const OneOfInvoiceUganda = () => {
   const [distributor, setDistributor] = useState(null);
   const [driver, setDriver] = useState(null);
   const route = useRoute();
   const navigation = useNavigation();
 
-  const { productsToSell, customer, empties, customerType } = route.params;
+  const { productsToSell, order, empties } = route.params;
 
   const getEmptiesPrice = () => {
     return empties * 1000;
@@ -74,29 +74,10 @@ const GenerateInvoice = () => {
     getDistibutor();
   }, []);
 
-  const thePrice = (type, item) => {
-    switch (type) {
-      case "Mainstream":
-        return item.main_stream_price;
-
-      case "Low End":
-        return item.low_end_price;
-
-      case "High End":
-        return item.high_end_price;
-
-      case "Reseller":
-        return item.reseller_price;
-
-      default:
-        return item.main_stream_price;
-    }
-  };
-
   const getTotalPrice = () => {
     return productsToSell?.reduce(
-      (accumulator, item) =>
-        accumulator + item?.quantity * thePrice(customerType, item),
+      (accumulator, order) =>
+        accumulator + order?.quantity * order?.high_end_price,
       0
     );
   };
@@ -133,9 +114,9 @@ const GenerateInvoice = () => {
           simpleHtml(
             pageMarginState[0],
             productsToSell,
-            customer,
-            distributor,
+            order,
             user,
+            distributor,
             getTotalPrice,
             getEmptiesPrice
           )
@@ -153,7 +134,9 @@ const GenerateInvoice = () => {
   );
 
   return (
-    <View style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}>
+    <SafeAreaView
+      style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
+    >
       {/* header */}
       <View
         style={{
@@ -164,7 +147,7 @@ const GenerateInvoice = () => {
           paddingLeft: 20,
         }}
       >
-        <Pressable onPress={() => navigation.navigate(Routes.CUSTOMERS_SCREEN)}>
+        <Pressable onPress={() => navigation.goBack()}>
           <Image source={icons.backButton} />
         </Pressable>
         <Text
@@ -175,13 +158,49 @@ const GenerateInvoice = () => {
             marginLeft: 20,
           }}
         >
-          {/* //TODO:  this might need to be corrected */}
-          Order {customer?.id}
+          Order {order?.orderId}
         </Text>
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false}>
-        <View style={{ paddingLeft: 20, paddingVertical: 20 }}>
+      <CustomVirtualizedView>
+        <View style={{ paddingLeft: 20, paddingBottom: 20 }}>
+          <View style={{ flexDirection: "row", marginTop: 10 }}>
+            <Text
+              style={{
+                fontSize: 15,
+                marginRight: 5,
+                textTransform: "capitalize",
+              }}
+            >
+              {order?.orderStatus[0]?.dateAssigned !== null &&
+                moment(order?.orderStatus[0]?.dateAssigned).format(
+                  "MMM Do, YYYY"
+                )}{" "}
+              {order?.orderStatus[0]?.timeAssigned !== null &&
+                `at ${order?.orderStatus[0]?.timeAssigned.replace(
+                  /\s/g,
+                  ""
+                )}`}{" "}
+              from
+            </Text>
+          </View>
+
+          <View
+            style={{
+              marginBottom: 10,
+            }}
+          >
+            <Text
+              style={{
+                fontSize: 17,
+                fontWeight: "bold",
+                color: appTheme.COLORS.black,
+              }}
+            >
+              {order?.buyerDetails[0]?.buyerName}
+            </Text>
+          </View>
+
           <View
             style={{
               width: 100,
@@ -202,38 +221,53 @@ const GenerateInvoice = () => {
             backgroundColor: appTheme.COLORS.white,
             paddingLeft: 20,
             paddingVertical: 20,
-            elevation: 10,
           }}
         >
           <View>
             <Text
               style={{
+                fontWeight: "bold",
                 color: appTheme.COLORS.MainGray,
-                fontSize: 18,
-                marginBottom: 15,
+                fontSize: 20,
+                marginBottom: 20,
               }}
             >
-              New Customer
+              Customer
             </Text>
             <Text
               style={{
                 fontSize: 16,
                 color: appTheme.COLORS.black,
                 ...appTheme.FONTS.mainFontBold,
-                textTransform: "capitalize",
               }}
             >
-              {customer?.CUST_Name}
+              {order?.buyerDetails[0]?.buyerName}
             </Text>
           </View>
 
           <View style={{ marginTop: 10, flexDirection: "row" }}>
-            <View style={{ paddingRight: 50 }}>
-              <View style={{ marginTop: 5, flexDirection: "row" }}>
+            <Image source={icons.addressIcon} />
+            <View style={{ marginLeft: 10, paddingRight: 50 }}>
+              <Text
+                style={{
+                  marginBottom: 5,
+                  fontSize: 15,
+                  lineHeight: 25,
+                  color: appTheme.COLORS.MainGray,
+                }}
+              >
+                {order?.buyerDetails[0]?.buyerAddress === "undefined"
+                  ? "Nigeria"
+                  : order?.buyerDetails[0]?.buyerAddress}
+              </Text>
+
+              <View style={{ marginTop: 20, flexDirection: "row" }}>
                 <Text style={{ fontSize: 15, color: appTheme.COLORS.black }}>
-                  {customer?.phoneNumber}
+                  {order?.buyerDetails[0]?.buyerPhoneNumber}
                 </Text>
-                <CallCustomer phoneNumber={customer?.phoneNumber} />
+                <CallCustomer
+                  phoneNumber={order?.buyerDetails[0]?.buyerPhoneNumber}
+                />
               </View>
             </View>
           </View>
@@ -242,15 +276,12 @@ const GenerateInvoice = () => {
         <FlatList
           style={{
             backgroundColor: appTheme.COLORS.white,
-            marginTop: 15,
-            marginBottom: 15,
-            elevation: 10,
+            marginTop: 25,
+            marginBottom: 25,
           }}
           data={productsToSell}
           keyExtractor={(item, id) => id.toString()}
-          renderItem={({ item }) => (
-            <InvoiceCard product={item} customerType={customerType} />
-          )}
+          renderItem={({ item }) => <InvoiceCard product={item} />}
           ListHeaderComponent={() => (
             <View
               style={{
@@ -276,13 +307,13 @@ const GenerateInvoice = () => {
                 paddingBottom: 20,
               }}
             >
-              <Text style={{ fontSize: 17 }}>Total amount</Text>
+              <Text style={{ fontSize: 15 }}>Total amount</Text>
 
               <CountryCurrency
                 country={country}
                 price={getTotalPrice()}
                 color={appTheme.COLORS.black}
-                fontSize={16}
+                fontSize={14}
                 fontFamily="Gilroy-Bold"
                 marginLeft={66}
               />
@@ -295,10 +326,9 @@ const GenerateInvoice = () => {
         <View
           style={{
             backgroundColor: appTheme.COLORS.white,
-            marginBottom: 15,
+            marginBottom: 20,
             paddingLeft: 20,
             paddingVertical: 10,
-            elevation: 10,
           }}
         >
           <Text
@@ -330,8 +360,7 @@ const GenerateInvoice = () => {
                 on{" "}
                 {moment(
                   new Date(new Date().getTime()).toISOString().split("T")[0]
-                ).format("MMM Do, YYYY")}
-                {"  "}
+                ).format("MMM Do, YYYY")}{" "}
                 at {new Date(new Date().getTime()).toLocaleTimeString()}
               </Text>
             </View>
@@ -378,9 +407,9 @@ const GenerateInvoice = () => {
             );
           })}
         </View>
-      </ScrollView>
-    </View>
+      </CustomVirtualizedView>
+    </SafeAreaView>
   );
 };
 
-export default GenerateInvoice;
+export default OneOfInvoiceUganda;

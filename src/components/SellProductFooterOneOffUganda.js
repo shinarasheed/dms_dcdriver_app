@@ -2,36 +2,30 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { StyleSheet, Text, Image, View, Pressable } from "react-native";
+import { icons } from "../constants";
 import { BottomSheet } from "react-native-btr";
 import { Button } from "react-native-elements";
-import {
-  updateInventory,
-  confirmVanSales,
-  postVanEmpties,
-} from "../../../redux/actions/vanActions";
+import { confirmVanSales, postVanEmpties } from "../redux/actions/vanActions";
+import { updateInventory } from "../redux/actions/vanActions";
 
-import appTheme from "../../../constants/theme";
-import ProductBottomSheet from "./ProductBottomSheet";
-import Routes from "../../../navigation/Routes";
-import { formatPrice } from "../../../utils/formatPrice";
-import { icons } from "../../../constants";
+import appTheme from "../constants/theme";
+import ProductBottomSheetOneOfUganda from "./ProductBottomSheetOneOfUganda";
+import Routes from "../navigation/Routes";
+import { formatPrice } from "../utils/formatPrice";
 
 const SellProductFooter = ({
   getTotalPrice,
   getProductPrice,
   productsToSell,
-  customer,
+  order,
   getQuantity,
   getQuantity2,
   calNumberOfFull,
   setEmpties,
   empties,
   getEmptiesPrice,
-  customerType,
 }) => {
   const navigation = useNavigation();
-
-  // console.log(customerType);
 
   const [visible, setVisible] = useState(false);
   const [salesCompleted, setSalesCompleted] = useState(false);
@@ -53,48 +47,29 @@ const SellProductFooter = ({
     setConfirmVisible((visible) => !visible);
   }
 
-  const thePrice = (type, prod) => {
-    switch (type) {
-      case "Mainstream":
-        return prod.main_stream_price;
-
-      case "Low End":
-        return prod.low_end_price;
-
-      case "High End":
-        return prod.high_end_price;
-
-      case "Reseller":
-        return prod.reseller_price;
-
-      default:
-        return prod.main_stream_price;
-    }
-  };
-
   const items = productsToSell?.map((prod) => ({
-    price: thePrice(customerType, prod) * prod.quantity,
+    price: prod.high_end_price * prod.quantity,
     quantity: parseInt(prod.quantity),
     productId: prod.productId,
-    SFlineID: "Van-Sales",
+    SFlineID: "One-Off",
   }));
 
   const payload = {
-    buyerCompanyId: customer?.SF_Code,
-    sellerCompanyId: customer?.DIST_Code,
-    routeName: "Van-Sales",
-    referenceId: "Van-Sales",
+    buyerCompanyId: order?.buyerCompanyId,
+    sellerCompanyId: order?.sellerCompanyId,
+    routeName: "One-Off",
+    referenceId: "One-Off",
     emptiesReturned: empties,
     costOfEmptiesReturned: getEmptiesPrice(),
     datePlaced: new Date(new Date().getTime()),
-    shipToCode: customer?.SF_Code,
-    billToCode: customer?.SF_Code,
-    vehicleId: user?.vehicleId,
+    shipToCode: order?.buyerCompanyId,
+    billToCode: order?.buyerCompanyId,
     country: country,
+    vehicleId: user?.vehicleId,
     buyerDetails: {
-      buyerName: customer?.CUST_Name,
-      buyerPhoneNumber: customer?.phoneNumber,
-      buyerAddress: "UG",
+      buyerName: order?.buyerDetails[0].buyerName,
+      buyerPhoneNumber: order?.buyerDetails[0].buyerPhoneNumber,
+      buyerAddress: order?.buyerDetails[0]?.buyerAddress,
     },
 
     orderItems: items,
@@ -172,6 +147,8 @@ const SellProductFooter = ({
         </View>
       </Pressable>
 
+      {/* \u20A6${formatPrice(getProductPrice())} */}
+
       <Button
         onPress={toggleConfirm}
         disabled={productsToSell?.length === 0}
@@ -189,7 +166,7 @@ const SellProductFooter = ({
             : `${
                 country === "UG"
                   ? `UGX${formatPrice(getProductPrice())}`
-                  : `{"\u20A6"}${formatPrice(getProductPrice())}`
+                  : `\u20A6${formatPrice(getProductPrice())}`
               }`
         }`}
       />
@@ -200,11 +177,11 @@ const SellProductFooter = ({
         onBackdropPress={toggle}
       >
         <View style={styles.bottomSheetCard}>
-          <ProductBottomSheet
+          <ProductBottomSheetOneOfUganda
             getTotalPrice={getTotalPrice}
             toggle={toggle}
             productsToSell={productsToSell}
-            customer={customer}
+            item={order}
             getQuantity={getQuantity}
             getQuantity2={getQuantity2}
             calNumberOfFull={calNumberOfFull}
@@ -212,7 +189,6 @@ const SellProductFooter = ({
             empties={empties}
             getEmptiesPrice={getEmptiesPrice}
             getProductPrice={getProductPrice}
-            customerType={customerType}
           />
         </View>
       </BottomSheet>
@@ -299,14 +275,15 @@ const SellProductFooter = ({
                 }}
                 onPress={() => {
                   dispatch(confirmVanSales(payload));
-                  handleEmpties();
                   dispatch(updateInventory(payload2));
-                  navigation.navigate(Routes.GENERATE_INVOICE_SCREEN_UGANGA, {
+                  handleEmpties();
+                  navigation.navigate(Routes.ONEOF_INVOICE_UGANDA, {
                     productsToSell,
-                    customer,
+                    order,
                     empties,
-                    customerType,
+                    // totalPrice,
                   });
+
                   toggleConfirm();
                   setSalesCompleted(false);
                 }}

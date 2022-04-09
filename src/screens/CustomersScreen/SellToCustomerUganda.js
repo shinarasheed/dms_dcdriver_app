@@ -156,6 +156,7 @@ const SellToCustomer = () => {
         calNumberOfFull={calNumberOfFull}
         setEmpties={setEmpties}
         empties={empties}
+        customerType={CUST_Type}
       />
     </View>
   );

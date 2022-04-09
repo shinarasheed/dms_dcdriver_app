@@ -19,7 +19,7 @@ import CallCustomer from "../../components/CallCustomer";
 import Routes from "../../navigation/Routes";
 import SingleCustomer from "../../components/SingleCustomer";
 
-const Customer = () => {
+const CustomerDetailsUganda = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
@@ -265,7 +265,7 @@ const Customer = () => {
       >
         <Button
           onPress={() =>
-            navigation.navigate(Routes.SELLTO_CUSTOMER_SCREEN, {
+            navigation.navigate(Routes.SELLTO_ONEOF_CUSTOMER_UGANDA, {
               order: theCustomer,
               thisCustomer,
             })
@@ -285,4 +285,4 @@ const Customer = () => {
   );
 };
 
-export default Customer;
+export default CustomerDetailsUganda;

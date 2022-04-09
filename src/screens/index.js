@@ -19,6 +19,9 @@ import CustomerUganda from "../screens/CustomersScreen/CustomerUganda";
 import SellToCustomerUganda from "../screens/CustomersScreen/SellToCustomerUganda";
 import InvoiceUganda from "../screens/CustomersScreen/InvoiceUganda";
 import InvoiceScreen from "./InvoiceScreen";
+import CustomerDetailsUganda from "./CustomersScreen/CustomerDetailsUganda";
+import SellToOneCustomerUganda from "./CustomersScreen/SellToOneOfCustomerUganda";
+import OneOfInvoiceUganda from "./CustomersScreen/OneOffInvoiveUganda";
 
 export {
   HomeScreen,
@@ -42,4 +45,7 @@ export {
   SellToCustomerUganda,
   InvoiceUganda,
   InvoiceScreen,
+  CustomerDetailsUganda,
+  SellToOneCustomerUganda,
+  OneOfInvoiceUganda,
 };

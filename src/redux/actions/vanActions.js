@@ -48,6 +48,8 @@ export const fetchVanProducts = () => async (dispatch) => {
       initialQuantity: item?.quantity,
     }));
 
+    // console.log(newInventory);
+
     dispatch({
       type: FETCH_INVENTORY_SUCCESS,
       payload: {

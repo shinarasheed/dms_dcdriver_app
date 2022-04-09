@@ -20,11 +20,28 @@ import {
 import CountryCurrency from "../components/user/CountryCurrency";
 
 const ProductBottomSheetCard = ({
-  item: { brand, sku, imageUrl, price, quantity, productType, productId },
+  customerType,
+  item,
   getQuantity,
   getQuantity2,
 }) => {
   const dispatch = useDispatch();
+
+  const {
+    brand,
+    sku,
+    imageUrl,
+    price,
+    quantity,
+    productType,
+    productId,
+    high_end_price,
+    high_end_price_ohc,
+    low_end_price,
+    main_stream_price,
+    main_stream_ooh_price,
+    reseller_price,
+  } = item;
 
   const userState = useSelector((state) => state.user);
 
@@ -35,6 +52,25 @@ const ProductBottomSheetCard = ({
   const handleTextChange = (text, productId) => {
     getQuantity(productId, text) &&
       dispatch(incrementQuantityByTyping(text, productId));
+  };
+
+  const thePrice = (type) => {
+    switch (type) {
+      case "Mainstream":
+        return main_stream_price;
+
+      case "Low End":
+        return low_end_price;
+
+      case "High End":
+        return high_end_price;
+
+      case "Reseller":
+        return reseller_price;
+
+      default:
+        return main_stream_price;
+    }
   };
 
   return (
@@ -125,7 +161,7 @@ const ProductBottomSheetCard = ({
             >
               <CountryCurrency
                 country={country}
-                price={price}
+                price={thePrice(customerType)}
                 color={appTheme.COLORS.MainGray}
                 fontSize={15}
                 fontFamily="Gilroy-Medium"
@@ -198,7 +234,7 @@ const ProductBottomSheetCard = ({
 
           <CountryCurrency
             country={country}
-            price={quantity * price}
+            price={quantity * thePrice(customerType)}
             color={appTheme.COLORS.mainRed}
             fontSize={15}
             fontFamily="Gilroy-Medium"
