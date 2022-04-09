@@ -14,7 +14,6 @@ import Icon from "react-native-vector-icons/MaterialIcons";
 import Header from "../../../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import appTheme from "../../../constants/theme";
-import CustomVirtualizedView from "../../../components/VirtualizedList";
 import { icons } from "../../../constants";
 
 import AllCustomers from "../../../components/Customers/Uganda/AllCustomers";
