@@ -63,7 +63,7 @@ const Uganda = () => {
   const allCustomersLength = allTheCustomers.length;
   const stockistLength = theStockist.length;
   const outletLength = theOutlets.length;
-  const oneOffLength = oneOff?.length;
+  const oneOffLength = uniqueOneOffsCustomersNames?.length;
 
   const categories = [
     { name: "all", length: allCustomersLength },
