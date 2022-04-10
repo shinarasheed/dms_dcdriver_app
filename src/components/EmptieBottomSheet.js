@@ -91,7 +91,7 @@ export default function EmptiesBottomSheet({ toggle, visible }) {
                 >
                   <CountryCurrency
                     country={country}
-                    price="22000"
+                    price={country === "UG" ? 22000 : 1000}
                     color={appTheme.COLORS.black}
                     fontWeight="bold"
                   />

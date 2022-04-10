@@ -194,7 +194,7 @@ const index = () => {
             >
               <CountryCurrency
                 country={country}
-                price="22000"
+                price={country === "UG" ? 22000 : 1000}
                 color={appTheme.COLORS.black}
                 fontSize={15}
               />
