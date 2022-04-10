@@ -1,12 +1,5 @@
 import React, { useEffect } from "react";
-import {
-  SafeAreaView,
-  Text,
-  View,
-  Image,
-  FlatList,
-  Pressable,
-} from "react-native";
+import { Text, View, Image, FlatList, Pressable } from "react-native";
 import { Button } from "react-native-elements";
 import { useSelector, useDispatch } from "react-redux";
 
