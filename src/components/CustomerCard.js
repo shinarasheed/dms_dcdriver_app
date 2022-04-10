@@ -22,8 +22,6 @@ const CustomerCard = ({ order, customer, allOrders }) => {
     (order) => order.buyerDetails[0].buyerName === customer
   );
 
-  const items = customerOrders.map((item) => item.orderItems[0]);
-
   return (
     <TouchableOpacity
       onPress={() =>

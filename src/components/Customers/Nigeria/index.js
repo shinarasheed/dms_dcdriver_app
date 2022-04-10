@@ -64,10 +64,22 @@ const Uganda = () => {
 
   const uniqueOneOffsCustomersNames = [...new Set(oneOffCustomersName)];
 
+  const allOrdersNames = allOrders?.map(
+    (order) => order?.buyerDetails[0]?.buyerName
+  );
+
+  const uniqueAllOrders = [...new Set(allOrdersNames)];
+
   const ShowCustomers = (index) => {
     switch (index) {
       case 0:
-        return <AllCustomers allOrders={allOrders} products={products} />;
+        return (
+          <AllCustomers
+            uniqueAllOrders={uniqueAllOrders}
+            allOrders={allOrders}
+            products={products}
+          />
+        );
 
       case 1:
         return (

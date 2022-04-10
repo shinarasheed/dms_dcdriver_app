@@ -23,13 +23,13 @@ const Customer = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const { order, numberOfOrders, allOrders } = route.params;
+  const { customer, allOrders } = route.params;
 
   const customerOrders = allOrders.filter(
-    (od) =>
-      od.buyerDetails[0]?.buyerPhoneNumber ===
-      order?.buyerDetails[0]?.buyerPhoneNumber
+    (od) => od.buyerDetails[0]?.buyerName === customer
   );
+
+  const theCustomer = customerOrders[0];
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -48,21 +48,10 @@ const Customer = () => {
   };
 
   const getTotalPrice = () => {
-    return order?.orderItems.reduce(
+    return customerOrders?.orderItems.reduce(
       (accumulator, order) =>
         accumulator +
         getProductDetails(order?.productId)?.price * order?.quantity,
-      0
-    );
-  };
-
-  const items = customerOrders.map((od) => od.orderItems);
-
-  let flatArray = [].concat.apply([], items);
-
-  const getTotal = () => {
-    return flatArray.reduce(
-      (accumulator, order) => accumulator + order?.price * order?.quantity,
       0
     );
   };
@@ -101,7 +90,7 @@ const Customer = () => {
               ...appTheme.FONTS.mainFontBold,
             }}
           >
-            {order?.buyerDetails[0].buyerName}
+            {theCustomer?.buyerDetails[0].buyerName}
           </Text>
         </View>
 
@@ -112,7 +101,7 @@ const Customer = () => {
               justifyContent: "space-between",
             }}
           >
-            <Text>Customer Code: {order?.buyerCompanyId}</Text>
+            <Text>Customer Code: {theCustomer?.buyerCompanyId}</Text>
           </View>
 
           <View
@@ -151,8 +140,8 @@ const Customer = () => {
           {getTotal()} */}
             </Text>
             <Text style={{ fontSize: 15 }}>
-              {numberOfOrders.length}{" "}
-              {`${numberOfOrders.length > 1 ? "Orders" : "Order"}`}
+              {customerOrders.length}{" "}
+              {`${customerOrders.length > 1 ? "Orders" : "Order"}`}
             </Text>
           </View>
         </View>
@@ -182,7 +171,7 @@ const Customer = () => {
                 color: appTheme.COLORS.black,
               }}
             >
-              {order?.buyerDetails[0]?.buyerName}
+              {theCustomer?.buyerDetails[0]?.buyerName}
             </Text>
           </View>
 
@@ -196,18 +185,18 @@ const Customer = () => {
                   color: appTheme.COLORS.MainGray,
                 }}
               >
-                {order?.buyerDetails[0]?.buyerAddress === "undefined"
+                {theCustomer?.buyerDetails[0]?.buyerAddress === "undefined"
                   ? "Nigeria"
-                  : order?.buyerDetails[0]?.buyerAddress}
+                  : theCustomer?.buyerDetails[0]?.buyerAddress}
               </Text>
 
               <View style={{ marginTop: 10, flexDirection: "row" }}>
                 <Text style={{ fontSize: 15, color: appTheme.COLORS.black }}>
-                  {order?.buyerDetails[0]?.buyerPhoneNumber}
+                  {theCustomer?.buyerDetails[0]?.buyerPhoneNumber}
                 </Text>
 
                 <CallCustomer
-                  phoneNumber={order?.buyerDetails[0]?.buyerPhoneNumber}
+                  phoneNumber={theCustomer?.buyerDetails[0]?.buyerPhoneNumber}
                 />
               </View>
             </View>
@@ -258,7 +247,7 @@ const Customer = () => {
         <Button
           onPress={() =>
             navigation.navigate(Routes.SELLTO_CUSTOMER_NIGERIA, {
-              order,
+              order: theCustomer,
             })
           }
           buttonStyle={{

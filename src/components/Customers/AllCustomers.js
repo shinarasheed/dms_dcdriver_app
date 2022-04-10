@@ -3,14 +3,14 @@ import { FlatList, View } from "react-native";
 import appTheme from "../../constants/theme";
 import CustomerCardNigeria from "../CustomerCardNigeria";
 
-const AllCustomers = ({ allOrders, products }) => {
+const AllCustomers = ({ allOrders, uniqueAllOrders, products }) => {
   return (
     <FlatList
       style={{ marginBottom: 100 }}
-      data={allOrders}
+      data={uniqueAllOrders}
       renderItem={({ item }) => (
         <CustomerCardNigeria
-          order={item}
+          customer={item}
           allOrders={allOrders}
           products={products}
         />
