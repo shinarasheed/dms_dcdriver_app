@@ -25,6 +25,7 @@ const Routes = {
   ONEOF_INVOICE_UGANDA: "OneOfInvoiceUganda",
   CUSTOMER_DETAILS_SCREEN_NIGERIA: "CustomerDetailsNigeria",
   SELLTO_CUSTOMER_NIGERIA: "SellToCustomerNigeria",
+  CUSTOMER_DETAILS_SCREEN_NIGERIA2: "CustomerDetailsNigeria2",
 };
 
 export default Routes;

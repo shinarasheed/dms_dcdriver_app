@@ -21,6 +21,7 @@ import {
   OneOfInvoiceUganda,
   CustomerDetailsNigeria,
   SellToCustomerNigeria,
+  CustomerDetailsNigeria2,
 } from "../screens";
 
 const Stack = createNativeStackNavigator();
@@ -41,6 +42,10 @@ const MainStack = () => {
       <Stack.Screen
         name="CustomerDetailsNigeria"
         component={CustomerDetailsNigeria}
+      />
+      <Stack.Screen
+        name="CustomerDetailsNigeria2"
+        component={CustomerDetailsNigeria2}
       />
       <Stack.Screen name="SellToCustomer" component={SellToCustomer} />
       <Stack.Screen

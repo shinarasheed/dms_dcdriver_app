@@ -1,7 +1,7 @@
 import React from "react";
 import { FlatList, View } from "react-native";
 import appTheme from "../../constants/theme";
-import CustomerCard from "../CustomerCard";
+import CustomerCardNigeria from "../CustomerCardNigeria";
 
 const AllCustomers = ({ allOrders, products }) => {
   return (
@@ -9,7 +9,11 @@ const AllCustomers = ({ allOrders, products }) => {
       style={{ marginBottom: 100 }}
       data={allOrders}
       renderItem={({ item }) => (
-        <CustomerCard order={item} allOrders={allOrders} products={products} />
+        <CustomerCardNigeria
+          order={item}
+          allOrders={allOrders}
+          products={products}
+        />
       )}
       keyExtractor={(item, id) => id.toString()}
       showsVerticalScrollIndicator={false}
