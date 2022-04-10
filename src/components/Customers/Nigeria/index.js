@@ -49,11 +49,20 @@ const Uganda = () => {
 
   const { products } = allProducts;
 
-  const oneOff = allOrders?.filter((order) => order.routeName === "One-Off");
   const registeredCustomers = allOrders?.filter(
     (order) =>
       order.routeName === "SalesForce" || order.routeName === "Walk-In-Sales"
   );
+
+  const oneOff = allOrders?.filter(
+    (order) => order?.buyerCompanyId === "One-Off Customer"
+  );
+
+  const oneOffCustomersName = oneOff.map(
+    (order) => order.buyerDetails[0].buyerName
+  );
+
+  const uniqueOneOffsCustomersNames = [...new Set(oneOffCustomersName)];
 
   const ShowCustomers = (index) => {
     switch (index) {
@@ -66,7 +75,13 @@ const Uganda = () => {
         );
 
       case 2:
-        return <OneOfCustomers allOrders={oneOff} products={products} />;
+        return (
+          <OneOfCustomers
+            uniqueOneOffsCustomersNames={uniqueOneOffsCustomersNames}
+            allOrders={oneOff}
+            products={products}
+          />
+        );
 
       default:
         return <AllCustomers allOrders={allOrders} products={products} />;

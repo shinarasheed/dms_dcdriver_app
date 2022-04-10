@@ -1,11 +1,11 @@
 import React from "react";
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 
 import appTheme from "../constants/theme";
 import Routes from "../navigation/Routes";
 
-const CustomerCard = ({ order, allOrders }) => {
+const CustomerCard = ({ order, customer, allOrders }) => {
   const navigation = useNavigation();
 
   const numberOfOrders = allOrders.filter(
@@ -18,12 +18,17 @@ const CustomerCard = ({ order, allOrders }) => {
     (od) => od.buyerCompanyId === order?.buyerCompanyId
   );
 
+  const thisCustomer = allOrders.filter(
+    (order) => order.buyerDetails[0].buyerName === customer
+  );
+
   const items = customerOrders.map((item) => item.orderItems[0]);
 
   return (
     <TouchableOpacity
       onPress={() =>
         navigation.navigate(Routes.CUSTOMER_DETAILS_SCREEN_NIGERIA, {
+          thisCustomer,
           order,
           numberOfOrders,
           allOrders,
@@ -58,7 +63,7 @@ const CustomerCard = ({ order, allOrders }) => {
               fontFamily: "Gilroy-Medium",
             }}
           >
-            {order?.buyerDetails[0]?.buyerName}
+            {customer}
           </Text>
           <View style={{ flexDirection: "row" }}>
             {/* <Text

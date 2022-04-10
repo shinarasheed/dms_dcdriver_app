@@ -3,13 +3,17 @@ import { FlatList, View } from "react-native";
 import appTheme from "../../constants/theme";
 import CustomerCard from "../CustomerCard";
 
-const AllCustomers = ({ allOrders, products }) => {
+const AllCustomers = ({ uniqueOneOffsCustomersNames, allOrders, products }) => {
   return (
     <FlatList
       style={{ marginTop: 20, marginBottom: 120 }}
-      data={allOrders}
+      data={uniqueOneOffsCustomersNames}
       renderItem={({ item }) => (
-        <CustomerCard order={item} allOrders={allOrders} products={products} />
+        <CustomerCard
+          customer={item}
+          allOrders={allOrders}
+          products={products}
+        />
       )}
       keyExtractor={(item, id) => id.toString()}
       showsVerticalScrollIndicator={false}

@@ -16,7 +16,9 @@ const CustomerDetailsNigeria = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const { order, numberOfOrders, allOrders } = route.params;
+  const { order, thisCustomer, numberOfOrders, allOrders } = route.params;
+
+  const theCustomer = thisCustomer[0];
 
   const customerOrders = allOrders.filter(
     (od) =>
@@ -41,7 +43,7 @@ const CustomerDetailsNigeria = () => {
   };
 
   const getTotalPrice = () => {
-    return order?.orderItems.reduce(
+    return thisCustomer?.orderItems.reduce(
       (accumulator, order) =>
         accumulator +
         getProductDetails(order?.productId)?.price * order?.quantity,
@@ -94,7 +96,7 @@ const CustomerDetailsNigeria = () => {
               ...appTheme.FONTS.mainFontBold,
             }}
           >
-            {order !== undefined && order?.buyerDetails[0].buyerName}
+            {theCustomer?.buyerDetails[0].buyerName}
           </Text>
         </View>
 
@@ -105,9 +107,7 @@ const CustomerDetailsNigeria = () => {
               justifyContent: "space-between",
             }}
           >
-            <Text>
-              Customer Code: {order !== undefined && order?.buyerCompanyId}
-            </Text>
+            <Text>Customer Code: {theCustomer?.buyerCompanyId}</Text>
           </View>
 
           <View
@@ -176,7 +176,7 @@ const CustomerDetailsNigeria = () => {
                 color: appTheme.COLORS.black,
               }}
             >
-              {order?.buyerDetails[0]?.buyerName}
+              {theCustomer?.buyerDetails[0]?.buyerName}
             </Text>
           </View>
 
@@ -190,18 +190,18 @@ const CustomerDetailsNigeria = () => {
                   color: appTheme.COLORS.MainGray,
                 }}
               >
-                {order?.buyerDetails[0]?.buyerAddress === "undefined"
+                {theCustomer?.buyerDetails[0]?.buyerAddress === "undefined"
                   ? "Nigeria"
-                  : order?.buyerDetails[0]?.buyerAddress}
+                  : theCustomer?.buyerDetails[0]?.buyerAddress}
               </Text>
 
               <View style={{ marginTop: 10, flexDirection: "row" }}>
                 <Text style={{ fontSize: 15, color: appTheme.COLORS.black }}>
-                  {order?.buyerDetails[0]?.buyerPhoneNumber}
+                  {theCustomer?.buyerDetails[0]?.buyerPhoneNumber}
                 </Text>
 
                 <CallCustomer
-                  phoneNumber={order?.buyerDetails[0]?.buyerPhoneNumber}
+                  phoneNumber={theCustomer?.buyerDetails[0]?.buyerPhoneNumber}
                 />
               </View>
             </View>
@@ -215,7 +215,7 @@ const CustomerDetailsNigeria = () => {
           style={{
             backgroundColor: appTheme.COLORS.white,
           }}
-          data={customerOrders}
+          data={thisCustomer}
           keyExtractor={(item, id) => id.toString()}
           renderItem={({ item }) => (
             <SingleCustomer item={item} getTotalPrice={getTotalPrice} />
@@ -251,7 +251,7 @@ const CustomerDetailsNigeria = () => {
       >
         <Button
           onPress={() =>
-            navigation.navigate(Routes.SELLTO_CUSTOMER_SCREEN, {
+            navigation.navigate(Routes.SELLTO_CUSTOMER_NIGERIA, {
               order: theCustomer,
               thisCustomer,
             })

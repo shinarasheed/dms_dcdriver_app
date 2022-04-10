@@ -33,7 +33,7 @@ const InvoiceCard = ({ product, customerType }) => {
         return reseller_price;
 
       default:
-        return main_stream_price;
+        return price;
     }
   };
 

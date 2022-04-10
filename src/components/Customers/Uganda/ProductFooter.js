@@ -46,7 +46,7 @@ const ProductFooter = ({
         return prod.reseller_price;
 
       default:
-        return prod.main_stream_price;
+        return prod.price;
     }
   };
 

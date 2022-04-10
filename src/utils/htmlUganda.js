@@ -29,7 +29,7 @@ const thePrice = (type, item) => {
       return item.reseller_price;
 
     default:
-      return item.main_stream_price;
+      return item.price;
   }
 };
 

@@ -88,7 +88,7 @@ const GenerateInvoice = () => {
         return item.reseller_price;
 
       default:
-        return item.main_stream_price;
+        return item.price;
     }
   };
 

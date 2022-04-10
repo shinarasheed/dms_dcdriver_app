@@ -25,19 +25,7 @@ const CustomerDetailsUganda = () => {
 
   const { thisCustomer, oneOff } = route.params;
 
-  // console.log(thisCustomer);
-
   const theCustomer = thisCustomer[0];
-
-  // const oneOffOrders = oneOff?.filter(
-  //   (order) => order?.buyerCompanyId === "One-Off Customer"
-  // );
-
-  // const customerOrders = oneOffOrders.filter(
-  //   (od) =>
-  //     od.buyerDetails[0]?.buyerPhoneNumber ==
-  //     order?.buyerDetails[0]?.buyerPhoneNumber
-  // );
 
   useEffect(() => {
     dispatch(fetchProducts());

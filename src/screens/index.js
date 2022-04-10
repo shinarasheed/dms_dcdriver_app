@@ -23,6 +23,7 @@ import CustomerDetailsUganda from "./CustomersScreen/CustomerDetailsUganda";
 import SellToOneCustomerUganda from "./CustomersScreen/SellToOneOfCustomerUganda";
 import OneOfInvoiceUganda from "./CustomersScreen/OneOffInvoiveUganda";
 import CustomerDetailsNigeria from "./CustomersScreen/CustomerDetailsNigeria";
+import SellToCustomerNigeria from "./CustomersScreen/SellToCustomerNigeria";
 
 export {
   HomeScreen,
@@ -50,4 +51,5 @@ export {
   SellToOneCustomerUganda,
   OneOfInvoiceUganda,
   CustomerDetailsNigeria,
+  SellToCustomerNigeria,
 };
