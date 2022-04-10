@@ -11,7 +11,7 @@ const CustomerCard = ({ customer }) => {
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate(Routes.CUSTOMERS_SCREEN_UGANGA, { customer })
+        navigation.navigate(Routes.CUSTOMER_SCREEN_UGANGA, { customer })
       }
     >
       <View

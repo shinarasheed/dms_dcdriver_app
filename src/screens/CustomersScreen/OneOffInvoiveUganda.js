@@ -14,15 +14,14 @@ import { useSelector } from "react-redux";
 import moment from "moment";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-import InvoiceCard from "../../components/InvoiceCard";
+import InvoiceCardOneOfUganda from "../../components/InvoiceCardOneOfUganda";
 import CustomVirtualizedView from "../../components/VirtualizedList";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
 import CallCustomer from "../../components/CallCustomer";
 
 import { createAndSavePDF } from "../../utils/helpers";
-import { simpleHtml } from "../../utils/html";
-import { formatPrice } from "../../utils/formatPrice";
+import { simpleHtml } from "../../utils/htmlOneOfUganda";
 import CountryCurrency from "../../components/user/CountryCurrency";
 import Routes from "../../navigation/Routes";
 
@@ -281,7 +280,7 @@ const OneOfInvoiceUganda = () => {
           }}
           data={productsToSell}
           keyExtractor={(item, id) => id.toString()}
-          renderItem={({ item }) => <InvoiceCard product={item} />}
+          renderItem={({ item }) => <InvoiceCardOneOfUganda product={item} />}
           ListHeaderComponent={() => (
             <View
               style={{

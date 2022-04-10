@@ -16,7 +16,7 @@ const Routes = {
   ALLPRODUCTS_SCREEN: "AllProducts",
   LIQUIDEMPTYPRODUCTS_SCREEN: "LiquidEmptyProducts",
   CONTINUE_SCREEN: "Continue",
-  CUSTOMERS_SCREEN_UGANGA: "CustomerUganda",
+  CUSTOMER_SCREEN_UGANGA: "CustomerUganda",
   SELLTO_CUSTOMER_SCREEN_UGANDA: "SellToCustomerUganda",
   GENERATE_INVOICE_SCREEN_UGANGA: "InvoiceUganda",
   INVOICE_SCREEN: "InvoiceScreen",

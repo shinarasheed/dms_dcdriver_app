@@ -41,7 +41,6 @@ const SellProductFlatList = ({
               }}
             ></View>
           )}
-          // maxToRenderPerBatch={5}
         />
       ) : (
         <View

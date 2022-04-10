@@ -15,13 +15,12 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import moment from "moment";
 
 import InvoiceCard from "../../components/InvoiceCard";
-import CustomVirtualizedView from "../../components/VirtualizedList";
 import appTheme from "../../constants/theme";
 import { icons } from "../../constants";
 import CallCustomer from "../../components/CallCustomer";
 
 import { createAndSavePDF } from "../../utils/helpers";
-import { simpleHtml } from "../../utils/html2";
+import { simpleHtml } from "../../utils/htmlUganda";
 import CountryCurrency from "../../components/user/CountryCurrency";
 import { ScrollView } from "react-native-virtualized-view";
 import Routes from "../../navigation/Routes";
@@ -136,6 +135,7 @@ const GenerateInvoice = () => {
             customer,
             distributor,
             user,
+            customerType,
             getTotalPrice,
             getEmptiesPrice
           )
