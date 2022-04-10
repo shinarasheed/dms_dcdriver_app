@@ -19,13 +19,17 @@ import CallCustomer from "../../components/CallCustomer";
 import Routes from "../../navigation/Routes";
 import SingleCustomer from "../../components/SingleCustomer";
 
-const Customer = () => {
+const CustomerDetailsNigeria = () => {
   const route = useRoute();
   const navigation = useNavigation();
 
-  const { thisCustomer, oneOff } = route.params;
+  const { order, numberOfOrders, allOrders } = route.params;
 
-  const theCustomer = thisCustomer[0];
+  const customerOrders = allOrders.filter(
+    (od) =>
+      od.buyerDetails[0]?.buyerPhoneNumber ===
+      order?.buyerDetails[0]?.buyerPhoneNumber
+  );
 
   useEffect(() => {
     dispatch(fetchProducts());
@@ -44,7 +48,7 @@ const Customer = () => {
   };
 
   const getTotalPrice = () => {
-    return thisCustomer?.orderItems.reduce(
+    return order?.orderItems.reduce(
       (accumulator, order) =>
         accumulator +
         getProductDetails(order?.productId)?.price * order?.quantity,
@@ -52,19 +56,26 @@ const Customer = () => {
     );
   };
 
+  const items = customerOrders.map((od) => od.orderItems);
+
+  let flatArray = [].concat.apply([], items);
+
+  const getTotal = () => {
+    return flatArray.reduce(
+      (accumulator, order) => accumulator + order?.price * order?.quantity,
+      0
+    );
+  };
+
   return (
-    <View
+    <SafeAreaView
       style={{
         backgroundColor: appTheme.COLORS.mainBackground,
         flex: 1,
         justifyContent: "space-between",
       }}
     >
-      <View
-        style={{
-          flex: 1,
-        }}
-      >
+      <View>
         <View
           style={{
             backgroundColor: appTheme.COLORS.white,
@@ -86,7 +97,7 @@ const Customer = () => {
               ...appTheme.FONTS.mainFontBold,
             }}
           >
-            {theCustomer?.buyerDetails[0].buyerName}
+            {order !== undefined && order?.buyerDetails[0].buyerName}
           </Text>
         </View>
 
@@ -97,34 +108,32 @@ const Customer = () => {
               justifyContent: "space-between",
             }}
           >
-            <Text>Customer Code: {theCustomer?.buyerCompanyId}</Text>
-          </View>
-
-          <View
-            style={{
-              backgroundColor: appTheme.COLORS.mainGreen,
-              borderRadius: 20,
-              width: 100,
-              marginTop: 5,
-              height: 25,
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            <Text
+            <Text>
+              Customer Code: {order !== undefined && order?.buyerCompanyId}
+            </Text>
+            <View
               style={{
-                color: appTheme.COLORS.white,
-                textAlign: "center",
+                backgroundColor: appTheme.COLORS.mainGreen,
+                paddingHorizontal: 10,
+                paddingVertical: 3,
+                borderRadius: 20,
               }}
             >
-              Registered
-            </Text>
+              <Text
+                style={{
+                  color: appTheme.COLORS.white,
+                  ...appTheme.FONTS.mainFontLight,
+                }}
+              >
+                Confirmed
+              </Text>
+            </View>
           </View>
 
           <View>
             {/* <Text style={{ fontSize: 15, marginBottom: 5 }}>
-            Total Amount Spent
-          </Text> */}
+              Total Amount Spent
+            </Text> */}
             <Text
               style={{
                 fontSize: 16,
@@ -133,11 +142,11 @@ const Customer = () => {
               }}
             >
               {/* {"\u20A6"}
-            {getTotal()} */}
+              {getTotal()} */}
             </Text>
             <Text style={{ fontSize: 15, ...appTheme.FONTS.mainFontLight }}>
-              {theCustomer.length}{" "}
-              {`${thisCustomer.length > 1 ? "Orders" : "Order"}`}
+              {numberOfOrders.length}{" "}
+              {`${numberOfOrders.length > 1 ? "Orders" : "Order"}`}
             </Text>
           </View>
         </View>
@@ -167,7 +176,7 @@ const Customer = () => {
                 color: appTheme.COLORS.black,
               }}
             >
-              {theCustomer?.buyerDetails[0]?.buyerName}
+              {order?.buyerDetails[0]?.buyerName}
             </Text>
           </View>
 
@@ -181,18 +190,18 @@ const Customer = () => {
                   color: appTheme.COLORS.MainGray,
                 }}
               >
-                {theCustomer?.buyerDetails[0]?.buyerAddress === "undefined"
+                {order?.buyerDetails[0]?.buyerAddress === "undefined"
                   ? "Nigeria"
-                  : theCustomer?.buyerDetails[0]?.buyerAddress}
+                  : order?.buyerDetails[0]?.buyerAddress}
               </Text>
 
               <View style={{ marginTop: 10, flexDirection: "row" }}>
                 <Text style={{ fontSize: 15, color: appTheme.COLORS.black }}>
-                  {theCustomer?.buyerDetails[0]?.buyerPhoneNumber}
+                  {order?.buyerDetails[0]?.buyerPhoneNumber}
                 </Text>
 
                 <CallCustomer
-                  phoneNumber={theCustomer?.buyerDetails[0]?.buyerPhoneNumber}
+                  phoneNumber={order?.buyerDetails[0]?.buyerPhoneNumber}
                 />
               </View>
             </View>
@@ -206,7 +215,7 @@ const Customer = () => {
           style={{
             backgroundColor: appTheme.COLORS.white,
           }}
-          data={thisCustomer}
+          data={customerOrders}
           keyExtractor={(item, id) => id.toString()}
           renderItem={({ item }) => (
             <SingleCustomer item={item} getTotalPrice={getTotalPrice} />
@@ -242,10 +251,7 @@ const Customer = () => {
       >
         <Button
           onPress={() =>
-            navigation.navigate(Routes.SELLTO_CUSTOMER_SCREEN, {
-              order: theCustomer,
-              thisCustomer,
-            })
+            navigation.navigate(Routes.SELLTO_CUSTOMER_SCREEN, order)
           }
           buttonStyle={{
             width: "100%",
@@ -258,8 +264,8 @@ const Customer = () => {
           title="Sell to Customer"
         />
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 
-export default Customer;
+export default CustomerDetailsNigeria;

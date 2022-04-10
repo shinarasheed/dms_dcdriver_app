@@ -23,6 +23,7 @@ const Routes = {
   CUSTOMER_DETAILS_SCREEN_UGANDA: "CustomerDetailsUganda",
   SELLTO_ONEOF_CUSTOMER_UGANDA: "SellToOneCustomerUganda",
   ONEOF_INVOICE_UGANDA: "OneOfInvoiceUganda",
+  CUSTOMER_DETAILS_SCREEN_NIGERIA: "CustomerDetailsNigeria",
 };
 
 export default Routes;

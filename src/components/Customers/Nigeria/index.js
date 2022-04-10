@@ -14,7 +14,6 @@ import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import Header from "../../../components/Header";
 import { SafeAreaView } from "react-native-safe-area-context";
 import appTheme from "../../../constants/theme";
-import CustomVirtualizedView from "../../../components/VirtualizedList";
 import { fetchOrder } from "../../../redux/actions/orderActions";
 import Icon from "react-native-vector-icons/MaterialIcons";
 import { icons } from "../../../constants";

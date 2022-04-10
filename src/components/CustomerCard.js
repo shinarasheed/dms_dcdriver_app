@@ -20,15 +20,10 @@ const CustomerCard = ({ order, allOrders }) => {
 
   const items = customerOrders.map((item) => item.orderItems[0]);
 
-  const totalAmount = items.reduce(
-    (accumulator, order) => accumulator + parseInt(order?.price),
-    0
-  );
-
   return (
     <TouchableOpacity
       onPress={() =>
-        navigation.navigate(Routes.CUSTOMER_DETAILS_SCREEN, {
+        navigation.navigate(Routes.CUSTOMER_DETAILS_SCREEN_NIGERIA, {
           order,
           numberOfOrders,
           allOrders,
