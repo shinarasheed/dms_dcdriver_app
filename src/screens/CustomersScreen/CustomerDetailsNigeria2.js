@@ -121,7 +121,7 @@ const Customer = () => {
                 textAlign: "center",
               }}
             >
-              Registered
+              Active
             </Text>
           </View>
 

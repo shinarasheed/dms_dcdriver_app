@@ -127,7 +127,7 @@ const CustomerDetailsNigeria = () => {
                 textAlign: "center",
               }}
             >
-              Registered
+              Active
             </Text>
           </View>
 

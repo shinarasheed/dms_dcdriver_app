@@ -27,8 +27,6 @@ const CustomerDetailsUganda = () => {
 
   const theCustomer = thisCustomer[0];
 
-  console.log(theCustomer);
-
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
@@ -119,7 +117,7 @@ const CustomerDetailsUganda = () => {
                 textAlign: "center",
               }}
             >
-              Registered
+              Active
             </Text>
           </View>
 
