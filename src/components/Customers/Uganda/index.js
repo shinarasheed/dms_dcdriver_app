@@ -32,7 +32,7 @@ const Uganda = () => {
   const navigation = useNavigation();
   const userState = useSelector((state) => state.user);
 
-  const { customers, stockist, outlet } = userState;
+  const { customers, stockist, outlet, user } = userState;
 
   const allTheCustomers = customers?.filter((customer) =>
     customer?.CUST_Name.toLowerCase().includes(searchTerm.toLocaleLowerCase())

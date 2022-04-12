@@ -105,7 +105,7 @@ const ProductFooter = ({
       {getTotalPrice() !== "undefined" && (
         <TouchableOpacity
           onPress={() => {
-            dispatch(confirmVanSales(payload));
+            dispatch(confirmVanSales(payload, customer));
             handleEmpties();
             navigation.navigate(Routes.GENERATE_INVOICE_SCREEN_UGANGA, {
               productsToSell,

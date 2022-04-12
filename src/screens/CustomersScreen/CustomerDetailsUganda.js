@@ -27,6 +27,8 @@ const CustomerDetailsUganda = () => {
 
   const theCustomer = thisCustomer[0];
 
+  console.log(theCustomer);
+
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
@@ -51,17 +53,6 @@ const CustomerDetailsUganda = () => {
       0
     );
   };
-
-  // const items = customerOrders.map((od) => od.orderItems);
-
-  // let flatArray = [].concat.apply([], items);
-
-  // const getTotal = () => {
-  //   return flatArray.reduce(
-  //     (accumulator, order) => accumulator + order?.price * order?.quantity,
-  //     0
-  //   );
-  // };
 
   return (
     <View

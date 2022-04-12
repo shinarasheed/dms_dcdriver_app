@@ -298,7 +298,7 @@ const SellProductFooter = ({
                   borderRadius: 4,
                 }}
                 onPress={() => {
-                  dispatch(confirmVanSales(payload));
+                  dispatch(confirmVanSales(payload, customer));
                   handleEmpties();
                   dispatch(updateInventory(payload2));
                   navigation.navigate(Routes.GENERATE_INVOICE_SCREEN_UGANGA, {

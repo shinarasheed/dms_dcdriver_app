@@ -23,8 +23,10 @@ import {
   RETURN_VAN_EMPTIES_REQUEST,
   RETURN_VAN_EMPTIES_SUCCESS,
   RETURN_VAN_EMPTIES_FAIL,
+  UPDATE_CUSTOMER_STATUS,
 } from "../constants/vanConstants";
-import { orderUrl, InventoryUrl } from "../../utils/baseUrl";
+import { orderUrl, InventoryUrl, customerUrl } from "../../utils/baseUrl";
+import { getDistributorCustomers } from "./userActions";
 
 export const fetchVanProducts = () => async (dispatch) => {
   const driver = JSON.parse(await AsyncStorage.getItem("driverDetails"));
@@ -98,41 +100,45 @@ export const updateInventory = (payload) => async (dispatch) => {
   }
 };
 
-export const confirmVanSales = (payload) => async (dispatch) => {
-  // console.log(payload);
-  try {
-    dispatch({
-      type: CONFIRM_VAN_SALES_REQUEST,
-    });
+export const confirmVanSales =
+  (payload, customer) => async (dispatch, getState) => {
+    const { user } = getState().user;
+    try {
+      dispatch({
+        type: CONFIRM_VAN_SALES_REQUEST,
+      });
 
-    const token =
-      "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoic2FsZXNmb3JjZV90b2tlbl9pZGVudGlmaWVyX2Rtc192Ml8weHNqdDNAMyEjJF45In0.PHCkrf6sPkoep7lF5X-SugN8-CVaJ5BEYa9hvSWLPMo";
+      const token =
+        "eyJhbGciOiJIUzI1NiJ9.eyJ1c2VyIjoic2FsZXNmb3JjZV90b2tlbl9pZGVudGlmaWVyX2Rtc192Ml8weHNqdDNAMyEjJF45In0.PHCkrf6sPkoep7lF5X-SugN8-CVaJ5BEYa9hvSWLPMo";
 
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      };
 
-    const { data } = await axios.post(
-      `${orderUrl}/CreateOrder`,
-      payload,
-      config
-    );
+      const { data } = await axios.post(
+        `${orderUrl}/CreateOrder`,
+        payload,
+        config
+      );
 
-    dispatch({
-      type: CONFIRM_VAN_SALES_SUCCESS,
-      payload: data,
-    });
-  } catch (error) {
-    console.log(error);
-    dispatch({
-      type: CONFIRM_VAN_SALES_FAIL,
-      payload: "There was an error",
-    });
-  }
-};
+      dispatch({
+        type: CONFIRM_VAN_SALES_SUCCESS,
+        payload: data,
+      });
+
+      dispatch(updateCustomerStatus(customer));
+      dispatch(getDistributorCustomers(user?.syspro_code));
+    } catch (error) {
+      console.log(error);
+      dispatch({
+        type: CONFIRM_VAN_SALES_FAIL,
+        payload: "There was an error",
+      });
+    }
+  };
 
 export const returnProductsToWarehouse = (payload) => async (dispatch) => {
   try {
@@ -269,4 +275,26 @@ export const returnVanEmpties = (payload) => async (dispatch) => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const updateCustomerStatus = (customer) => async (dispatch) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const payload = {
+    status: "Active",
+  };
+
+  await axios.patch(
+    `${customerUrl}/updatecustomer/status/${customer?.id}`,
+    payload,
+    config
+  );
+
+  dispatch({
+    type: UPDATE_CUSTOMER_STATUS,
+  });
 };

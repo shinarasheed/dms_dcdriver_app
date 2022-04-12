@@ -76,7 +76,10 @@ const CustomerUganda = () => {
 
           <View
             style={{
-              backgroundColor: appTheme.COLORS.mainGreen,
+              backgroundColor:
+                customer?.status === null
+                  ? appTheme.COLORS.mainRed
+                  : appTheme.COLORS.mainGreen,
               borderRadius: 20,
               width: 100,
               marginTop: 5,
@@ -85,14 +88,25 @@ const CustomerUganda = () => {
               alignItems: "center",
             }}
           >
-            <Text
-              style={{
-                color: appTheme.COLORS.white,
-                textAlign: "center",
-              }}
-            >
-              Active
-            </Text>
+            {customer?.status === null ? (
+              <Text
+                style={{
+                  color: appTheme.COLORS.white,
+                  textAlign: "center",
+                }}
+              >
+                InActive
+              </Text>
+            ) : (
+              <Text
+                style={{
+                  color: appTheme.COLORS.white,
+                  textAlign: "center",
+                }}
+              >
+                {customer?.status}
+              </Text>
+            )}
           </View>
         </View>
 
