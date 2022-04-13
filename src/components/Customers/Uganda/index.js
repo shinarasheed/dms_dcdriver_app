@@ -24,6 +24,7 @@ import Pocs from "../../../components/Customers/Uganda/Pocs";
 import CustomersTab from "../../../components/Customers/Uganda/CustomersTab";
 import { fetchOrder } from "../../../redux/actions/orderActions";
 import { fetchProducts } from "../../../redux/actions/productActions";
+import { getDistributorCustomers } from "../../../redux/actions/userActions";
 
 const Uganda = () => {
   const [index, setIndex] = useState(0);
@@ -53,7 +54,7 @@ const Uganda = () => {
     (order) => order?.buyerCompanyId === "One-Off Customer"
   );
 
-  const oneOffCustomersName = oneOff.map(
+  const oneOffCustomersName = oneOff?.map(
     (order) => order.buyerDetails[0].buyerName
   );
 
@@ -82,6 +83,10 @@ const Uganda = () => {
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
+
+  useEffect(() => {
+    dispatch(getDistributorCustomers(user?.syspro_code));
+  }, [user?.syspro_code]);
 
   const allProducts = useSelector((state) => state.products);
 

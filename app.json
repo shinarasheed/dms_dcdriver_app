@@ -3,7 +3,7 @@
     "name": "DcDrivers",
     "owner": "rasheedshina",
     "slug": "Dc-Drivers",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -25,7 +25,7 @@
         "backgroundColor": "#45130F"
       },
       "package": "app.dcdriver.App",
-      "versionCode": 6,
+      "versionCode": 7,
       "permissions": ["WRITE_EXTERNAL_STORAGE"]
     },
     "web": {

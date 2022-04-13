@@ -146,7 +146,7 @@ const GenerateInvoice = () => {
           paddingLeft: 20,
         }}
       >
-        <Pressable onPress={() => navigation.goBack()}>
+        <Pressable onPress={() => navigation.navigate(Routes.CUSTOMERS_SCREEN)}>
           <Image source={icons.backButton} />
         </Pressable>
         <Text

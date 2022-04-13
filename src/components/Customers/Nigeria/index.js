@@ -32,6 +32,11 @@ const Uganda = () => {
   const navigation = useNavigation();
 
   const orders = useSelector((state) => state.orders);
+
+  const userState = useSelector((state) => state.user);
+
+  const { user } = userState;
+
   const { loading, error, order: allOrders } = orders;
   const dispatch = useDispatch();
 
@@ -44,6 +49,10 @@ const Uganda = () => {
   useEffect(() => {
     dispatch(fetchProducts());
   }, []);
+
+  useEffect(() => {
+    dispatch(getDistributorCustomers(user?.syspro_code));
+  }, [user?.syspro_code]);
 
   const allProducts = useSelector((state) => state.products);
 

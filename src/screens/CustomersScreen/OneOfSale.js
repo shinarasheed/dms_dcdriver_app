@@ -13,6 +13,7 @@ import SellProductFooterOneOf from "../../components/SellProductFooterOneOf";
 import { icons } from "../../constants";
 import { fetchVanProducts } from "../../redux/actions/vanActions";
 import { Spinner } from "../../components/Spinner";
+import Routes from "../../navigation/Routes";
 
 const SellToCustomer = () => {
   const navigator = useNavigation();
@@ -108,7 +109,7 @@ const SellToCustomer = () => {
           paddingBottom: 5,
         }}
       >
-        <Pressable onPress={() => navigator.goBack()}>
+        <Pressable onPress={() => navigator.navigate(Routes.CUSTOMERS_SCREEN)}>
           <Image source={icons.backButton} style={{ marginRight: 18 }} />
         </Pressable>
 

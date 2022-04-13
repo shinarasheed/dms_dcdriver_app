@@ -9,6 +9,8 @@ import appTheme from "../constants/theme";
 
 const DateRangePicker = () => {
   const [showDatePicker, setShowDatePicker] = useState(false);
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const dispatch = useDispatch();
 
@@ -17,13 +19,13 @@ const DateRangePicker = () => {
   };
 
   const onCancel = () => {
-    // You should close the modal in here
     setShowDatePicker(false);
   };
 
-  // range mode
   const onConfirm = (start, end) => {
     setShowDatePicker(false);
+    setStartDate(start.toISOString().substring(0, 10));
+    setEndDate(end.toISOString().substring(0, 10));
     dispatch(
       fetchOrderStats(
         start.toISOString().substring(0, 10),
@@ -31,6 +33,8 @@ const DateRangePicker = () => {
       )
     );
   };
+
+  console.log(startDate);
 
   return (
     <View>
@@ -49,7 +53,11 @@ const DateRangePicker = () => {
         }}
       >
         <Image style={{ marginRight: 8 }} source={icons.calendarIcon} />
-        <Text style={{ color: appTheme.COLORS.black }}>Today</Text>
+        {startDate ? (
+          <Text style={{ color: appTheme.COLORS.black }}>{startDate}</Text>
+        ) : (
+          <Text style={{ color: appTheme.COLORS.black }}>Today</Text>
+        )}
       </TouchableOpacity>
       <DatePicker
         isVisible={showDatePicker}

@@ -26,7 +26,6 @@ import Routes from "../../navigation/Routes";
 import { formatPrice } from "../../utils/formatPrice";
 import { companyUrl } from "../../utils/baseUrl";
 import CountryCurrency from "../../components/user/CountryCurrency";
-import { getDistributorCustomers } from "../../redux/actions/userActions";
 
 const HomeScreen = () => {
   const navigation = useNavigation();
@@ -71,10 +70,6 @@ const HomeScreen = () => {
     return () => {
       componentMounted = false;
     };
-  }, []);
-
-  useEffect(() => {
-    dispatch(getDistributorCustomers(user?.syspro_code));
   }, []);
 
   useFocusEffect(

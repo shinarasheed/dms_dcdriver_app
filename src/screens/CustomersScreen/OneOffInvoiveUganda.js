@@ -133,9 +133,7 @@ const OneOfInvoiceUganda = () => {
   );
 
   return (
-    <SafeAreaView
-      style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}
-    >
+    <View style={{ backgroundColor: appTheme.COLORS.mainBackground, flex: 1 }}>
       {/* header */}
       <View
         style={{
@@ -146,7 +144,7 @@ const OneOfInvoiceUganda = () => {
           paddingLeft: 20,
         }}
       >
-        <Pressable onPress={() => navigation.goBack()}>
+        <Pressable onPress={() => navigation.navigate(Routes.CUSTOMERS_SCREEN)}>
           <Image source={icons.backButton} />
         </Pressable>
         <Text
@@ -407,7 +405,7 @@ const OneOfInvoiceUganda = () => {
           })}
         </View>
       </CustomVirtualizedView>
-    </SafeAreaView>
+    </View>
   );
 };
 
